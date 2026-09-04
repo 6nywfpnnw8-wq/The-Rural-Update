@@ -1,0 +1,58 @@
+name: Archive previous Rural Update edition
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+  workflow_dispatch:
+    inputs:
+      previous_ref:
+        description: Optional git ref containing the edition to archive. Leave blank to use HEAD^.
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rural-update-archive
+  cancel-in-progress: false
+
+jobs:
+  archive-previous-edition:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Resolve previous ref
+        id: previous
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.previous_ref }}" ]; then
+            echo "ref=${{ inputs.previous_ref }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            echo "ref=${{ github.event.before }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=HEAD^" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Archive prior edition and update catalog
+        run: python3 scripts/archive_previous.py --previous-ref "${{ steps.previous.outputs.ref }}"
+
+      - name: Commit archive changes
+        shell: bash
+        run: |
+          if git diff --quiet -- archive/; then
+            echo "No archive changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive/
+          git commit -m "Archive previous Rural Update edition"
+          git push origin HEAD:main
