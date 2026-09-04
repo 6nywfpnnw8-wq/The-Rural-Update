@@ -3,6 +3,34 @@
   "updated": "2026-09-04",
   "editions": [
     {
+      "date": "2026-09-04",
+      "title": "Friday, September 4, 2026",
+      "path": "archive/2026-09-04.html",
+      "format": "html",
+      "status": "available"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Thursday, September 3, 2026 · coverage note",
+      "path": "archive/2026-09-03.html",
+      "format": "html",
+      "status": "available"
+    },
+    {
+      "date": "2026-09-02",
+      "title": "Wednesday, September 2, 2026 · coverage note",
+      "path": "archive/2026-09-02.html",
+      "format": "html",
+      "status": "available"
+    },
+    {
+      "date": "2026-09-01",
+      "title": "Tuesday, September 1, 2026 · coverage note",
+      "path": "archive/2026-09-01.html",
+      "format": "html",
+      "status": "available"
+    },
+    {
       "date": "2026-08-31",
       "title": "Monday, August 31, 2026",
       "path": "archive/2026-08-31.html",
