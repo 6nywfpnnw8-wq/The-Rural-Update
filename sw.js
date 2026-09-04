@@ -1,4 +1,4 @@
-const CACHE = 'the-rural-update-v4';
+const CACHE = 'the-rural-update-v5';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,8 +8,7 @@ const APP_SHELL = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-512.png',
-  './the-rural-update-logo.png',
-  './archive/catalog.json'
+  './the-rural-update-logo.png'
 ];
 
 self.addEventListener('install', event => {
@@ -22,8 +21,19 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+function isArchiveCatalog(request) {
+  const url = new URL(request.url);
+  return url.pathname.endsWith('/archive/catalog.json');
+}
+
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  if (isArchiveCatalog(event.request)) {
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+    return;
+  }
+
   if (event.request.mode === 'navigate') {
     event.respondWith((async () => {
       try {
@@ -38,6 +48,7 @@ self.addEventListener('fetch', event => {
     })());
     return;
   }
+
   event.respondWith(
     fetch(event.request).then(response => {
       if (response.ok) caches.open(CACHE).then(cache => cache.put(event.request, response.clone()));
