@@ -1,8 +1,9 @@
-const CACHE = 'the-rural-update-v2';
+const CACHE = 'the-rural-update-v3';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
+  './archive-loader.js',
   './icons/apple-touch-icon.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -23,8 +24,55 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
+function isRootDocument(request) {
+  if (request.mode !== 'navigate') return false;
+  const url = new URL(request.url);
+  const scopePath = new URL(self.registration.scope).pathname;
+  return url.pathname === scopePath || url.pathname === scopePath + 'index.html';
+}
+
+async function injectArchiveLoader(response) {
+  if (!response) return response;
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('text/html')) return response;
+
+  let html = await response.text();
+  if (!html.includes('archive-loader.js')) {
+    html = html.replace('</body>', '<script src="./archive-loader.js"></script>\n</body>');
+  }
+
+  const headers = new Headers(response.headers);
+  headers.delete('content-length');
+  return new Response(html, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}
+
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  if (isRootDocument(event.request)) {
+    event.respondWith((async () => {
+      try {
+        const networkResponse = await fetch(event.request);
+        if (networkResponse.ok) {
+          const injected = await injectArchiveLoader(networkResponse);
+          const cache = await caches.open(CACHE);
+          cache.put(event.request, injected.clone());
+          return injected;
+        }
+      } catch (error) {
+        // Fall through to cache.
+      }
+
+      const cached = await caches.match(event.request) || await caches.match('./index.html');
+      if (cached) return injectArchiveLoader(cached);
+      return Response.error();
+    })());
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)
@@ -36,7 +84,7 @@ self.addEventListener('fetch', event => {
         }
 
         if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
+          return caches.match('./index.html').then(injectArchiveLoader);
         }
 
         return response;
@@ -44,7 +92,9 @@ self.addEventListener('fetch', event => {
       .catch(() =>
         caches.match(event.request).then(cached => {
           if (cached) return cached;
-          if (event.request.mode === 'navigate') return caches.match('./index.html');
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html').then(injectArchiveLoader);
+          }
           return Response.error();
         })
       )
