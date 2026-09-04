@@ -75,7 +75,8 @@
   }
 
   function loadArchive() {
-    fetch('./archive/catalog.json', { cache: 'no-store' })
+    const cacheBuster = Date.now();
+    fetch('./archive/catalog.json?v=' + cacheBuster, { cache: 'no-store' })
       .then(function (response) {
         if (!response.ok) throw new Error('Archive catalog unavailable');
         return response.json();
