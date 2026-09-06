@@ -90,9 +90,23 @@
       });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadArchive);
-  } else {
+  function loadSignalReferences() {
+    if (document.querySelector('script[data-signal-reference-library]')) return;
+    const script = document.createElement('script');
+    script.src = './signals-reference.js?v=' + Date.now();
+    script.async = false;
+    script.dataset.signalReferenceLibrary = 'true';
+    document.body.appendChild(script);
+  }
+
+  function init() {
     loadArchive();
+    loadSignalReferences();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 })();
