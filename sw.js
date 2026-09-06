@@ -1,4 +1,4 @@
-const CACHE = 'the-rural-update-v5';
+const CACHE = 'the-rural-update-v6';
 const APP_SHELL = [
   './',
   './index.html',
