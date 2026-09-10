@@ -55,6 +55,7 @@
       summary: 'Federal rural workforce policy continues to invest in training clinicians in rural communities and building local pipelines rather than relying only on downstream recruitment.',
       why: 'Training location matters to long-term workforce strategy. Programs that build local residency, rotation, preceptor and education infrastructure create a stronger pathway from temporary grant support to durable clinical capacity in rural communities.',
       refs: [
+        ['CMS · West Virginia: statewide rural recruitment and relocation investment · Sep 9, 2026', 'https://www.cms.gov/newsroom/press-releases/trump-administration-announces-4-8-million-strengthen-west-virginias-rural-healthcare-workforce'],
         ['HHS / HRSA · $11.2M for 15 new rural and tribal physician residency programs · Sep 4, 2026', 'https://www.hhs.gov/press-room/hrsa-awards-11-million-expand-rural-medical-residencies.html'],
         ['HRSA · Rural Residency Planning and Development Program outcomes and resources', 'https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd'],
         ['HRSA · RRPD funding program and sustainability requirements', 'https://www.hrsa.gov/grants/find-funding/HRSA-26-047']
@@ -67,7 +68,7 @@
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
+      .replace(/\"/g, '&quot;')
       .replace(/'/g, '&#039;');
   }
 
