@@ -1,10 +1,11 @@
-const CACHE = 'the-rural-update-v8';
+const CACHE = 'the-rural-update-v9';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './archive-loader.js',
   './signals-reference.js',
+  './intelligence.js',
   './icons/apple-touch-icon.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
