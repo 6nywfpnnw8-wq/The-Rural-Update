@@ -90,18 +90,19 @@
       });
   }
 
-  function loadSignalReferences() {
-    if (document.querySelector('script[data-signal-reference-library]')) return;
+  function loadScript(path, marker) {
+    if (document.querySelector('script[' + marker + ']')) return;
     const script = document.createElement('script');
-    script.src = './signals-reference.js?v=' + Date.now();
+    script.src = path + '?v=' + Date.now();
     script.async = false;
-    script.dataset.signalReferenceLibrary = 'true';
+    script.setAttribute(marker, 'true');
     document.body.appendChild(script);
   }
 
   function init() {
     loadArchive();
-    loadSignalReferences();
+    loadScript('./signals-reference.js', 'data-signal-reference-library');
+    loadScript('./intelligence.js', 'data-persistent-intelligence');
   }
 
   if (document.readyState === 'loading') {
