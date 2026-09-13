@@ -66,14 +66,15 @@
       {
         id: 'ai-governance',
         title: 'Frontier AI governance and healthcare controls',
-        status: 'Emerging',
-        risk: 'Watch',
+        status: 'Escalating',
+        risk: 'High',
         horizon: '6–24 months',
         relevance: ['Governance','Cybersecurity','Clinical AI'],
-        lastChanged: '2026-09-12',
-        nextMilestone: 'Federal legislative negotiations · ongoing',
-        summary: 'Federal AI policy is moving toward formal safety duties for frontier models while health systems still need local governance for vendor and clinical deployment risk.',
+        lastChanged: '2026-09-13',
+        nextMilestone: 'Federal legislative negotiations and industry safety coordination · ongoing',
+        summary: 'Federal AI policy and industry leadership are converging on stronger frontier-model safety controls, independent evaluation and coordinated risk management, increasing the governance expectations for healthcare deployments with autonomous authority.',
         history: [
+          ['Sep 13','Industry safety debate intensified as frontier-model leaders called for slower capability expansion, independent evaluators and stronger cross-company coordination.'],
           ['Sep 12','Added bipartisan Senate duty-of-care framework under negotiation.'],
           ['Sep 4','Established human oversight, cybersecurity review and vendor accountability as minimum healthcare controls.']
         ]
@@ -86,7 +87,7 @@
         status: 'Open',
         owner: 'Policy / Finance / RHC Operations',
         due: 'Sep 14',
-        next: 'Resolve DSMT/MNT, telehealth, physician payment and MSSP positions.',
+        next: 'Submit or finalize DSMT/MNT, telehealth, physician payment and MSSP positions before the comment period closes.',
         source: 'rhc-telehealth'
       },
       {
@@ -119,21 +120,18 @@
     ],
     changes: {
       New: [
-        'RHTP evidence expanded into rural long-term care and complex post-acute capacity.',
-        'Federal frontier-AI discussion advanced toward a statutory duty-of-care framework.'
+        'Frontier-AI safety pressure intensified over the weekend as industry leaders called for slower capability expansion and independent safety evaluation.'
       ],
       Changed: [
-        'Medicaid financing risk now includes Oklahoma eligibility churn and Medicaid-to-self-pay conversion.',
-        'RHC telehealth moved from a policy watch to a near-term revenue-cycle conversion with an October 1 deadline.'
+        'CY 2027 Physician Fee Schedule comments now close tomorrow, September 14, moving the RHC DSMT/MNT and broader payment issues to immediate decision status.',
+        'Frontier AI governance risk moved from Watch to High as policy proposals and industry safety concerns converge.'
       ],
       Continuing: [
-        'CY 2027 Physician Fee Schedule comment work remains active through September 14.',
-        'CMS-2452-P provider-tax exposure remains active through September 21.',
-        'Payer-friction measurement remains in baseline phase ahead of October authorization changes.'
+        'CMS-2452-P provider-tax exposure remains active through September 21 alongside Oklahoma work-requirement readiness.',
+        'RHC telehealth billing conversion remains on track for October 1 and requires end-to-end claim testing.',
+        'RHTP regionalization and post-grant sustainability remain the dominant transformation design themes.'
       ],
-      Closed: [
-        'Oklahoma PRIMS Project 695 application deadline passed September 11.'
-      ]
+      Closed: []
     }
   };
 
