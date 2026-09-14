@@ -72,11 +72,25 @@
         relevance: ['Governance','Cybersecurity','Clinical AI'],
         lastChanged: '2026-09-13',
         nextMilestone: 'Federal legislative negotiations and industry safety coordination · ongoing',
-        summary: 'Federal AI policy and industry leadership are converging on stronger frontier-model safety controls, independent evaluation and coordinated risk management, increasing the governance expectations for healthcare deployments with autonomous authority.',
+        summary: 'Frontier-model cyber capability and increasingly autonomous misuse are raising governance expectations for healthcare deployments with tools, credentials or execution authority.',
         history: [
           ['Sep 13','Industry safety debate intensified as frontier-model leaders called for slower capability expansion, independent evaluators and stronger cross-company coordination.'],
           ['Sep 12','Added bipartisan Senate duty-of-care framework under negotiation.'],
           ['Sep 4','Established human oversight, cybersecurity review and vendor accountability as minimum healthcare controls.']
+        ]
+      },
+      {
+        id: 'medicare-payment-cyber',
+        title: 'Medicare provider payment and healthcare cybersecurity legislation',
+        status: 'Congressional review',
+        risk: 'Strategic',
+        horizon: '< 30 days',
+        relevance: ['CAH','RHC','Physician Enterprise','Cybersecurity','Federal Policy'],
+        lastChanged: '2026-09-14',
+        nextMilestone: 'Sep 15 · House Energy and Commerce Health Subcommittee hearing',
+        summary: 'Congress is considering Medicare provider-payment legislation and healthcare cybersecurity proposals in a combined hearing, creating a near-term policy window for rural payment stability and cyber-resilience priorities.',
+        history: [
+          ['Sep 14','Added as a persistent issue as the September 15 House hearing moved into the immediate policy window.']
         ]
       }
     ],
@@ -87,7 +101,7 @@
         status: 'Open',
         owner: 'Policy / Finance / RHC Operations',
         due: 'Sep 14',
-        next: 'Submit or finalize DSMT/MNT, telehealth, physician payment and MSSP positions before the comment period closes.',
+        next: 'Submit or finalize DSMT/MNT, telehealth, physician payment, remote monitoring and MSSP positions before the comment period closes today.',
         source: 'rhc-telehealth'
       },
       {
@@ -116,20 +130,29 @@
         due: 'Ongoing',
         next: 'Require recurring expense, staffing, reimbursement, volume and alternative-funding assumptions for each major concept.',
         source: 'rhtp-regionalization'
+      },
+      {
+        id: 'congress-payment-cyber',
+        title: 'Review Medicare payment and healthcare cyber proposals',
+        status: 'Open',
+        owner: 'Policy / Finance / Cybersecurity',
+        due: 'Sep 15',
+        next: 'Identify provisions with material rural reimbursement or cybersecurity implications and prepare advocacy or implementation questions.',
+        source: 'medicare-payment-cyber'
       }
     ],
     changes: {
       New: [
-        'Frontier-AI safety pressure intensified over the weekend as industry leaders called for slower capability expansion and independent safety evaluation.'
+        'Medicare provider payment and healthcare cybersecurity legislation moved into the immediate policy window with the House Health Subcommittee hearing scheduled for September 15.'
       ],
       Changed: [
-        'CY 2027 Physician Fee Schedule comments now close tomorrow, September 14, moving the RHC DSMT/MNT and broader payment issues to immediate decision status.',
-        'Frontier AI governance risk moved from Watch to High as policy proposals and industry safety concerns converge.'
+        'CY 2027 Physician Fee Schedule comments close today, September 14, making the RHC DSMT/MNT and broader payment proposals an immediate action item.'
       ],
       Continuing: [
         'CMS-2452-P provider-tax exposure remains active through September 21 alongside Oklahoma work-requirement readiness.',
         'RHC telehealth billing conversion remains on track for October 1 and requires end-to-end claim testing.',
-        'RHTP regionalization and post-grant sustainability remain the dominant transformation design themes.'
+        'RHTP regionalization and post-grant sustainability remain the dominant transformation design themes.',
+        'Frontier AI governance remains a high-risk watch as critical cyber capability and increasingly autonomous misuse continue to raise enterprise-control expectations.'
       ],
       Closed: []
     }
