@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "updated": "2026-09-13",
+  "updated": "2026-09-14",
   "editions": [
+    {
+      "date": "2026-09-13",
+      "title": "Sunday, September 13, 2026",
+      "path": "archive/2026-09-13.html",
+      "format": "html",
+      "status": "available"
+    },
     {
       "date": "2026-09-12",
       "title": "Saturday, September 12, 2026",
