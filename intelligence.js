@@ -2,253 +2,58 @@
   const intelligence = {
     issues: [
       {
-        id: 'medicaid-financing',
-        title: 'Medicaid financing and coverage pressure',
-        status: 'Escalating',
-        risk: 'High',
-        horizon: '2027–2031',
-        relevance: ['CAH','REH','PPS','RHC','Finance'],
-        lastChanged: '2026-09-12',
-        nextMilestone: 'Sep 21 · CMS-2452-P comments close',
-        summary: 'Provider-tax restrictions, future state-directed-payment limits and Oklahoma eligibility churn are converging into one rural financing risk.',
-        history: [
-          ['Sep 12','Added Oklahoma work-requirement readiness and potential Medicaid-to-self-pay conversion to the downside case.'],
-          ['Sep 8','Consolidated provider-tax, SDP, DSH and uncompensated-care exposure into one facility-level modeling concept.'],
-          ['Aug 31','Added future Medicaid supplemental-payment limits as a long-horizon rural margin pressure.']
-        ]
+        id: 'medicaid-financing', title: 'Medicaid financing and coverage pressure', status: 'Escalating', risk: 'High', horizon: '2027–2031', relevance: ['CAH','REH','PPS','RHC','Finance'], lastChanged: '2026-09-12', nextMilestone: 'Sep 21 · CMS-2452-P comments close', summary: 'Provider-tax restrictions, future state-directed-payment limits and Oklahoma eligibility churn are converging into one rural financing risk.',
+        history: [['Sep 12','Added Oklahoma work-requirement readiness and potential Medicaid-to-self-pay conversion to the downside case.'],['Sep 8','Consolidated provider-tax, SDP, DSH and uncompensated-care exposure into one facility-level modeling concept.'],['Aug 31','Added future Medicaid supplemental-payment limits as a long-horizon rural margin pressure.']]
       },
       {
-        id: 'rhc-telehealth',
-        title: 'RHC telehealth billing conversion',
-        status: 'Action required',
-        risk: 'High',
-        horizon: '< 30 days',
-        relevance: ['RHC','Revenue Cycle','Medicare'],
-        lastChanged: '2026-09-12',
-        nextMilestone: 'Oct 1 · individual CPT/HCPCS billing begins',
-        summary: 'RHC distant-site telehealth billing moves from G2025 to individual service codes with modifiers 93 and 95, creating near-term denial and workflow risk.',
-        history: [
-          ['Sep 12','Moved to near-term operational readiness with test-claim requirement before Sep 30.'],
-          ['Sep 6','Tracked as a Medicare/RHC payment and telehealth sustainability issue.']
-        ]
+        id: 'rhc-telehealth', title: 'RHC telehealth billing conversion', status: 'Action required', risk: 'High', horizon: '< 30 days', relevance: ['RHC','Revenue Cycle','Medicare'], lastChanged: '2026-09-12', nextMilestone: 'Oct 1 · individual CPT/HCPCS billing begins', summary: 'RHC distant-site telehealth billing moves from G2025 to individual service codes with modifiers 93 and 95, creating near-term denial and workflow risk.',
+        history: [['Sep 12','Moved to near-term operational readiness with test-claim requirement before Sep 30.'],['Sep 6','Tracked as a Medicare/RHC payment and telehealth sustainability issue.']]
       },
       {
-        id: 'rhtp-regionalization',
-        title: 'RHTP regionalization and post-grant sustainability',
-        status: 'Building',
-        risk: 'Strategic',
-        horizon: '2026–2031',
-        relevance: ['CAH','REH','RHC','Affiliate Network'],
-        lastChanged: '2026-09-12',
-        nextMilestone: 'Oct 15 · Oklahoma ROOTS Year 2',
-        summary: 'RHTP awards increasingly reward regional networks, workforce pipelines, technology and post-acute capacity rather than isolated facility expansion.',
-        history: [
-          ['Sep 12','Added rural long-term care and post-acute capacity as a transformation theme.'],
-          ['Sep 10','Added Vermont complex-care nursing and workforce investment.'],
-          ['Sep 6','Established regional capability and shared infrastructure as the dominant implementation pattern.']
-        ]
+        id: 'rhtp-regionalization', title: 'RHTP regionalization and post-grant sustainability', status: 'Building', risk: 'Strategic', horizon: '2026–2031', relevance: ['CAH','REH','RHC','Affiliate Network'], lastChanged: '2026-09-15', nextMilestone: 'Oct 15 · Oklahoma ROOTS Year 2', summary: 'RHTP implementation is moving rapidly into provider-level technology, transportation, interoperability, workforce and regional access investments, sharpening the need for post-grant sustainability tests.',
+        history: [['Sep 15','Kansas and Mississippi awards materially expanded the implementation evidence: remote monitoring, AI-enabled technology, interfacility transport, interoperability, cyber resilience and ambient documentation are now appearing in provider-level awards.'],['Sep 12','Added rural long-term care and post-acute capacity as a transformation theme.'],['Sep 10','Added Vermont complex-care nursing and workforce investment.'],['Sep 6','Established regional capability and shared infrastructure as the dominant implementation pattern.']]
       },
       {
-        id: 'payer-friction',
-        title: 'Payer administrative friction',
-        status: 'Measurement phase',
-        risk: 'Moderate',
-        horizon: '3–12 months',
-        relevance: ['CAH','RHC','Revenue Cycle','Managed Care'],
-        lastChanged: '2026-09-06',
-        nextMilestone: 'Oct 1 · UHC authorization reductions begin',
-        summary: 'Announced authorization reductions create a before-and-after opportunity to measure whether lower administrative burden improves effective reimbursement.',
-        history: [
-          ['Sep 6','Established September baseline concept for authorizations, denials, appeals and payment timing.'],
-          ['Sep 4','Added administrative-friction adjustment to payer economics.']
-        ]
+        id: 'payer-friction', title: 'Payer administrative friction', status: 'Measurement phase', risk: 'Moderate', horizon: '3–12 months', relevance: ['CAH','RHC','Revenue Cycle','Managed Care'], lastChanged: '2026-09-06', nextMilestone: 'Oct 1 · UHC authorization reductions begin', summary: 'Announced authorization reductions create a before-and-after opportunity to measure whether lower administrative burden improves effective reimbursement.',
+        history: [['Sep 6','Established September baseline concept for authorizations, denials, appeals and payment timing.'],['Sep 4','Added administrative-friction adjustment to payer economics.']]
       },
       {
-        id: 'ai-governance',
-        title: 'Frontier AI governance and healthcare controls',
-        status: 'Escalating',
-        risk: 'High',
-        horizon: '6–24 months',
-        relevance: ['Governance','Cybersecurity','Clinical AI'],
-        lastChanged: '2026-09-13',
-        nextMilestone: 'Federal legislative negotiations and industry safety coordination · ongoing',
-        summary: 'Frontier-model cyber capability and increasingly autonomous misuse are raising governance expectations for healthcare deployments with tools, credentials or execution authority.',
-        history: [
-          ['Sep 13','Industry safety debate intensified as frontier-model leaders called for slower capability expansion, independent evaluators and stronger cross-company coordination.'],
-          ['Sep 12','Added bipartisan Senate duty-of-care framework under negotiation.'],
-          ['Sep 4','Established human oversight, cybersecurity review and vendor accountability as minimum healthcare controls.']
-        ]
+        id: 'ai-governance', title: 'Frontier AI governance and healthcare controls', status: 'Escalating', risk: 'High', horizon: '6–24 months', relevance: ['Governance','Cybersecurity','Clinical AI'], lastChanged: '2026-09-15', nextMilestone: 'Microsoft AI code public feedback · next six weeks', summary: 'Frontier-model cyber capability and autonomous misuse are now being met with explicit industry control principles requiring correction, shutdown authority and human primacy, raising the governance baseline for healthcare agents.',
+        history: [['Sep 15','Microsoft published a draft model code requiring AI to accept correction and shutdown, adding a concrete industry control model to the broader frontier-safety debate.'],['Sep 13','Industry safety debate intensified as frontier-model leaders called for slower capability expansion, independent evaluators and stronger cross-company coordination.'],['Sep 12','Added bipartisan Senate duty-of-care framework under negotiation.'],['Sep 4','Established human oversight, cybersecurity review and vendor accountability as minimum healthcare controls.']]
       },
       {
-        id: 'medicare-payment-cyber',
-        title: 'Medicare provider payment and healthcare cybersecurity legislation',
-        status: 'Congressional review',
-        risk: 'Strategic',
-        horizon: '< 30 days',
-        relevance: ['CAH','RHC','Physician Enterprise','Cybersecurity','Federal Policy'],
-        lastChanged: '2026-09-14',
-        nextMilestone: 'Sep 15 · House Energy and Commerce Health Subcommittee hearing',
-        summary: 'Congress is considering Medicare provider-payment legislation and healthcare cybersecurity proposals in a combined hearing, creating a near-term policy window for rural payment stability and cyber-resilience priorities.',
-        history: [
-          ['Sep 14','Added as a persistent issue as the September 15 House hearing moved into the immediate policy window.']
-        ]
+        id: 'medicare-payment-cyber', title: 'Medicare provider payment and healthcare cybersecurity legislation', status: 'Congressional review', risk: 'Strategic', horizon: '< 30 days', relevance: ['CAH','RHC','Physician Enterprise','Cybersecurity','Federal Policy'], lastChanged: '2026-09-15', nextMilestone: 'Sep 15 · House Energy and Commerce Health Subcommittee hearing today', summary: 'The House Health Subcommittee is considering Medicare provider-payment legislation and healthcare cybersecurity proposals today, creating a live policy window for rural payment stability and cyber-resilience priorities.',
+        history: [['Sep 15','Hearing moved from an upcoming watch item to a same-day congressional review requiring assessment of rural payment and cybersecurity provisions.'],['Sep 14','Added as a persistent issue as the September 15 House hearing moved into the immediate policy window.']]
       }
     ],
     actions: [
-      {
-        id: 'pfs-comment',
-        title: 'Close CY 2027 PFS position',
-        status: 'Open',
-        owner: 'Policy / Finance / RHC Operations',
-        due: 'Sep 14',
-        next: 'Submit or finalize DSMT/MNT, telehealth, physician payment, remote monitoring and MSSP positions before the comment period closes today.',
-        source: 'rhc-telehealth'
-      },
-      {
-        id: 'medicaid-downside',
-        title: 'Complete Medicaid downside model',
-        status: 'Open',
-        owner: 'Finance',
-        due: 'Sep 21',
-        next: 'Combine provider-tax, SDP, DSH, eligibility churn, uncompensated care and recurring transformation expense.',
-        source: 'medicaid-financing'
-      },
-      {
-        id: 'telehealth-test',
-        title: 'Validate RHC telehealth conversion',
-        status: 'In progress',
-        owner: 'Revenue Cycle / RHC Operations',
-        due: 'Oct 1',
-        next: 'Complete end-to-end test claim, code mapping, modifier validation and staff training before Sep 30.',
-        source: 'rhc-telehealth'
-      },
-      {
-        id: 'rhtp-sustainability',
-        title: 'Apply post-grant sustainability test to RHTP concepts',
-        status: 'In progress',
-        owner: 'Rural Strategy / Finance',
-        due: 'Ongoing',
-        next: 'Require recurring expense, staffing, reimbursement, volume and alternative-funding assumptions for each major concept.',
-        source: 'rhtp-regionalization'
-      },
-      {
-        id: 'congress-payment-cyber',
-        title: 'Review Medicare payment and healthcare cyber proposals',
-        status: 'Open',
-        owner: 'Policy / Finance / Cybersecurity',
-        due: 'Sep 15',
-        next: 'Identify provisions with material rural reimbursement or cybersecurity implications and prepare advocacy or implementation questions.',
-        source: 'medicare-payment-cyber'
-      }
+      {id:'pfs-comment',title:'Close CY 2027 PFS position',status:'Completed',owner:'Policy / Finance / RHC Operations',due:'Sep 14',next:'Comment period closed. Carry relevant proposals into 2027 operational and financial planning while awaiting the final rule.',source:'rhc-telehealth'},
+      {id:'medicaid-downside',title:'Complete Medicaid downside model',status:'Open',owner:'Finance',due:'Sep 21',next:'Combine provider-tax, SDP, DSH, eligibility churn, uncompensated care and recurring transformation expense.',source:'medicaid-financing'},
+      {id:'telehealth-test',title:'Validate RHC telehealth conversion',status:'In progress',owner:'Revenue Cycle / RHC Operations',due:'Oct 1',next:'Complete end-to-end test claim, code mapping, modifier validation and staff training before Sep 30.',source:'rhc-telehealth'},
+      {id:'rhtp-sustainability',title:'Apply post-grant sustainability test to RHTP concepts',status:'In progress',owner:'Rural Strategy / Finance',due:'Ongoing',next:'Require recurring expense, staffing, reimbursement, volume and alternative-funding assumptions for each major concept.',source:'rhtp-regionalization'},
+      {id:'congress-payment-cyber',title:'Review Medicare payment and healthcare cyber proposals',status:'In progress',owner:'Policy / Finance / Cybersecurity',due:'Sep 15',next:'Review today’s hearing and identify provisions with material rural reimbursement or cybersecurity implications.',source:'medicare-payment-cyber'}
     ],
     changes: {
-      New: [
-        'Medicare provider payment and healthcare cybersecurity legislation moved into the immediate policy window with the House Health Subcommittee hearing scheduled for September 15.'
-      ],
+      New: [],
       Changed: [
-        'CY 2027 Physician Fee Schedule comments close today, September 14, making the RHC DSMT/MNT and broader payment proposals an immediate action item.'
+        'The Medicare provider-payment and healthcare cybersecurity issue moved to same-day congressional review as the House Health Subcommittee hearing begins today.',
+        'RHTP implementation evidence expanded materially with Kansas technology and interfacility-transport awards and 167 Mississippi provider-level awards totaling more than $104 million.',
+        'Frontier AI governance gained a concrete industry control model as Microsoft proposed requirements that AI accept correction and shutdown and remain under human control.'
       ],
       Continuing: [
         'CMS-2452-P provider-tax exposure remains active through September 21 alongside Oklahoma work-requirement readiness.',
         'RHC telehealth billing conversion remains on track for October 1 and requires end-to-end claim testing.',
-        'RHTP regionalization and post-grant sustainability remain the dominant transformation design themes.',
-        'Frontier AI governance remains a high-risk watch as critical cyber capability and increasingly autonomous misuse continue to raise enterprise-control expectations.'
+        'Payer administrative-friction measurement remains positioned for the October 1 UnitedHealthcare authorization changes.'
       ],
-      Closed: []
+      Closed: ['The CY 2027 Physician Fee Schedule comment period closed September 14; the associated comment action is marked Completed and relevant proposals move into final-rule watch and implementation planning.']
     }
   };
-
-  function esc(v) {
-    return String(v == null ? '' : v)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-  }
-
-  function addStyles() {
-    if (document.getElementById('intelligence-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'intelligence-styles';
-    style.textContent = '.tracker-grid{display:grid;gap:8px}.tracker-row{border:1px solid var(--border);border-radius:10px;padding:10px 11px;background:var(--card)}.tracker-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.tracker-title{font-size:12.5px;font-weight:800;color:var(--navy)}.tracker-status{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:3px 7px;background:var(--soft);color:var(--navy);white-space:nowrap}.tracker-meta{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}.tracker-chip{font-size:9px;border-radius:999px;background:var(--soft);color:var(--gray);padding:3px 7px}.tracker-summary{font-size:11.5px;color:#46515d;margin:5px 0}.tracker-next{font-size:10.5px;color:var(--navy2);font-weight:700}.tracker-details{margin-top:8px}.tracker-details summary{font-size:10.5px;color:var(--navy2);font-weight:800;cursor:pointer}.tracker-history{margin:7px 0 0;padding-left:17px;font-size:10.5px;color:#4e5966}.tracker-history li{margin:4px 0}.action-table{display:grid;gap:7px}.action-track{display:grid;grid-template-columns:56px 1fr;gap:9px;padding:9px;border:1px solid var(--border);border-radius:10px}.action-track .due{font-size:10px;color:var(--amber);font-weight:800;text-transform:uppercase}.action-track .atitle{font-size:12px;font-weight:800;color:var(--navy)}.action-track .ameta{font-size:10px;color:var(--gray);margin:2px 0}.action-track .anext{font-size:10.5px;color:#46515d}.change-panel{margin-top:9px;padding:10px;border-radius:10px;background:var(--soft);display:none}.change-panel.open{display:block}.change-panel h3{font-size:11px;color:var(--navy);margin:0 0 6px}.change-panel ul{margin:0;padding-left:17px;font-size:11px;color:#46515d}.since>div{cursor:pointer}.since>div:focus{outline:2px solid var(--gold);outline-offset:2px}.section-jump{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:800;color:var(--navy2);text-decoration:none}';
-    document.head.appendChild(style);
-  }
-
-  function findCardByHeading(text) {
-    return Array.from(document.querySelectorAll('#page-today .card')).find(function(card){
-      const h = card.querySelector('h2');
-      return h && h.textContent.trim().toLowerCase() === text.toLowerCase();
-    });
-  }
-
-  function renderIssueTracker(afterNode) {
-    if (document.getElementById('persistent-issues')) return;
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.id = 'persistent-issues';
-    let html = '<h2>Persistent Issue Tracker</h2><p class="meta" style="margin:0 0 10px;">Long-running issues persist across daily editions so changes, milestones and executive exposure are visible over time.</p><div class="tracker-grid">';
-    intelligence.issues.forEach(function(i){
-      html += '<div class="tracker-row" id="issue-' + esc(i.id) + '"><div class="tracker-top"><div class="tracker-title">' + esc(i.title) + '</div><span class="tracker-status">' + esc(i.status) + '</span></div><div class="tracker-meta"><span class="tracker-chip">Risk: ' + esc(i.risk) + '</span><span class="tracker-chip">Horizon: ' + esc(i.horizon) + '</span><span class="tracker-chip">Last changed: ' + esc(i.lastChanged) + '</span>';
-      i.relevance.forEach(function(r){ html += '<span class="tracker-chip">' + esc(r) + '</span>'; });
-      html += '</div><p class="tracker-summary">' + esc(i.summary) + '</p><div class="tracker-next">Next milestone: ' + esc(i.nextMilestone) + '</div><details class="tracker-details"><summary>Issue history</summary><ul class="tracker-history">';
-      i.history.forEach(function(h){ html += '<li><strong>' + esc(h[0]) + ':</strong> ' + esc(h[1]) + '</li>'; });
-      html += '</ul></details></div>';
-    });
-    html += '</div>';
-    card.innerHTML = html;
-    afterNode.insertAdjacentElement('afterend', card);
-  }
-
-  function renderActionTracker(afterNode) {
-    if (document.getElementById('persistent-actions')) return;
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.id = 'persistent-actions';
-    let html = '<h2>Persistent Action Tracker</h2><p class="meta" style="margin:0 0 10px;">Open actions carry forward until completed or superseded.</p><div class="action-table">';
-    intelligence.actions.forEach(function(a){
-      html += '<div class="action-track"><div class="due">' + esc(a.due) + '<br><span style="color:var(--gray);font-weight:700;">' + esc(a.status) + '</span></div><div><div class="atitle">' + esc(a.title) + '</div><div class="ameta">Owner: ' + esc(a.owner) + '</div><div class="anext">' + esc(a.next) + '</div><a class="section-jump" href="#issue-' + esc(a.source) + '">View source issue</a></div></div>';
-    });
-    html += '</div>';
-    card.innerHTML = html;
-    afterNode.insertAdjacentElement('afterend', card);
-  }
-
-  function wireSinceLastEdition(card) {
-    const since = card.querySelector('.since');
-    if (!since || card.querySelector('.change-panel')) return;
-    const panel = document.createElement('div');
-    panel.className = 'change-panel';
-    card.appendChild(panel);
-    Array.from(since.children).forEach(function(node){
-      const label = node.querySelector('span') ? node.querySelector('span').textContent.trim() : '';
-      node.setAttribute('tabindex','0');
-      node.setAttribute('role','button');
-      node.setAttribute('aria-label','Show ' + label + ' changes');
-      const show = function(){
-        const items = intelligence.changes[label] || [];
-        panel.innerHTML = '<h3>' + esc(label) + ' since the last edition</h3><ul>' + items.map(function(x){return '<li>' + esc(x) + '</li>';}).join('') + '</ul>';
-        panel.classList.add('open');
-      };
-      node.addEventListener('click', show);
-      node.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); show(); } });
-    });
-  }
-
-  function init() {
-    addStyles();
-    const sinceCard = findCardByHeading('Since the Last Edition');
-    const top5 = findCardByHeading('Top 5 Developments');
-    if (sinceCard) {
-      wireSinceLastEdition(sinceCard);
-      renderIssueTracker(sinceCard);
-      const issueCard = document.getElementById('persistent-issues');
-      if (issueCard) renderActionTracker(issueCard);
-    } else if (top5) {
-      renderIssueTracker(top5.previousElementSibling || top5);
-      const issueCard = document.getElementById('persistent-issues');
-      if (issueCard) renderActionTracker(issueCard);
-    }
-  }
-
-  window.RuralUpdateIntelligence = intelligence;
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#039;');}
+  function addStyles(){if(document.getElementById('intelligence-styles'))return;const style=document.createElement('style');style.id='intelligence-styles';style.textContent='.tracker-grid{display:grid;gap:8px}.tracker-row{border:1px solid var(--border);border-radius:10px;padding:10px 11px;background:var(--card)}.tracker-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.tracker-title{font-size:12.5px;font-weight:800;color:var(--navy)}.tracker-status{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:3px 7px;background:var(--soft);color:var(--navy);white-space:nowrap}.tracker-meta{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0}.tracker-chip{font-size:9px;border-radius:999px;background:var(--soft);color:var(--gray);padding:3px 7px}.tracker-summary{font-size:11.5px;color:#46515d;margin:5px 0}.tracker-next{font-size:10.5px;color:var(--navy2);font-weight:700}.tracker-details{margin-top:8px}.tracker-details summary{font-size:10.5px;color:var(--navy2);font-weight:800;cursor:pointer}.tracker-history{margin:7px 0 0;padding-left:17px;font-size:10.5px;color:#4e5966}.tracker-history li{margin:4px 0}.action-table{display:grid;gap:7px}.action-track{display:grid;grid-template-columns:56px 1fr;gap:9px;padding:9px;border:1px solid var(--border);border-radius:10px}.action-track .due{font-size:10px;color:var(--amber);font-weight:800;text-transform:uppercase}.action-track .atitle{font-size:12px;font-weight:800;color:var(--navy)}.action-track .ameta{font-size:10px;color:var(--gray);margin:2px 0}.action-track .anext{font-size:10.5px;color:#46515d}.change-panel{margin-top:9px;padding:10px;border-radius:10px;background:var(--soft);display:none}.change-panel.open{display:block}.change-panel h3{font-size:11px;color:var(--navy);margin:0 0 6px}.change-panel ul{margin:0;padding-left:17px;font-size:11px;color:#46515d}.since>div{cursor:pointer}.since>div:focus{outline:2px solid var(--gold);outline-offset:2px}.section-jump{display:inline-block;margin-top:7px;font-size:10.5px;font-weight:800;color:var(--navy2);text-decoration:none}';document.head.appendChild(style);}
+  function findCardByHeading(text){return Array.from(document.querySelectorAll('#page-today .card')).find(function(card){const h=card.querySelector('h2');return h&&h.textContent.trim().toLowerCase()===text.toLowerCase();});}
+  function renderIssueTracker(afterNode){if(document.getElementById('persistent-issues'))return;const card=document.createElement('div');card.className='card';card.id='persistent-issues';let html='<h2>Persistent Issue Tracker</h2><p class="meta" style="margin:0 0 10px;">Long-running issues persist across daily editions so changes, milestones and executive exposure are visible over time.</p><div class="tracker-grid">';intelligence.issues.forEach(function(i){html+='<div class="tracker-row" id="issue-'+esc(i.id)+'"><div class="tracker-top"><div class="tracker-title">'+esc(i.title)+'</div><span class="tracker-status">'+esc(i.status)+'</span></div><div class="tracker-meta"><span class="tracker-chip">Risk: '+esc(i.risk)+'</span><span class="tracker-chip">Horizon: '+esc(i.horizon)+'</span><span class="tracker-chip">Last changed: '+esc(i.lastChanged)+'</span>';i.relevance.forEach(function(r){html+='<span class="tracker-chip">'+esc(r)+'</span>';});html+='</div><p class="tracker-summary">'+esc(i.summary)+'</p><div class="tracker-next">Next milestone: '+esc(i.nextMilestone)+'</div><details class="tracker-details"><summary>Issue history</summary><ul class="tracker-history">';i.history.forEach(function(h){html+='<li><strong>'+esc(h[0])+':</strong> '+esc(h[1])+'</li>';});html+='</ul></details></div>';});html+='</div>';card.innerHTML=html;afterNode.insertAdjacentElement('afterend',card);}
+  function renderActionTracker(afterNode){if(document.getElementById('persistent-actions'))return;const card=document.createElement('div');card.className='card';card.id='persistent-actions';let html='<h2>Persistent Action Tracker</h2><p class="meta" style="margin:0 0 10px;">Open actions carry forward until completed or superseded.</p><div class="action-table">';intelligence.actions.forEach(function(a){html+='<div class="action-track"><div class="due">'+esc(a.due)+'<br><span style="color:var(--gray);font-weight:700;">'+esc(a.status)+'</span></div><div><div class="atitle">'+esc(a.title)+'</div><div class="ameta">Owner: '+esc(a.owner)+'</div><div class="anext">'+esc(a.next)+'</div><a class="section-jump" href="#issue-'+esc(a.source)+'">View source issue</a></div></div>';});html+='</div>';card.innerHTML=html;afterNode.insertAdjacentElement('afterend',card);}
+  function wireSinceLastEdition(card){const since=card.querySelector('.since');if(!since||card.querySelector('.change-panel'))return;const panel=document.createElement('div');panel.className='change-panel';card.appendChild(panel);Array.from(since.children).forEach(function(node){const label=node.querySelector('span')?node.querySelector('span').textContent.trim():'';node.setAttribute('tabindex','0');node.setAttribute('role','button');node.setAttribute('aria-label','Show '+label+' changes');const show=function(){const items=intelligence.changes[label]||[];panel.innerHTML='<h3>'+esc(label)+' since the last edition</h3><ul>'+items.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';panel.classList.add('open');};node.addEventListener('click',show);node.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show();}});});}
+  function init(){addStyles();const sinceCard=findCardByHeading('Since the Last Edition');const top5=findCardByHeading('Top 5 Developments');if(sinceCard){wireSinceLastEdition(sinceCard);renderIssueTracker(sinceCard);const issueCard=document.getElementById('persistent-issues');if(issueCard)renderActionTracker(issueCard);}else if(top5){renderIssueTracker(top5.previousElementSibling||top5);const issueCard=document.getElementById('persistent-issues');if(issueCard)renderActionTracker(issueCard);}}
+  window.RuralUpdateIntelligence=intelligence;if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
