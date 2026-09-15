@@ -4,14 +4,18 @@ on:
   push:
     branches: [main]
     paths:
-      - 'index.html'
       - 'archive/**'
       - 'archive-loader.js'
+      - 'signals-reference.js'
+      - 'intelligence.js'
       - 'sw.js'
       - 'manifest.webmanifest'
       - 'icons/**'
       - 'the-rural-update-logo.png'
       - '.github/workflows/deploy-pages.yml'
+  workflow_run:
+    workflows: ['Archive previous Rural Update edition']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -25,13 +29,18 @@ concurrency:
 
 jobs:
   deploy:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
