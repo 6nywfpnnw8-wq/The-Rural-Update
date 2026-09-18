@@ -1,0 +1,85 @@
+Episode title: The Rural Update | September 18, 2026
+Edition date: 2026-09-18
+Generated time CT: 6:00 AM
+Estimated word count: 1,780
+Estimated run time: 12 minutes
+
+Good morning. This is The Rural Update for Friday, September 18, 2026. The main theme today is implementation risk: federal rural transformation dollars are moving rapidly into real infrastructure and technology, while Medicaid financing and near-term RHC billing changes still require disciplined operational follow-through.
+
+EXECUTIVE BLUF
+
+There are three items I would put at the top of the executive agenda this morning.
+
+First, Rural Health Transformation implementation accelerated again yesterday. CMS announced one hundred sixty-seven million dollars for South Carolina and fifty million dollars for Connecticut. The important point is not the dollar amount alone. The projects show that the federal transformation strategy is financing two things at the same time: durable local hospital infrastructure and distributed access models. South Carolina is putting money into care sites, mobile units, telehealth, remote monitoring, cybersecurity, maternal and behavioral health, and even twenty-four-hour pharmacy kiosks. Connecticut is directing funding toward four rural hospital systems for facilities, equipment, service capacity and long-term sustainability. For rural leaders, that reinforces a basic planning rule: decide which capabilities truly need to sit inside the local hospital and which should be built regionally or virtually.
+
+Second, Medicaid remains the most consequential medium-term financial risk. Comments on the CMS provider-tax proposal close September twenty-first. A separate development in Texas provides a useful warning. Texas announced restoration of nearly twelve billion dollars in Medicaid funding after a federal dispute had put major supplemental payments at risk. Even when funding is eventually restored, delayed or disputed supplemental payments can create immediate liquidity, staffing and service-continuity problems. Rural financial models need to test timing risk, not just permanent reductions.
+
+Third, Oklahoma has created a practical behavioral-health opportunity. The Oklahoma Health Care Authority removed prior authorization for Brixadi, a long-acting injectable buprenorphine treatment for opioid use disorder, through a value-based agreement. OHCA specifically noted that this could benefit rural and underserved communities where daily dosing is difficult to sustain. The opportunity is real, but medication access alone is not a service model. Rural clinics still need prescribing, administration, counseling, follow-up and referral pathways.
+
+TOP DEVELOPMENT ONE: RURAL HEALTH TRANSFORMATION MOVES INTO OPERATING REALITY
+
+What happened: CMS announced two significant Rural Health Transformation investments on September seventeenth. South Carolina received one hundred sixty-seven million dollars to expand rural care sites, technology, prevention and workforce capacity. The announced uses include mobile care, telehealth, remote monitoring, maternal and behavioral health, cybersecurity and local pharmacy access. Connecticut received fifty million dollars focused on four rural hospital systems, including equipment modernization, facility improvement and service capacity.
+
+Why it matters: the emerging RHTP portfolio is becoming much clearer. This is not simply a hospital capital program, and it is not simply a digital-health program. It is a portfolio approach to rural access. Some communities need stronger bricks-and-mortar capability. Others need transportation, mobile care, remote monitoring, specialty connectivity or shared technology. Many need both.
+
+That distinction matters for capital planning. A rural network can waste transformation dollars by duplicating expensive capability at every site. It can also weaken access by regionalizing something that genuinely needs to remain local. The correct question is what must be locally available for safe, timely care, and what can be shared without increasing clinical or transportation risk.
+
+The second issue is sustainability. Every grant-funded technology creates some combination of licensing, connectivity, cybersecurity, staffing, maintenance, replacement and training expense. Every new physical asset creates depreciation and replacement obligations. A project can be fully funded in year one and still be economically unsustainable in year six.
+
+What to watch or do: require every major transformation proposal to identify its post-grant operating payer. That could be ordinary reimbursement, value-based revenue, provider-assumed cost, state support, philanthropy, or a one-time investment that has little recurring expense. If nobody can identify who pays after the grant, the project is not yet a sustainable strategy.
+
+TOP DEVELOPMENT TWO: MEDICAID FINANCING NEEDS A LIQUIDITY LENS
+
+What happened: the September twenty-first deadline for comments on CMS's provider-tax proposal is approaching. At the same time, Texas announced that nearly twelve billion dollars in Medicaid funding would be restored after a prolonged dispute with the federal government over hospital financing arrangements. Hospitals had warned that the interruption represented roughly twenty-seven million dollars per day in lost Medicaid funding.
+
+Why it matters: rural hospital analysis often focuses on the eventual annual impact of a policy change. That is necessary, but it misses timing. A hospital can survive an annual revenue reduction on paper and still face a serious cash problem if a large supplemental payment is delayed for several months. Payroll, pharmaceuticals, supplies and debt service do not wait for a policy dispute to be resolved.
+
+For Oklahoma, this matters because provider taxes, state-directed payments, DSH, base Medicaid reimbursement and uncompensated care are financially connected. Oklahoma also faces potential eligibility churn as federal work requirements take effect for certain SoonerCare adults beginning January first. That can create the opposite pressure at the same time: less predictable Medicaid financing on one side and more Medicaid-to-self-pay conversion on the other.
+
+What to watch or do: the Medicaid downside model should include at least three scenarios. One is a permanent reduction in supplemental support. The second is a temporary payment delay or interruption. The third combines financing pressure with increased uncompensated care from eligibility churn. For each rural facility, leadership should know how many days of operating resilience exist under those scenarios and which service lines become vulnerable first.
+
+TOP DEVELOPMENT THREE: OKLAHOMA REDUCES A RURAL OPIOID-TREATMENT BARRIER
+
+What happened: OHCA implemented a value-based agreement for Brixadi and removed the prior-authorization requirement for SoonerCare members. Brixadi is a weekly or monthly injectable form of buprenorphine used in medication-assisted treatment for opioid use disorder.
+
+Why it matters: long-acting therapy can reduce some of the logistical and adherence burden associated with daily medication. That has particular relevance in rural communities where travel distance, transportation, pharmacy access and behavioral-health workforce shortages can interrupt treatment. OHCA says the agreement is intended to improve access and ultimately reduce opioid-related hospitalizations and emergency-department use.
+
+The rural opportunity, however, is operational rather than theoretical. A clinic needs clinicians comfortable with opioid-use-disorder treatment, medication acquisition and administration workflows, appropriate counseling and monitoring, and a defined pathway for patients who need a higher level of behavioral-health or addiction care. An RHC that simply knows the drug is covered has not solved the access problem.
+
+What to watch or do: identify rural clinics that already have the clinical and operational foundation to become dependable treatment access points. Then map where gaps remain in prescribing, administration, behavioral-health support and referral relationships. This is a reasonable candidate for a small, measurable access initiative because utilization, retention, emergency-department use and referral completion can all be tracked.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+The Oklahoma picture today is a combination of opportunity and execution pressure. The Brixadi change is a tangible example of administrative friction being removed from a clinically important service. It is worth testing whether that change actually produces better rural access rather than simply appearing as a favorable policy on paper.
+
+At the same time, Rural Health Transformation planning should continue to use the national awards as a design laboratory. South Carolina's mix of mobile care, telehealth, pharmacy access and cybersecurity and Connecticut's focus on hospital infrastructure show that states are not being forced into one template. Oklahoma should be equally disciplined about matching the intervention to the local access problem.
+
+That means a rural hospital should not receive technology simply because technology funding exists. A mobile service should not be launched without a volume and staffing model. A regional service should not be centralized if transport time creates a clinical problem. And a grant-supported workforce position should not be created without a credible plan for what pays the salary when the grant ends.
+
+One other operational item remains unchanged but urgent: October first is the RHC and FQHC distant-site telehealth billing conversion. Individual CPT or HCPCS service codes replace G twenty twenty-five, with modifiers ninety-three or ninety-five as applicable. At this point, the executive question is not whether staff have read the guidance. It is whether every clinic can demonstrate a clean end-to-end test claim before September thirtieth.
+
+SIGNALS
+
+Two signals deserve emphasis today.
+
+The first is rural regionalization, which remains upward with high confidence. The new South Carolina and Connecticut awards strengthen the evidence because they show regional and distributed capability being funded alongside local hospital infrastructure. The implication is not that everything should be regionalized. It is that rural networks need a deliberate capability map showing what must remain local, what can be shared, and what can be virtual.
+
+The second is Medicaid financing risk, also upward with high confidence. The Texas dispute does not prove that Oklahoma will experience the same event. It does demonstrate that large supplemental-payment streams can be exposed to policy and implementation disputes, and that the operational consequences arrive before the policy question is finally settled. The app's Signals section contains the supporting evidence and longer reading list.
+
+EXECUTIVE ACTIONS
+
+There are three actions to carry today.
+
+First, by September twenty-first, complete the integrated Medicaid downside model. It should combine provider-tax exposure, state-directed payments, DSH, eligibility churn, uncompensated care and recurring transformation expense. Add a cash-timing scenario rather than limiting the analysis to annual margin.
+
+Second, by September thirtieth, require every RHC to demonstrate a successful telehealth test claim under the October first workflow. Validate service-code mapping, modifiers, documentation, claim edits, clearinghouse processing and staff training. A readiness attestation without a test claim is weaker evidence than an actual end-to-end transaction.
+
+Third, during the fourth quarter, assess whether the new Brixadi access policy can be converted into a practical rural treatment pathway. Start with clinics that already have behavioral-health interest, medication-assisted-treatment experience or strong primary-care continuity. The goal should be reliable access, not simply adding another medication to a formulary.
+
+DEADLINE WATCH
+
+Four dates remain on the near-term board. September twenty-first is the CMS provider-tax comment deadline. October first is the RHC and FQHC telehealth billing conversion. October first is also the planned start point for measuring whether announced UnitedHealthcare authorization reductions actually reduce administrative friction. October fifteenth is the Oklahoma ROOTS Year Two rural school-wellness funding deadline.
+
+CLOSE
+
+What I would keep in view today is this: rural policy is moving from announcements into operating reality. The leadership advantage now comes from distinguishing temporary funding from durable economics, measuring cash risk rather than only annual margin, and converting policy opportunities into workflows that actually reach rural patients. Supporting evidence and source material are available in the app's Sources and Signals sections.
