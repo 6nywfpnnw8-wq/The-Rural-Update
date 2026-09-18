@@ -6,6 +6,7 @@ on:
     paths:
       - 'podcast-script/*.txt'
       - 'scripts/generate_podcast_audio.py'
+      - 'scripts/generate_podcast_feed.py'
       - '.github/workflows/generate-podcast-audio.yml'
   workflow_dispatch:
 
@@ -74,17 +75,30 @@ jobs:
           mkdir -p audio
           python3 scripts/generate_podcast_audio.py             "${{ steps.script.outputs.path }}"             "audio/${{ steps.script.outputs.date }}.mp3"
 
-      - name: Commit generated audio
+      - name: Create podcast artwork
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f podcast-art.png ]; then
+            ffmpeg -y -hide_banner -loglevel error               -i icons/icon-512.png               -vf "scale=1400:1400:flags=lanczos"               podcast-art.png
+          fi
+
+      - name: Generate private RSS feed
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
+        run: python3 scripts/generate_podcast_feed.py
+
+      - name: Commit generated audio and feed
         if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "audio/${{ steps.script.outputs.date }}.mp3"
+          git add "audio/${{ steps.script.outputs.date }}.mp3" podcast.xml podcast-art.png
           if git diff --cached --quiet; then
-            echo "No audio changes to commit."
+            echo "No podcast output changes to commit."
             exit 0
           fi
-          git commit -m "Generate podcast audio for ${{ steps.script.outputs.date }}"
+          git commit -m "Publish podcast episode for ${{ steps.script.outputs.date }}"
           git push origin HEAD:main
