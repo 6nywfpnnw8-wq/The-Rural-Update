@@ -12,9 +12,13 @@ on:
       - 'manifest.webmanifest'
       - 'icons/**'
       - 'the-rural-update-logo.png'
+      - 'audio/**'
+      - 'podcast-script/**'
       - '.github/workflows/deploy-pages.yml'
   workflow_run:
-    workflows: ['Archive previous Rural Update edition']
+    workflows:
+      - 'Archive previous Rural Update edition'
+      - 'Generate Rural Update podcast audio'
     types: [completed]
   workflow_dispatch:
 
