@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+  <channel>
+    <title>The Rural Update</title>
+    <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
+    <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
+    <language>en-us</language>
+    <copyright>The Rural Update</copyright>
+    <lastBuildDate>Fri, 18 Sep 2026 07:21:01 -0500</lastBuildDate>
+    <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
+    <itunes:author>The Rural Update</itunes:author>
+    <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
+    <itunes:explicit>false</itunes:explicit>
+    <itunes:type>episodic</itunes:type>
+    <itunes:block>Yes</itunes:block>
+    <itunes:image href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast-art.png" />
+    <itunes:category text="Health &amp; Fitness">
+      <itunes:category text="Medicine" />
+    </itunes:category>
+    <image>
+      <url>https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast-art.png</url>
+      <title>The Rural Update</title>
+      <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
+    </image>
+    <item>
+      <title>The Rural Update | September 18, 2026</title>
+      <description>Good morning. This is The Rural Update for Friday, September 18, 2026. The main theme today is implementation risk: federal rural transformation dollars are moving rapidly into real infrastructure and technology, while Medicaid financing and near-term RHC billing changes still require disciplined operational follow-through.</description>
+      <content:encoded>Good morning. This is The Rural Update for Friday, September 18, 2026. The main theme today is implementation risk: federal rural transformation dollars are moving rapidly into real infrastructure and technology, while Medicaid financing and near-term RHC billing changes still require disciplined operational follow-through.</content:encoded>
+      <pubDate>Fri, 18 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-18</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-18.mp3" length="11368365" type="audio/mpeg" />
+      <itunes:duration>11:50</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>Good morning. This is The Rural Update for Friday, September 18, 2026. The main theme today is implementation risk: federal rural transformation dollars are moving rapidly into real infrastructure and technology, while Medicaid financing and near-term RHC billing changes still require disciplined operational follow-through.</itunes:summary>
+    </item>
+  </channel>
+</rss>
