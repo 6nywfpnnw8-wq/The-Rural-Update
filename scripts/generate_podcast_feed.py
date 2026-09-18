@@ -122,7 +122,7 @@ def main():
     for ep in episodes:
         item = ET.SubElement(channel, "item")
         add_text(item, "title", ep["title"])
-        add_text(item, "description", ep["description"])
+        add_text(item, "description", ep["description"])\n        add_text(item, "encoded", ep["description"], CONTENT)
         add_text(item, "pubDate", format_datetime(ep["pub_dt"]))
         guid = add_text(item, "guid", f"the-rural-update-{ep['date']}")
         guid.set("isPermaLink", "false")
