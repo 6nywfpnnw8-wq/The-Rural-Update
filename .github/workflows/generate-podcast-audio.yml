@@ -30,16 +30,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          if [ ! -d podcast-script ]; then
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No podcast-script directory exists yet. Audio generation will wait for the first daily script."
+            exit 0
+          fi
           latest="$(find podcast-script -maxdepth 1 -type f -name '*.txt' | sort | tail -n 1)"
           if [ -z "$latest" ]; then
-            echo "No podcast script found."
-            exit 1
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            echo "No podcast script found. Audio generation will wait for the first daily script."
+            exit 0
           fi
           date="$(basename "$latest" .txt)"
+          echo "found=true" >> "$GITHUB_OUTPUT"
           echo "path=$latest" >> "$GITHUB_OUTPUT"
           echo "date=$date" >> "$GITHUB_OUTPUT"
 
       - name: Check audio credentials
+        if: steps.script.outputs.found == 'true'
         id: credentials
         shell: bash
         env:
@@ -53,11 +61,11 @@ jobs:
           fi
 
       - name: Install ffmpeg
-        if: steps.credentials.outputs.configured == 'true'
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - name: Generate MP3
-        if: steps.credentials.outputs.configured == 'true'
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_TTS_MODEL: gpt-4o-mini-tts
@@ -67,7 +75,7 @@ jobs:
           python3 scripts/generate_podcast_audio.py             "${{ steps.script.outputs.path }}"             "audio/${{ steps.script.outputs.date }}.mp3"
 
       - name: Commit generated audio
-        if: steps.credentials.outputs.configured == 'true'
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
         shell: bash
         run: |
           set -euo pipefail
