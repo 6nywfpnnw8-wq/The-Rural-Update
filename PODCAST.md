@@ -23,15 +23,17 @@ The feed is intentionally marked with `<itunes:block>Yes</itunes:block>` so it i
 
 1. The 6:00 AM Rural Update task creates `podcast-script/YYYY-MM-DD.txt`.
 2. GitHub Actions generates `audio/YYYY-MM-DD.mp3`.
-3. The feed generator rebuilds `podcast.xml` from all complete dated script/audio pairs.
-4. GitHub Pages publishes the updated feed and media.
-5. Podcast apps following the feed can retrieve the new episode.
+3. The workflow generates `transcript/YYYY-MM-DD.html` from the spoken script.
+4. The feed generator rebuilds `podcast.xml` from all complete dated script/audio pairs and adds a Podcasting 2.0 transcript link for each episode.
+5. GitHub Pages publishes the updated feed, transcript, and media.
+6. Podcast apps following the feed can retrieve the new episode.
 
 ## Feed assets
 
 - Show feed: `podcast.xml`
 - Show artwork: `podcast-art.png`
 - Episode audio: `audio/YYYY-MM-DD.mp3`
+- Episode transcript: `transcript/YYYY-MM-DD.html`
 - Source scripts: `podcast-script/YYYY-MM-DD.txt`
 
 Episode GUIDs are date-based and stable so later metadata changes do not create duplicate episodes.

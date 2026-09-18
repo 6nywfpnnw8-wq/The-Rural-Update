@@ -17,10 +17,10 @@ TZ = ZoneInfo("America/Chicago")
 
 ITUNES = "http://www.itunes.com/dtds/podcast-1.0.dtd"
 CONTENT = "http://purl.org/rss/1.0/modules/content/"
-ATOM = "http://www.w3.org/2005/Atom"
+ATOM = "http://www.w3.org/2005/Atom"\nPODCAST = "https://podcastindex.org/namespace/1.0"
 ET.register_namespace("itunes", ITUNES)
 ET.register_namespace("content", CONTENT)
-ET.register_namespace("atom", ATOM)
+ET.register_namespace("atom", ATOM)\nET.register_namespace("podcast", PODCAST)
 
 def q(ns, tag):
     return f"{{{ns}}}{tag}"
@@ -135,7 +135,7 @@ def main():
         add_text(item, "duration", ep["duration"], ITUNES)
         add_text(item, "episodeType", "full", ITUNES)
         add_text(item, "explicit", "false", ITUNES)
-        add_text(item, "summary", ep["description"], ITUNES)
+        add_text(item, "summary", ep["description"], ITUNES)\n        ET.SubElement(item, q(PODCAST, "transcript"), {"url": ep["transcript_url"], "type": "text/html"})
 
     tree = ET.ElementTree(rss)
     ET.indent(tree, space="  ")

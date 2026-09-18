@@ -7,6 +7,7 @@ on:
       - 'podcast-script/*.txt'
       - 'scripts/generate_podcast_audio.py'
       - 'scripts/generate_podcast_feed.py'
+      - 'scripts/generate_transcript.py'
       - '.github/workflows/generate-podcast-audio.yml'
   workflow_dispatch:
 
@@ -84,6 +85,14 @@ jobs:
             ffmpeg -y -hide_banner -loglevel error               -i icons/icon-512.png               -vf "scale=1400:1400:flags=lanczos"               podcast-art.png
           fi
 
+      - name: Generate transcript
+        if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
+        run: |
+          mkdir -p transcript
+          python3 scripts/generate_transcript.py \
+            "${{ steps.script.outputs.path }}" \
+            "transcript/${{ steps.script.outputs.date }}.html"
+
       - name: Generate private RSS feed
         if: steps.script.outputs.found == 'true' && steps.credentials.outputs.configured == 'true'
         run: python3 scripts/generate_podcast_feed.py
@@ -95,9 +104,9 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "audio/${{ steps.script.outputs.date }}.mp3" podcast.xml podcast-art.png
+          git add "audio/${{ steps.script.outputs.date }}.mp3" "transcript/${{ steps.script.outputs.date }}.html" podcast.xml podcast-art.png
           if git diff --cached --quiet; then
-            echo "No podcast output changes to commit."
+            echo "No podcast output or transcript changes to commit."
             exit 0
           fi
           git commit -m "Publish podcast episode for ${{ steps.script.outputs.date }}"
