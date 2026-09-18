@@ -1,0 +1,82 @@
+name: Generate Rural Update podcast audio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'podcast-script/*.txt'
+      - 'scripts/generate_podcast_audio.py'
+      - '.github/workflows/generate-podcast-audio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: podcast-audio
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Select latest podcast script
+        id: script
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest="$(find podcast-script -maxdepth 1 -type f -name '*.txt' | sort | tail -n 1)"
+          if [ -z "$latest" ]; then
+            echo "No podcast script found."
+            exit 1
+          fi
+          date="$(basename "$latest" .txt)"
+          echo "path=$latest" >> "$GITHUB_OUTPUT"
+          echo "date=$date" >> "$GITHUB_OUTPUT"
+
+      - name: Check audio credentials
+        id: credentials
+        shell: bash
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::OPENAI_API_KEY repository secret is not configured. Podcast audio was not generated."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install ffmpeg
+        if: steps.credentials.outputs.configured == 'true'
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Generate MP3
+        if: steps.credentials.outputs.configured == 'true'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_TTS_MODEL: gpt-4o-mini-tts
+          OPENAI_TTS_VOICE: cedar
+        run: |
+          mkdir -p audio
+          python3 scripts/generate_podcast_audio.py             "${{ steps.script.outputs.path }}"             "audio/${{ steps.script.outputs.date }}.mp3"
+
+      - name: Commit generated audio
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "audio/${{ steps.script.outputs.date }}.mp3"
+          if git diff --cached --quiet; then
+            echo "No audio changes to commit."
+            exit 0
+          fi
+          git commit -m "Generate podcast audio for ${{ steps.script.outputs.date }}"
+          git push origin HEAD:main
