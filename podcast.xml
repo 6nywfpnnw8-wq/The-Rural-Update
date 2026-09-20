@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Sat, 19 Sep 2026 18:11:45 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 06:02:04 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | September 20, 2026</title>
+      <description>Good morning. This is The Rural Update for Sunday, September 20, 2026. Today the focus is immediate Medicaid financing, the post-grant economics of rural transformation, and the final operational runway before the October 1 RHC telehealth billing change.</description>
+      <content:encoded>Good morning. This is The Rural Update for Sunday, September 20, 2026. Today the focus is immediate Medicaid financing, the post-grant economics of rural transformation, and the final operational runway before the October 1 RHC telehealth billing change.</content:encoded>
+      <pubDate>Sun, 20 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-20</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-20.mp3" length="10871469" type="audio/mpeg" />
+      <itunes:duration>11:19</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>Good morning. This is The Rural Update for Sunday, September 20, 2026. Today the focus is immediate Medicaid financing, the post-grant economics of rural transformation, and the final operational runway before the October 1 RHC telehealth billing change.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-09-20.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | September 19, 2026</title>
       <description>THE RURAL UPDATE
