@@ -1,0 +1,95 @@
+Episode title: The Rural Update | September 20, 2026
+Edition date: 2026-09-20
+Generated time CT: 6:00 AM
+Estimated word count: 1,770
+Estimated run time: 12 minutes
+
+OPENING
+
+Good morning. This is The Rural Update for Sunday, September 20, 2026. Today the focus is immediate Medicaid financing, the post-grant economics of rural transformation, and the final operational runway before the October 1 RHC telehealth billing change.
+
+EXECUTIVE BLUF
+
+The most immediate decision point is tomorrow. Comments close September 21 on the CMS provider-tax proposal, CMS-2452-P. For rural hospitals, the important analytical shift is to stop treating Medicaid exposure as a single annual revenue number. The Texas supplemental-payment dispute this month showed that timing matters. A payment can ultimately be restored and still create meaningful operating stress while cash is delayed. The downside case therefore needs both margin impact and liquidity impact.
+
+The second issue is longer term. KFF's updated analysis estimates that the 50-billion-dollar Rural Health Transformation Program equals roughly 37 percent of estimated ten-year federal Medicaid reductions in rural areas. More importantly, KFF estimates that 64 percent of those rural Medicaid reductions occur after 2030, while transformation funding is temporary and front-loaded. That makes the 2031 sustainability test increasingly important.
+
+Third, October 1 is now eleven days away. RHCs and FQHCs furnishing distant-site telehealth will move from G2025 to individual CPT or HCPCS service codes, with the appropriate modifier. This is a revenue-cycle conversion, not merely a coding memo.
+
+There is also a digital-health governance item worth noting. The Federal Trade Commission withdrew an older health-app policy statement because its updated Health Breach Notification Rule now directly addresses health apps and connected devices. That matters as hospitals increasingly connect patients to apps, wearables, remote monitoring and other digital tools that may operate outside the traditional HIPAA perimeter.
+
+TOP DEVELOPMENT ONE: MEDICAID FINANCING
+
+What happened: the CMS provider-tax comment period reaches its final day tomorrow. The proposal implements statutory restrictions on health-care-related provider taxes and revises indirect hold-harmless thresholds. Those financing mechanisms matter because Medicaid hospital economics are not driven only by base rates. Provider taxes, state-directed payments, DSH and other supplemental arrangements can materially affect the total payment picture.
+
+The Texas experience provides a useful operating example. Nearly 12 billion dollars in Medicaid funding was restored after a federal dispute, but hospitals had warned that the interruption represented roughly 27 million dollars per day in Medicaid funding. The point is not that Oklahoma will experience the same event. The point is that supplemental financing can create a liquidity problem before it becomes a permanent revenue problem.
+
+Why it matters: rural hospitals typically have less balance-sheet flexibility, smaller absolute cash reserves and fewer service lines over which to spread a shock. A delayed supplemental payment can therefore create pressure on payroll, vendors, capital spending and recruitment even when the payment is eventually received.
+
+What to watch or do: the Medicaid downside model should include at least two dimensions. First, model the permanent revenue exposure from provider-tax restrictions, state-directed-payment changes, DSH pressure, coverage churn and uncompensated care. Second, model 30-, 60- and 90-day payment delays. The useful executive output is not just an annual EBITDA change. It is the point at which liquidity becomes operationally constraining.
+
+TOP DEVELOPMENT TWO: RURAL TRANSFORMATION AFTER THE GRANT
+
+What happened: KFF's September 18 update gives a clearer scale comparison between Rural Health Transformation funding and the broader Medicaid changes affecting rural communities. KFF estimates that the 50-billion-dollar program equals about 37 percent of estimated ten-year federal Medicaid reductions in rural areas. It also estimates that 64 percent of those reductions occur after 2030.
+
+That timing mismatch matters. The transformation program is designed as catalytic investment. It can fund infrastructure, technology, workforce development, transportation, remote monitoring, mobile care and regional coordination. Recent awards across states show that the federal government is supporting both fixed local capacity and distributed regional capability.
+
+Why it matters: a grant can make a project affordable to launch without making it affordable to operate. A telehealth platform has licenses and support costs. Remote monitoring has devices, connectivity and clinical labor. A mobile unit has staffing, maintenance, fuel and replacement costs. Workforce programs can recruit people, but salaries continue after the grant. New equipment eventually needs replacement.
+
+This means the strategic question should move from, can we get this funded, to, who pays for this in 2031? A project without an identified recurring payer, measurable productivity gain, shared-cost structure or durable subsidy may simply convert a temporary grant into a future operating obligation.
+
+What to watch or do: apply the same sustainability screen to every major transformation investment. Identify annual post-grant expense, required staffing, reimbursement mechanism, expected volume, value-based revenue where applicable, ongoing subsidy, replacement capital and the alternative if Medicaid supplemental financing becomes less favorable. That framework should be applied before scale is locked in, not after the grant period is nearly over.
+
+TOP DEVELOPMENT THREE: RHC TELEHEALTH
+
+What happened: October 1 is eleven days away. RHCs and FQHCs furnishing distant-site telehealth will stop relying on G2025 and instead report the individual CPT or HCPCS service code. Modifier 93 applies to qualifying synchronous audio-only services and modifier 95 to synchronous audio-video services.
+
+Why it matters: this touches the entire claim pathway. The clinical documentation has to support the service. Charge capture must select the correct code. Coding and claim edits must recognize the new configuration. The clearinghouse has to transmit it correctly. Staff need to understand what changed. A residual G2025 dependency anywhere in that chain can create preventable denials or delayed payment.
+
+What to watch or do: require an end-to-end test claim before September 30. Do not accept a checklist that says the charge master was updated. The meaningful readiness test is whether a representative claim can move from encounter documentation through coding, edits and clearinghouse processing without an avoidable error.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+The Oklahoma item to keep in view is long-acting treatment for opioid use disorder. The Oklahoma Health Care Authority removed prior authorization for Brixadi through a value-based agreement. Brixadi is an injectable buprenorphine option administered weekly or monthly. OHCA specifically identified rural and underserved communities as potential beneficiaries.
+
+This is a useful example of the difference between coverage and access. Removing prior authorization reduces payer friction, but it does not automatically create a rural treatment pathway. A clinic still needs an appropriate prescriber, medication acquisition and storage processes, administration capability, counseling and monitoring workflows, and referral relationships for patients who need a higher level of behavioral-health or addiction care.
+
+For rural systems, the practical question is which clinics can become dependable access points. That does not necessarily mean every clinic. A regional hub-and-spoke approach may be more sustainable, with selected sites maintaining the full medication and behavioral-health workflow and surrounding clinics supporting identification, referral and follow-up.
+
+There is also a digital-health governance point with rural implications. The FTC has withdrawn its older 2021 health-app policy statement because its 2024 Health Breach Notification Rule amendments now directly cover health apps and connected devices. The updated framework makes clear that unauthorized disclosure can trigger obligations even when there has not been a classic cyber intrusion.
+
+That matters as rural transformation increasingly relies on remote monitoring, mobile applications, wearables and consumer-facing digital tools. Leaders should know where patient data leaves HIPAA-regulated workflows, what vendors receive it, what downstream sharing occurs and which party owns breach-notification obligations. Digital access expansion without data-governance discipline creates avoidable risk.
+
+SIGNALS
+
+There is only one signal I would elevate today because the others did not materially change overnight.
+
+Medicaid financing remains risk increasing with high confidence. The September 21 provider-tax deadline, the longer-term statutory changes and the Texas payment episode all reinforce the same conclusion: rural Medicaid exposure should be evaluated as a combined revenue, coverage and liquidity issue.
+
+Rural regionalization remains momentum increasing with high confidence, but there is no new directional change today. Recent transformation awards continue to support shared technology, transportation, mobile care and regional coordination alongside local hospital infrastructure. The important leadership discipline is to distinguish what must be local from what can be shared without weakening access or community capability.
+
+The app's Signals section contains the supporting evidence library and should remain the reference point for the longer-term trend view.
+
+EXECUTIVE ACTIONS
+
+There are three actions.
+
+First, by September 21, close the Medicaid financing position. Finalize the integrated downside model and any provider-tax comments. Include provider taxes, state-directed payments, DSH, Oklahoma coverage churn, uncompensated care, recurring transformation expense and explicit cash-timing stress.
+
+Second, by September 30, validate the RHC telehealth conversion with an actual end-to-end test claim. Confirm code mapping, modifiers, documentation, claim edits, clearinghouse handling and staff readiness.
+
+Third, during the fourth quarter, apply the 2031 sustainability test to major Rural Health Transformation concepts. For each investment, identify the recurring payer, staffing model, maintenance expense, replacement-capital source and contingency if supplemental Medicaid financing is less favorable than expected.
+
+DEADLINE WATCH
+
+September 21, tomorrow: CMS-2452-P provider-tax comments close.
+
+October 1: the RHC and FQHC distant-site telehealth billing conversion takes effect.
+
+Also October 1: previously announced UnitedHealthcare authorization reductions begin, creating the starting point for before-and-after measurement of administrative friction.
+
+October 15: Oklahoma's ROOTS Year 2 rural school-wellness funding deadline.
+
+CLOSE
+
+What I would keep in view today is the connection between temporary transformation money and permanent operating economics. The immediate Medicaid deadline matters, but the larger leadership question is whether today's investments create durable rural capability after the grant dollars are gone. Build the liquidity downside case, finish the telehealth conversion, and make 2031 sustainability a design requirement rather than a future cleanup exercise.
