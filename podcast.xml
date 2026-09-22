@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Mon, 21 Sep 2026 06:01:51 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 06:08:19 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update — September 22, 2026</title>
+      <description>Good morning. This is The Rural Update for Tuesday, September 22, 2026. Today’s focus is the transition from Medicaid policy advocacy into implementation, a new Medicaid drug-pricing decision window, and two developments showing how quickly clinical artificial intelligence is moving toward regulated patient-facing care.</description>
+      <content:encoded>Good morning. This is The Rural Update for Tuesday, September 22, 2026. Today’s focus is the transition from Medicaid policy advocacy into implementation, a new Medicaid drug-pricing decision window, and two developments showing how quickly clinical artificial intelligence is moving toward regulated patient-facing care.</content:encoded>
+      <pubDate>Tue, 22 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-22</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-22.mp3" length="12770349" type="audio/mpeg" />
+      <itunes:duration>13:18</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>Good morning. This is The Rural Update for Tuesday, September 22, 2026. Today’s focus is the transition from Medicaid policy advocacy into implementation, a new Medicaid drug-pricing decision window, and two developments showing how quickly clinical artificial intelligence is moving toward regulated patient-facing care.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-09-22.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update — September 21, 2026</title>
       <description>THE RURAL UPDATE
