@@ -1,0 +1,127 @@
+Episode title: The Rural Update — September 22, 2026
+Edition date: 2026-09-22
+Generated time CT: 6:02 AM
+Estimated word count: 1,785
+Estimated run time: 12 minutes
+
+Good morning. This is The Rural Update for Tuesday, September 22, 2026. Today’s focus is the transition from Medicaid policy advocacy into implementation, a new Medicaid drug-pricing decision window, and two developments showing how quickly clinical artificial intelligence is moving toward regulated patient-facing care.
+
+EXECUTIVE BLUF
+
+Here is the bottom line this morning.
+
+First, the public-comment period for the CMS provider-tax proposal closed yesterday. That does not close the Medicaid financing issue. It changes the work. Rural organizations now need to move from comment strategy to final-rule surveillance and facility-level financial planning. The relevant downside case remains broader than provider taxes alone. It includes future state-directed-payment limits, DSH exposure, Oklahoma eligibility churn beginning in January, uncompensated care, and the liquidity risk created when supplemental payments are delayed.
+
+Second, a new Medicaid opportunity has moved into the immediate decision window. CMS says every state Medicaid program, the District of Columbia, and Puerto Rico applied to participate in the five-year GENEROUS drug-pricing model. Forty states and Puerto Rico had signed participation agreements as of September 18. Remaining applicants have through September 30. The model uses supplemental manufacturer rebates to align selected Medicaid drug prices with international prices and pairs those prices with standardized coverage criteria. For Oklahoma, the practical question is whether participation is final and what changes could follow for pharmacy policy, managed care, and rural access.
+
+Third, the RHC telehealth billing conversion is nine days away. This remains the clearest immediate operational risk in the brief. A clean clinical encounter can still become a preventable denial if charge capture, coding, modifiers, edits, or clearinghouse configuration are not ready on October 1.
+
+And finally, artificial intelligence is moving on two fronts at once. International standards and incident-reporting proposals are becoming more formal, while ARPA-H is investing more than sixty-two million dollars in patient-facing AI agents for heart failure. The policy discussion is no longer just about whether AI can assist clinicians. It is increasingly about when an AI system can exercise limited clinical authority, how that authority is validated, and who can stop it.
+
+TOP DEVELOPMENT ONE: GENEROUS MOVES INTO A SEPTEMBER 30 DECISION WINDOW
+
+What happened.
+
+CMS confirmed that all state Medicaid programs, plus the District of Columbia and Puerto Rico, applied to participate in the GENEROUS Model. The model launched in January and is designed to run for five years. CMS says forty states and Puerto Rico had already signed participation agreements by September 18, while remaining applicants have until September 30 to finalize.
+
+Under the model, participating manufacturers provide supplemental rebates so participating Medicaid programs can obtain selected covered outpatient drugs at net prices linked to prices paid in certain other countries. CMS negotiates with manufacturers, states invoice participating manufacturers for the supplemental rebates, and CMS monitors payment accuracy. Participating states also need to align operational and coverage policies, including managed-care requirements where applicable.
+
+Why it matters.
+
+This is not simply a federal drug-price announcement. It can affect state Medicaid pharmacy economics and coverage policy. CMS reported that net Medicaid prescription drug spending reached about sixty billion dollars in 2024. Even a meaningful reduction in selected drug costs can create state budget flexibility.
+
+For rural providers, however, the more immediate question is access and workflow. Standardized coverage criteria could reduce some variation, but a new rebate structure does not automatically translate into a simpler experience at the clinic or pharmacy counter. Rural leaders should watch whether prior authorization, formulary placement, specialty pharmacy requirements, managed-care plan alignment, and site-of-care rules actually become easier or simply different.
+
+What to watch or do.
+
+By September 30, verify Oklahoma’s final participation status rather than assuming an application equals a completed agreement. Then identify which drug categories are included, whether coverage criteria change, and whether any operational changes affect RHCs, behavioral health, hospital outpatient departments, or rural pharmacies. The executive question is straightforward: where does the model create real access or cost improvement at the point of care, and where does it simply move the financial mechanism behind the scenes?
+
+TOP DEVELOPMENT TWO: PROVIDER-TAX POLICY MOVES FROM COMMENTING TO IMPLEMENTATION WATCH
+
+What happened.
+
+The public-comment period for CMS-2452-P closed yesterday. The proposal addresses the indirect hold-harmless threshold for health-care-related taxes and implements statutory changes that will tighten a major component of Medicaid financing. CMS has estimated a reduction of roughly two hundred forty-six billion dollars in federal Medicaid expenditures over the 2026 through 2035 period under the proposal.
+
+The comment deadline is closed, but the underlying risk remains open.
+
+Why it matters.
+
+For rural hospitals, provider taxes should not be modeled in isolation. The same facility can be exposed to changes in state-directed payments, DSH, Medicaid enrollment, self-pay conversion, bad debt, and payment timing. Oklahoma adds another dimension because new federal work requirements for certain SoonerCare adults begin January 1, 2027. OHCA has already begun notifying potentially affected members.
+
+The Texas experience earlier this month is also useful. A dispute involving nearly twelve billion dollars in Medicaid funding was ultimately resolved, but providers faced substantial uncertainty while approvals were pending. The lesson is that a payment does not need to disappear permanently to create operating stress. A delay can be enough, particularly for a rural hospital with limited days cash on hand.
+
+What to watch or do.
+
+The finance model should now become a living implementation model. Establish explicit assumptions that trigger reforecasting when CMS publishes the final rule or when Oklahoma changes its financing structure. Keep a cash-timing scenario in addition to the annual income-statement scenario. At minimum, model thirty-, sixty-, and ninety-day delays in material supplemental payments.
+
+The key executive question is no longer whether the proposal deserves comment. It is which rural facilities and essential services lose resilience first under the combined effect of financing changes, eligibility churn, and delayed cash.
+
+TOP DEVELOPMENT THREE: RHC TELEHEALTH CONVERSION IS NINE DAYS AWAY
+
+What happened.
+
+On October 1, Rural Health Clinics and Federally Qualified Health Centers furnishing distant-site telehealth move away from G2025 and begin billing the individual CPT or HCPCS service code. Modifier 93 applies to qualifying synchronous audio-only services, while modifier 95 applies to synchronous audio-video services.
+
+Why it matters.
+
+This is a small-looking coding change with a large operational footprint. It touches provider documentation, scheduling, charge capture, coding, claim edits, clearinghouses, payer configuration, staff education, and denial management. Any remaining dependency on the old G2025 workflow can produce preventable denials or delayed cash.
+
+What to watch or do.
+
+The test should be end to end. Do not stop at confirming that the EHR contains the new code. Create the encounter, document it, generate the charge, apply the correct modifier, pass it through edits and the clearinghouse, and verify that the resulting claim is correct. If possible, validate payer-specific handling before September 30.
+
+The executive question is binary: can every RHC demonstrate a clean test claim before the conversion date?
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Two Oklahoma issues deserve to stay in view.
+
+The first is Medicaid operational readiness. SoonerCare work requirements begin January 1 for affected adults ages nineteen through sixty-four who do not qualify for an exemption. OHCA has begun outreach. For rural providers, the concern is not only coverage policy. It is the downstream revenue-cycle effect when patients move between Medicaid, self-pay, and potentially other coverage categories. Front-end eligibility processes, financial counseling, presumptive workflows where applicable, and bad-debt forecasting all need to anticipate greater churn.
+
+The second is how Oklahoma uses temporary transformation funding while these recurring financing pressures develop. KFF’s recent analysis estimates that the fifty-billion-dollar Rural Health Transformation Program equals only about thirty-seven percent of projected ten-year federal Medicaid reductions affecting rural areas, and that most of the Medicaid reductions occur after the transformation program ends. That does not make transformation investment unwise. It makes sustainability discipline essential.
+
+Every major rural investment should have a 2031 answer. Who pays the recurring software bill? Who staffs the program? What reimbursement supports the service? What happens when volume is lower than projected? Who replaces equipment? And what is the alternative if Medicaid supplemental financing is less favorable than today?
+
+That framework is more useful than asking whether a project is innovative. The relevant question is whether the capability remains economically and operationally durable after the grant is gone.
+
+AI AND TECHNOLOGY
+
+There are two developments to connect this morning.
+
+First, OpenAI has called for U.S. leadership in international technical standards for advanced artificial intelligence, including frontier systems and incident reporting. That follows the weekend discussion between U.S. and Chinese officials about a possible notification mechanism for significant AI safety incidents. No binding international framework exists yet, but the direction is notable. AI governance is moving from broad principles toward technical standards, reportability thresholds, independent evaluation, and defined escalation.
+
+Second, ARPA-H’s ADVOCATE program is investing sixty-two point seven million dollars over four years in patient-facing AI agents for heart failure. The program is intended to develop systems that can support patients between visits, monitor changes, interact directly with patients, and escalate to human clinicians. Participating developers are expected to pursue FDA authorization. Rural and underserved access is part of the use case because specialist availability is uneven.
+
+The rural opportunity is real. A validated digital agent could extend clinical reach between visits where cardiology access is scarce. But the governance threshold should rise as authority rises. A documentation assistant and an agent capable of influencing medication or clinical decisions should not live under the same control framework.
+
+The practical governance test is whether the organization can define exactly what the system is authorized to do, independently validate performance, log every material action, identify when the system is outside its approved envelope, and remove its authority without relying on the model itself to cooperate.
+
+SIGNALS
+
+No standing homepage signal changes direction today. Medicaid financing remains an increasing risk with high confidence. Rural regionalization continues to gain momentum with high confidence. Payer administrative friction remains potentially improving, but evidence is still only medium confidence until announced authorization reductions produce measurable operational results. Workforce localization remains an increasing investment trend.
+
+The more important movement is beneath the headline signals. Medicaid is becoming more bifurcated. On one side, financing constraints are tightening. On the other, models such as GENEROUS are trying to reduce specific categories of spending. Leaders should resist treating either as the whole story. Lower pharmacy spending can help a state budget, but it does not erase hospital financing exposure, coverage churn, or uncompensated care.
+
+The supporting evidence for these signals remains available in the app’s Signals section.
+
+EXECUTIVE ACTIONS
+
+Three actions should remain at the top of the queue.
+
+First, by September 30, verify Oklahoma’s final status in GENEROUS and determine whether participation changes drug coverage, managed-care workflows, or rural pharmacy access in a material way.
+
+Second, by September 30, complete the RHC telehealth test. Require an end-to-end claim, not merely an EHR configuration check.
+
+Third, during the fourth quarter, update the Medicaid downside model as CMS moves toward a final provider-tax rule. Keep provider taxes, state-directed payments, DSH, eligibility churn, uncompensated care, and cash timing in the same model. That is the only way to see the combined facility-level risk.
+
+DEADLINE WATCH
+
+September 30 is the remaining GENEROUS state participation agreement deadline and also the internal target for completing RHC telehealth testing.
+
+October 1 is the RHC and FQHC distant-site telehealth billing conversion. It is also the date for previously announced UnitedHealthcare authorization reductions, which creates the starting point for before-and-after administrative-friction measurement.
+
+October 15 is Oklahoma’s ROOTS Year Two rural school-wellness funding deadline.
+
+CLOSE
+
+What I would keep in view today is the transition from policy announcement to operating consequence. The provider-tax comment window is over. GENEROUS is entering a participation deadline. Telehealth coding changes in nine days. And clinical AI is moving toward patient-facing authority. In each case, the executive task is the same: convert the policy or technology into a specific operating model, identify the financial exposure, and define the control point before implementation reaches the front line.
