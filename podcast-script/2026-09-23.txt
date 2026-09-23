@@ -1,0 +1,93 @@
+Episode title: The Rural Update | September 23, 2026
+Edition date: 2026-09-23
+Generated time CT: 6:02 AM
+Estimated word count: 1,780
+Estimated run time: 12 minutes
+
+Good morning. This is The Rural Update for Wednesday, September 23, 2026. Today’s briefing is centered on three themes: rural transformation is becoming more regional and operational, federal cybersecurity policy is beginning to pair mandates with rural implementation funding, and a new North Carolina model may show how small hospitals can adopt artificial intelligence without each building its own governance infrastructure.
+
+EXECUTIVE BLUF
+
+The first point this morning is that Rural Health Transformation funding is increasingly revealing the delivery architecture states intend to build. Yesterday, CMS announced more than forty-five million dollars for Missouri. The package includes rural hospital infrastructure, rapid psychiatric consultation, maternal-health access, and EMS workforce development. That follows New Mexico’s seventy-four-million-dollar regional hub approach, which is organizing specialty, maternal, behavioral, chronic-disease, and other services around six regional organizations serving rural, frontier, and Tribal communities.
+
+The pattern matters. Transformation is not simply buying equipment. States are using temporary federal dollars to build regional capability around local access points. The question for rural networks is which capabilities truly need to sit inside every hospital and clinic, and which should be shared across a region while preserving local care whenever clinically appropriate.
+
+Second, federal cybersecurity legislation is becoming more consequential for rural hospitals. The reintroduced Health Infrastructure Security and Accountability Act would establish mandatory minimum cybersecurity standards, continuity planning, annual testing, and independent audits. Importantly, it also proposes one-point-three billion dollars in hospital support, including eight hundred million dollars for rural and underserved hospitals. Whether the bill advances is uncertain, but the policy design is significant because it recognizes that mandatory standards without implementation resources can impose a disproportionate burden on small providers.
+
+Third, artificial intelligence adoption is beginning to develop a rural shared-services model. UNC Health and partners announced the North Carolina Collaborative Health AI Network, or NC CHAIN. A four-point-four-million-dollar, three-year Duke Endowment grant will support a statewide infrastructure to help rural hospitals, critical access hospitals, clinics, and other resource-limited providers evaluate and adopt AI responsibly. The strategic concept is more important than the specific grant. Small hospitals generally cannot maintain their own data-science, informatics, legal, compliance, cybersecurity, and model-validation teams. Shared expertise may become the practical way rural providers participate in AI without accepting unmanaged risk.
+
+For Oklahoma, two immediate execution items remain unchanged. Confirm the state’s final GENEROUS Medicaid drug-pricing participation status by September thirtieth, and make sure every RHC can produce a clean end-to-end telehealth claim before the October first billing conversion.
+
+DEVELOPMENT ONE: RURAL TRANSFORMATION IS BECOMING A REGIONAL OPERATING MODEL
+
+What happened. CMS announced more than forty-five million dollars in Rural Health Transformation funding for Missouri on September twenty-second. The projects include hospital infrastructure improvements, access to behavioral and maternal-health specialists, and rural EMS workforce development. New Mexico’s recently announced seventy-four-million-dollar initiative uses six Regional Hub Organizations to coordinate with local providers and communities and improve specialty, maternal, behavioral, chronic-disease, and other care in rural, frontier, and Tribal areas.
+
+These awards add to a pattern we have been watching across states. Kansas is using transformation dollars for emerging technology and interfacility transportation. Mississippi has funded interoperability, cybersecurity, remote monitoring, equipment, and specialty access. South Carolina is combining physical care sites with mobile care, telehealth, remote monitoring, pharmacy kiosks, and other distributed capabilities. Connecticut is putting money directly into rural hospital infrastructure and equipment.
+
+Why it matters. The operating model is becoming clearer. The strongest rural transformation strategies appear to combine a durable local access point with regional capabilities that can be shared. That can include specialty consultation, transportation, workforce support, digital infrastructure, cybersecurity, data exchange, and some clinical programs.
+
+That approach can be more realistic than attempting to replicate every service at every small hospital. But regionalization creates its own risks. If the shared capability bypasses the local hospital rather than strengthening it, transformation can unintentionally accelerate leakage. If the program depends on grant-funded staffing or software with no recurring payer, it can become an unfunded obligation after 2030.
+
+What to watch or do. For every major transformation investment, ask two questions. First, does this capability belong locally, regionally, or at a tertiary center? Second, who pays the recurring operating cost in 2031? A regional service should have explicit rules for local referral, escalation to higher capability, and return to the local system when higher-level care is no longer required. The app’s Signals section has the supporting evidence for the broader regionalization trend.
+
+DEVELOPMENT TWO: CYBERSECURITY POLICY IS PAIRING STANDARDS WITH RURAL CAPITAL
+
+What happened. Senators Mark Warner and Ron Wyden have reintroduced the Health Infrastructure Security and Accountability Act. The proposal would require HHS to establish and enforce minimum cybersecurity standards across healthcare providers, plans, clearinghouses, and business associates. It would require continuity plans, annual cybersecurity testing, and independent security audits. The bill would also increase federal oversight and accountability.
+
+For rural hospitals, the funding component deserves particular attention. The legislation proposes one-point-three billion dollars for hospitals, including eight hundred million dollars directed toward rural and underserved hospitals.
+
+This proposal now sits alongside other congressional work on rural cybersecurity, including the Rural Hospital Cybersecurity Enhancement Act considered in the House health hearing last week.
+
+Why it matters. Rural cybersecurity policy has a basic economic problem. A critical access hospital and a large academic medical center can face many of the same threat categories, but they do not have remotely comparable revenue bases, IT staffs, or capital budgets. A requirement for independent audits, business continuity testing, identity management, segmentation, backup resilience, endpoint protection, and incident response can be clinically justified and still be financially difficult for a small hospital.
+
+The Senate proposal is notable because it explicitly connects stronger standards with implementation funding. That is a more workable rural policy structure than simply imposing another compliance mandate.
+
+What to watch or do. Do not wait for the bill to pass before understanding the gap. A rural network should be able to inventory which controls are already provided centrally, which are duplicated locally, and which remain materially deficient. Shared cybersecurity can be one of the clearest advantages of affiliation if the network converts scale into stronger controls at a lower per-facility cost.
+
+DEVELOPMENT THREE: SHARED AI GOVERNANCE MAY BECOME RURAL INFRASTRUCTURE
+
+What happened. UNC Health, UNC Chapel Hill, Duke, the Sheps Center, the Duke Margolis Institute, and other partners have launched NC CHAIN. The initiative is supported by a four-point-four-million-dollar grant over three years from The Duke Endowment. Its purpose is to help rural hospitals, critical access hospitals, community clinics, and other resource-limited organizations evaluate and adopt health AI safely and effectively.
+
+The premise is straightforward. Large systems may have data scientists, informatics leaders, compliance teams, cybersecurity staff, and legal resources capable of evaluating AI vendors. Most small rural organizations do not.
+
+Why it matters. AI could be disproportionately valuable in rural healthcare because workforce scarcity makes automation and clinical support more valuable. The same scarcity also makes safe implementation harder. A hospital with limited informatics resources may be asked to evaluate model performance, data provenance, privacy, workflow integration, hallucination risk, bias, cybersecurity, contracting, monitoring, and incident response. That is not a realistic facility-by-facility expectation.
+
+A shared evaluation and governance layer offers another path. A network can validate tools once, define approved use cases, establish minimum controls, monitor performance, negotiate common vendor terms, and then allow local organizations to adopt within those guardrails.
+
+What to watch or do. The strategic question is whether AI governance should become a network service in the same way that many systems centralize cybersecurity, contracting, compliance, or revenue-cycle expertise. The North Carolina model is worth watching because it may offer a scalable structure for rural affiliates that want access to AI without duplicating an enterprise governance function at every facility.
+
+OKLAHOMA AND RURAL OPERATING VIEW
+
+For Oklahoma, the immediate calendar remains tight. The GENEROUS Medicaid drug-pricing decision window runs through September thirtieth for states that have not finalized participation agreements. CMS says every state Medicaid program applied, but not every state had signed as of September eighteenth. Oklahoma’s final status should be verified rather than assumed. If Oklahoma participates, the operational review should cover pharmacy policy, covered drug classes, supplemental rebates, managed-care alignment, formulary implications, and whether standardized coverage rules change access for rural patients.
+
+The second deadline is October first for RHC and FQHC distant-site telehealth billing. Individual CPT or HCPCS service codes replace G twenty-twenty-five, with modifier ninety-three for qualifying synchronous audio-only services and modifier ninety-five for synchronous audio-video services. At eight days out, the relevant question is no longer whether staff received education. It is whether the organization can demonstrate a clean claim from documentation through charge capture, coding, edits, clearinghouse, and payer submission.
+
+There is also a broader operational lesson in today’s Missouri and New Mexico announcements. Regional capability should strengthen the local hospital rather than create another bypass channel. When higher-level or specialty care is needed, the network should make escalation easy. When that level of care is no longer required, the pathway back to the local system should be equally deliberate.
+
+SIGNALS
+
+Two signals deserve emphasis today.
+
+First, rural regionalization continues to strengthen at high confidence. Missouri and New Mexico add to a growing body of state implementation evidence. Regional hubs, specialist extension, transportation, technology, workforce programs, and shared infrastructure are becoming recurring design elements. The strategic opportunity is scale without abandoning local access. The risk is creating regional programs whose recurring costs or referral patterns weaken the local provider.
+
+Second, AI governance is becoming an infrastructure question rather than merely a technology-policy question. NC CHAIN is important because it addresses the capability gap directly. The issue is not whether a rural hospital wants AI. The issue is whether it has the expertise to determine which AI is safe, effective, compliant, and worth paying for. Shared evaluation may become a necessary layer of rural digital infrastructure.
+
+The standing Medicaid financing, payer-friction, and workforce signals remain directionally unchanged today.
+
+EXECUTIVE ACTIONS
+
+There are three actions to carry forward.
+
+First, by September thirtieth, complete RHC telehealth test claims. Require proof of an end-to-end transaction, not simply a configuration checklist. Validate the code, modifier, documentation, claim edits, clearinghouse path, and staff workflow.
+
+Second, by September thirtieth, verify Oklahoma’s final GENEROUS participation and translate the answer into pharmacy and managed-care implications. Do not assume that lower Medicaid net drug costs automatically mean easier patient access.
+
+Third, during the fourth quarter, perform a rural cyber and AI shared-services gap assessment. For cybersecurity, compare existing controls with the direction of federal proposals around minimum standards, continuity planning, annual testing, and independent audit. For AI, identify which evaluation and governance functions should be centralized across a rural affiliate network rather than replicated locally.
+
+DEADLINE WATCH
+
+September thirtieth is the remaining GENEROUS state participation deadline and the internal target for RHC telehealth test claims. October first is the RHC and FQHC telehealth billing conversion and also the start point for measuring announced UnitedHealthcare prior-authorization reductions against the September baseline. October fifteenth remains the Oklahoma ROOTS Year Two rural school-wellness funding deadline.
+
+One additional federal item is on today’s calendar. The Senate Special Committee on Aging will examine domestic generic-drug manufacturing and pharmaceutical supply-chain resilience this afternoon. Rural hospitals should watch for proposals affecting essential generic availability, domestic production incentives, and supply reliability.
+
+What I would keep in view today is this: rural scale does not have to mean centralizing care away from the community. The more durable model may be to keep the access point local while sharing the expensive capabilities that small organizations cannot efficiently build alone, including specialty expertise, cybersecurity, data infrastructure, and increasingly AI governance. Supporting evidence and source material are available in the app’s Signals and Sources sections.
