@@ -117,7 +117,7 @@ def main():
             "title": title,
             "description": intro or "Daily rural healthcare executive intelligence briefing.",
             "pub_dt": pub_dt,
-            "audio_url": f"{BASE_URL}/audio/{date}.mp3",
+            "audio_url": f"{BASE_URL}/audio/{date}.mp3?v={audio_path.stat().st_size}",
             "length": audio_path.stat().st_size,
             "duration": duration_text(duration),
         }
