@@ -1,5 +1,140 @@
 Episode title: The Rural Update | September 25, 2026
 Edition date: 2026-09-25
 Generated time CT: 6:03 AM
-Estimated word count: draft pending
-Estimated run time: draft pending
+Estimated word count: 1,790
+Estimated run time: 12 minutes
+
+THE RURAL UPDATE
+Friday, September 25, 2026
+
+OPENING
+
+Good morning. This is The Rural Update for Friday, September 25. Today’s briefing centers on payer scrutiny of AI-assisted coding, the final readiness window for the RHC telehealth billing conversion, and the continuing rural workforce and regionalization pressures.
+
+EXECUTIVE BLUF
+
+Here is the executive bottom line.
+
+The most important new development is a Blue Cross Blue Shield Association analysis of AI-assisted hospital coding. BCBSA estimates that increased coding of medical complexity added 942 million dollars in spending for Blue plans between 2023 and 2025, while its claims analysis found no evidence of a corresponding change in care delivered. The association reports that medically complex inpatient cases increased from 37 percent at the beginning of 2023 to 40 percent by the end of 2025. This does not establish that AI-assisted coding is improper. More complete documentation can legitimately identify severity that was previously under-recorded. But it gives payers a quantitative basis for stronger coding edits, audits and contract scrutiny.
+
+Second, the RHC and FQHC telehealth billing conversion is six days away. Beginning October 1, distant-site telehealth moves from G2025 to individual CPT or HCPCS service codes with the applicable audio-only or audio-video modifier. At this point, readiness should be demonstrated with a clean end-to-end test claim.
+
+Third, rural workforce and transformation policy remain active. The new H-1B fee environment can materially change international recruitment economics for hard-to-fill rural roles. Rural Health Transformation implementation continues to reinforce a regional model in which local access is supported by shared specialty, technology, workforce, transportation and data capabilities.
+
+TOP DEVELOPMENT ONE: AI CODING BECOMES A PAYER PAYMENT-INTEGRITY ISSUE
+
+What happened.
+
+Blue Cross Blue Shield Association released a claims analysis examining changes in hospital coding as AI documentation and coding tools became more common. BCBSA estimates that higher coding intensity added 942 million dollars in spending for Blue plans from 2023 through 2025. It attributes 653 million dollars to secondary diagnoses that moved more than 55,000 inpatient stays into higher-paying diagnosis-related groups.
+
+BCBSA’s core finding is that the share of inpatient cases coded as medically complex rose from 37 percent at the beginning of 2023 to 40 percent by the end of 2025, while its analysis did not find evidence of a corresponding change in care delivered.
+
+That finding needs careful interpretation. It is a payer analysis, not a regulatory finding of wrongdoing. Better documentation can identify clinically valid severity that was previously missed, and hospitals are required to code the medical record accurately. The issue is that payers now have a large claims dataset and a specific financial estimate supporting the argument that AI may be increasing reimbursement faster than clinical intensity.
+
+Why it matters.
+
+Revenue-cycle AI is moving into the same contested environment as prior authorization, medical necessity and retrospective audit. A tool that improves documentation completeness may generate legitimate reimbursement. The same improvement can trigger payer algorithms, coding validation, contract disputes and allegations of upcoding.
+
+For rural hospitals, this creates a governance challenge. Small organizations often lack dedicated clinical validation, coding analytics and payer-audit teams. If AI raises case mix or complication capture, the hospital needs to be able to prove that the increase is supported by the clinical record rather than simply point to the vendor’s recommendation.
+
+What to watch or do.
+
+Inventory AI-assisted documentation and coding tools. Establish pre-implementation and post-implementation baselines for case-mix index, complication and major-complication capture, denial rates, retrospective audits, appeal overturns and days to payment. Sample records for clinical support, not merely coding-rule compliance.
+
+This also belongs in payer strategy. Prior authorization may decline while retrospective payment-integrity activity rises. Administrative friction can migrate from the front of the claim to the back of the claim.
+
+The executive question is simple: can the organization demonstrate that AI-associated increases in coding intensity are clinically supported and defensible under payer audit?
+
+TOP DEVELOPMENT TWO: H-1B POLICY BECOMES A RURAL WORKFORCE RISK
+
+What happened.
+
+The White House renewed for another year a one-hundred-thousand-dollar payment requirement affecting certain new H-1B petitions for workers entering the United States. The policy runs into September 2027 and includes limited national-interest exceptions.
+
+Separately, the Department of Homeland Security has proposed a one-hundred-three-thousand-two-hundred-sixty-five-dollar fee for H-1B petitions subject to statutory caps. The American Hospital Association submitted comments asking DHS to exempt healthcare professionals and protect foreign-trained physicians using pathways such as the Conrad 30 waiver program.
+
+AHA cites federal workforce projections showing a national physician shortage exceeding one hundred forty-one thousand full-time equivalents by 2038, with greater shortages in rural and non-metro areas. It also cites a projected non-metro nursing shortage and persistent laboratory workforce vacancies.
+
+Why it matters.
+
+The rural effect is straightforward. A large urban system may be able to absorb a major immigration-related recruitment expense for a difficult-to-fill specialist. A small rural hospital or independent practice may not. A fee large enough to approach or exceed a meaningful portion of annual compensation can change whether international recruitment is economically feasible at all.
+
+This matters particularly where foreign-trained physicians are part of the strategy for filling persistent rural vacancies. It also matters for specialized laboratory, technology and other professional roles where domestic recruitment is already difficult.
+
+The policy argument has two sides. The administration’s stated objective is to prevent abuse of the H-1B program, protect American workers and prioritize higher-skilled, higher-paid positions. Hospitals and health systems are arguing that healthcare shortages, especially in rural communities, justify targeted exemptions rather than blanket application of the fees.
+
+What to watch or do.
+
+Do not treat this only as a government-affairs issue. Quantify actual exposure. Identify current rural vacancies, candidates and recruitment pipelines that depend on H-1B or Conrad 30 pathways. Then model the cost under the existing payment requirement, the proposed DHS fee and a healthcare-exemption scenario.
+
+That converts a national policy debate into a workforce planning question that can be managed.
+
+TOP DEVELOPMENT THREE: RHTP STARTS TO PUT NUMBERS AROUND PRODUCTIVITY
+
+What happened.
+
+West Virginia announced the first award from its Rural Health Transformation Provider Productivity Support Fund. The five-hundred-thousand-dollar project will support a rural provider with a 24-hour AI-powered patient contact center, AI clinical documentation tools, expanded Chronic Care Management and Remote Patient Monitoring for patients with diabetes and hypertension.
+
+The contact center is intended to handle routine needs such as appointment scheduling, medication refill requests, referrals and billing questions. The chronic-care component is expected to more than double enrollment, from forty-one patients to at least ninety, while adding remote monitoring.
+
+Why it matters.
+
+This is one of the more useful RHTP examples because it can be evaluated against concrete operating measures. How many calls are resolved without staff intervention? How much documentation time is saved? Does appointment access improve? Does Chronic Care Management enrollment grow? Does remote monitoring generate reimbursable activity and improve intervention before an emergency visit?
+
+Those are better questions than whether the organization successfully installed an AI product.
+
+The sustainability question is equally important. Grant dollars can pay implementation costs, but software subscriptions, support, connectivity, device replacement and staff oversight continue. The investment therefore needs either recurring reimbursement, measurable labor savings, avoided expense, improved capacity or some combination of those benefits.
+
+What to watch or do.
+
+For Oklahoma transformation projects, require a productivity hypothesis before funding and a sustainability model before scaling. Every technology proposal should identify the operating metric it intends to improve and who pays the recurring cost in 2031.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+The Nowata transition and the West Virginia productivity project point toward the same larger rural strategy.
+
+Rural healthcare is becoming less about replicating the traditional full-service hospital everywhere and more about deliberately designing the local and regional capability mix.
+
+Some capabilities need to remain local: emergency stabilization, diagnostics, primary care, routine outpatient care and selected post-acute services where volume supports them. Other capabilities may be more sustainable as shared services: specialty consultation, cybersecurity, AI governance, revenue-cycle expertise, remote monitoring infrastructure and certain workforce functions.
+
+The mistake would be to regionalize by default or localize by nostalgia. The correct design question is which capability produces the best combination of safety, access, economics and resilience at each level.
+
+For Oklahoma, Nowata should therefore be watched beyond the hospital itself. The useful data will include transfer patterns, ambulance availability, receiving-hospital burden and whether patients can return to local care promptly after higher-acuity treatment.
+
+The same principle applies to RHTP. Technology that increases local capability is useful. Technology that merely moves expense into a future operating budget without a revenue source is not transformation. It is deferred subsidy.
+
+SIGNALS
+
+Two signals deserve attention today.
+
+First, rural regionalization continues to strengthen. The evidence is no longer limited to planning documents. States are financing regional specialty access, shared infrastructure, transportation, workforce programs and now provider-productivity platforms. Confidence remains high.
+
+Second, workforce localization is becoming more complicated. States are investing heavily in local training and recruitment, but federal immigration policy may make one established recruitment pathway more expensive. That does not reverse the workforce-localization signal, but it increases the importance of domestic pipelines, residency relationships, advanced-practice recruitment and targeted international strategies where exemptions remain available.
+
+No standing signal direction changes today. The new information changes the operating context rather than the direction of the underlying trends.
+
+EXECUTIVE ACTIONS
+
+Three actions.
+
+First, by September 30, require every RHC to complete an end-to-end telehealth test claim. Validate the service code, modifier, documentation, charge capture, claim edits and clearinghouse transmission. October 1 is now one week away.
+
+Second, during the fourth quarter, use the Nowata REH conversion as an Oklahoma case study. Build a simple framework for transfer capacity, EMS burden, swing-bed loss, receiving-hospital relationships and return-to-local-care pathways. That framework can inform future REH discussions elsewhere.
+
+Third, quantify H-1B workforce exposure. Identify which rural positions and physician recruitment pipelines depend on H-1B or Conrad 30 pathways. Put a dollar value on the federal policy scenarios rather than waiting for a difficult recruitment to surface the issue.
+
+DEADLINE WATCH
+
+September 30 is the deadline for remaining state participation agreements under the CMS GENEROUS Medicaid drug-pricing model.
+
+October 1 is the RHC and FQHC telehealth billing conversion from G2025 to individual service codes.
+
+October 1 is also the starting point for previously announced UnitedHealthcare authorization reductions, making it the baseline date for before-and-after administrative-friction measurement.
+
+October 15 is the Oklahoma ROOTS Year 2 rural school-wellness funding deadline.
+
+CLOSE
+
+What I would keep in view today is the connection between access and infrastructure. Nowata shows that preserving a rural emergency access point requires a functioning regional system around it. West Virginia shows that technology funding is most useful when it is tied to measurable productivity and recurring economics. And the H-1B issue shows that workforce strategy can be altered quickly by policy outside the traditional healthcare payment system.
+
+Supporting evidence and source materials are available in the app’s Sources and Signals sections.
