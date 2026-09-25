@@ -48,6 +48,23 @@ jobs:
           echo "path=$latest" >> "$GITHUB_OUTPUT"
           echo "date=$date" >> "$GITHUB_OUTPUT"
 
+      - name: Validate podcast script
+        if: steps.script.outputs.found == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          script="${{ steps.script.outputs.path }}"
+          if grep -qi "draft pending" "$script"; then
+            echo "::error::Podcast script is still a placeholder (draft pending)."
+            exit 1
+          fi
+          words="$(awk 'BEGIN{body=0} /^$/{if(body==0){body=1; next}} body{count+=NF} END{print count+0}' "$script")"
+          echo "Podcast spoken-body word count: $words"
+          if [ "$words" -lt 1200 ]; then
+            echo "::error::Podcast script is too short for a complete episode. Minimum spoken-body length is 1200 words."
+            exit 1
+          fi
+
       - name: Check audio credentials
         if: steps.script.outputs.found == 'true'
         id: credentials
