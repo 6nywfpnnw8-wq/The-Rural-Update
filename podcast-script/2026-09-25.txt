@@ -1,5 +1,105 @@
 Episode title: The Rural Update | September 25, 2026
 Edition date: 2026-09-25
-Generated time CT: 6:03 AM
-Estimated word count: draft pending
-Estimated run time: draft pending
+Generated time CT: 7:58 AM
+Estimated word count: approximately 1,820
+Estimated run time: approximately 12 minutes
+
+OPENING
+
+This is The Rural Update for Friday, September 25, 2026. The central theme this morning is that rural transformation is moving from broad policy language into specific operating models. New federal awards are showing what states are actually buying: workforce pipelines, mobile care, remote monitoring, behavioral health capacity, chronic disease management, technology modernization, and stronger regional coordination. At the same time, Oklahoma’s newest Rural Emergency Hospital continues to illustrate the tradeoff between preserving a local hospital access point and losing inpatient and swing-bed capability. There are three developments to focus on this morning, followed by the Oklahoma implications, signals, actions, and near-term deadlines.
+
+EXECUTIVE BLUF
+
+First, the Rural Health Transformation Program is becoming easier to read strategically. CMS announced new awards this week in Arkansas, Delaware, and South Dakota. Although the projects differ by state, the pattern is consistent: federal capital is being used to redesign how rural care is delivered rather than simply preserve every legacy service exactly as it exists today. The recurring themes are distributed access, stronger workforce pipelines, chronic disease management, telehealth, remote monitoring, behavioral health, mobile care, and modernization of underlying technology.
+
+Second, Oklahoma now has a very visible case study in the Rural Emergency Hospital model. Ascension St. John Nowata has converted to REH status. The community retains a hospital-based emergency and outpatient access point, but acute inpatient and swing-bed services are no longer provided locally. The operational question is no longer whether emergency access was preserved. It was. The next question is whether the surrounding transfer, EMS, receiving-hospital, and post-acute network is strong enough to absorb what moved out of the local facility.
+
+Third, the October first Rural Health Clinic telehealth billing conversion is now inside the final readiness window. This is not a policy issue that should still be sitting only with compliance or revenue cycle leadership. Every affected clinic should be able to demonstrate a clean end-to-end test claim, including documentation, coding, modifier selection, claim edits, clearinghouse transmission, and payer acceptance.
+
+The practical message for rural executives is straightforward. Transformation capital is accelerating, but temporary funding does not remove the need for a permanent operating model. Service redesign is increasing, but every redesign moves clinical and logistical dependencies somewhere else. And near-term reimbursement changes still require disciplined execution even while larger strategic changes are underway.
+
+TOP DEVELOPMENT ONE: RURAL HEALTH TRANSFORMATION MOVES INTO SPECIFIC DELIVERY MODELS
+
+CMS announced fifty-four point six million dollars in Rural Health Transformation funding for Arkansas on September twenty-four. The Arkansas package supports fifty-four projects. The portfolio includes rural workforce recruitment and training, maternal health services, chronic disease prevention, mobile preventive screening, telehealth, remote monitoring, coordinated care, and emergency response infrastructure.
+
+CMS also announced nearly twenty-three million dollars for rural Delaware. That investment is focused on the state’s three Federally Qualified Health Centers and includes mobile health units, remote patient monitoring, cybersecurity upgrades, and expanded care teams.
+
+South Dakota received a separate thirteen million dollar investment that includes a twenty-four-seven mobile crisis response service, behavioral health modernization, workforce development, technology infrastructure, and expansion of emergency, maternal, preventive, and chronic disease services.
+
+What happened is important, but the pattern across these states matters more than any individual award. Rural transformation is not being expressed as one standardized hospital model. States are building combinations of fixed infrastructure, mobile capability, virtual care, behavioral health access, workforce pipelines, remote monitoring, and regional coordination.
+
+Why it matters: rural organizations should not evaluate transformation opportunities only by asking how much grant funding is available. The better question is what operating capability the funding creates and whether that capability has a sustainable revenue, staffing, technology, and replacement-capital model when the grant ends.
+
+What to watch or do: for every RHTP investment, require a simple sustainability profile. Identify the recurring annual expense after the grant. Identify the workforce required to operate it. Identify whether reimbursement exists. Estimate the patient volume required. Determine whether the investment supports value-based performance, reduces avoidable cost, or requires an ongoing subsidy. And identify the fallback plan if Medicaid supplemental financing or other external support weakens later in the decade.
+
+TOP DEVELOPMENT TWO: OKLAHOMA’S NEWEST REH MAKES THE NETWORK QUESTION MORE IMPORTANT
+
+Ascension St. John Nowata is now operating as a Rural Emergency Hospital. Under the REH model, the facility continues twenty-four-seven emergency services and outpatient care, but acute inpatient and swing-bed services are no longer available locally.
+
+This is a useful Oklahoma case because it demonstrates both what REH status protects and what it changes. The conversion can preserve a physical hospital access point in a community where maintaining traditional inpatient operations may not be sustainable. But removing inpatient and swing-bed capacity does not eliminate the underlying need for those services. It relocates that demand.
+
+That means the real performance of the model depends partly on assets outside the REH itself. EMS must be able to move patients when higher-level care is needed. Receiving hospitals must have capacity. Transfer processes must be reliable. Patients who no longer need acute tertiary care may need a clear route back to an appropriate rural setting. Post-acute capacity matters because swing-bed loss can create a gap between hospital discharge and safe return home.
+
+Why it matters: conversion decisions should not be evaluated only at the facility level. They should be evaluated at the regional network level. A financially sustainable emergency and outpatient facility can still create access problems if transport, receiving capacity, or post-acute services are weak.
+
+What to watch or do: Oklahoma rural systems should use Nowata as a live operating case study. Track transfer times, EMS burden, destination patterns, patient travel, receiving-hospital capacity, and post-acute pathways. Those measures will provide more useful evidence about the real-world performance of REH conversion than facility-level financial results alone.
+
+TOP DEVELOPMENT THREE: THE RHC TELEHEALTH BILLING DEADLINE IS NOW OPERATIONAL
+
+October first is now less than a week away. Rural Health Clinics and Federally Qualified Health Centers furnishing distant-site telehealth are moving away from G twenty twenty-five and toward billing individual CPT or HCPCS service codes. Modifier ninety-three applies to qualifying audio-only services and modifier ninety-five applies to synchronous audio-video services when appropriate.
+
+The most important point this morning is that policy awareness is no longer enough. Readiness needs to be demonstrated through a successful test claim.
+
+Why it matters: a clinic can have correct written guidance and still experience denials if one link in the revenue-cycle chain is not ready. Documentation templates, charge capture, coding logic, claim edits, clearinghouse configuration, payer rules, and staff workflows all have to align.
+
+What to watch or do: require every affected RHC to produce at least one end-to-end test scenario before September thirtieth. Confirm the code, modifier, place of service, documentation, claim transmission, and payer response. Where multiple Medicare Advantage or commercial plans are material, do not assume that one successful Medicare test establishes readiness across all payers.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+For Oklahoma, two themes deserve particular attention.
+
+The first is regional architecture. REH conversion, rural transformation funding, and workforce constraints all push toward the same strategic question: which services must remain local because distance itself creates clinical risk, and which services can be organized regionally without degrading access?
+
+Emergency stabilization, primary care, basic diagnostics, chronic disease management, and selected post-acute functions often have strong arguments for local availability. Other services may be safer or more sustainable when organized across multiple communities through shared specialists, rotating services, telehealth, regional staffing models, or formal transfer relationships.
+
+The second theme is sustainability after temporary funding. RHTP can finance technology, equipment, startup programs, workforce initiatives, and new care models. But it does not automatically create durable reimbursement. Oklahoma organizations should attach a post-grant operating plan to every major investment now, not in twenty thirty-one.
+
+That plan should answer who staffs the service, who maintains the technology, what licensing or vendor costs recur, how much volume is needed, what payers reimburse, what value-based savings might be available, and what happens if the initiative requires subsidy after federal funding stops.
+
+SIGNALS
+
+Two signals changed enough to warrant attention today.
+
+The first is rural regionalization. Confidence remains high and the direction continues upward. The evidence is becoming more concrete. New RHTP awards increasingly combine hospital infrastructure with mobile services, virtual access, remote monitoring, behavioral health, shared workforce development, and regional coordination. The signal is not that local hospitals disappear. The signal is that sustainable rural delivery is increasingly being designed as a network rather than as a collection of fully independent facilities.
+
+The second is workforce localization and redesign. The Arkansas and South Dakota awards place workforce recruitment, training, and retention alongside technology and access investments. That matters because technology does not substitute for workforce strategy. Remote monitoring, telehealth, mobile crisis response, and chronic care management still require people, workflows, and accountability. The emerging model is technology-enabled workforce productivity, not technology in isolation.
+
+Supporting CMS and Oklahoma references are available in The Rural Update app and Signals library.
+
+EXECUTIVE ACTIONS
+
+Three actions should remain on the executive queue.
+
+First, complete RHC telehealth readiness by September thirtieth. Require a clean test claim and do not close the item based only on education or vendor assurances.
+
+Second, use Oklahoma’s REH experience to build a regional access scorecard. Include transfer time, EMS burden, receiving capacity, post-acute availability, patient travel, and the ability to return patients to local care when higher-level services are no longer required.
+
+Third, require a sustainability worksheet for every significant Rural Health Transformation investment. The worksheet should include recurring expense, staffing, technology and licensing costs, reimbursement assumptions, expected volume, value-based opportunity, subsidy exposure, and an alternative plan if future Medicaid financing becomes less favorable.
+
+DEADLINE WATCH
+
+September thirtieth is the operational deadline for final RHC telehealth readiness testing.
+
+October first is the Rural Health Clinic and Federally Qualified Health Center telehealth billing conversion date.
+
+October first is also an important payer-administration milestone for organizations tracking previously announced authorization reductions. Use the implementation date as the baseline for before-and-after measurement of authorization volume, denial rates, staff time, and days to payment.
+
+October fifteenth remains an Oklahoma rural funding date worth tracking for organizations involved in the ROOTS school-wellness initiative.
+
+CLOSING
+
+What I would keep in view today is the distinction between funding and architecture. Rural transformation dollars can buy technology, equipment, mobile capacity, workforce programs, and new care models. The durable value comes from how those pieces are assembled into a regional delivery system that still works after the grant is gone.
+
+The strongest rural strategy is unlikely to be every hospital independently doing everything. It is also not simply removing services from rural communities. It is deciding deliberately what must remain local, what can be shared, how patients move safely between levels of care, and how each capability will be financed over time.
+
+That is The Rural Update for Friday, September twenty-fifth.
