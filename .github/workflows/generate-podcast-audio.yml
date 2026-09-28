@@ -127,4 +127,6 @@ jobs:
             exit 0
           fi
           git commit -m "Publish podcast episode for ${{ steps.script.outputs.date }}"
+          git fetch origin main
+          git rebase origin/main
           git push origin HEAD:main
