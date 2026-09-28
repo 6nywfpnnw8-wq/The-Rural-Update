@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Fri, 25 Sep 2026 07:51:03 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 07:06:25 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | September 27, 2026</title>
+      <description>This is The Rural Update for Sunday, September 27, 2026. The weekend picture is relatively clear: federal rural transformation funding continues to favor regional and distributed care models, CMS has launched a major Medicaid quality initiative with thirty-seven state partners, and Oklahoma now has a new federally supported rural maternity network opportunity through Duncan Regional Hospital. The immediate operational deadline remains October first for Rural Health Clinic telehealth billing conversion.</description>
+      <content:encoded>This is The Rural Update for Sunday, September 27, 2026. The weekend picture is relatively clear: federal rural transformation funding continues to favor regional and distributed care models, CMS has launched a major Medicaid quality initiative with thirty-seven state partners, and Oklahoma now has a new federally supported rural maternity network opportunity through Duncan Regional Hospital. The immediate operational deadline remains October first for Rural Health Clinic telehealth billing conversion.</content:encoded>
+      <pubDate>Sun, 27 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-27</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-27.mp3?v=6215469" length="6215469" type="audio/mpeg" />
+      <itunes:duration>6:28</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Sunday, September 27, 2026. The weekend picture is relatively clear: federal rural transformation funding continues to favor regional and distributed care models, CMS has launched a major Medicaid quality initiative with thirty-seven state partners, and Oklahoma now has a new federally supported rural maternity network opportunity through Duncan Regional Hospital. The immediate operational deadline remains October first for Rural Health Clinic telehealth billing conversion.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-09-27.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | September 25, 2026</title>
       <description>This is The Rural Update for Friday, September 25, 2026. The central theme this morning is that rural transformation is moving from broad policy language into specific operating models. New federal awards are showing what states are actually buying: workforce pipelines, mobile care, remote monitoring, behavioral health capacity, chronic disease management, technology modernization, and stronger regional coordination. At the same time, Oklahoma’s newest Rural Emergency Hospital continues to illustrate the tradeoff between preserving a local hospital access point and losing inpatient and swing-bed capability. There are three developments to focus on this morning, followed by the Oklahoma implications, signals, actions, and near-term deadlines.</description>
