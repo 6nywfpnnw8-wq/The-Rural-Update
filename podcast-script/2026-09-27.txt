@@ -1,0 +1,107 @@
+Episode title: The Rural Update | September 27, 2026
+Edition date: 2026-09-27
+Generated time CT: 8:15 PM
+Estimated word count: approximately 1,520
+Estimated run time: approximately 10 to 11 minutes
+
+OPENING
+
+This is The Rural Update for Sunday, September 27, 2026. The weekend picture is relatively clear: federal rural transformation funding continues to favor regional and distributed care models, CMS has launched a major Medicaid quality initiative with thirty-seven state partners, and Oklahoma now has a new federally supported rural maternity network opportunity through Duncan Regional Hospital. The immediate operational deadline remains October first for Rural Health Clinic telehealth billing conversion.
+
+EXECUTIVE BLUF
+
+The most important new development since the last full app edition is CMS's Investing in Health Outcomes initiative. CMS says thirty-seven states are participating in a voluntary Medicaid quality pledge built around four principles: prioritize health outcomes over process, reduce duplicative quality measures, advance digital quality measurement, and align financial accountability more directly with outcomes. Oklahoma is publicly supportive of the initiative.
+
+For rural providers, this matters because quality strategy can become a contracting and data issue very quickly. If Oklahoma moves these principles into SoonerSelect quality requirements, procurement expectations, or value-based arrangements, rural hospitals and Rural Health Clinics may need stronger digital measurement capability and clearer attribution for chronic disease, prevention, and behavioral health outcomes.
+
+Second, HRSA's current Rural Maternity and Obstetrics Management Strategies program lists Duncan Regional Hospital among seven fiscal year twenty twenty-six recipients. RMOMS is built around regional risk-appropriate maternal care, coordinated networks, telehealth and specialty access, and financial sustainability. That creates a practical Oklahoma opportunity to strengthen rural maternity pathways rather than treating obstetric access as a facility-by-facility problem.
+
+Third, recent Rural Health Transformation awards in Arkansas, Delaware, and South Dakota continue to point in the same direction. States are investing in mobile care, remote monitoring, workforce pipelines, behavioral health, chronic disease management, technology modernization, and regional coordination. The emerging pattern is not simply preserving every historical service at every rural location. It is redesigning access across a network.
+
+The immediate action remains revenue cycle readiness. October first is now days away for the RHC and FQHC telehealth billing transition away from G twenty twenty-five and toward individual service codes.
+
+TOP DEVELOPMENT ONE: MEDICAID QUALITY MOVES TOWARD OUTCOMES
+
+CMS announced Investing in Health Outcomes on September twenty-fifth. The initiative includes a founding group of thirty-seven state partners and a voluntary Medicaid Quality Pledge.
+
+The four principles are straightforward. First, prioritize measurable health outcomes over process measures. Second, streamline quality measure inventories. Third, advance digital quality measurement using more timely data. Fourth, align financial accountability with outcomes-oriented measures.
+
+CMS specifically identified prevention, chronic disease management, and behavioral health as focus areas. The agency also said state participants will identify opportunities to use these principles in state quality strategies and upcoming procurements.
+
+Oklahoma is directly relevant because Governor Kevin Stitt publicly supported the initiative and tied it to the state's move to managed care.
+
+Why it matters: rural providers should assume that quality reporting will continue moving toward measurable outcomes and more digital data exchange. That can be positive if duplicative reporting declines. But it also increases pressure on small providers that do not have mature analytics, interoperability, or care-management infrastructure.
+
+What to watch or do: identify which SoonerSelect quality measures are most operationally significant to rural affiliates today. Determine where data are still manually abstracted or incomplete. Watch for Oklahoma-specific changes in quality strategy, procurement, incentive design, or value-based contracts that reflect the CMS pledge.
+
+TOP DEVELOPMENT TWO: OKLAHOMA GAINS A NEW RURAL MATERNITY NETWORK OPPORTUNITY
+
+HRSA's Rural Maternity and Obstetrics Management Strategies program lists Duncan Regional Hospital in the fiscal year twenty twenty-six cohort.
+
+RMOMS is designed to increase access to maternal and obstetric care in rural communities. The model emphasizes regional approaches to risk-appropriate care, coordination across a continuum, telehealth and specialty access, and financial sustainability.
+
+That is important because rural maternity access is rarely solved by asking each small hospital to independently maintain a complete obstetric service line. Workforce availability, delivery volume, anesthesia, surgical backup, neonatal capability, transportation, prenatal access, and postpartum care all interact across a region.
+
+Why it matters: this federal award creates a network-building opportunity inside Oklahoma. Even organizations that are not the lead recipient may benefit through referral design, telehealth relationships, workforce coordination, prenatal and postpartum pathways, or shared clinical protocols.
+
+What to watch or do: determine the geography and participating network structure around Duncan Regional. Identify rural hospitals and RHCs that could connect to prenatal care, risk stratification, tele-obstetrics, delivery referral, postpartum follow-up, or emergency stabilization pathways.
+
+TOP DEVELOPMENT THREE: RHTP IMPLEMENTATION KEEPS REINFORCING REGIONALIZATION
+
+Recent CMS announcements in Arkansas, Delaware, and South Dakota provide more evidence about what Rural Health Transformation looks like in practice.
+
+Arkansas is using fifty-four point six million dollars across dozens of projects involving workforce recruitment and training, maternal services, preventive care, chronic disease management, mobile screenings, telehealth, remote monitoring, coordinated care, and emergency response.
+
+Delaware is directing nearly twenty-three million dollars toward Federally Qualified Health Centers, mobile units, remote patient monitoring, cybersecurity, and expanded care teams.
+
+South Dakota is investing thirteen million dollars in behavioral health modernization, including a twenty-four-seven mobile crisis response model, technology infrastructure, and workforce capacity.
+
+The strategic pattern is becoming difficult to ignore. Federal rural transformation capital is financing distributed care models and enabling infrastructure.
+
+Why it matters: every major investment should now have a post-grant operating case attached to it. Temporary federal capital can create capability. It cannot by itself guarantee sustainable staffing, licensing, software, maintenance, reimbursement, or volume after the grant period.
+
+What to watch or do: require a sustainability worksheet for each significant project. Include recurring expense, staffing, vendor costs, reimbursement assumptions, expected volume, potential value-based savings, subsidy exposure, and the fallback plan if future Medicaid supplemental financing tightens.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Oklahoma now has two useful case studies moving in parallel.
+
+The first is the newest Rural Emergency Hospital conversion at Ascension St. John Nowata. The facility preserves twenty-four-seven emergency and outpatient access while acute inpatient and swing-bed services are no longer local.
+
+That conversion reinforces the need to judge rural access at the network level. A facility can become financially more sustainable while transport burden, receiving-hospital capacity, or post-acute access becomes more difficult.
+
+The second is the Duncan RMOMS award. Instead of concentrating every maternal capability at every rural hospital, the program explicitly supports regional networks and risk-appropriate care.
+
+Together, those developments point to a broader planning principle: preserve local services where distance itself creates material clinical risk, but organize scarce specialty capability regionally when that improves quality and sustainability.
+
+SIGNALS
+
+The first signal is Medicaid outcome accountability. Direction is increasing and confidence is high. The CMS pledge makes the federal intent explicit: fewer process measures, more outcome measures, more digital measurement, and stronger financial accountability.
+
+The second signal is rural regionalization. Confidence remains high. RHTP awards, RMOMS, and REH implementation all reinforce the idea that rural care will increasingly depend on coordinated networks rather than isolated facilities operating every service independently.
+
+EXECUTIVE ACTIONS
+
+First, close the RHC telehealth readiness item by September thirtieth. Require a clean end-to-end test claim.
+
+Second, monitor how Oklahoma operationalizes the new Medicaid quality pledge. Focus on SoonerSelect measures, digital reporting, value-based arrangements, and the rural data burden.
+
+Third, evaluate the Duncan RMOMS network for affiliate participation or referral opportunities.
+
+DEADLINE WATCH
+
+September thirtieth is the final readiness date for RHC telehealth testing.
+
+October first is the billing conversion date for RHC and FQHC distant-site telehealth.
+
+October first is also a useful baseline date for organizations measuring payer authorization reductions and administrative friction.
+
+October fifteenth remains an Oklahoma rural funding date to monitor for the ROOTS school-wellness initiative.
+
+CLOSING
+
+What I would keep in view today is that rural transformation is increasingly about architecture rather than isolated programs. Medicaid quality is moving toward outcomes. Maternal care is being organized regionally. Rural transformation grants are funding distributed care models. REH conversion shifts capability into surrounding networks.
+
+The organizations that benefit most from these changes will be the ones that can define what must remain local, what should be shared, how patients move between levels of care, and how each capability will be financed when temporary funding ends.
+
+That is The Rural Update for Sunday, September twenty-seventh.
