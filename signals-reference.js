@@ -6,6 +6,8 @@
       why:'Rural sustainability is increasingly tied to capabilities that can be distributed across geography. The strategic question is which capabilities must remain local and which can be organized across a regional network.',
       refs:[
         ['CMS · Rural Health Transformation Program launch and program objectives','https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program'],
+        ['CMS · Colorado: $169.6M across 91 grantees and about 250 projects · Sep 28, 2026','https://www.cms.gov/newsroom/press-releases/trump-administration-announces-169-million-expand-specialty-care-strengthen-emergency-services-bring'],
+        ['CMS · Texas: $51M through 68 rural hospital districts and authorities for chronic disease programs · Sep 28, 2026','https://www.cms.gov/newsroom/press-releases/trump-administration-announces-51-million-rural-texas-nutrition-chronic-disease-prevention-programs'],
         ['CMS · New York: $76M for regional networks and technology-enhanced primary care · Sep 4, 2026','https://www.cms.gov/newsroom/press-releases/trump-administration-announces-76-million-strengthen-regional-coordination-modernize-healthcare'],
         ['CMS · Michigan: $25M for interoperability, broadband, telehealth and remote monitoring · Sep 4, 2026','https://www.cms.gov/newsroom/press-releases/trump-administration-invests-25-million-modernize-healthcare-technology-expand-telehealth-improve']
       ]
