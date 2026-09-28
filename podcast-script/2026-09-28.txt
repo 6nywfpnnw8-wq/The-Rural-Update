@@ -1,0 +1,109 @@
+Episode title: The Rural Update | September 28, 2026
+Edition date: 2026-09-28
+Generated time CT: 4:35 PM
+Estimated word count: approximately 1,790
+Estimated run time: approximately 12 to 13 minutes
+
+OPENING
+
+This is The Rural Update for Monday, September 28, 2026. The central theme today is execution. Rural Health Transformation funding is moving rapidly into real delivery models, Oklahoma has new rural substance-use funding to connect into, and two near-term deadlines, September thirtieth and October first, require operational follow-through rather than more policy discussion.
+
+EXECUTIVE BLUF
+
+The biggest new development today is another major wave of Rural Health Transformation implementation. CMS announced one hundred sixty-nine point six million dollars for Colorado, supporting ninety-one grantees and roughly two hundred fifty projects. The portfolio includes telemedicine, mobile care, behavioral and maternal health, workforce initiatives, stronger emergency services, specialty access, and efforts to move lifesaving blood transfusion capability closer to rural patients.
+
+CMS also announced fifty-one million dollars for sixty-eight rural Texas hospital districts and authorities. That funding is focused on chronic disease prevention and management, including diabetes, cardiovascular disease, chronic respiratory disease, obesity, wellness, and nutrition.
+
+Together, the Colorado and Texas announcements reinforce the strategic pattern we have been tracking. Rural transformation is not simply paying hospitals to maintain every legacy service in every location. It is financing distributed capability across regions, including mobile services, virtual care, emergency support, chronic disease infrastructure, specialty access, and workforce.
+
+Oklahoma also has a practical new opportunity through HRSA's Rural Communities Opioid Response Program. HRSA announced eighty-nine point three million dollars nationally. Oklahoma recipients include McAlester Regional Health Center Authority with a three hundred thousand dollar overdose-response award, Cimarron Memorial Hospital and Nursing Home with a one hundred thousand dollar planning award, and the Peoria Tribe of Indians of Oklahoma with a one hundred thousand dollar planning award.
+
+The immediate operating priority remains the Rural Health Clinic telehealth billing conversion on October first. The remaining work is not conceptual. It is code mapping, modifier validation, claim edits, payer configuration, staff readiness, and clean test claims.
+
+TOP DEVELOPMENT ONE: COLORADO SCALES DISTRIBUTED RURAL CAPABILITY
+
+CMS announced one hundred sixty-nine point six million dollars in Rural Health Transformation funding for Colorado. Ninety-one grantees will support approximately two hundred fifty projects.
+
+The scope is important. The projects include telemedicine, mobile care, behavioral and maternal healthcare, workforce initiatives, stronger emergency services, specialty care, and efforts to bring blood transfusions closer to rural patients.
+
+Why it matters: this is another strong example of transformation funding being used to redesign access across geography. Instead of assuming that every small facility needs to own every capability, the model can place scarce expertise, equipment, and specialty support where it creates the greatest regional benefit.
+
+For rural executives, that should change the capital-planning question. The question is not only whether a project improves one facility. It is how many communities benefit, whether the service reduces transfers or travel, whether it strengthens emergency capability, and whether the recurring operating cost is sustainable when federal funding ends.
+
+What to watch or do: identify which Oklahoma capabilities would create the largest access improvement if shared regionally. Specialty consults, blood availability, mobile imaging, behavioral-health response, maternal support, remote monitoring, and clinical workforce coverage are all candidates for regional rather than duplicated models.
+
+TOP DEVELOPMENT TWO: TEXAS USES RURAL HOSPITAL DISTRICTS FOR CHRONIC DISEASE INFRASTRUCTURE
+
+CMS also announced fifty-one million dollars for sixty-eight rural Texas hospital districts and authorities.
+
+The funding will create or improve community-based chronic disease prevention, wellness, and nutrition programs. The target conditions include diabetes, cardiovascular disease, chronic respiratory disease, and obesity.
+
+Why it matters: this is a different use of rural transformation capital, but it points to the same strategic issue. Rural sustainability cannot depend only on inpatient or emergency activity. Chronic disease management creates an opportunity for hospitals, Rural Health Clinics, and community partners to improve outcomes while potentially creating a bridge to reimbursable services, shared savings, or future value-based arrangements.
+
+The sustainability test matters here. A grant can launch a diabetes or cardiovascular program, but the organization still needs to know what happens after the grant ends. Does Medicare or Medicaid pay for the service? Can the work be incorporated into an RHC visit? Does it reduce avoidable utilization under a value-based contract? Is there enough volume to support staffing? Is technology replacing labor or simply adding another recurring expense?
+
+What to watch or do: identify chronic-disease capabilities in Oklahoma that could move from temporary funding to ordinary reimbursement or measurable value-based savings. Rural Health Clinics are particularly important because they provide a local platform for longitudinal disease management.
+
+TOP DEVELOPMENT THREE: OKLAHOMA RECEIVES NEW RURAL ADDICTION FUNDING
+
+HRSA announced eighty-nine point three million dollars through the Rural Communities Opioid Response Program, supporting rural communities across forty-five states and one territory.
+
+Oklahoma has multiple recipients. McAlester Regional Health Center Authority received a three hundred thousand dollar overdose-response award. Cimarron Memorial Hospital and Nursing Home received a one hundred thousand dollar planning award. The Peoria Tribe of Indians of Oklahoma also received a one hundred thousand dollar planning award.
+
+Why it matters: these awards should be viewed as network infrastructure, not isolated grants. Rural substance-use treatment often crosses emergency departments, Rural Health Clinics, behavioral-health providers, pharmacies, recovery organizations, tribal programs, law enforcement, and community partners.
+
+Oklahoma has also been moving toward improved medication access for opioid use disorder. The strategic opportunity is to connect medication availability with durable treatment, recovery, referral, and follow-up pathways.
+
+What to watch or do: map where these funded organizations sit relative to rural hospitals and Rural Health Clinics. Identify opportunities for warm handoffs, long-acting buprenorphine access, emergency-department initiation pathways, tele-behavioral health, peer recovery support, and post-discharge follow-up.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Three Oklahoma issues deserve to stay in view.
+
+First, the new RCORP awards create a practical opportunity to strengthen rural addiction pathways using existing community capacity instead of building duplicative programs at each hospital.
+
+Second, Oklahoma is publicly aligned with CMS's new Investing in Health Outcomes initiative. CMS launched the effort with thirty-seven state partners and four broad principles: prioritize health outcomes over process, streamline quality measures, expand digital quality measurement, and align financial accountability more closely with outcomes.
+
+If those principles move into SoonerSelect quality strategy or future managed-care procurement, rural providers may face both opportunity and burden. A smaller measure set could reduce reporting friction. But more real-time digital measurement may expose gaps in interoperability, attribution, care management, and data capture.
+
+Third, Oklahoma's Rural Emergency Hospital experience continues to reinforce the importance of regional capacity. When a rural facility preserves emergency and outpatient access but loses inpatient or swing-bed capability, transfer performance, EMS availability, receiving-hospital capacity, and post-acute options become part of the access model.
+
+SIGNALS
+
+The first signal is rural regionalization. Direction remains increasing and confidence remains high. Today's Colorado and Texas awards strengthen the evidence. Transformation funding continues to support capabilities distributed across geography rather than isolated facility expansion.
+
+The second signal is workforce localization. Confidence remains high. Colorado's award again includes workforce initiatives, and federal rural funding continues to emphasize training, recruitment, local pipelines, and service capacity rooted in rural communities.
+
+The Medicaid financing signal remains high risk. Even while CMS promotes outcomes-based quality and transformation funding, provider-tax restrictions and future state-directed-payment limits remain long-horizon pressures that can affect rural hospital economics.
+
+Payer administrative friction remains in a measurement phase. October first is an important date because announced authorization reductions create an opportunity to compare denials, appeal burden, payment timing, and staff effort before and after implementation.
+
+EXECUTIVE ACTIONS
+
+First, close Rural Health Clinic telehealth readiness by September thirtieth. Every affected clinic should be able to demonstrate a clean end-to-end test claim. That means the individual service code is correct, the modifier is correct, documentation supports the service, claim edits are configured correctly, and payer-specific rules have been validated.
+
+Second, verify Oklahoma's final participation status in the GENEROUS Medicaid drug-pricing model by September thirtieth. If Oklahoma participates, identify any operational implications for formulary management, supplemental rebates, pharmacy workflows, or managed-care arrangements.
+
+Third, map the new Oklahoma RCORP awards into the rural network. Determine which hospitals and Rural Health Clinics can connect to McAlester, Cimarron, tribal partners, or other funded organizations through referral, treatment, recovery, or follow-up pathways.
+
+DEADLINE WATCH
+
+September thirtieth is the immediate readiness date for Rural Health Clinic telehealth testing.
+
+September thirtieth is also the deadline to close the GENEROUS state participation watch.
+
+October first is the operational billing conversion date for RHC and FQHC distant-site telehealth.
+
+October first is also the start of a useful before-and-after measurement window for payer prior-authorization changes.
+
+October fifteenth remains the Oklahoma ROOTS Year Two rural school-wellness funding deadline.
+
+CLOSING
+
+What I would keep in view today is that federal rural transformation is becoming increasingly concrete. Colorado is funding specialty, emergency, mobile, virtual, maternal, behavioral, and workforce capability. Texas is using rural hospital districts to build chronic-disease infrastructure. HRSA is funding rural addiction networks, including multiple Oklahoma organizations.
+
+The strategic lesson is consistent. Temporary capital is most valuable when it builds a capability that can survive beyond the grant period, either through reimbursement, value-based economics, measurable labor savings, regional scale, or durable public support.
+
+At the same time, the next forty-eight hours are operational. RHC telehealth readiness and the September thirtieth decision window require execution.
+
+That is The Rural Update for Monday, September twenty-eighth.
