@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Mon, 28 Sep 2026 07:06:25 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 16:33:34 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | September 28, 2026</title>
+      <description>This is The Rural Update for Monday, September 28, 2026. The central theme today is execution. Rural Health Transformation funding is moving rapidly into real delivery models, Oklahoma has new rural substance-use funding to connect into, and two near-term deadlines, September thirtieth and October first, require operational follow-through rather than more policy discussion.</description>
+      <content:encoded>This is The Rural Update for Monday, September 28, 2026. The central theme today is execution. Rural Health Transformation funding is moving rapidly into real delivery models, Oklahoma has new rural substance-use funding to connect into, and two near-term deadlines, September thirtieth and October first, require operational follow-through rather than more policy discussion.</content:encoded>
+      <pubDate>Mon, 28 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-28</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-28.mp3?v=10745901" length="10745901" type="audio/mpeg" />
+      <itunes:duration>11:12</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Monday, September 28, 2026. The central theme today is execution. Rural Health Transformation funding is moving rapidly into real delivery models, Oklahoma has new rural substance-use funding to connect into, and two near-term deadlines, September thirtieth and October first, require operational follow-through rather than more policy discussion.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-09-28.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | September 27, 2026</title>
       <description>This is The Rural Update for Sunday, September 27, 2026. The weekend picture is relatively clear: federal rural transformation funding continues to favor regional and distributed care models, CMS has launched a major Medicaid quality initiative with thirty-seven state partners, and Oklahoma now has a new federally supported rural maternity network opportunity through Duncan Regional Hospital. The immediate operational deadline remains October first for Rural Health Clinic telehealth billing conversion.</description>
