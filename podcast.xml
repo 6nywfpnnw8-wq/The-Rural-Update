@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Mon, 28 Sep 2026 16:33:34 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 29 Sep 2026 09:12:25 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | September 29, 2026</title>
+      <description>This is The Rural Update for Tuesday, September 29, 2026. The main theme this morning is implementation. Rural Health Transformation funding is now moving into a wide range of concrete projects across multiple states, Medicare Advantage remains an important payer environment for rural hospitals, and the October first Rural Health Clinic telehealth billing transition is now an immediate operational deadline.</description>
+      <content:encoded>This is The Rural Update for Tuesday, September 29, 2026. The main theme this morning is implementation. Rural Health Transformation funding is now moving into a wide range of concrete projects across multiple states, Medicare Advantage remains an important payer environment for rural hospitals, and the October first Rural Health Clinic telehealth billing transition is now an immediate operational deadline.</content:encoded>
+      <pubDate>Tue, 29 Sep 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-09-29</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-09-29.mp3?v=9499053" length="9499053" type="audio/mpeg" />
+      <itunes:duration>9:54</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Tuesday, September 29, 2026. The main theme this morning is implementation. Rural Health Transformation funding is now moving into a wide range of concrete projects across multiple states, Medicare Advantage remains an important payer environment for rural hospitals, and the October first Rural Health Clinic telehealth billing transition is now an immediate operational deadline.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-09-29.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | September 28, 2026</title>
       <description>This is The Rural Update for Monday, September 28, 2026. The central theme today is execution. Rural Health Transformation funding is moving rapidly into real delivery models, Oklahoma has new rural substance-use funding to connect into, and two near-term deadlines, September thirtieth and October first, require operational follow-through rather than more policy discussion.</description>
