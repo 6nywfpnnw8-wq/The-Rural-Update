@@ -1,0 +1,113 @@
+Episode title: The Rural Update | September 30, 2026
+Edition date: 2026-09-30
+Generated time CT: 10:15 AM
+Estimated word count: approximately 1,560
+Estimated run time: approximately 10 to 11 minutes
+
+OPENING
+
+This is The Rural Update for Wednesday, September 30, 2026. The immediate operational story today is tomorrow’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.
+
+EXECUTIVE BLUF
+
+First, CMS announced a twenty million dollar Rural Health Transformation investment for North Carolina focused on telehealth, electronic health record upgrades, cybersecurity, and rural-provider technology. This continues the pattern we have seen across multiple states: RHTP funding is increasingly being used to build digital and distributed care capacity rather than simply preserve existing bricks-and-mortar services.
+
+Second, HRSA Rural Hospital Provider Assistance awards begin today for eligible small rural hospitals with no more than fifty acute inpatient beds and Medicare wage index values below point nine zero. The program is directly relevant to the structural disadvantages that many small rural hospitals face: low labor-market indices, limited workforce supply, thin volume, and difficulty sustaining essential service lines.
+
+Third, Oklahoma has several new Rural Communities Opioid Response Program awardees. McAlester Regional Health Center Authority received an overdose-response award. Cimarron Memorial Hospital and Nursing Home and the Peoria Tribe of Indians of Oklahoma are among planning awardees, while Lift Community Action Agency in Hugo is an impact award recipient. For rural hospitals and clinics, these awards represent an opportunity to connect with new regional treatment, recovery, referral, and care-coordination resources.
+
+And finally, October first is tomorrow. Rural Health Clinics and Federally Qualified Health Centers furnishing distant-site telehealth must move from G twenty twenty-five to individual CPT or HCPCS service codes with the appropriate telehealth modifier. At this point, readiness should be demonstrated through claims testing, not education alone.
+
+TOP DEVELOPMENT ONE: NORTH CAROLINA RHTP INVESTS IN DIGITAL RURAL INFRASTRUCTURE
+
+CMS announced a twenty million dollar Rural Health Transformation investment in North Carolina today.
+
+The funding is intended to expand virtual care, upgrade electronic health record systems, strengthen cybersecurity, and equip rural providers with new technology.
+
+This fits the broader implementation pattern now visible across the Rural Health Transformation Program. Recent awards in Colorado, Texas, Arkansas, Delaware, South Dakota, Missouri, Connecticut, and other states have funded combinations of mobile care, telehealth, remote monitoring, workforce development, behavioral health, maternal care, emergency services, specialty access, and infrastructure modernization.
+
+Why it matters: the program is creating new capabilities, but many of those capabilities carry recurring costs. Software subscriptions, cybersecurity services, connectivity, device replacement, staffing, licensing, and technical support remain after the grant period.
+
+What to watch or do: require a sustainability profile for every major technology investment. Identify the recurring annual cost, staffing requirement, reimbursement opportunity, labor savings, expected utilization, value-based benefit, and replacement-capital need. Temporary capital should be used to create a durable operating model, not a future unfunded obligation.
+
+TOP DEVELOPMENT TWO: HRSA TARGETS SMALL RURAL HOSPITAL STRUCTURAL DISADVANTAGE
+
+The fiscal year twenty twenty-six Rural Hospital Provider Assistance Program begins today.
+
+The program targets eligible rural hospitals with no more than fifty acute inpatient beds and a Medicare wage index below point nine zero.
+
+That eligibility design is important because it recognizes a common rural problem: small hospitals can face real labor costs and workforce scarcity while their Medicare wage index still reflects a lower-cost market. Combined with thin patient volumes, this can make it difficult to sustain essential clinical services.
+
+Current award information shows projects supporting provider capacity and essential services in rural hospitals across several states.
+
+Why it matters: even where a hospital is not part of this award cohort, the program offers a useful analytical lens. Low wage index, persistent recruitment difficulty, low volume, and essential-service requirements are recurring drivers of rural financial stress.
+
+What to watch or do: identify which affiliate hospitals have similar structural characteristics. Compare wage index, vacancy rates, contract-labor use, service-line fragility, and minimum staffing requirements. That can help distinguish temporary operating problems from structural payment and workforce disadvantages that require a different strategy.
+
+TOP DEVELOPMENT THREE: OKLAHOMA GAINS NEW RURAL OPIOID-RESPONSE CAPACITY
+
+HRSA’s fiscal year twenty twenty-six Rural Communities Opioid Response Program awards include several Oklahoma organizations.
+
+McAlester Regional Health Center Authority received a three hundred thousand dollar overdose-response award.
+
+Cimarron Memorial Hospital and Nursing Home in Boise City and the Peoria Tribe of Indians of Oklahoma in Miami each received one hundred thousand dollar planning awards.
+
+Lift Community Action Agency in Hugo received a seven hundred fifty thousand dollar impact award.
+
+Why it matters: these awards create new rural behavioral-health and substance-use infrastructure that hospitals and clinics may be able to connect with rather than duplicate.
+
+Rural emergency departments often see substance-use crises without having full treatment and recovery infrastructure locally. A regional network can help connect emergency care, medication treatment, peer support, recovery services, follow-up, and transportation.
+
+What to watch or do: map each awardee’s geography and scope. Identify affiliate hospitals and Rural Health Clinics that could establish referral pathways, warm handoffs, medication-treatment partnerships, peer-recovery connections, or shared care-coordination protocols.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+The broader Oklahoma strategic issue remains the architecture of rural care.
+
+Rural Health Transformation funding, Rural Emergency Hospital conversion, maternal-health networks, opioid-response awards, telehealth expansion, and EMS investment all point toward a delivery system that is increasingly regional and distributed.
+
+That does not mean local access becomes less important. In many cases, the opposite is true.
+
+Emergency stabilization, primary care, diagnostics, chronic disease management, selected imaging, laboratory services, and appropriate post-acute care often need to remain local because travel distance itself can create risk.
+
+Other services may be more sustainable when organized regionally through shared specialists, telehealth, rotating coverage, mobile services, or formal transfer relationships.
+
+The practical question is not whether rural hospitals should do more or less. The question is which capability belongs at which level of the system and how patients move safely between those levels.
+
+SIGNALS
+
+Two signals remain important today.
+
+The first is digital rural infrastructure. Direction continues upward with high confidence. RHTP investments are increasingly financing electronic health records, cybersecurity, telehealth, remote monitoring, and other technology that becomes part of the operating backbone of rural care.
+
+The second is regional behavioral-health capacity. Oklahoma’s new opioid-response awards add to a broader trend toward networked treatment and recovery models rather than expecting each small facility to independently build complete behavioral-health infrastructure.
+
+EXECUTIVE ACTIONS
+
+First, close the RHC telehealth readiness item today. Confirm code selection, modifier use, documentation, charge capture, payer edits, and successful transmission through the clearinghouse.
+
+Second, map the new Oklahoma Rural Communities Opioid Response awardees against the rural affiliate footprint and identify partnership opportunities.
+
+Third, require sustainability assumptions for RHTP-funded technology and mobile-care projects before recurring costs become embedded in the operating budget.
+
+DEADLINE WATCH
+
+Today is the final preparation day before the Rural Health Clinic and Federally Qualified Health Center telehealth billing conversion.
+
+October first, individual CPT or HCPCS service codes replace G twenty twenty-five for distant-site telehealth billing in RHCs and FQHCs, with modifier ninety-three for qualifying audio-only services and modifier ninety-five for synchronous audio-video services when applicable.
+
+October first is also a useful measurement baseline for any payer prior-authorization or administrative-friction changes taking effect at the start of the month.
+
+October fifteenth remains an Oklahoma rural funding date worth monitoring for organizations connected to the ROOTS school-wellness initiative.
+
+CLOSING
+
+What I would keep in view today is the connection between temporary federal investment and permanent operating architecture.
+
+Rural programs are funding technology, mobile access, EMS, workforce, behavioral health, and new regional partnerships. The strategic value will depend on whether those investments create sustainable care pathways after the grant dollars are gone.
+
+At the same time, tomorrow’s telehealth billing transition is a reminder that transformation only works when execution is reliable at the transaction level.
+
+The long-term rural strategy is regional and structural. The immediate job today is operational: close the telehealth readiness gap before October first.
+
+That is The Rural Update for Wednesday, September thirtieth.
