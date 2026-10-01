@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Wed, 30 Sep 2026 10:13:23 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 06:03:46 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 1, 2026</title>
+      <description>This is The Rural Update for Thursday, October 1, 2026. The immediate operational story today is today’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.</description>
+      <content:encoded>This is The Rural Update for Thursday, October 1, 2026. The immediate operational story today is today’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.</content:encoded>
+      <pubDate>Thu, 01 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-01</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-01.mp3?v=10151085" length="10151085" type="audio/mpeg" />
+      <itunes:duration>10:34</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Thursday, October 1, 2026. The immediate operational story today is today’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-01.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | September 30, 2026</title>
       <description>This is The Rural Update for Wednesday, September 30, 2026. The immediate operational story today is tomorrow’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.</description>
