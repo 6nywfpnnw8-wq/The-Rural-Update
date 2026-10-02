@@ -1,0 +1,131 @@
+Episode title: The Rural Update | October 2, 2026
+Edition date: 2026-10-02
+Generated time CT: 6:10 AM
+Estimated word count: approximately 1,850
+Estimated run time: approximately 12 to 14 minutes
+
+OPENING
+
+This is The Rural Update for Friday, October 2, 2026. The central theme this morning is implementation risk. Several federal policy changes became operational yesterday, while Rural Health Transformation awards continue to move from state plans into specific projects. For rural leaders, the work is shifting from understanding policy to measuring what actually happens in claims, coverage, staffing, access, and recurring cost.
+
+EXECUTIVE BLUF
+
+There are five issues worth keeping in view.
+
+First, the Rural Health Clinic and Federally Qualified Health Center telehealth billing conversion is now in its second day. Distant-site telehealth claims for dates of service beginning October first use the individual CPT or HCPCS service code rather than G twenty twenty-five, with modifier ninety-three for qualifying audio-only services and modifier ninety-five for synchronous audio-video services when applicable. The management question is no longer whether staff were trained. It is whether production claims are clearing correctly across Medicare and other payers.
+
+Second, Medicaid and CHIP eligibility restrictions for several categories of lawfully present immigrants also became effective October first under the twenty twenty-five reconciliation law. The changes narrow federally funded eligibility to specified groups, while Emergency Medicaid remains available for qualifying emergency services. For hospitals, particularly emergency departments and safety-net providers, the operational risk is a change in payer mix and uncompensated care rather than simply an eligibility-policy issue.
+
+Third, Alabama announced a second round of Rural Health Transformation grants totaling nearly fifty-five million dollars across thirty-four projects. This follows more than one hundred forty-four million dollars awarded in the first round. The project mix again includes access, maternal health, emergency services, cancer screening, workforce, and other rural capabilities. The important signal is that states are building portfolios, not isolated projects.
+
+Fourth, Oklahoma’s own Rural Health Transformation implementation remains a priority. The state’s September thirtieth progress report emphasized first-year implementation and federal spending milestones, while the Southwestern Oklahoma State University rural-health initiative is putting mobile screening, chronic-disease prevention, telehealth, and wellness resources into Washita and Roger Mills counties. The governance challenge now is to track outcomes and recurring obligations, not just dollars obligated.
+
+Fifth, Medicare’s treatment of artificial intelligence is moving from experimentation toward payment policy. CMS has approved a New Technology Add-on Payment for an AI-enabled CT triage technology for eligible inpatient use. That does not establish broad reimbursement for clinical AI, but it is a meaningful signal that selected AI capabilities can cross from technology expense into a reimbursable clinical pathway when they meet Medicare criteria.
+
+TOP DEVELOPMENT ONE: RHC TELEHEALTH HAS ENTERED THE PRODUCTION-MONITORING PHASE
+
+The RHC and FQHC telehealth conversion became effective yesterday.
+
+For distant-site services, clinics now report the individual CPT or HCPCS service code and the appropriate telehealth modifier rather than G twenty twenty-five. CMS specifies modifier ninety-three for qualifying audio-only services and modifier ninety-five for synchronous audio-video services when applicable.
+
+This sounds like a coding change, but operationally it touches multiple systems. The service must be documented correctly. The right code and modifier must be selected. Charge capture must work. The claim scrubber must accept the combination. The clearinghouse must transmit it. The payer must recognize the new configuration. And staff must be able to distinguish a true coverage denial from a configuration error.
+
+Why it matters: rural clinics have less administrative redundancy than large physician enterprises. A small edit problem can affect a meaningful share of claims before anyone recognizes the pattern.
+
+What to watch or do: keep the fourteen-day conversion watch active. Review front-end rejections, modifier edits, payer denials, adjudication time, and payment amounts. Separate traditional Medicare from Medicare Advantage and commercial plans because payer implementation may not be identical. If one clinic finds a configuration problem, test the same workflow across the rest of the affiliate network immediately.
+
+TOP DEVELOPMENT TWO: MEDICAID ELIGIBILITY CHANGES CREATE A NEW UNCOMPENSATED-CARE WATCH
+
+A separate federal change became effective October first. The twenty twenty-five reconciliation law restricts federally funded Medicaid and CHIP eligibility for several categories of lawfully present immigrants.
+
+According to analysis of the federal implementation guidance, federally funded eligibility is now generally limited to lawful permanent residents, Cuban and Haitian entrants, people residing in the United States under Compacts of Free Association, and certain lawfully residing children and pregnant people in states using the applicable option. Some groups that previously qualified, including certain refugees and asylees without lawful permanent resident status, can lose eligibility.
+
+Emergency Medicaid remains available for qualifying emergency services for people who meet the program’s other requirements but lack an eligible immigration status.
+
+Why it matters: the hospital impact is downstream. Coverage losses can shift encounters from Medicaid to self-pay or emergency-only coverage. That can increase uncompensated care, create eligibility confusion at registration, and complicate discharge planning and continuity of care.
+
+The effect will not be evenly distributed. Facilities serving communities with higher numbers of affected residents may see more exposure. Rural hospitals with thin margins have less capacity to absorb even modest changes in self-pay and bad debt.
+
+What to watch or do: establish a payer-mix baseline using September data. Beginning this month, track Medicaid-to-self-pay conversion, Emergency Medicaid utilization, eligibility-related registration issues, bad debt, charity-care screening, and delayed follow-up care. The purpose is not to infer immigration status from patient data. It is to detect whether a federal eligibility change is materially affecting financial and access patterns.
+
+TOP DEVELOPMENT THREE: ALABAMA’S SECOND RHTP ROUND REINFORCES THE PORTFOLIO MODEL
+
+Alabama announced thirty-four additional Rural Health Transformation grants totaling nearly fifty-five million dollars. The second round follows more than one hundred forty-four million dollars in the state’s first round.
+
+The awards support rural access, maternal health, emergency medical services, cancer screening, workforce development, and other projects.
+
+The strategic lesson is larger than Alabama. Across the country, states are increasingly using Rural Health Transformation funding to build portfolios of capabilities: mobile care, telehealth, emergency response, workforce pipelines, chronic-disease programs, digital infrastructure, specialty access, and regional partnerships.
+
+Why it matters: portfolio design can create network effects, but it can also create a portfolio of future operating expenses. Vehicles require replacement. Technology requires subscriptions and support. New programs require staff. Clinical services need sustainable reimbursement or subsidy.
+
+What to watch or do: evaluate the portfolio as a system rather than project by project. Identify which investments depend on one another, which duplicate existing capability, which can produce reimbursement, which create measurable access improvement, and which will require permanent subsidy after federal funding ends.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Oklahoma’s Rural Health Transformation work is now firmly in implementation territory.
+
+The state’s recent progress report emphasized the scale of Oklahoma’s federal award and the importance of meeting CMS spending milestones. The Southwestern Oklahoma State University example provides a concrete picture of what implementation looks like locally: a mobile resource unit, screenings, chronic-disease prevention, telehealth, and wellness equipment deployed into Washita and Roger Mills counties.
+
+For rural-network leadership, this creates two parallel responsibilities.
+
+The first is execution. Projects need owners, milestones, procurement discipline, staffing plans, and measurable outcomes.
+
+The second is sustainability. Every major investment should identify its post-grant annual expense, staffing requirement, licensing and connectivity costs, replacement capital, expected volume, reimbursement opportunity, value-based benefit, and alternative funding path.
+
+A project can be successful during the grant period and still weaken a rural organization later if the recurring expense is not supported by revenue or a deliberate subsidy decision.
+
+The Oklahoma opportunity is to use temporary federal capital to build shared capabilities that individual rural facilities could not economically build alone. That can include virtual specialty access, cybersecurity, analytics, workforce infrastructure, revenue-cycle support, and regional care coordination. Shared capability is most valuable when it protects local access while reducing unnecessary duplication.
+
+AI AND TECHNOLOGY SIGNAL
+
+The AI signal today is not another model release. It is reimbursement.
+
+CMS approved New Technology Add-on Payment eligibility for an AI-enabled CT multi-triage technology for qualifying inpatient use. The technology analyzes CT imaging for multiple acute findings and can support clinical triage.
+
+This is significant because health systems have generally treated clinical AI as a technology investment justified by quality, labor efficiency, throughput, or strategic value. A Medicare add-on payment creates a different pathway for selected technologies that meet federal criteria.
+
+It would be a mistake to conclude that AI now has a general reimbursement model. It does not. The better interpretation is that payment policy is beginning to distinguish between generic software and specific clinical technologies with defined use cases and evidence.
+
+For rural hospitals, that means AI evaluation should include reimbursement intelligence alongside clinical validation, cybersecurity, interoperability, workflow fit, total cost, and governance. A tool that improves turnaround time but requires expensive infrastructure may not fit a small facility. A reimbursable tool may still be uneconomic if volume is too low. Network deployment may therefore be more practical than facility-by-facility adoption.
+
+SIGNALS
+
+Two signals changed enough to emphasize today.
+
+The first is implementation risk. Multiple October first changes are now live, including RHC telehealth billing, FY twenty twenty-seven ICD-ten code sets, and Medicaid eligibility restrictions. The risk has moved from readiness checklists to production data. Leaders should expect early exceptions and create short feedback loops rather than assume a successful go-live means a successful implementation.
+
+The second is RHTP portfolio maturity. Confidence remains high that Rural Health Transformation is accelerating regionalization and distributed care. The next question is whether states and providers can convert time-limited federal investment into durable operating capability without creating unsustainable recurring expense.
+
+EXECUTIVE ACTIONS
+
+First, continue the fourteen-day RHC telehealth claims watch. Require daily exception reporting during the first week and rapid cross-facility correction when a defect is identified.
+
+Second, establish an October Medicaid coverage-impact baseline. Track payer mix, self-pay conversion, Emergency Medicaid, bad debt, and eligibility-related registration issues without using immigration status as a proxy.
+
+Third, apply a portfolio-level sustainability test to Rural Health Transformation projects. Require every major investment to show recurring expense, staffing, reimbursement, replacement capital, expected utilization, measurable outcome, and post-grant funding source.
+
+Fourth, add reimbursement status to clinical-AI evaluation. Do not assume payment exists, but require teams to identify whether a technology has an applicable Medicare payment pathway, temporary add-on payment, pass-through status, or no direct reimbursement at all.
+
+DEADLINE WATCH
+
+The RHC and FQHC telehealth conversion is already effective, so the next two weeks are the stabilization window rather than a future deadline.
+
+October thirteenth is CMS’s planned notification date for Phase Two finalists in its healthcare quality technology initiative.
+
+October fifteenth begins the nationwide one-year DMEPOS probationary prior-authorization process for certain newly enrolled and change-of-ownership suppliers.
+
+For Oklahoma Rural Health Transformation work, October should be treated as an implementation-control month. Projects approaching federal obligation or spending milestones should have documented owners, procurement status, deliverables, and sustainability assumptions.
+
+CLOSING
+
+What I would keep in view today is the difference between policy activation and operational performance.
+
+October first turned several policies on. October second is when leaders begin learning whether those policies are working as intended inside real workflows.
+
+That is particularly important in rural healthcare, where there is less administrative redundancy and where small errors in claims, eligibility, technology, or staffing can have disproportionate financial effects.
+
+The practical management response is simple: shorten the feedback loop. Watch the claims. Watch the payer mix. Watch the implementation milestones. Watch the recurring cost.
+
+At the strategic level, the same principle applies to Rural Health Transformation. Temporary federal funding is most valuable when it creates durable shared capability, protects appropriate local access, and leaves behind an operating model that can survive after the grant period.
+
+That is The Rural Update for Friday, October second.
