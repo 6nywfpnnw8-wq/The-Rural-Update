@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Thu, 01 Oct 2026 06:03:46 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 02 Oct 2026 06:07:56 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 2, 2026</title>
+      <description>This is The Rural Update for Friday, October 2, 2026. The central theme this morning is implementation risk. Several federal policy changes became operational yesterday, while Rural Health Transformation awards continue to move from state plans into specific projects. For rural leaders, the work is shifting from understanding policy to measuring what actually happens in claims, coverage, staffing, access, and recurring cost.</description>
+      <content:encoded>This is The Rural Update for Friday, October 2, 2026. The central theme this morning is implementation risk. Several federal policy changes became operational yesterday, while Rural Health Transformation awards continue to move from state plans into specific projects. For rural leaders, the work is shifting from understanding policy to measuring what actually happens in claims, coverage, staffing, access, and recurring cost.</content:encoded>
+      <pubDate>Fri, 02 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-02</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-02.mp3?v=13022637" length="13022637" type="audio/mpeg" />
+      <itunes:duration>13:34</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Friday, October 2, 2026. The central theme this morning is implementation risk. Several federal policy changes became operational yesterday, while Rural Health Transformation awards continue to move from state plans into specific projects. For rural leaders, the work is shifting from understanding policy to measuring what actually happens in claims, coverage, staffing, access, and recurring cost.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-02.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 1, 2026</title>
       <description>This is The Rural Update for Thursday, October 1, 2026. The immediate operational story today is today’s Rural Health Clinic telehealth billing conversion. At the same time, new Rural Health Transformation funding in North Carolina and new HRSA rural-hospital and opioid-response awards continue to clarify the direction of federal rural policy: distributed access, technology modernization, regional coordination, and targeted support for structurally vulnerable providers.</description>
