@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Fri, 02 Oct 2026 06:07:56 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 06:07:35 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 3, 2026</title>
+      <description>This is The Rural Update for Saturday, October 3, 2026. The central theme this morning is that rural transformation is becoming infrastructure strategy. New federal awards are connecting ambulances, hospitals, telemedicine, data exchange and workforce development, while a new mandatory Medicare Part B drug model adds another payment issue that rural finance teams will need to understand before the end of November.</description>
+      <content:encoded>This is The Rural Update for Saturday, October 3, 2026. The central theme this morning is that rural transformation is becoming infrastructure strategy. New federal awards are connecting ambulances, hospitals, telemedicine, data exchange and workforce development, while a new mandatory Medicare Part B drug model adds another payment issue that rural finance teams will need to understand before the end of November.</content:encoded>
+      <pubDate>Sat, 03 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-03</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-03.mp3?v=14146605" length="14146605" type="audio/mpeg" />
+      <itunes:duration>14:44</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Saturday, October 3, 2026. The central theme this morning is that rural transformation is becoming infrastructure strategy. New federal awards are connecting ambulances, hospitals, telemedicine, data exchange and workforce development, while a new mandatory Medicare Part B drug model adds another payment issue that rural finance teams will need to understand before the end of November.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-03.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 2, 2026</title>
       <description>This is The Rural Update for Friday, October 2, 2026. The central theme this morning is implementation risk. Several federal policy changes became operational yesterday, while Rural Health Transformation awards continue to move from state plans into specific projects. For rural leaders, the work is shifting from understanding policy to measuring what actually happens in claims, coverage, staffing, access, and recurring cost.</description>
