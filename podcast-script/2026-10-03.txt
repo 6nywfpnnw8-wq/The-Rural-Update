@@ -1,0 +1,135 @@
+Episode title: The Rural Update | October 3, 2026
+Edition date: 2026-10-03
+Generated time CT: 6:18 AM
+Estimated word count: approximately 1,860
+Estimated run time: approximately 12 to 14 minutes
+
+OPENING
+
+This is The Rural Update for Saturday, October 3, 2026. The central theme this morning is that rural transformation is becoming infrastructure strategy. New federal awards are connecting ambulances, hospitals, telemedicine, data exchange and workforce development, while a new mandatory Medicare Part B drug model adds another payment issue that rural finance teams will need to understand before the end of November.
+
+EXECUTIVE BLUF
+
+The most consequential new rural development is in South Dakota. On October second, CMS announced seven point two million dollars in Rural Health Transformation Program funding for twenty-five projects designed to modernize rural emergency medical services. The projects include ambulance-based telemedicine, workforce training, improved sharing of patient data with hospitals, modernized dispatch and communications systems, and data-driven quality improvement. South Dakota is expected to receive more than one hundred eighty-nine million dollars from RHTP over five years.
+
+This matters beyond South Dakota because it reinforces an important strategic principle. EMS is not simply a transportation service sitting outside the hospital strategy. In rural markets, EMS is part of the clinical network. As inpatient services regionalize, Rural Emergency Hospitals expand, specialty care moves farther from some communities, and telemedicine becomes more capable, the ambulance increasingly becomes a mobile clinical access point and a data node between the patient, local hospital and receiving center.
+
+The second development is Medicare payment policy. CMS finalized the Global Benchmark for Efficient Drug Pricing, or GLOBE, Model. The final rule was published October second and becomes effective November thirtieth. It is a mandatory Innovation Center model affecting certain separately payable Medicare Part B drugs and biological products. CMS will test an alternative approach to Part B drug inflation rebates using international price benchmarks. The model applies to a randomized twenty-five percent of Original Medicare Part B beneficiaries, with exclusions for certain drugs, including orphan-only products.
+
+For rural hospitals, this is not a reason to change purchasing or treatment decisions today. It is a reason for pharmacy, finance and revenue cycle teams to identify whether high-cost Part B drug exposure is material and to understand how the model could affect beneficiary cost sharing, reimbursement economics and drug acquisition strategy.
+
+The third development is Oklahoma-specific and highly actionable. Oklahoma’s Rural Health Transformation Program now lists two active funding opportunities that deserve attention. The ROOTS Year Two competitive grant for eligible rural schools is due October fifteenth. More directly relevant to providers, the Oklahoma Health Care Authority is accepting Year One applications for Health Information Exchange and Electronic Health Record assistance through December thirty-first. Eligible rural providers can seek support for statewide HIE participation and for implementing, replacing, optimizing or expanding certified EHR systems.
+
+That opportunity aligns directly with the national RHTP trend toward interoperability and distributed care. Rural affiliates should not treat HIE and EHR assistance as an isolated IT grant. It should be evaluated against the broader operating roadmap, including electronic prior authorization, payer interoperability, referral management, care coordination, cybersecurity and the ability to participate in value-based models.
+
+TOP DEVELOPMENT ONE: EMS IS BECOMING CORE RURAL DIGITAL INFRASTRUCTURE
+
+CMS announced seven point two million dollars for twenty-five South Dakota RHTP projects led by ambulance services, hospitals, community organizations, educational partners and statewide EMS support organizations.
+
+The projects will expand ambulance-based telemedicine, train EMS personnel, improve exchange of patient information with hospitals, modernize dispatch and communications, and support quality improvement using data.
+
+What happened is important because the investment combines physical response capacity with digital connectivity. The ambulance is no longer being treated simply as a vehicle that moves a patient from one location to another. It can become an extension of the rural clinical network.
+
+Why it matters: rural regionalization creates a paradox. Concentrating some specialty services can improve quality and workforce sustainability, but it can also increase travel time and dependence on transport. If EMS capacity does not improve at the same time, the regional model can shift burden onto patients, ambulance agencies and receiving hospitals.
+
+Ambulance telemedicine and real-time data exchange can also improve destination decisions. That matters for the broader bypass issue. Better clinical information at the point of contact may help distinguish the patient who needs immediate transport to a tertiary center from the patient who can safely receive stabilization or definitive care locally.
+
+What to watch or do: include EMS in rural service-line and network planning. Measure transport availability, transfer turnaround, destination patterns, patient-choice bypass, staffing, equipment age, communications capability and the ability to exchange clinical information with both local and referral hospitals. When evaluating REH conversion or other regionalization strategies, model EMS capacity as part of the clinical infrastructure rather than as an external assumption.
+
+TOP DEVELOPMENT TWO: CMS FINALIZES THE GLOBE PART B DRUG MODEL
+
+The GLOBE final rule establishes a new mandatory Medicare payment model under the Innovation Center’s authority. The rule was published October second and takes effect November thirtieth.
+
+The model tests an alternative method for calculating Medicare Part B drug inflation rebate amounts for certain separately payable Part B drugs and biological products. CMS says the goal is to reduce Medicare and beneficiary spending while preserving quality and access.
+
+The final design applies to twenty-five percent of Original Medicare Part B beneficiaries through random assignment. CMS also finalized additional exclusions, including orphan-only drugs. Multi-source drugs and biosimilars are not the focus of the model.
+
+Why it matters: Part B drugs can create meaningful financial exposure for hospitals and physician practices because acquisition cost, reimbursement methodology, beneficiary cost sharing and inventory risk interact. Rural organizations may have less purchasing leverage and less volume over which to spread pharmacy infrastructure costs.
+
+The direct effect will depend on the drugs furnished, beneficiary assignment, site of service and final operational guidance. The correct response today is therefore not alarm. It is exposure mapping.
+
+What to watch or do: ask pharmacy and finance to identify the highest-spend separately payable Part B drugs across hospital outpatient departments and physician practices. Determine which products could fall within the model, how much Original Medicare volume is involved, and whether any material cash-flow or margin sensitivity exists. Add GLOBE to the Medicare drug-policy watch alongside the 340B rebate pilot and broader drug-pricing changes.
+
+TOP DEVELOPMENT THREE: OKLAHOMA OPENS A PRACTICAL DIGITAL-INFRASTRUCTURE PATHWAY
+
+Oklahoma’s RHTP funding page lists an active OHCA Health Information Exchange and EHR Assistance application with a December thirty-first deadline.
+
+The program allows eligible rural healthcare providers to express interest in assistance for Oklahoma’s statewide Health Information Exchange, certified EHR implementation or replacement, optimization, expansion, or both HIE and EHR assistance.
+
+This is strategically important because the value of an EHR project depends on what it enables. An isolated system replacement can become an expensive technology project. A connected platform can support referral management, electronic prior authorization, payer APIs, transitions of care, quality measurement, population health and regional clinical integration.
+
+Why it matters: CMS interoperability requirements are becoming more operational. Payers face major API implementation requirements beginning January first, twenty twenty-seven. Rural providers that remain on outdated platforms or lack interfaces may be technically connected to a health system but operationally excluded from faster authorization, cleaner referrals and shared data.
+
+What to watch or do: complete an affiliate technology inventory now. For each hospital, RHC and physician practice, identify the EHR vendor and version, HIE status, interface capability, electronic prior authorization readiness, API support, upgrade timeline, cybersecurity dependencies and training needs. Then match the gaps against the Oklahoma assistance program before December thirty-first.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Oklahoma’s first-year RHTP award is approximately two hundred twenty-three point five million dollars. The state says the second budget-period award is expected to be announced in late October.
+
+That creates a useful governance window. The first question should be whether first-year dollars are being obligated and implemented on schedule. The second should be whether those projects create capabilities that fit together.
+
+A mobile clinic without referral integration is less valuable. Telehealth without local diagnostic capability may simply move the bottleneck. An EHR upgrade without interoperability may digitize the same fragmentation. Workforce grants without a retention model can create a temporary pipeline that disappears when the grant ends.
+
+The strongest rural strategy links these pieces. Local access points provide emergency stabilization, primary care, diagnostics and chronic disease management. Regional networks provide specialty depth. EMS connects geography. Digital infrastructure connects information. Payment models determine whether the system can continue after temporary funding ends.
+
+Oklahoma’s ROOTS Year Two school-wellness grant is due October fifteenth, while HIE and EHR assistance remains open through December thirty-first. Rural organizations should also watch the state’s late-October Budget Period Two award announcement and the series of regional County Collaborative meetings beginning later this month.
+
+HEALTH SYSTEM AND INDUSTRY SIGNAL
+
+A separate industry development reinforces the rural affiliation trend. Tampa General Hospital has taken operational control of the former DeSoto Memorial Hospital in rural Florida under a long-term arrangement. The forty-nine-bed hospital is now TGH DeSoto, with commitments to local access, new technology, specialty connectivity and transport capability.
+
+The lesson is not that every independent rural hospital should be acquired. The lesson is that affiliation value increasingly depends on what capabilities the larger system can actually extend into the rural market: specialty access, workforce, capital, air and ground transport, technology, purchasing, revenue cycle and clinical integration.
+
+For rural boards, the relevant comparison is not independence versus affiliation as an abstract governance preference. It is the long-term capability and capital requirements of remaining independent compared with the measurable value an affiliation can provide.
+
+AI AND TECHNOLOGY SIGNAL
+
+The AI signal this morning is less about a single new product and more about governance maturity. FDA’s current AI-enabled medical-device list makes clear that regulated clinical AI is expanding across radiology, cardiovascular care, ultrasound, pathology and other specialties. FDA is also exploring clearer identification of devices that incorporate foundation models and multimodal systems.
+
+For rural organizations, the procurement question should therefore become more disciplined. Clinical AI should be evaluated for FDA status where applicable, intended use, evidence, workflow fit, cybersecurity, interoperability, reimbursement, monitoring requirements and total cost. Generative administrative tools require a different governance pathway from regulated diagnostic software.
+
+SIGNALS
+
+Three signals are worth carrying forward.
+
+First, rural regionalization continues to increase with high confidence, but EMS is becoming a more visible limiting factor and enabling capability.
+
+Second, rural digital infrastructure is moving from optional modernization toward operating necessity. Oklahoma’s HIE and EHR assistance program makes that signal directly actionable.
+
+Third, Medicare drug-payment complexity is increasing. GLOBE, 340B rebate changes and other drug-pricing reforms should be managed as a connected pharmacy-finance policy portfolio rather than as isolated regulations.
+
+EXECUTIVE ACTIONS
+
+First, add EMS capability to affiliate-network assessments. Include transport availability, destination patterns, equipment, communications and clinical-data exchange.
+
+Second, have pharmacy and finance complete a preliminary GLOBE exposure map before the November thirtieth effective date. Focus on high-spend separately payable Part B drugs and Original Medicare volume.
+
+Third, complete the rural affiliate EHR and HIE readiness matrix and identify candidates for Oklahoma assistance well before the December thirty-first application deadline.
+
+Fourth, keep the RHC telehealth production watch active through October fifteenth. The conversion is live, and actual rejection, denial and payment behavior remains more important than policy readiness on paper.
+
+DEADLINE WATCH
+
+October thirteenth remains the expected CMS QualTech finalist notification date.
+
+October fifteenth is the deadline for Oklahoma’s ROOTS Year Two rural school-wellness application and remains the end of the initial two-week RHC telehealth stabilization window.
+
+Late October is the expected announcement window for Oklahoma’s second RHTP budget-period award.
+
+November thirtieth is the effective date of the GLOBE final rule.
+
+December eleventh is the current federal continuing-resolution funding deadline.
+
+December thirty-first is the Oklahoma HIE and EHR Assistance Year One application deadline.
+
+CLOSING
+
+What I would keep in view today is the infrastructure underneath rural transformation.
+
+Hospitals remain central, but the durable rural delivery system increasingly depends on what connects them to patients and to higher levels of care. That includes EMS, telemedicine, interoperable records, referral pathways, workforce pipelines and sustainable payment.
+
+South Dakota’s new EMS investment makes that architecture visible. Oklahoma’s HIE and EHR assistance program creates a practical opportunity to strengthen another part of it. And the GLOBE rule is a reminder that payment policy continues to change underneath the clinical operating model.
+
+The strategic objective is not simply to collect grants or add technology. It is to build a rural system in which local capability, regional capability, transport, information and payment reinforce one another after temporary funding is gone.
+
+That is The Rural Update for Saturday, October third.
