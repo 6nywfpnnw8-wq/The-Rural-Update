@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Sat, 03 Oct 2026 06:07:35 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 06:08:12 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 4, 2026</title>
+      <description>This is The Rural Update for Sunday, October fourth, twenty twenty-six. The central theme this morning is infrastructure. Rural transformation is increasingly linking hospitals, EMS, digital systems, workforce, maternal care, payment, and artificial intelligence into one operating architecture. The practical question for rural leaders is no longer whether these pieces matter individually. It is whether they are being governed as an integrated system that can remain viable after temporary funding ends.</description>
+      <content:encoded>This is The Rural Update for Sunday, October fourth, twenty twenty-six. The central theme this morning is infrastructure. Rural transformation is increasingly linking hospitals, EMS, digital systems, workforce, maternal care, payment, and artificial intelligence into one operating architecture. The practical question for rural leaders is no longer whether these pieces matter individually. It is whether they are being governed as an integrated system that can remain viable after temporary funding ends.</content:encoded>
+      <pubDate>Sun, 04 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-04</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-04.mp3?v=11575725" length="11575725" type="audio/mpeg" />
+      <itunes:duration>12:03</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Sunday, October fourth, twenty twenty-six. The central theme this morning is infrastructure. Rural transformation is increasingly linking hospitals, EMS, digital systems, workforce, maternal care, payment, and artificial intelligence into one operating architecture. The practical question for rural leaders is no longer whether these pieces matter individually. It is whether they are being governed as an integrated system that can remain viable after temporary funding ends.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-04.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 3, 2026</title>
       <description>This is The Rural Update for Saturday, October 3, 2026. The central theme this morning is that rural transformation is becoming infrastructure strategy. New federal awards are connecting ambulances, hospitals, telemedicine, data exchange and workforce development, while a new mandatory Medicare Part B drug model adds another payment issue that rural finance teams will need to understand before the end of November.</description>
