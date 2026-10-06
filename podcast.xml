@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Mon, 05 Oct 2026 06:08:06 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 06:03:21 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 6, 2026</title>
+      <description>This is The Rural Update for Tuesday, October sixth, twenty twenty-six. The lead development this morning is not another grant announcement. It is a change in the information environment around healthcare prices. Federal agencies finalized new Transparency in Coverage rules yesterday that make payer rate files more standardized, more accountable, and potentially more useful for hospital contracting. At the same time, several Medicare claims-processing changes reached implementation this week, including an October outpatient update and a targeted Critical Access Hospital edit involving CRNA services. Oklahoma’s Rural Health Transformation deadlines also remain active, with the state approaching the end of its first budget year.</description>
+      <content:encoded>This is The Rural Update for Tuesday, October sixth, twenty twenty-six. The lead development this morning is not another grant announcement. It is a change in the information environment around healthcare prices. Federal agencies finalized new Transparency in Coverage rules yesterday that make payer rate files more standardized, more accountable, and potentially more useful for hospital contracting. At the same time, several Medicare claims-processing changes reached implementation this week, including an October outpatient update and a targeted Critical Access Hospital edit involving CRNA services. Oklahoma’s Rural Health Transformation deadlines also remain active, with the state approaching the end of its first budget year.</content:encoded>
+      <pubDate>Tue, 06 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-06</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-06.mp3?v=12629805" length="12629805" type="audio/mpeg" />
+      <itunes:duration>13:09</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Tuesday, October sixth, twenty twenty-six. The lead development this morning is not another grant announcement. It is a change in the information environment around healthcare prices. Federal agencies finalized new Transparency in Coverage rules yesterday that make payer rate files more standardized, more accountable, and potentially more useful for hospital contracting. At the same time, several Medicare claims-processing changes reached implementation this week, including an October outpatient update and a targeted Critical Access Hospital edit involving CRNA services. Oklahoma’s Rural Health Transformation deadlines also remain active, with the state approaching the end of its first budget year.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-06.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 5, 2026</title>
       <description>This is The Rural Update for Monday, October fifth, twenty twenty-six. The weekend did not produce a new federal rural hospital payment rule, so the priority this morning is execution against the policy and funding changes already in motion. Rural transformation is increasingly about infrastructure, Oklahoma has two concrete Rural Health Transformation deadlines ahead, Medicare Part B drug policy is moving toward a January implementation date, and AI governance is beginning to confront a new problem: autonomous agents that can take actions inside healthcare systems.</description>
