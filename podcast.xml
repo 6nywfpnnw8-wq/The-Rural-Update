@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Tue, 06 Oct 2026 06:03:21 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 07 Oct 2026 08:45:25 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 7, 2026</title>
+      <description>This is The Rural Update for Wednesday, October 7, 2026. The main theme this morning is implementation discipline. Rural Health Transformation funding continues to move into concrete service models, rural EMS and mobile access are becoming more visible parts of the delivery system, Oklahoma has new substance-use infrastructure to connect into, and Rural Health Clinics are now operating under the new telehealth billing framework that began October first.</description>
+      <content:encoded>This is The Rural Update for Wednesday, October 7, 2026. The main theme this morning is implementation discipline. Rural Health Transformation funding continues to move into concrete service models, rural EMS and mobile access are becoming more visible parts of the delivery system, Oklahoma has new substance-use infrastructure to connect into, and Rural Health Clinics are now operating under the new telehealth billing framework that began October first.</content:encoded>
+      <pubDate>Wed, 07 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-07</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-07.mp3?v=9889197" length="9889197" type="audio/mpeg" />
+      <itunes:duration>10:18</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Wednesday, October 7, 2026. The main theme this morning is implementation discipline. Rural Health Transformation funding continues to move into concrete service models, rural EMS and mobile access are becoming more visible parts of the delivery system, Oklahoma has new substance-use infrastructure to connect into, and Rural Health Clinics are now operating under the new telehealth billing framework that began October first.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-07.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 6, 2026</title>
       <description>This is The Rural Update for Tuesday, October sixth, twenty twenty-six. The lead development this morning is not another grant announcement. It is a change in the information environment around healthcare prices. Federal agencies finalized new Transparency in Coverage rules yesterday that make payer rate files more standardized, more accountable, and potentially more useful for hospital contracting. At the same time, several Medicare claims-processing changes reached implementation this week, including an October outpatient update and a targeted Critical Access Hospital edit involving CRNA services. Oklahoma’s Rural Health Transformation deadlines also remain active, with the state approaching the end of its first budget year.</description>
