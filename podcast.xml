@@ -6,7 +6,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Wed, 07 Oct 2026 08:45:25 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 07:55:09 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
@@ -22,6 +22,19 @@
       <title>The Rural Update</title>
       <link>https://6nywfpnnw8-wq.github.io/The-Rural-Update/</link>
     </image>
+    <item>
+      <title>The Rural Update | October 8, 2026</title>
+      <description>This is The Rural Update for Thursday, October 8, 2026. The central theme today is that rural transformation is moving further into implementation, especially behavioral health, crisis response, regional coordination and shared infrastructure. At the same time, the first full week after the Rural Health Clinic telehealth billing conversion should now be treated as a production-performance test rather than a configuration exercise.</description>
+      <content:encoded>This is The Rural Update for Thursday, October 8, 2026. The central theme today is that rural transformation is moving further into implementation, especially behavioral health, crisis response, regional coordination and shared infrastructure. At the same time, the first full week after the Rural Health Clinic telehealth billing conversion should now be treated as a production-performance test rather than a configuration exercise.</content:encoded>
+      <pubDate>Thu, 08 Oct 2026 06:00:00 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-08</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-08.mp3?v=10207533" length="10207533" type="audio/mpeg" />
+      <itunes:duration>10:38</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+      <itunes:summary>This is The Rural Update for Thursday, October 8, 2026. The central theme today is that rural transformation is moving further into implementation, especially behavioral health, crisis response, regional coordination and shared infrastructure. At the same time, the first full week after the Rural Health Clinic telehealth billing conversion should now be treated as a production-performance test rather than a configuration exercise.</itunes:summary>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-08.html" type="text/html" />
+    </item>
     <item>
       <title>The Rural Update | October 7, 2026</title>
       <description>This is The Rural Update for Wednesday, October 7, 2026. The main theme this morning is implementation discipline. Rural Health Transformation funding continues to move into concrete service models, rural EMS and mobile access are becoming more visible parts of the delivery system, Oklahoma has new substance-use infrastructure to connect into, and Rural Health Clinics are now operating under the new telehealth billing framework that began October first.</description>
