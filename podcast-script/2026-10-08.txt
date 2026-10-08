@@ -1,0 +1,133 @@
+Episode title: The Rural Update | October 8, 2026
+Edition date: 2026-10-08
+Generated time CT: 6:05 AM
+Estimated word count: 1764
+Estimated run time: approximately 12 to 14 minutes
+
+OPENING
+
+This is The Rural Update for Thursday, October eighth, twenty twenty-six. The newest rural healthcare announcement is an investment in mental health, mobile crisis response, and addiction treatment in North Carolina. Oklahoma is organizing regional Rural Health Transformation meetings as it approaches Budget Period Two. A new payer transparency rule and active telehealth billing changes also deserve operational attention.
+
+EXECUTIVE BLUF
+
+The first and newest development was announced by CMS on October seventh. More than seventeen million dollars in Rural Health Transformation funding will support rural North Carolina behavioral health. The package includes four million dollars for three mental health clinics, three million dollars to expand access to medication for opioid use disorder in five counties, four million dollars for mobile crisis teams in six counties, and six point seven million dollars for early intervention, regional partnerships, and perinatal mental health.
+
+The delivery model is important. Local clinics, mobile crisis teams, medication treatment, and regional partners are being linked to create an access pathway beyond emergency stabilization.
+
+Second, Oklahoma is listing County Collaborative meetings beginning October twenty-sixth, including Woodward, Guymon, Mangum, and Enid locations. The state's first Rural Health Transformation budget period ends October thirtieth; Budget Period Two begins October thirty-first, subject to the next federal award and state guidance.
+
+Third, the October fifth Transparency in Coverage final rule will eventually make payer pricing files smaller, more comparable, and better contextualized. The phase-in means rural hospitals should develop a payer-data strategy, not assume that the improved files are available today.
+
+Fourth, the Rural Health Clinic telehealth billing conversion is live. The priority is production claims, not another readiness checklist. Clinics should track rejection, adjudication, payer differences, and staff rework as the new individual service codes and modifiers move through the payment system.
+
+Finally, NIH has PRIMED-AI research application deadlines on October ninth and nineteenth. These are research deadlines, not broad hospital compliance mandates, but the program's emphasis on technical validation and clinical usefulness is relevant to technology procurement.
+
+TOP DEVELOPMENT ONE: RURAL BEHAVIORAL HEALTH BECOMES A NETWORK DESIGN ISSUE
+
+North Carolina's new awards show how a state can connect clinical access points rather than expecting every rural hospital to offer a full range of mental health and addiction services within its own walls.
+
+CMS reported more than seventeen million dollars for rural behavioral health on October seventh. New mental health clinics will increase fixed-site access. Medication units will expand treatment for opioid use disorder across five counties. Mobile crisis teams will reach six additional counties. Another portion supports early intervention, maternal mental health, and regional partnerships.
+
+The mobile-crisis component is especially significant. CMS describes in-home services for children and families lasting up to eight weeks, with the aim of responding earlier and reducing unnecessary residential or hospital placement where clinically appropriate.
+
+What happened in North Carolina is not an Oklahoma grant award. It is an implementation example, and the right question for Oklahoma rural hospitals is which parts of the operating model could be connected to existing local assets.
+
+Why it matters: emergency departments often encounter behavioral health crises when outpatient appointments, transportation, medication treatment, recovery services, and follow-up are limited or fragmented. A rural hospital can assess and stabilize the immediate clinical risk but cannot by itself guarantee the patient reaches the next stage of care.
+
+What to watch or do: map local access from emergency department or clinic screening through crisis assessment, referral, medication-based care, peer recovery support, follow-up, and return to primary care. Identify which agency owns each handoff, how the service operates after hours, how transportation works, and who pays for the ongoing capacity.
+
+A strong network should also measure avoidable emergency revisits, delayed transfers, follow-up completion, and time from referral to treatment initiation. New funding matters only if those measures improve after implementation.
+
+The strategic point is not to copy a grant announcement. It is to build a dependable behavioral health pathway that can continue when the grant expires.
+
+TOP DEVELOPMENT TWO: OKLAHOMA RHTP SHIFTS INTO REGIONAL EXECUTION
+
+Oklahoma's Rural Health Transformation website lists regional County Collaborative meetings starting October twenty-sixth.
+
+The Woodward meeting covers Ellis, Woodward, Woods, Dewey, Custer, and Roger Mills. The program also lists Guymon on November second, Mangum on November third, and Enid on November fourth, along with meetings elsewhere in Oklahoma.
+
+The state's first budget period, supported by approximately two hundred twenty-three point five million dollars, ends October thirtieth. Budget Period Two begins the following day, with the next CMS award expected later in October. That is a schedule and expectation, not confirmation that a second-period award has already been issued.
+
+Why it matters: implementation is more complicated than award selection. A facility may purchase a telemedicine cart without having specialty clinician coverage. It may buy monitoring equipment without establishing who responds to alerts. A workforce program may train students without ensuring rural recruitment and retention.
+
+What to watch or do: bring an evidence-based set of needs into regional meetings. Identify services that must remain local because travel creates clinical risk. Identify which specialties or support services can be shared, and what transport, scheduling, interoperability, and receiving-hospital capabilities are required.
+
+A second measure is the post-grant financial profile. Require every major project to show continuing staffing, licensing, maintenance, technology replacement, expected revenue, and backup funding. Temporary capital should not become a permanent expense without a viable plan.
+
+Oklahoma's HIE and EHR assistance opportunity remains open through December thirty-first. Eligible rural organizations should compare their certified EHR readiness, integration costs, and clinical workflow requirements with that program, while recognizing that an application does not guarantee approval or funding.
+
+TOP DEVELOPMENT THREE: RHC TELEHEALTH HAS MOVED FROM READINESS TO MONITORING
+
+The October first telehealth billing conversion for Rural Health Clinics and Federally Qualified Health Centers is now in effect.
+
+RHCs and FQHCs furnishing distant-site telehealth are billing the individual CPT or HCPCS code for the service rather than G twenty twenty-five. Qualifying audio-only services use modifier ninety-three, while synchronous audio-video services use modifier ninety-five when applicable.
+
+The key issue now is claim performance.
+
+Why it matters: even if staff training was completed, errors can still appear in coding, charge capture, payer edits, clearinghouse logic, or plan-specific adjudication.
+
+What to watch or do: move from implementation readiness to a thirty-day monitoring period. Track denial rate, rejection reason, modifier errors, payer-specific discrepancies, rework time, and days to payment for telehealth claims. Compare Medicare fee-for-service performance with Medicare Advantage and commercial plan performance rather than assuming all payers are processing claims the same way.
+
+This is also a useful example of administrative friction. The gross payment rate matters, but so do the staff hours required to secure that payment.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+Oklahoma now has several active rural behavioral-health and substance-use awards that can be incorporated into a broader affiliate network strategy.
+
+McAlester Regional Health Center Authority received a three hundred thousand dollar Rural Communities Opioid Response Program overdose-response award.
+
+Cimarron Memorial Hospital and Nursing Home and the Peoria Tribe of Indians of Oklahoma each received one hundred thousand dollar planning awards.
+
+These awards matter because rural hospitals frequently encounter substance-use crises through emergency departments and primary-care settings without having complete treatment, recovery, peer-support, or follow-up capacity locally.
+
+The better model is often a connected regional pathway.
+
+That pathway should define where screening occurs, where medication treatment can begin, how warm handoffs are made, how peer-recovery services are accessed, how transportation is handled, and how follow-up returns to a local clinic when clinically appropriate.
+
+For rural affiliates, the immediate opportunity is not necessarily to build a new service line independently. It may be to connect existing hospital and RHC access points into these federally supported regional resources.
+
+SIGNALS
+
+Two developments stand out.
+
+First, rural regionalization is shifting from a general policy theme into particular operating functions. North Carolina is funding mobile crisis and medication treatment. South Dakota recently funded ambulance-based telemedicine. Oklahoma is convening regional discussions. Together, these examples suggest that transport, information exchange, crisis response, and specialty access must be planned alongside physical hospital infrastructure.
+
+Second, payer data and clinical technology oversight are becoming more evidence-based. The October fifth Transparency in Coverage final rule improves the design of future payer disclosures, including network-level rates and utilization context. Its requirements phase in over time after Federal Register publication. Rural executives should prepare a data dictionary now, while keeping published prices distinct from realized reimbursement after denials, appeals, cash timing, and administrative labor.
+
+NIH's PRIMED-AI program underscores a related principle: clinical AI should be assessed through validation and real-world utility. The October ninth and nineteenth application dates are for researchers. For providers, the practical response is to require representative validation data, clinical oversight, drift monitoring, cybersecurity controls, and a way to suspend a tool that performs poorly.
+
+EXECUTIVE ACTIONS
+
+First, map the rural behavioral health pathway and opportunities to connect with regional crisis response and opioid-treatment partners.
+
+Second, prepare affiliate priorities for the relevant Oklahoma County Collaborative meetings. Bring information about workforce gaps, EMS capacity, transfer patterns, clinical access, digital infrastructure, and post-grant financing.
+
+Third, keep the first two weeks of RHC telehealth production claims under revenue-cycle surveillance. Separate Medicare fee for service, Medicare Advantage, and commercial plan results.
+
+Fourth, start a payer contracting scorecard that combines public rate information with cost, denials, successful appeals, days to payment, and staff rework. In parallel, strengthen clinical AI procurement criteria around validation, human accountability, and ongoing monitoring.
+
+DEADLINE WATCH
+
+October ninth is the NIH PRIMED-AI methods and playbook research deadline.
+
+October fifteenth is the Oklahoma ROOTS Year Two rural school wellness application deadline and a useful target for the first two-week RHC telehealth claims assessment.
+
+October nineteenth is the NIH deadline for additional model-development and model-to-clinic research opportunities.
+
+October twenty-sixth begins the Oklahoma County Collaborative meetings.
+
+October thirtieth ends the first state Rural Health Transformation budget period, and October thirty-first starts the second period, subject to federal award and state guidance.
+
+The Oklahoma HIE and EHR assistance application deadline is December thirty-first.
+
+CLOSING
+
+What I would keep in view today is that rural transformation is increasingly about the reliability of the system between facilities.
+
+The hospital matters. The clinic matters. But so do EMS, communications, telehealth, referral pathways, behavioral-health partners, receiving hospitals, and post-acute capacity.
+
+Temporary federal funding can create new capability. Durable rural access depends on whether those capabilities are connected into a coherent delivery model and whether the recurring costs have a sustainable funding source.
+
+The immediate operational check today is simple: make sure the new telehealth billing rules are working in real claims, not just in written guidance.
+
+That is The Rural Update for Wednesday, October seventh.
