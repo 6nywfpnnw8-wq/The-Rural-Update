@@ -1,0 +1,111 @@
+Episode title: The Rural Update | October 9, 2026
+Edition date: 2026-10-09
+Generated time CT: 6:12 AM
+Estimated word count: 1707
+Estimated run time: 12 to 14 minutes
+
+OPENING
+
+This is The Rural Update for Friday, October ninth, twenty twenty-six. Yesterday brought two consequential national developments: new peer-reviewed evidence of hospital closures and the release of twenty twenty-seven Medicare Advantage Star Ratings. For rural executives, the important decisions concern protecting local services, comparing payer behavior, and preparing Oklahoma partners for the next wave of transformation funding. There are also immediate deadlines for Rural Health Clinic telehealth billing, EHR modernization, prior authorization technology and AI research.
+
+EXECUTIVE BLUF
+
+The October eighth JAMA research assesses U.S. hospital closures and openings from twenty ten through twenty twenty-five. Reporting on the findings describes more than four hundred closures, a net loss of two hundred sixteen hospitals and over twenty-four thousand beds. Those are national figures, not a rural-only count. The lesson for an affiliate board is to measure actual local capabilities and patient travel, not simply whether a hospital remains legally open.
+
+CMS also released the twenty twenty-seven Medicare Advantage and Part D Star Ratings. Approximately thirty-seven percent of Medicare Advantage prescription drug contracts earned four stars or more. Weighted by enrollment, about seventy-one percent of enrollees are in contracts that will have four or more stars in twenty twenty-seven. The ratings influence twenty twenty-eight quality bonus payments. Medicare open enrollment begins October fifteenth.
+
+Oklahoma's Rural Health Transformation deadlines remain consequential. ROOTS Year Two closes October fifteenth. Regional county-collaborative meetings start October twenty-six. Applications for eligible EHR and health information exchange assistance close December thirty-first. Each proposed investment should have a measurable access outcome and a defensible post-grant operating plan.
+
+RHC telehealth billing now requires specific service codes and appropriate modifiers instead of G twenty twenty-five for distant-site services beginning October first. The question this week is whether actual claims are accepted and paid. Federal payer price-transparency changes and January twenty twenty-seven payer API requirements add longer-term technology and revenue-cycle work.
+
+TOP DEVELOPMENT ONE: HOSPITAL CLOSURE STUDY CHANGES THE ACCESS CONVERSATION
+
+JAMA published a research letter October eighth examining openings and closures across the United States from twenty ten through twenty twenty-five, including effects on distance to the nearest hospital. News reporting describes more than four hundred closures and a net decline of two hundred sixteen hospitals nationwide after accounting for openings. Do not present these figures as a count of rural hospitals alone; the research includes hospitals in both rural and urban communities.
+
+Hospital operating status is not the only meaningful indicator of access. A rural community can retain a functioning emergency department but lose inpatient or swing-bed services after conversion. Patients may then require additional transfers, longer ambulance trips and separate post-acute placement. Board assessments should therefore track the services available in each local market rather than counting buildings or beds in isolation.
+
+The appropriate response is a practical capability map. Identify emergency stabilization, inpatient capacity, diagnostics, rehabilitation, specialty coverage and skilled post-acute options. Add travel time to the next feasible alternative and identify transport bottlenecks. Distinguish clinically necessary transfer from potentially avoidable bypass when the local facility has the capability to treat the patient.
+
+One additional caution matters. National hospital closures result from multiple financial, workforce, ownership and market pressures. No single statistic proves one cause. Use the study as a national signal, then support local service decisions with verified data on utilization, margins, transfer acceptance and patient outcomes.
+
+TOP DEVELOPMENT TWO: OKLAHOMA MOVES INTO REGIONAL IMPLEMENTATION
+
+Oklahoma's Rural Health Transformation Program is now emphasizing Year Two implementation and regional engagement.
+
+The state has scheduled county-collaborative meetings beginning October twenty-six. Sapulpa and Woodward are first, followed by Duncan on October twenty-seventh, Tahlequah on the twenty-eighth, McAlester on the twenty-ninth, and then Pryor, Guymon, Mangum and Enid in early November.
+
+Why it matters: these meetings create a point where strategy becomes local execution. Rural organizations should not enter them with only broad requests for more funding. The stronger approach is to identify specific regional capabilities, access gaps and sustainability constraints.
+
+TOP DEVELOPMENT THREE: RHC TELEHEALTH MOVES FROM GO-LIVE TO PERFORMANCE
+
+The October first telehealth billing conversion is now in its first full week.
+
+Rural Health Clinics and Federally Qualified Health Centers furnishing distant-site telehealth are now billing individual CPT or HCPCS service codes rather than G twenty twenty-five, with the applicable modifier structure for audio-only and audio-video services.
+
+The most important shift now is operational.
+
+A clean test claim before go-live was necessary, but it is not enough. Payers may process production claims differently. Clearinghouse edits may behave differently at volume. Documentation patterns may not align with the billed service. Modifier logic may vary by payer.
+
+Why it matters: small rural organizations can absorb a surprising amount of administrative cost when a new billing rule creates recurring denials. Even a modest denial rate becomes meaningful when staff must correct, appeal and rebill claims manually.
+
+What to watch or do: establish a first-week report by payer. Track front-end rejections, final denials, modifier-related edits, days to adjudication and staff hours spent resolving exceptions. This should become part of the broader payer-friction scorecard rather than being treated as an isolated coding problem.
+
+TOP DEVELOPMENT FOUR: MEDICARE ADVANTAGE STAR RATINGS AND RURAL CONTRACTING
+
+CMS published twenty twenty-seven Medicare Advantage and Part D ratings October eighth. Around thirty-seven percent of Medicare Advantage prescription drug contracts earned at least four stars, accounting for about seventy-one percent of current MA-PD enrollment. The results are available for the October fifteenth through December seventh enrollment period and will affect twenty twenty-eight Medicare Advantage quality bonus payments.
+
+This national picture cannot substitute for a county-level payer assessment. A plan's contract rating does not establish whether its local network offers adequate rural access or whether claims are paid on time. Compare actual contract identifiers, network participants, authorization requirements, denials, appeals and payment timing for the plans serving each rural hospital.
+
+Build a contracting scorecard that combines allowed-to-cost ratios, initial denials, final denials, appeal reversals, prior authorizations per thousand covered lives, days to payment and staff effort. Add network indispensability: travel distances, emergency readiness, backup capacity and connections to higher-acuity services. Measure effective payment after administrative friction, not only the negotiated rate.
+
+Hospitals should help beneficiaries locate objective Medicare information without directing patients toward a preferred plan. Open enrollment makes network accuracy and consistent patient-facing explanations especially important.
+
+TOP DEVELOPMENT FIVE: PRICING TRANSPARENCY AND TECHNOLOGY IMPLEMENTATION
+
+On October fifth, CMS and partner agencies finalized updated Transparency in Coverage rules that make public payer price files more standardized and useful. They move toward provider-network-level in-network reporting, add taxonomy and utilization context, expand some out-of-network data and strengthen accuracy attestations. Implementation is phased. These files are an emerging contracting resource, not proof that every new requirement is already live.
+
+Assign a pilot covering ten to twenty high-volume services and the most important commercial networks. Compare published rates with actual collections, costs, denials and contract terms. Determine who owns data ingestion and validation before expanding the approach systemwide.
+
+CMS also generally requires affected payers to implement prior authorization and other interoperability APIs beginning January first, twenty twenty-seven, subject to payer-specific provisions. For rural providers, the immediate action is to document EHR vendor and version, available APIs, module costs, testing dates, training and the escalation path for failed transactions. Eligible hospitals and critical access hospitals also face electronic prior authorization reporting provisions in the twenty twenty-seven period.
+
+NIH's PRIMED-AI program has one application deadline today, October ninth, with other opportunities due October nineteenth. The program emphasizes technical validation and clinical utility. Those same tests are useful when rural hospitals evaluate clinical AI procurement, even if they are not pursuing an NIH award.
+
+OKLAHOMA AND RURAL-SPECIFIC VIEW
+
+The Oklahoma implementation environment now has three near-term priorities.
+
+First, ROOTS Year Two closes October fifteenth. Organizations with relevant school or community partnerships should make a final decision rather than allowing the deadline to pass by default.
+
+Second, the county-collaborative meetings later this month should be used to advance regional operating concepts. The strongest rural strategy will likely combine local emergency, primary-care and diagnostic capability with shared specialty, behavioral-health, workforce and technology infrastructure.
+
+Third, Budget Period One closes October thirtieth and Budget Period Two begins October thirty-first. The state expects the next CMS award later this month. That makes October a governance month as much as a funding month. Organizations should know what has been committed, what has been implemented, what recurring costs are being created, and what measurable outcomes are expected.
+
+EXECUTIVE ACTIONS
+
+First, refresh each affiliate's local access and transfer capability map. Identify services whose loss would increase patient travel or delay.
+
+Second, produce county-specific Medicare Advantage contract scorecards ahead of October fifteenth enrollment, using actual denials and payment data.
+
+Third, close ROOTS application decisions by October fifteenth and assign leaders to Oklahoma regional county-collaborative meetings.
+
+Fourth, review RHC telehealth production claims through October fifteenth, including code and modifier accuracy, payer rejections, adjudication and denials.
+
+Fifth, complete an HIE and EHR funding readiness plan by December thirty-first, alongside a January first payer API interoperability test plan.
+
+DEADLINE WATCH
+
+October ninth is the deadline for one NIH PRIMED-AI opportunity. Other PRIMED-AI opportunities close October nineteenth.
+
+October fifteenth is the ROOTS Year Two application deadline, the opening of Medicare annual enrollment and the RHC telehealth stabilization checkpoint.
+
+Oklahoma regional county-collaborative meetings begin October twenty-six. The schedule includes Woodward for Custer and neighboring counties, Guymon for Beaver and Harper, Mangum for Washita and Kiowa, Enid for Blaine and Durant for Coal and Atoka. The meetings extend into November.
+
+October thirtieth closes the state's first Rural Health Transformation budget period, and October thirty-first begins the second.
+
+December thirty-first is the posted Oklahoma HIE and EHR assistance deadline for eligible rural providers. January first, twenty twenty-seven is the key target for many payer interoperability and prior authorization APIs.
+
+CLOSING
+
+This week's lesson is that rural sustainability is best measured through actual capability, access and continuity, not only the size of a grant or a reported quality score. Finance, clinical operations, EMS, physician networks and digital infrastructure have to function together.
+
+A credible regional strategy defines what must stay local, what can safely be shared, and how patients can return to local care when specialized treatment ends. Every investment must carry both an initial milestone and a post-grant operating model. That is The Rural Update for Friday, October ninth, twenty twenty-six.
