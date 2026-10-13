@@ -14,6 +14,7 @@ import urllib.request
 from datetime import datetime, date
 from pathlib import Path
 from release_core import *
+from release_narration import ensure_narration_length
 
 ROOT=Path(__file__).resolve().parents[1]
 MODEL=os.getenv('RURAL_UPDATE_MODEL','gpt-5-mini')
@@ -114,6 +115,7 @@ Earlier public intelligence is context only, NOT independently verified evidence
     response=request_api(payload)
     assert any(x.get('type')=='web_search_call' for x in response.get('output',[])),'Research did not use web search'
     edition=json.loads(output_text(response))
+    edition=ensure_narration_length(edition,cache,MODEL,request_api,output_text)
     validate_edition(edition,edition_date)
     audit_schema=obj(approved={'type':'boolean'},issues=arr(S,0,30))
     audit_prompt="""Independently fact-check this candidate public rural healthcare briefing.
