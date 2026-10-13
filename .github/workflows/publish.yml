@@ -1,0 +1,143 @@
+name: Publish validated Rural Update
+on:
+  schedule:
+    - cron: '15 5 * * *'
+      timezone: America/Chicago
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Publish/recover today, verify current delivery, or test alerts
+        type: choice
+        options: [publish, recover, verify, test-alert]
+        default: publish
+      edition_date:
+        description: YYYY-MM-DD; blank resolves to today in America/Chicago
+        type: string
+        required: false
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish.yml'
+      - 'scripts/release_*.py'
+      - 'web/**'
+      - 'requirements-publisher.txt'
+      - 'release-request.json'
+permissions:
+  contents: read
+concurrency:
+  group: rural-update-single-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      issues: write
+    env:
+      MODE: ${{ inputs.mode || 'publish' }}
+      REQUESTED_DATE: ${{ inputs.edition_date }}
+      RURAL_UPDATE_MODEL: ${{ vars.RURAL_UPDATE_MODEL || 'gpt-5-mini' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Resolve edition
+        id: edition
+        run: |
+          python3 - <<'PY'
+          import datetime, os, re
+          from zoneinfo import ZoneInfo
+          d=os.environ.get('REQUESTED_DATE') or datetime.datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
+          if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', d): raise SystemExit('Invalid edition date')
+          datetime.date.fromisoformat(d)
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write('date='+d+'\n')
+          PY
+      - name: Restore resumable research and speech work
+        if: env.MODE == 'publish' || env.MODE == 'recover'
+        uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: rural-release-v1-${{ steps.edition.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: rural-release-v1-${{ steps.edition.outputs.date }}-
+      - name: Install deterministic compiler dependencies
+        run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+      - name: Test publishing controls before accessing credentials
+        run: |
+          python3 -m unittest discover -s tests -p 'test_release*.py' -v
+          node --check web/release-runtime.js
+          node --check sw.js
+          node tests/test_release_sw.cjs
+      - name: Install audio validation tool only if missing
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+      - name: Prepare and atomically save validated release
+        id: prepare
+        if: env.MODE == 'publish' || env.MODE == 'recover'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_TTS_MODEL: gpt-4o-mini-tts
+          OPENAI_TTS_VOICE: cedar
+        run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --commit
+      - name: Configure Pages
+        if: steps.prepare.outcome == 'success'
+        uses: actions/configure-pages@v5
+      - name: Upload exactly the validated site, never the repository root
+        if: steps.prepare.outcome == 'success'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .site
+      - name: Deploy validated snapshot
+        id: deploy
+        if: steps.prepare.outcome == 'success'
+        uses: actions/deploy-pages@v4
+      - name: Verify exact public release and playable episode
+        id: verify
+        if: steps.deploy.outcome == 'success' || env.MODE == 'verify'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$MODE" = verify ]; then
+            python3 scripts/release_verify.py verify --date '${{ steps.edition.outputs.date }}'
+          else
+            python3 scripts/release_verify.py verify --date '${{ steps.edition.outputs.date }}' --expected .site/release.json
+          fi
+      - name: Test alert path without publishing or spending API credits
+        if: env.MODE == 'test-alert'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release_verify.py test-alert --date '${{ steps.edition.outputs.date }}' --message 'TEST ONLY. The authorized publisher can create a GitHub notification incident. Receipt on a device must still be confirmed.'
+      - name: Record one actionable incident if any required step failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release_verify.py alert --date '${{ steps.edition.outputs.date }}'
+      - name: Save resumable work even after failure
+        if: always() && (env.MODE == 'publish' || env.MODE == 'recover')
+        uses: actions/cache/save@v4
+        with:
+          path: .release-cache
+          key: rural-release-v1-${{ steps.edition.outputs.date }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve validation and delivery reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          if-no-files-found: ignore
+          include-hidden-files: true
+          path: |
+            .release-cache/failure.json
+            .release-cache/delivery-report.json
+            .release-cache/*/audit.json
+            .release-cache/*/audio-error.json
