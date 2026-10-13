@@ -1,0 +1,5 @@
+# Generated work is not source and must never be accidentally committed.
+.release-cache/
+.site/
+__pycache__/
+*.py[cod]

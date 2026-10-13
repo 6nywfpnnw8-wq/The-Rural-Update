@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: Publish/recover today, verify current delivery, or test alerts
+        description: Publish/recover today, verify delivery, test alerts, or inspect cached diagnostics
         type: choice
-        options: [publish, recover, verify, test-alert]
+        options: [publish, recover, verify, test-alert, diagnose]
         default: publish
       edition_date:
         description: YYYY-MM-DD; blank resolves to today in America/Chicago
@@ -61,7 +61,7 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write('date='+d+'\n')
           PY
       - name: Restore resumable research and speech work
-        if: env.MODE == 'publish' || env.MODE == 'recover'
+        if: env.MODE == 'publish' || env.MODE == 'recover' || env.MODE == 'diagnose'
         uses: actions/cache/restore@v4
         with:
           path: .release-cache
@@ -75,7 +75,11 @@ jobs:
           node --check web/release-runtime.js
           node --check sw.js
           node tests/test_release_sw.cjs
+      - name: Inspect cached diagnostics without generation or publication
+        if: env.MODE == 'diagnose'
+        run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --diagnose-cached
       - name: Install audio validation tool only if missing
+        if: env.MODE != 'diagnose'
         run: |
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
             sudo apt-get update
@@ -141,3 +145,6 @@ jobs:
             .release-cache/delivery-report.json
             .release-cache/*/audit.json
             .release-cache/*/audio-error.json
+            .release-cache/*/validation-*.json
+            .release-cache/*/narration-check.json
+            .release-cache/*/diagnostic-summary.json
