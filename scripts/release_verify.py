@@ -13,6 +13,7 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
+from release_diagnostics import current_failure_summary
 import hashlib
 BASE='https://6nywfpnnw8-wq.github.io/The-Rural-Update/'
 TZ=ZoneInfo('America/Chicago')
@@ -119,7 +120,11 @@ def main():
     parser.add_argument('--recover',action='store_true'); parser.add_argument('--message',default='Publication did not complete. Review the linked run and validation artifacts.')
     args=parser.parse_args(); d=args.date or datetime.now(TZ).date().isoformat()
     if args.command in ('alert','test-alert'):
-        incident(d,args.message,test=args.command=='test-alert'); return 0
+        message=args.message
+        if args.command=='alert':
+            detail=current_failure_summary(ROOT/'.release-cache'/d)
+            if detail: message=detail+' '+message
+        incident(d,message,test=args.command=='test-alert'); return 0
     expected=read_json(Path(args.expected)) if args.expected else None
     error=None; report=None
     for attempt,delay in enumerate([0,10,20,40]):
