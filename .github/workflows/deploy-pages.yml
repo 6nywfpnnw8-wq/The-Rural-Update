@@ -1,62 +1,13 @@
 name: Deploy The Rural Update to GitHub Pages
-
+# Retired. No triggers that write content or deploy remain.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'archive/**'
-      - 'archive-loader.js'
-      - 'signals-reference.js'
-      - 'intelligence.js'
-      - 'sw.js'
-      - 'manifest.webmanifest'
-      - 'icons/**'
-      - 'the-rural-update-logo.png'
-      - 'audio/**'
-      - 'podcast-script/**'
-      - 'transcript/**'
-      - 'podcast.xml'
-      - 'podcast-art.png'
-      - '.github/workflows/deploy-pages.yml'
-  workflow_run:
-    workflows:
-      - 'Archive previous Rural Update edition'
-      - 'Generate Rural Update podcast audio'
-    types: [completed]
   workflow_dispatch:
-
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  deploy:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  retired:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout latest main
-        uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - run: |
+          echo 'This separate publisher is retired. Run Publish validated Rural Update instead.'
+          exit 1

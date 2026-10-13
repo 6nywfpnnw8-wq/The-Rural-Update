@@ -1,0 +1,35 @@
+name: Verify Rural Update delivery
+on:
+  schedule:
+    - cron: '10 6 * * *'
+      timezone: America/Chicago
+    - cron: '30 6 * * *'
+      timezone: America/Chicago
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+  actions: write
+concurrency:
+  group: rural-update-delivery-check
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+      - name: Verify public artifacts, recover once, then alert
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          if [ "$SCHEDULE" = '30 6 * * *' ]; then
+            python3 scripts/release_verify.py watch
+          else
+            python3 scripts/release_verify.py watch --recover
+          fi
