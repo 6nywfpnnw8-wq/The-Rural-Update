@@ -218,14 +218,24 @@ def build(date_string):
     transcript=root/f'transcript/{date_string}.html'; transcript.parent.mkdir(exist_ok=True)
     transcript.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(e['title'])+' Transcript</title></head><body><a href="'+BASE+'">The Rural Update</a><h1>'+esc(e['title'])+'</h1><p>AI-generated narration. Source references are in the app.</p>'+''.join('<p>'+esc(p)+'</p>' for p in body.split('\n\n'))+'</body></html>',encoding='utf-8')
     audio=root/f'audio/{date_string}.mp3'; audio_status='unavailable'
+    feed_path=root/'podcast.xml'
+    previous_feed=feed_path.read_bytes() if feed_path.exists() else None
     try:
         audio_for(e,cache,audio)
-        audio_status='complete'
         if not (root/'podcast-art.png').exists():
             subprocess.run(['ffmpeg','-y','-v','error','-i',str(root/'icons/icon-512.png'),'-vf','scale=1400:1400',str(root/'podcast-art.png')],check=True,timeout=30)
         stamp=(current.get('audio_published_at') if current.get('edition_date')==date_string else None) or datetime.now(TZ).isoformat()
         update_feed(root,e,stamp)
+        # Completion includes feed and artwork, not merely a synthesized MP3.
+        audio_status='complete'
     except Exception as exc:
+        audio_status='unavailable'
+        # A partial RSS write must not break delivery of the valid text edition
+        # or destroy the feed for previously published episodes.
+        if previous_feed is None:
+            feed_path.unlink(missing_ok=True)
+        else:
+            feed_path.write_bytes(previous_feed)
         write_json(cache/'audio-error.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
         if audio.exists(): audio.unlink()
         audio.with_suffix('.tmp.mp3').unlink(missing_ok=True)
