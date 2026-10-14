@@ -1,0 +1,11 @@
+{
+  "request_id": "2026-10-14-pages-retry-1",
+  "edition_date": "2026-10-14",
+  "revision": 1,
+  "reason": "Run 38593815036 completed source verification, audit, speech and the atomic release commit. GitHub Pages then remained in updating_pages until the action canceled at its 10-minute timeout. Request one retry through the existing single publisher, whose completed-release path reuses the committed artifacts without research or speech calls.",
+  "previous_run_id": 38593815036,
+  "requested_operation": "reuse-validated-release-and-deploy",
+  "expected_audio_sha256": "569ddd1ee79ed12a70c3848e711a514cebd1c66e64b101b510f7e9152dc891a9",
+  "research_counter_reset": false,
+  "validation_override": false
+}
