@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-14",
+  "revision": 1,
+  "code_sha": "f05b8b3ba0ad487ef6c09c5139050bb213c2cf70",
+  "built_at": "2026-10-14T11:04:33.466430-05:00",
+  "audio_status": "complete",
+  "files": {
+    "archive/2026-10-08.html": {
+      "sha256": "bbad96da7de395ac74918f70265854977e6ec2e38948c519e62571346d0138af",
+      "bytes": 15879
+    },
+    "archive/2026-10-14.html": {
+      "sha256": "e3566ec435dc76822551dbecdab060e99b1fffe1d72bb62c8ac3462cc7b8a5f2",
+      "bytes": 57000
+    },
+    "archive/catalog.json": {
+      "sha256": "6b35a9c65c2f9c597b6f5bdf0bc85274447670d397aa9cef170593e51429a873",
+      "bytes": 6947
+    },
+    "audio/2026-10-14.mp3": {
+      "sha256": "569ddd1ee79ed12a70c3848e711a514cebd1c66e64b101b510f7e9152dc891a9",
+      "bytes": 9653037
+    },
+    "data/intelligence.json": {
+      "sha256": "ba50a35740c9d192bdffae970ce9a31e22c92e0b4759bdee82c7ee33cd8c7f93",
+      "bytes": 24354
+    },
+    "data/signals.json": {
+      "sha256": "aae40a2f70d2d789bf30d0d331326ba0993eab7d6fa224a9d636990e328c46d7",
+      "bytes": 5662
+    },
+    "index.html": {
+      "sha256": "50d0a3db5e65314718ed2e7e141350a5e94f7d30ac577244999c628f1beab64e",
+      "bytes": 56680
+    },
+    "manifest.webmanifest": {
+      "sha256": "15af18a450aa1895cf8b5bd4fa157bb6a785960c634fea11f1cf31dd832ac82f",
+      "bytes": 616
+    },
+    "podcast-art.png": {
+      "sha256": "4b327bedf6d0a338d87184859ae77faf3ff295888e7449fcfb3266962c84c063",
+      "bytes": 1129601
+    },
+    "podcast-script/2026-10-14.txt": {
+      "sha256": "4cbc41db5e5f15c422f75fac64809ae66806af70076c7cc060f475d94530702b",
+      "bytes": 12470
+    },
+    "podcast.xml": {
+      "sha256": "eedae88f51c5c5a3d039a030df9457403a8243260d25ae141b584dfba6d8d0a3",
+      "bytes": 41430
+    },
+    "sw.js": {
+      "sha256": "07a236516bc2d3710ed9717dcf194468628bed39ec63b4fcadb6c558ff406153",
+      "bytes": 1819
+    },
+    "transcript/2026-10-14.html": {
+      "sha256": "f5f78b5a12cde687c17817c1ce32410a4783a95814481ec06376605aa49bedd6",
+      "bytes": 12921
+    },
+    "web/release-runtime.js": {
+      "sha256": "d9bbad7550df11c51e58a56378e1e05f6a1aaae828292737aa10a6b6d39ee782",
+      "bytes": 7158
+    },
+    "web/release.css": {
+      "sha256": "eb405646c38446f8c41fe49517dd64b84a5491ae6a099030870f31c5a4878ff9",
+      "bytes": 2038
+    }
+  },
+  "audio_published_at": "2026-10-14T11:04:31.715415-05:00"
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "regionalization",
+    "title": "Regional capability investment",
+    "direction": "Investment continuing",
+    "confidence": "High",
+    "horizon": "1-5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "The October 13 Nebraska announcement and RHTP program goals support continued investment in workforce, remote care and coordination. These inputs do not yet demonstrate durable financial returns.",
+    "why": "Use the evidence as a design comparison for shared capability, then require local access and operating-cost tests.",
+    "refs": [
+      [
+        "CMS: Nebraska RHTP workforce and technology announcement",
+        "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care"
+      ],
+      [
+        "CMS: FY2026 RHTP state award list",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+      ]
+    ],
+    "reviewed": "2026-10-14"
+  },
+  {
+    "id": "medicaid-financing",
+    "title": "Medicaid financing pressure",
+    "direction": "Planning risk increasing",
+    "confidence": "High",
+    "horizon": "12-48 months",
+    "executiveRisk": "High",
+    "summary": "Statutory provider-tax restrictions and CMS's proposed implementation narrow financing options. Individual hospital effects depend on state responses and facility exposure.",
+    "why": "Separate legal dates, regulatory proposals and budget scenarios; do not translate national federal savings directly into hospital losses.",
+    "refs": [
+      [
+        "CMS: CMS-2452-P provider-tax proposed-rule fact sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+      ],
+      [
+        "GPO: CMS-2452-P proposed rule, Federal Register document 2026-14897",
+        "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm"
+      ]
+    ],
+    "reviewed": "2026-10-14"
+  },
+  {
+    "id": "rhc-sustainability",
+    "title": "Potential RHC preventive-service reimbursement",
+    "direction": "Conditional opportunity",
+    "confidence": "Medium",
+    "horizon": "6-18 months",
+    "executiveRisk": "Opportunity",
+    "summary": "CMS proposes stand-alone AIR-paid RHC visits for diabetes self-management training and medical nutrition therapy. This is not a proposal to pay an AIR for every chronic-care activity or add-on code.",
+    "why": "Evaluate the two proposed services separately. Final policy and implementation requirements must be verified before counting recurring revenue.",
+    "refs": [
+      [
+        "CMS: CY2027 PFS proposed-rule fact sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule"
+      ],
+      [
+        "CMS: CMS-1848-P official rule page",
+        "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p"
+      ]
+    ],
+    "reviewed": "2026-10-14"
+  },
+  {
+    "id": "payer-friction",
+    "title": "Payer administrative friction",
+    "direction": "Potentially improving",
+    "confidence": "Medium",
+    "horizon": "3–12 months",
+    "executiveRisk": "Moderate",
+    "summary": "UnitedHealthcare has announced rural payment acceleration, broad prior-authorization exemptions for rural providers and additional reductions in authorization requirements. The direction is favorable, but the operational effect still needs to be measured.",
+    "why": "Administrative burden changes the effective economics of a payer contract. Faster payment, fewer authorizations, lower denial volume and fewer appeal hours can improve net payment after administrative cost even when nominal negotiated rates do not change.",
+    "refs": [
+      [
+        "UnitedHealthcare · Rural payment acceleration and most prior-authorization exemptions · Apr 20, 2026",
+        "https://www.unitedhealthgroup.com/newsroom/2026/2026-04-20-uhc-eliminates-most-medical-prior-authorizations-accelerates-payments-for-key-rural-care-hospitals-providers.html"
+      ],
+      [
+        "UnitedHealthcare · 30% reduction in remaining prior-authorization requirements · May 5, 2026",
+        "https://www.unitedhealthgroup.com/newsroom/2026/2026-05-05-uhc-cuts-prior-authorization-requirements-by-30-percent.html"
+      ],
+      [
+        "UnitedHealthcare · Oklahoma included in Rural Payment Acceleration Pilot · Jan 14, 2026",
+        "https://www.unitedhealthgroup.com/newsroom/2026/2026-01-14-accelerated-medicare-advantage-payments.html"
+      ]
+    ]
+  },
+  {
+    "id": "workforce-localization",
+    "title": "Workforce support beyond recruitment bonuses",
+    "direction": "Investment continuing",
+    "confidence": "High",
+    "horizon": "1-5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "Missouri's childcare and midwife-training initiatives and HRSA's RRPD awards show different investments in workforce development. Funding announcements do not establish staffing outcomes.",
+    "why": "Compare retention supports with training investments, then measure local implementation and sustained coverage.",
+    "refs": [
+      [
+        "CMS: Missouri childcare and midwife training announcement",
+        "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-new-funding-support-rural-healthcare-workers-expand-maternal-care"
+      ],
+      [
+        "HRSA: RRPD awards by fiscal year",
+        "https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd/awards"
+      ]
+    ],
+    "reviewed": "2026-10-14"
+  }
+]

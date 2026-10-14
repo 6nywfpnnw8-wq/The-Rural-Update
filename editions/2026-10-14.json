@@ -1,0 +1,452 @@
+{
+  "edition": {
+    "edition_date": "2026-10-14",
+    "title": "The Rural Update | October 14, 2026 | Recovery edition",
+    "bluf": "This recovery edition combines the October 13 Missouri and Nebraska RHTP announcements with continuing operational priorities, not five announcements issued today. The immediate work is to review RHC telehealth claim performance, test Medicaid financing scenarios without treating proposed regulations as final, and connect grant investments to sustainable services. Oklahoma's $223,476,949 RHTP amount is its FY2026 state award, not a new October award or an individual hospital allocation. Proposed 2027 RHC preventive-service payments remain distinct from existing care-management and ACCESS billing pathways.",
+    "stories": [
+      {
+        "id": "rhtp-oct13-implementation",
+        "title": "RHTP: new Missouri and Nebraska implementation examples",
+        "what_changed": "On October 13, CMS announced more than $177 million for Nebraska RHTP initiatives and more than $2.3 million for Missouri initiatives. Nebraska reports workforce recruitment, remote monitoring and community health positions. Missouri targets childcare support and the development of nurse midwife training. These are components of existing FY2026 state awards, not additional state allocations on top of the national program.",
+        "why_it_matters": "The executive opportunity is to compare specific delivery designs and recurring costs, not assume another state's award creates an Oklahoma entitlement.",
+        "executive_question": "Which workforce or shared-service design fits our communities, and who would finance its recurring cost?",
+        "category": "Rural funding / Workforce / Technology",
+        "change": "New",
+        "policy_state": "Announcement",
+        "source_ids": [
+          "nebraska",
+          "missouri",
+          "rhtp"
+        ]
+      },
+      {
+        "id": "rhc-telehealth-2026-10-14",
+        "title": "RHC telehealth: verify production claims after October 1",
+        "what_changed": "CMS guidance requires individual distant-site service codes with the appropriate telehealth modifier instead of G2025 beginning October 1, 2026. The transmittal lists an October 5 implementation date. This is a continuing operating issue, not a new policy announcement today.",
+        "why_it_matters": "Review the full claim pathway and actual remittances. A changed code does not by itself establish a changed payment method or a commercial payer requirement.",
+        "executive_question": "Can each affected clinic reconcile a sampled encounter from documentation through payment or denial?",
+        "category": "Oklahoma / RHC / Revenue Cycle",
+        "change": "Continuing",
+        "policy_state": "Final",
+        "source_ids": [
+          "rhc",
+          "telehealth"
+        ]
+      },
+      {
+        "id": "medicaid-financing-2026-10-14",
+        "title": "Medicaid financing: distinguish statutory limits from proposed implementation",
+        "what_changed": "CMS-2452-P proposes implementation of section 71115 provider-tax changes. CMS identifies statutory dates of October 1, 2026 and, for new thresholds on most permissible classes in expansion states, October 1, 2027. The proposal's comment period closed September 21. The statutory changes and proposed regulatory details are not the same thing.",
+        "why_it_matters": "Model facility exposure to state financing responses. Do not treat provider-tax thresholds, state-directed-payment caps and DSH rules as one interchangeable mechanism or assume a quantified hospital loss.",
+        "executive_question": "What portion of our Medicaid receipts depends on each financing mechanism, and which assumptions have OHCA actually confirmed?",
+        "category": "Medicaid / Finance",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_ids": [
+          "provider-tax",
+          "hhs-tax"
+        ]
+      },
+      {
+        "id": "cy2027-pfs-2026-10-14",
+        "title": "RHC preventive services: a specific 2027 proposal, not a blanket add-on benefit",
+        "what_changed": "CMS proposes recognizing diabetes self-management training and medical nutrition therapy as preventive services payable as stand-alone RHC visits under the all-inclusive rate. This proposal is distinct from separately paid care-management services and ACCESS co-management billing. The CY2027 PFS comment period closed September 14.",
+        "why_it_matters": "Treat potential reimbursement as a scenario until final policy is verified. Staffing, eligibility and billing requirements need a service-specific model.",
+        "executive_question": "Would a DSMT or MNT service remain sustainable without assuming every chronic-care activity creates an additional AIR payment?",
+        "category": "Medicare / RHC / Policy",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_ids": [
+          "pfs",
+          "pfs-rule",
+          "rhc"
+        ]
+      },
+      {
+        "id": "workforce-grants-hrsa-2026-10-14",
+        "title": "Oklahoma workforce: match the award year before planning capacity",
+        "what_changed": "HRSA's FY2026 RRPD table lists Comanche County Hospital Authority in Lawton with $750,000 for psychiatry. HRSA separately announced $89.3 million in national RCORP awards on September 25. Residency-development funding is not evidence of filled positions, accreditation or completed training.",
+        "why_it_matters": "Explore rotation and treatment partnerships with the actual awardees, while distinguishing program development from immediate clinical coverage.",
+        "executive_question": "Which agreements, supervision resources and implementation milestones would have to be in place before we count this as usable capacity?",
+        "category": "Oklahoma / Workforce / Behavioral Health",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_ids": [
+          "rrpd",
+          "rcorp"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "action-medicaid-downside-model",
+        "title": "Quantify Medicaid supplemental-financing exposure and downside model",
+        "due_date": null,
+        "next_step": "Separate provider-tax exposure from SDP and DSH assumptions. Prepare facility-specific downside scenarios and validate Oklahoma implementation assumptions with OHCA before revising the base budget.",
+        "suggested_function": "Finance / Medicaid Managed Care / CFO",
+        "issue_id": "medicaid-financing-2026-10-14",
+        "source_ids": [
+          "provider-tax",
+          "hhs-tax"
+        ]
+      },
+      {
+        "id": "action-rhtp-sustainability-test",
+        "title": "Apply RHTP post-grant sustainability test",
+        "due_date": null,
+        "next_step": "Compare the Missouri and Nebraska implementation examples with local needs. For any proposed participation, identify recurring cost, eligible funding, local access safeguards and post-grant financing.",
+        "suggested_function": "Strategy / Finance / Grants Office",
+        "issue_id": "rhtp-oct13-implementation",
+        "source_ids": [
+          "nebraska",
+          "missouri",
+          "rhtp"
+        ]
+      },
+      {
+        "id": "action-rhc-telehealth-validate",
+        "title": "Validate RHC telehealth billing conversion in production",
+        "due_date": "2026-10-21",
+        "next_step": "By the suggested October 21 internal checkpoint, sample October 1-14 RHC telehealth encounters and reconcile documentation, code mapping, modifiers, claims and remittances. This date is an editorial recommendation, not a CMS deadline.",
+        "suggested_function": "Revenue Cycle / RHC Operations / IT",
+        "issue_id": "rhc-telehealth-2026-10-14",
+        "source_ids": [
+          "rhc",
+          "telehealth"
+        ]
+      }
+    ],
+    "deadlines": [
+      {
+        "date": "2026-10-21",
+        "title": "Suggested RHC claim-review checkpoint",
+        "description": "Optional internal planning date: finish a review of the first two weeks of October service dates. This is not a CMS filing deadline.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "rhc",
+          "telehealth"
+        ]
+      },
+      {
+        "date": "2026-10-31",
+        "title": "Suggested grant sustainability review",
+        "description": "Optional internal planning date: review any proposed project's staffing, cost and post-grant financing. This is not an official RHTP application deadline.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "rhtp",
+          "nebraska"
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "id": "regionalization",
+        "title": "Regional capability investment",
+        "direction": "Investment continuing",
+        "confidence": "High",
+        "horizon": "1-5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "The October 13 Nebraska announcement and RHTP program goals support continued investment in workforce, remote care and coordination. These inputs do not yet demonstrate durable financial returns.",
+        "why": "Use the evidence as a design comparison for shared capability, then require local access and operating-cost tests.",
+        "source_ids": [
+          "nebraska",
+          "rhtp"
+        ]
+      },
+      {
+        "id": "medicaid-financing",
+        "title": "Medicaid financing pressure",
+        "direction": "Planning risk increasing",
+        "confidence": "High",
+        "horizon": "12-48 months",
+        "executiveRisk": "High",
+        "summary": "Statutory provider-tax restrictions and CMS's proposed implementation narrow financing options. Individual hospital effects depend on state responses and facility exposure.",
+        "why": "Separate legal dates, regulatory proposals and budget scenarios; do not translate national federal savings directly into hospital losses.",
+        "source_ids": [
+          "provider-tax",
+          "hhs-tax"
+        ]
+      },
+      {
+        "id": "rhc-sustainability",
+        "title": "Potential RHC preventive-service reimbursement",
+        "direction": "Conditional opportunity",
+        "confidence": "Medium",
+        "horizon": "6-18 months",
+        "executiveRisk": "Opportunity",
+        "summary": "CMS proposes stand-alone AIR-paid RHC visits for diabetes self-management training and medical nutrition therapy. This is not a proposal to pay an AIR for every chronic-care activity or add-on code.",
+        "why": "Evaluate the two proposed services separately. Final policy and implementation requirements must be verified before counting recurring revenue.",
+        "source_ids": [
+          "pfs",
+          "pfs-rule"
+        ]
+      },
+      {
+        "id": "workforce-localization",
+        "title": "Workforce support beyond recruitment bonuses",
+        "direction": "Investment continuing",
+        "confidence": "High",
+        "horizon": "1-5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "Missouri's childcare and midwife-training initiatives and HRSA's RRPD awards show different investments in workforce development. Funding announcements do not establish staffing outcomes.",
+        "why": "Compare retention supports with training investments, then measure local implementation and sustained coverage.",
+        "source_ids": [
+          "missouri",
+          "rrpd"
+        ]
+      }
+    ],
+    "issue_updates": [],
+    "sources": [
+      {
+        "id": "nebraska",
+        "title": "CMS: Nebraska RHTP workforce and technology announcement",
+        "url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care",
+        "published_date": "2026-10-13"
+      },
+      {
+        "id": "missouri",
+        "title": "CMS: Missouri childcare and midwife training announcement",
+        "url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-new-funding-support-rural-healthcare-workers-expand-maternal-care",
+        "published_date": "2026-10-13"
+      },
+      {
+        "id": "rhtp",
+        "title": "CMS: FY2026 RHTP state award list",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+        "published_date": "2025-12-29"
+      },
+      {
+        "id": "rhc",
+        "title": "CMS: RHC and FQHC current billing announcements",
+        "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+        "published_date": null
+      },
+      {
+        "id": "telehealth",
+        "title": "CMS: R13776OTN distant-site billing transmittal",
+        "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "provider-tax",
+        "title": "CMS: CMS-2452-P provider-tax proposed-rule fact sheet",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+        "published_date": "2026-07-21"
+      },
+      {
+        "id": "hhs-tax",
+        "title": "GPO: CMS-2452-P proposed rule, Federal Register document 2026-14897",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm",
+        "published_date": "2026-07-23"
+      },
+      {
+        "id": "pfs",
+        "title": "CMS: CY2027 PFS proposed-rule fact sheet",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule",
+        "published_date": "2026-07-14"
+      },
+      {
+        "id": "pfs-rule",
+        "title": "CMS: CMS-1848-P official rule page",
+        "url": "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p",
+        "published_date": "2026-07-16"
+      },
+      {
+        "id": "rrpd",
+        "title": "HRSA: RRPD awards by fiscal year",
+        "url": "https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd/awards",
+        "published_date": null
+      },
+      {
+        "id": "rcorp",
+        "title": "HRSA: September 25 RCORP awards announcement",
+        "url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+        "published_date": "2026-09-25"
+      }
+    ],
+    "podcast": {
+      "opening": "This is The Rural Update for Wednesday, October fourteenth, twenty twenty-six. This recovery edition covers new rural transformation announcements from October thirteenth and continuing issues that deserve management attention. It does not present every item as new policy today. The priority is to distinguish a funding announcement, a proposed payment change, and an operating requirement before turning any of them into a commitment.",
+      "bluf": "The central message is practical execution. New Missouri and Nebraska examples show how rural transformation funds are being applied to workforce support, training and technology. Those designs are worth examining, but an announced investment is not the same as a demonstrated financial return.\n\nFor Oklahoma leaders, the near-term task is to check RHC telehealth claims after the October first billing change. The financial planning task is to distinguish statutory provider-tax restrictions from proposed regulatory implementation and from other Medicaid payment mechanisms. The development opportunity is to examine specific proposed RHC preventive services and documented workforce awards without assuming that funding automatically becomes sustainable capacity.\n\nThroughout this briefing, operational suggestions are recommendations. They do not represent assignments to your staff, verified work in progress, or decisions already made by your hospital.",
+      "developments": [
+        "First, the new rural transformation examples. CMS announced more than one hundred seventy-seven million dollars for Nebraska initiatives on October thirteenth, with recruitment, remote monitoring and community health work among the reported activities. In Missouri, a separate announcement describes more than two point three million dollars for childcare support and development of a nurse midwife training program. Both announcements identify these initiatives as part of the states' broader fiscal year twenty twenty-six awards.\n\nThe interpretation for Oklahoma is not that these dollars are available to our facilities. It is that workforce and access problems can be approached through several different designs. A retention problem may call for support that makes employment workable. A training problem may call for an educational partner. A geographic access problem may call for shared technology and clear clinical responsibility. Those choices should follow a local assessment rather than a copy of another state's spending plan.\n\nFor a proposed project, ask what would have to be true for it to work here. Identify the population served, the service gap, the workforce available, and the partner responsible for each recurring task. Estimate the operating cost separately from equipment and start-up expense. Test a lower-volume case rather than assuming that demand reaches the optimistic forecast.\n\nA board discussion can then focus on the commitment being made. Is management proposing a limited pilot, a continuing service, a regional agreement, or a capital purchase? What evidence would justify continuation? What outcome would require redesign? Establishing those decision points before approval makes the proposal easier to evaluate later.\n\nThe takeaway is to use these state examples as questions about delivery design. Do not count announced positions as people already hired, deployed equipment as improved outcomes, or a grant as permanent operating support.",
+        "Second, RHC telehealth billing deserves a production review. CMS instructs RHCs and FQHCs to report individual distant-site service codes with the appropriate telehealth modifier in place of G2025 for services beginning October first. The associated transmittal lists October fifth as its implementation date. Keeping the service date and implementation date distinct avoids an unnecessary ambiguity in an internal checklist.\n\nThe management recommendation is to examine actual transactions rather than rely only on a statement that configuration was completed. Select a small sample of encounters and trace each one from the clinical record through charge entry, code selection, claim submission and the resulting remittance or rejection. Record where the process breaks, who can correct it, and how the correction will be tested.\n\nSeparate different problems in the review. A rejected claim may never have reached adjudication. A denial may require a different response from a payment variance. Missing documentation is not the same problem as an incorrect electronic mapping. Combining every exception into a single denial percentage can make the remediation plan less useful.\n\nAlso separate Medicare's published instructions from other payer requirements. Do not presume that a commercial plan or Medicaid arrangement uses the same rules merely because the underlying service is similar. The appropriate response is to verify the applicable policy and contract, not announce one universal billing rule.\n\nFor governance, ask for a brief management report showing the sample reviewed, the unresolved exception categories and the next corrective step. Avoid declaring success solely because the software vendor delivered an update. A meaningful completion statement would explain what was tested and what still needs review.\n\nOctober twenty-first is a suggested internal checkpoint in this edition, not a CMS submission deadline. It gives a leadership team a date to discuss while leaving responsibility for its own operating timetable where it belongs.",
+        "Third, Medicaid financing requires precise scenario planning. CMS's July proposal, CMS-2452-P, addresses implementation of statutory provider-tax changes. The agency identifies October first, twenty twenty-six, and October first, twenty twenty-seven, as relevant statutory dates, with the latter applying to new thresholds for most permissible classes in expansion states. The proposal's comment period ended September twenty-first.\n\nThe distinction between statute and proposed regulation matters. A statutory restriction can exist even while details of regulatory implementation are still proposed. At the same time, a proposed interpretation should not be described as a finalized operational instruction. Use a policy timeline that identifies which authority establishes each date and what remains subject to further action.\n\nA hospital financial model should begin with its own receipts and obligations. Identify the financing mechanism behind each material Medicaid payment stream. Separate provider-tax exposure, state-directed-payment assumptions and disproportionate-share payments rather than attributing every possible change to this one proposed rule. The connections may be important, but the categories are not interchangeable.\n\nThen show leadership more than one scenario. A useful sensitivity analysis states its assumptions, tests the timing of a potential change and separates a payment reduction from a delay in receipt. It should explain which assumptions come from confirmed state instructions and which are management's planning choices. A national estimate of federal savings is not a facility-specific loss estimate.\n\nQuestions for the executive team include whether financing uncertainty changes a planned recurring expense, whether a proposed grant-supported project can withstand a less favorable payer environment, and what evidence would justify revising the base budget. These are decisions to model, not predictions that a particular hospital will lose a particular amount.\n\nThe immediate recommendation is to organize the exposure analysis and verify Oklahoma assumptions with the relevant state officials. Do not wait for every uncertainty to disappear before understanding where the organization may be sensitive."
+      ],
+      "oklahoma": "For Oklahoma, two reference points need careful labeling. The published RHTP state award list assigns Oklahoma two hundred twenty-three million, four hundred seventy-six thousand, nine hundred forty-nine dollars for fiscal year twenty twenty-six. That is the state award in the earlier national announcement. It is not a new October allocation, a five-year guarantee of that same annual amount, or an individual hospital award.\n\nHRSA's fiscal year twenty twenty-six rural residency development table lists Comanche County Hospital Authority in Lawton with seven hundred fifty thousand dollars for psychiatry. A development award should prompt discussion about implementation milestones and potential partnerships. It should not be counted as an accredited program, a filled vacancy or a completed training pipeline without additional evidence.\n\nHRSA also announced eighty-nine point three million dollars nationally for rural substance-use prevention, treatment and recovery in September. Organizations exploring those opportunities should identify the actual awardee and service area before planning a referral relationship.\n\nA useful local discussion asks what agreement is needed, which responsibilities each party would carry and what proof of readiness is required. Keep proposed partnerships distinct from signed commitments. A public award announcement alone does not answer those operating questions.",
+      "signals": "The signals remain assessments, not guarantees. The Nebraska example and the broader rural transformation framework support continued investment in regional capability. The opportunity is to compare designs, while recognizing that spending and deployment measures do not yet prove long-term sustainability.\n\nMedicaid financing remains a planning risk. Confidence in the existence of the policy pressure is different from confidence about the size of a local financial effect.\n\nThe RHC reimbursement opportunity should be stated narrowly. The proposed twenty twenty-seven Physician Fee Schedule would recognize diabetes self-management training and medical nutrition therapy as stand-alone RHC visits paid under the all-inclusive rate. This is not blanket permission to collect another all-inclusive payment for every chronic-care activity. Other care-management and ACCESS billing pathways must be evaluated separately.\n\nFinally, workforce development includes both support for existing workers and investment in training. The Missouri and HRSA examples illustrate that distinction. Measure the eventual result through sustained local capability rather than announcement totals alone.",
+      "actions": "Three recommended actions follow. First, ask revenue cycle and clinic operations to reconcile a sample of RHC telehealth encounters through the actual claim result. The proposed output is an exception log and a tested remediation plan, not an assertion that every claim is correct.\n\nSecond, ask finance to separate its Medicaid assumptions by payment and financing mechanism. Bring leadership a sensitivity analysis that identifies confirmed policy, uncertain state responses and the choices management is making for planning purposes.\n\nThird, require a sustainability assessment before committing to a grant-supported service. The assessment should identify recurring staffing, technology expense, potential reimbursement and the response if demand is lower than expected. Consider shared services where they fit the local access requirement, but do not assume regionalization is automatically preferable in every circumstance.\n\nThese are suggested accountable functions. No completion, employee assignment or organizational commitment is inferred from the public sources.",
+      "deadlines": "The next thirty-day watch in this recovery edition contains two optional internal checkpoints. October twenty-first is suggested for a telehealth claims review. October thirty-first is suggested for a grant sustainability discussion. Neither is presented as an official federal deadline.\n\nThe earlier comment periods on the provider-tax proposal and the twenty twenty-seven Physician Fee Schedule have closed. Continue monitoring for final policy rather than treating a suggested review date as a remaining comment opportunity.",
+      "closing": "What I would keep in view today is the difference between money awarded, services made available and capability that can be sustained. Verify the operating requirement, identify the real payment pathway and make the recurring obligation visible before committing resources. The app contains the source links and the distinction between new announcements and continuing watches."
+    }
+  },
+  "audit": {
+    "approved": true,
+    "issues": []
+  },
+  "retrieved_urls": [
+    "https://www.cms.gov/fqhc-rhc-news-announcements",
+    "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p",
+    "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+    "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+    "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+    "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care",
+    "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-new-funding-support-rural-healthcare-workers-expand-maternal-care",
+    "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm",
+    "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+    "https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd/awards"
+  ],
+  "model": "gpt-5-mini",
+  "audit_candidate_sha256": "8b78d8d8b1dc71106fc93c9a1d20d5da1b5ba7366895c012f88a0413eee377ec",
+  "source_retrieval": [
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 60471,
+      "sha256": "26aee0d7dd83ad161ea55cecb0f4d92efa9900a65176801cd3ce1147af7e0d29",
+      "text_sha256": "465af27099c47b451df508e1e878acb423a1f7b01afde2fde393ccaa99ae8142",
+      "retrieved_at": "2026-10-14T15:57:39.938067+00:00",
+      "method": "direct_https",
+      "source_id": "nebraska"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-new-funding-support-rural-healthcare-workers-expand-maternal-care",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-new-funding-support-rural-healthcare-workers-expand-maternal-care",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 60974,
+      "sha256": "37d38cf667e92217cd29184cb3106a6f581261f0f2128e080731c5ed76ea1793",
+      "text_sha256": "e3323ca5224195fe5995375fcec09cf36203c39ab6589a6cf31173d082bb0162",
+      "retrieved_at": "2026-10-14T15:57:40.166264+00:00",
+      "method": "direct_https",
+      "source_id": "missouri"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 66323,
+      "sha256": "f571591d6b8b1adbcfd0587b3528ab029d838d5658b48afedb3f624659f295fe",
+      "text_sha256": "8ea34453a55124bb263c5fd91451ae47de1b009b547c8de59fa950f47bde0558",
+      "retrieved_at": "2026-10-14T15:57:40.391408+00:00",
+      "method": "direct_https",
+      "source_id": "rhtp"
+    },
+    {
+      "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "final_url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 186464,
+      "sha256": "d61ff35b12e56e44659e03687398546efb92215a949277dddd705c388a483d08",
+      "text_sha256": "39d989b340fcf8d4b4de7deb45cddb1ce165a1e558239a8f553e9071d1678634",
+      "retrieved_at": "2026-10-14T15:57:40.826336+00:00",
+      "method": "direct_https",
+      "source_id": "rhc"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "final_url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 184531,
+      "sha256": "9f81e1ddb411f290183f8bb59e17b845bd149e16bf708016e52f0adddd61a1e1",
+      "text_sha256": "7466d6c7a6d8670e65178f1290a4202742fab64e9b7e29f90250ec6c75a3f371",
+      "retrieved_at": "2026-10-14T15:57:41.107648+00:00",
+      "method": "direct_https",
+      "source_id": "telehealth"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56010,
+      "sha256": "6e3bbcf23449545b9869a9f3626563d346b5aadceccc430e47b6fea01d7257c0",
+      "text_sha256": "fb0414ea7b7b9fa937af50fa0d260d650e359b80000c212e6e843de0b52930bc",
+      "retrieved_at": "2026-10-14T15:57:41.362354+00:00",
+      "method": "direct_https",
+      "source_id": "provider-tax"
+    },
+    {
+      "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm",
+      "final_url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 295333,
+      "sha256": "963d5f4070d0ad25c929d14ce67683bb0a2c655abd5023568c2a9d8f78e49090",
+      "text_sha256": "4e36c76556a36f3b820d3ed17d9077b9b72611b44bc6f4275989529f4609e0e5",
+      "retrieved_at": "2026-10-14T15:57:41.602505+00:00",
+      "method": "direct_https",
+      "source_id": "hhs-tax"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 75298,
+      "sha256": "1ae3bb5722a21ade3a990fc05af52ae852e9e94d871408a075d75b4cd53a841d",
+      "text_sha256": "77512cf824979bb6e73b556f388c0ec9a341dc8b3396982d63ed9214bd87d4d6",
+      "retrieved_at": "2026-10-14T15:57:41.846548+00:00",
+      "method": "direct_https",
+      "source_id": "pfs"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p",
+      "final_url": "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 191170,
+      "sha256": "a8f5a860f67eb79b360dbca02bf73858f9412948f56e0e250b28d2ffde0be60e",
+      "text_sha256": "950d565ef53d743ea546540a1dfc7b7e9d91858539dd4f538746f5512e10196a",
+      "retrieved_at": "2026-10-14T15:57:42.061514+00:00",
+      "method": "direct_https",
+      "source_id": "pfs-rule"
+    },
+    {
+      "url": "https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd/awards",
+      "final_url": "https://www.hrsa.gov/rural-health/grants/rural-health-research-policy/rrpd/awards",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56623,
+      "sha256": "6cb34e74f98f220f096403a2395842c0c3c81461b93d0c11b7311d9e2e3fb318",
+      "text_sha256": "04c6727c5ee3b7d4f48d374019098c333785c48a326db77a02d495a6f0e31047",
+      "retrieved_at": "2026-10-14T15:57:42.361898+00:00",
+      "method": "direct_https",
+      "source_id": "rrpd"
+    },
+    {
+      "url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+      "final_url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 57919,
+      "sha256": "6821b0b836917db2d234181279be8ac118cc3c65965d2bd5f97559070c4517f1",
+      "text_sha256": "b7563fd00ea0b4e978ee5ee7995fcbf91fce1339e5f260ef6010c5055e1f9139",
+      "retrieved_at": "2026-10-14T15:57:43.016374+00:00",
+      "method": "direct_https",
+      "source_id": "rcorp"
+    }
+  ],
+  "research_at": "2026-10-14T10:57:57.886900-05:00",
+  "usage": {
+    "research": null,
+    "audit": {
+      "input_tokens": 97429,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1237,
+      "output_tokens_details": {
+        "reasoning_tokens": 1152
+      },
+      "total_tokens": 98666
+    }
+  }
+}
