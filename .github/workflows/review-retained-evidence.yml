@@ -19,44 +19,29 @@ jobs:
           key: rural-release-v1-2026-10-14-evidence-review-${{ github.run_id }}
           restore-keys: rural-release-v1-2026-10-14-
       - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-      - name: Extract only public-source signal context and trusted code
+      - name: Collect identified public-source draft for editorial review only
         run: |
           python3 - <<'PY'
-          import json, pathlib, sys, shutil
+          import json, pathlib, sys
           sys.path.insert(0, 'scripts')
           from release_resume import _read_snapshot
-          root=pathlib.Path('.')
-          out=root/'evidence-review'
-          out.mkdir()
-          cache=root/'.release-cache/2026-10-14'
-          findings=[]
-          for path in sorted((cache/'candidates').glob('content-*.json')):
-              record=_read_snapshot(path,'2026-10-14','content')
-              if not record:
-                  continue
-              candidate=record['candidate']
-              sources=candidate['sources']
-              labels={s['id'] for s in sources}
-              for i, signal in enumerate(candidate['signals']):
-                  unresolved=[x for x in signal['source_ids'] if x not in labels]
-                  if unresolved:
-                      findings.append({'candidate_sha256':record['candidate_sha256'],
-                          'snapshot_file':str(path.relative_to(cache)),
-                          'signal_index':i,'signal':signal,'unresolved_ids':unresolved,
-                          'source_records':sources,'publication_authorized':False})
-          (out/'signal-evidence.json').write_text(json.dumps({'edition_date':'2026-10-14','unapproved_review_only':True,'findings':findings},indent=2))
-          dest=out/'source-tree'
-          dest.mkdir()
-          for name in ['scripts','tests','web','icons','archive','.github','data','templates']:
-              if (root/name).is_dir(): shutil.copytree(root/name,dest/name)
-          for name in ['index.html','intelligence.js','signals-reference.js','manifest.webmanifest','podcast.xml','sw.js','requirements-publisher.txt','DIAGNOSTICS.md','RELIABILITY.md','.gitignore']:
-              if (root/name).is_file(): shutil.copy2(root/name,dest/name)
-          print('Source-review contexts:',len(findings))
-          print('No API, speech, approval, commit or deployment actions performed.')
+          cache=pathlib.Path('.release-cache/2026-10-14')
+          out=pathlib.Path('evidence-review'); out.mkdir()
+          name='content-caf95742a2577efb.json'
+          record=_read_snapshot(cache/'candidates'/name,'2026-10-14','content')
+          if not record: raise SystemExit('Identified snapshot unavailable or integrity check failed')
+          (out/'unapproved-public-draft.json').write_text(json.dumps(record,indent=2))
+          # Retain the original public retrieval record for comparison, never treat it as approval.
+          facts={k:v for k,v in record['candidate'].items() if k!='podcast'}
+          for path in sorted((cache/'candidates').glob('generated-*.json')):
+              original=_read_snapshot(path,'2026-10-14','generated')
+              if original and {k:v for k,v in original['candidate'].items() if k!='podcast'}==facts:
+                  (out/'original-public-retrieval.json').write_text(json.dumps(original,indent=2))
+                  break
+          print('Identified unapproved public-source draft collected for review. No publication or API calls.')
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: retained-signal-evidence-review
+          name: retained-public-draft-editorial-review
           path: evidence-review
-          retention-days: 3
-          include-hidden-files: true
+          retention-days: 1
