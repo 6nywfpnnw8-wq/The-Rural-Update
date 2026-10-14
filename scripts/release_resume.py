@@ -8,7 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 from release_core import read_json, write_json, validate_edition, canonical_url, allowed_url
-from release_typography import normalize_edition_typography
+from release_typography import normalize_edition_typography, normalize_source_identifiers
 
 MAX_BYTES = 1024 * 1024
 
@@ -103,6 +103,7 @@ def take_style_recovery(cache: Path, expected: str):
     if not changed:
         return skip('no_prose_typography_change')
     try:
+        candidate, source_changes = normalize_source_identifiers(candidate)
         validate_edition(candidate, expected)
     except Exception as error:
         return skip('normalized_draft_has_another_validation_failure', error)
@@ -113,6 +114,10 @@ def take_style_recovery(cache: Path, expected: str):
         if not generated:
             continue
         original, _ = normalize_edition_typography(generated['candidate'])
+        try:
+            original, _ = normalize_source_identifiers(original)
+        except ValueError:
+            continue
         if {k: v for k, v in original.items() if k != 'podcast'} != facts:
             continue
         urls = generated.get('retrieved_urls')
@@ -129,5 +134,6 @@ def take_style_recovery(cache: Path, expected: str):
         'edition_date': expected, 'candidate_sha256': snapshot['candidate_sha256'],
         'evidence_audit_reserved': True, 'publication_authorized': False,
         'additional_research_generation_calls': 0, 'changed_fields': changed,
+        'source_identifier_changes': source_changes,
     })
     return candidate, provenance
