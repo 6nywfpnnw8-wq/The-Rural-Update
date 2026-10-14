@@ -1,11 +1,12 @@
 name: Verify Rural Update delivery
 on:
   schedule:
-    - cron: '10 6 * * *'
-      timezone: America/Chicago
-    - cron: '30 6 * * *'
+    - cron: '10,30 6,7 * * *'
       timezone: America/Chicago
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publication-watchdog.yml']
 permissions:
   contents: read
   issues: write
@@ -14,22 +15,48 @@ concurrency:
   group: rural-update-delivery-check
   cancel-in-progress: false
 jobs:
-  check:
-    if: github.ref == 'refs/heads/main'
+  activation:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 3
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Read workflow activation states without publishing or dispatching
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_API: ${{ github.api_url }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          url=os.environ['GH_API']+'/repos/'+os.environ['GH_REPO']+'/actions/workflows?per_page=100'
+          request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'], 'Accept':'application/vnd.github+json'})
+          with urllib.request.urlopen(request,timeout=30) as response:
+              data=json.load(response)
+          wanted={'Publish validated Rural Update','Verify Rural Update delivery'}
+          states={w['name']:w['state'] for w in data['workflows'] if w['name'] in wanted}
+          print(json.dumps({'workflow_states':states, 'scheduled_execution_verified':False},indent=2))
+          if set(states)!=wanted or any(value!='active' for value in states.values()):
+              raise SystemExit('A required workflow is missing or inactive. Review activation in GitHub; no settings were changed.')
+          PY
+  check:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
       - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-      - name: Verify public artifacts, recover once, then alert
+      - name: Install audio verifier dependencies only if missing
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+      - name: Verify public artifacts and request at most one recovery per edition
         env:
           GH_TOKEN: ${{ github.token }}
-          SCHEDULE: ${{ github.event.schedule }}
-        run: |
-          if [ "$SCHEDULE" = '30 6 * * *' ]; then
-            python3 scripts/release_verify.py watch
-          else
-            python3 scripts/release_verify.py watch --recover
-          fi
+        run: python3 scripts/release_verify.py watch --recover

@@ -1,7 +1,7 @@
 name: Publish validated Rural Update
 on:
   schedule:
-    - cron: '15 5 * * *'
+    - cron: '15,35 5 * * *'
       timezone: America/Chicago
   workflow_dispatch:
     inputs:
@@ -148,3 +148,4 @@ jobs:
             .release-cache/*/validation-*.json
             .release-cache/*/narration-check.json
             .release-cache/*/diagnostic-summary.json
+            .release-cache/*/typography-check.json
