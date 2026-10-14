@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Callable
 from jsonschema import Draft202012Validator
 from release_core import SCHEMA, podcast_body, write_json
-from release_typography import normalize_edition_typography
+from release_typography import normalize_edition_typography, normalize_source_identifiers
 
 MIN_WORDS = 1700
 MAX_WORDS = 2000
@@ -25,9 +25,16 @@ def ensure_narration_length(edition: dict, cache: Path, model: str,
     candidate = copy.deepcopy(edition)
     counts = []
     typography_changes = []
+    source_identifier_changes = []
     for attempt in range(MAX_REVISIONS + 1):
         candidate, changed = normalize_edition_typography(candidate)
         typography_changes.extend(changed)
+        candidate, source_changes = normalize_source_identifiers(candidate)
+        source_identifier_changes.extend(source_changes)
+        write_json(cache / 'validation-source-identifiers.json', {
+            'edition_date': edition['edition_date'], 'changed_fields': source_identifier_changes,
+            'publication_authorized': False, 'source_urls_unchanged': True,
+        })
         write_json(cache / 'typography-check.json', {
             'edition_date': edition['edition_date'],
             'replacement': 'U+2014 to spaced ASCII hyphen in prose only',
