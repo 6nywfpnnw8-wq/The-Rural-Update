@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-14",
+  "publication_authorized": false,
+  "revision": 1,
+  "maximum_additional_audits": 1,
+  "previous_candidate_sha256": "08217e28adaadfc35c0d31b35d1782c94f213ab2f53b7dc5d1a92902cb37018d",
+  "corrected_candidate_sha256": "8b78d8d8b1dc71106fc93c9a1d20d5da1b5ba7366895c012f88a0413eee377ec",
+  "source_id": "hhs-tax",
+  "previous_url": "https://www.hhs.gov/guidance/document/proposed-rule-medicaid-program-amending-indirect-hold-harmless-threshold-health-care",
+  "replacement": {
+    "id": "hhs-tax",
+    "title": "GPO: CMS-2452-P proposed rule, Federal Register document 2026-14897",
+    "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm",
+    "published_date": "2026-07-23"
+  },
+  "reason": "Replace the inaccessible HHS guidance listing with the exact GPO Federal Register document linked by that listing. This changes source metadata only and requires actual HTTPS retrieval plus a fresh complete evidence audit. The October 14 user request authorizes this bounded corrective deployment; it is not editorial approval."
+}

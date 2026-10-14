@@ -7,6 +7,12 @@ from test_release import DATE
 import release_pipeline as pipeline
 
 class SourceResumeTests(unittest.TestCase):
+    def setUp(self):
+        from evidence_fixture import fake_source
+        import release_evidence
+        source_patch = patch.object(release_evidence, 'fetch_source', side_effect=fake_source)
+        source_patch.start(); self.addCleanup(source_patch.stop)
+
     def test_punctuation_and_label_repair_preserves_sources_and_audits(self):
         f=fixtures.StyleRecoveryTests(methodName='test_no_candidate_is_not_invented')
         f.setUp();self.addCleanup(f.doCleanups)

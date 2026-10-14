@@ -1,31 +1,26 @@
-name: Observe actual scheduled triggers
-# Diagnostic only. No API generation, recovery dispatch, credentials or deployment.
+name: Read-only schedule diagnostic
+# Temporary diagnostic, not a publisher. No checkout, secrets, writes or API calls.
 on:
   schedule:
-    - cron: '27,37,47 14 14 10 *'
-    - cron: '28,38,48 9 14 10 *'
-      timezone: America/Chicago
-  push:
-    branches: [main]
-    paths: ['.github/workflows/schedule-probe.yml']
-permissions:
-  contents: read
+    - cron: '5,15 16 14 10 *'
+permissions: {}
 jobs:
   observe:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - name: Record actual event type and time
+      - name: Record a genuine clock-triggered event
         env:
-          TRIGGER: ${{ github.event_name }}
-          CRON: ${{ github.event.schedule }}
+          EVENT_NAME: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           python3 - <<'PY'
-          import datetime, json, os
+          import datetime,json,os
+          from zoneinfo import ZoneInfo
           now=datetime.datetime.now(datetime.timezone.utc)
-          active=now.date().isoformat()=='2026-10-14'
-          print(json.dumps({'active_probe_date':active,'event':os.environ['TRIGGER'],
-                            'cron':os.environ['CRON'],'observed_at':now.isoformat(),
-                            'scheduled_trigger_observed':active and os.environ['TRIGGER']=='schedule',
-                            'publication_attempted':False},indent=2))
+          if now.date().isoformat()!='2026-10-14':
+              print('Diagnostic window expired; no action.')
+          else:
+              assert os.environ['EVENT_NAME']=='schedule'
+              print(json.dumps({'event':'schedule','schedule':os.environ['SCHEDULE'],'utc':now.isoformat(),'central':now.astimezone(ZoneInfo('America/Chicago')).isoformat(),'publication_performed':False}))
           PY
