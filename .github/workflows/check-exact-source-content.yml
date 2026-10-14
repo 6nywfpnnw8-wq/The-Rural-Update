@@ -1,0 +1,41 @@
+name: Check exact public source content
+on:
+  pull_request:
+    paths: ['scripts/release_evidence.py', 'source-recovery/**', '.github/workflows/check-exact-source-content.yml']
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+      - name: Retrieve all exact references without model calls or publication
+        run: |
+          python3 - <<'PY'
+          import copy,json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from release_core import read_json,validate_edition
+          from release_evidence import collect_source_evidence,evidence_urls,fingerprint
+          e=copy.deepcopy(read_json(pathlib.Path('editorial-review/2026-10-14.json'))['candidate'])
+          correction=read_json(pathlib.Path('source-recovery/2026-10-14.json'))
+          assert fingerprint(e)==correction['previous_candidate_sha256']
+          next(s for s in e['sources'] if s['id']==correction['source_id']).update(correction['replacement'])
+          assert fingerprint(e)==correction['corrected_candidate_sha256']
+          validate_edition(e,e['edition_date'])
+          cache=pathlib.Path('.release-cache/source-preflight')
+          documents=collect_source_evidence(e,cache)
+          urls=evidence_urls(e,documents)
+          print(json.dumps({'exact_sources_retrieved':len(urls),'publication_authorized':False,'model_calls':0}))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-source-preflight
+          path: .release-cache/source-preflight/source-evidence.json
+          include-hidden-files: true
+          retention-days: 1
+          if-no-files-found: ignore

@@ -17,6 +17,10 @@ def audit_response(approved=True, urls=()):
 
 class ResumeAuditTests(unittest.TestCase):
     def setUp(self):
+        from evidence_fixture import fake_source
+        import release_evidence
+        source_patch = patch.object(release_evidence, 'fetch_source', side_effect=fake_source)
+        source_patch.start(); self.addCleanup(source_patch.stop)
         self.fixture=fixtures.StyleRecoveryTests(methodName='test_no_candidate_is_not_invented')
         self.fixture.setUp();self.addCleanup(self.fixture.doCleanups)
         self.cache=self.fixture.cache
@@ -47,11 +51,12 @@ class ResumeAuditTests(unittest.TestCase):
                 pipeline.research(DATE,{},self.cache)
         self.assertFalse((self.cache/'approved.json').exists())
 
-    def test_missing_provenance_still_blocks_approval(self):
+    def test_missing_source_content_still_blocks_approval(self):
         for p in (self.cache/'candidates').glob('generated-*.json'):
             data=json.loads(p.read_text());data['retrieved_urls']=data['retrieved_urls'][:1]
             write_json(p,data)
-        with patch.object(pipeline,'request_api',Mock(return_value=audit_response())):
+        import release_evidence
+        with patch.object(pipeline,'request_api',Mock(return_value=audit_response())), patch.object(release_evidence,'fetch_source',side_effect=RuntimeError('Unavailable source')):
             with self.assertRaises(AssertionError):pipeline.research(DATE,{},self.cache)
         self.assertFalse((self.cache/'approved.json').exists())
 

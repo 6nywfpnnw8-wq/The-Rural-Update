@@ -11,6 +11,10 @@ from test_release_narration import response
 
 class EditorialRecoveryTests(unittest.TestCase):
     def setUp(self):
+        from evidence_fixture import fake_source
+        import release_evidence
+        source_patch = patch.object(release_evidence, 'fetch_source', side_effect=fake_source)
+        source_patch.start(); self.addCleanup(source_patch.stop)
         self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name); self.cache = self.root / 'cache'; self.cache.mkdir()
         self.review = self.root / 'review'; self.review.mkdir()
@@ -70,10 +74,11 @@ class EditorialRecoveryTests(unittest.TestCase):
         with patch.object(pipeline, 'request_api', api): record = pipeline.research(fixtures.DATE, {}, self.cache)
         self.assertEqual(api.call_count, 1); self.assertTrue(record['audit']['approved'])
         self.assertEqual(core.read_json(self.cache / 'attempts.json')['attempts'], 2)
-    def test_audit_cannot_skip_source_provenance(self):
+    def test_missing_exact_source_still_blocks_audit(self):
         result = response({'approved': True, 'issues': []}, True)
         result['output'][0]['action']['sources'] = []
-        with patch.object(pipeline, 'request_api', return_value=result):
+        import release_evidence
+        with patch.object(pipeline, 'request_api', return_value=result), patch.object(release_evidence, 'fetch_source', side_effect=RuntimeError('Unavailable source')):
             with self.assertRaises(AssertionError): pipeline.research(fixtures.DATE, {}, self.cache)
         self.assertFalse((self.cache / 'approved.json').exists())
 

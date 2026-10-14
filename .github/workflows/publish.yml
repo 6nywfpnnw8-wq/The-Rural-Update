@@ -149,3 +149,5 @@ jobs:
             .release-cache/*/narration-check.json
             .release-cache/*/diagnostic-summary.json
             .release-cache/*/typography-check.json
+            .release-cache/*/source-evidence.json
+            .release-cache/*/audit-bound.json

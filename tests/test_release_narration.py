@@ -23,6 +23,10 @@ def response(text, with_search=False):
 
 class NarrationTests(unittest.TestCase):
     def setUp(self):
+        from evidence_fixture import fake_source
+        import release_evidence
+        source_patch = patch.object(release_evidence, 'fetch_source', side_effect=fake_source)
+        source_patch.start(); self.addCleanup(source_patch.stop)
         self.temp=tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
         self.cache=Path(self.temp.name)
     def repair(self,e,api):
