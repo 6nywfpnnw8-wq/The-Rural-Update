@@ -47,39 +47,65 @@ def take_style_recovery(cache: Path, expected: str):
     """
     cache = Path(cache)
     report = read_json(cache / 'validation-content.json', {})
+
+    def skip(reason, error=None):
+        if report.get('edition_date') == expected:
+            # Only fixed reasons and known validator messages are exposed.
+            message = None
+            known = {
+                'Edition date does not match requested date',
+                'Spoken body must contain 1700 to 2000 words',
+                'Placeholder text', 'Use punctuation other than em dashes',
+                'Spoken body contains URLs or markup', 'Need multiple source domains',
+                'Source URL outside approved public domains', 'Future-dated source',
+                'Source not observed in research tool results', 'Unresolved source reference',
+                'Deadline is not within the next 30 days', 'Action due date is already past',
+                'Executive BLUF is too long',
+            }
+            known.update(f'{prefix} {group} {suffix}'
+                         for group in ('stories','actions','signals','issue_updates','sources')
+                         for prefix,suffix in (('Unsafe','ID'),('Duplicate','IDs')))
+            if isinstance(error, AssertionError) and str(error) in known:
+                message = str(error)
+            write_json(cache / 'validation-style-recovery.json', {
+                'schema_version': 1, 'edition_date': expected, 'stage': 'style-recovery',
+                'passed': False, 'publication_authorized': False,
+                'reason': reason, 'validation_message': message,
+            })
+        return None
     if (report.get('edition_date') != expected or report.get('stage') != 'content'
             or report.get('passed') is not False or report.get('rule') != 'punctuation'):
-        return None
+        return skip('not_a_same_date_punctuation_rejection')
     if (cache / 'style-recovery-attempt.json').exists():
-        return None
+        return skip('audit_already_reserved')
     saved = report.get('snapshot', {})
     relative = saved.get('file', '')
     if (not isinstance(relative, str) or not relative.startswith('candidates/content-')
             or len(Path(relative).parts) != 2 or '..' in Path(relative).parts
             or saved.get('retained') is not True or saved.get('redacted') is not False):
-        return None
+        return skip('unsafe_or_redacted_snapshot_reference')
     if (cache / 'candidates').is_symlink():
-        return None
+        return skip('snapshot_directory_is_symlink')
     snapshot = _read_snapshot(cache / relative, expected, 'content')
     if not snapshot or saved.get('candidate_sha256') != snapshot['candidate_sha256']:
-        return None
+        return skip('snapshot_missing_redacted_or_integrity_mismatch')
     # Do not let a forged reason make another rejected category eligible.
     try:
         validate_edition(snapshot['candidate'], expected)
     except AssertionError as error:
         if str(error) != 'Use punctuation other than em dashes':
-            return None
-    except Exception:
-        return None
+            return skip('original_rejection_is_not_punctuation', error)
+    except Exception as error:
+        return skip('original_snapshot_does_not_validate', error)
     else:
-        return None
+        return skip('original_snapshot_has_no_punctuation_rejection')
     candidate, changed = normalize_edition_typography(snapshot['candidate'])
     if not changed:
-        return None
+        return skip('no_prose_typography_change')
     try:
         validate_edition(candidate, expected)
-    except Exception:
-        return None
+    except Exception as error:
+        return skip('normalized_draft_has_another_validation_failure', error)
     facts = {k: v for k, v in candidate.items() if k != 'podcast'}
     provenance = None
     for path in sorted((cache / 'candidates').glob('generated-*.json')):
@@ -96,7 +122,7 @@ def take_style_recovery(cache: Path, expected: str):
         if provenance:
             break
     if not provenance:
-        return None
+        return skip('matching_original_retrieval_evidence_missing')
     # Mark before the caller can spend on auditing; a failed audit is not retried
     # indefinitely, and this file is restored with the existing workflow cache.
     write_json(cache / 'style-recovery-attempt.json', {
