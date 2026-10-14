@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 from release_core import read_json, write_json, validate_edition, canonical_url, allowed_url
 from release_typography import normalize_edition_typography, normalize_source_identifiers
+from release_source_diagnostics import inspect_source_labels, MESSAGES
 
 MAX_BYTES = 1024 * 1024
 
@@ -48,7 +49,7 @@ def take_style_recovery(cache: Path, expected: str):
     cache = Path(cache)
     report = read_json(cache / 'validation-content.json', {})
 
-    def skip(reason, error=None):
+    def skip(reason, error=None, candidate=None):
         if report.get('edition_date') == expected:
             # Only fixed reasons and known validator messages are exposed.
             message = None
@@ -65,12 +66,14 @@ def take_style_recovery(cache: Path, expected: str):
             known.update(f'{prefix} {group} {suffix}'
                          for group in ('stories','actions','signals','issue_updates','sources')
                          for prefix,suffix in (('Unsafe','ID'),('Duplicate','IDs')))
-            if isinstance(error, AssertionError) and str(error) in known:
+            known.update(MESSAGES)
+            if isinstance(error, (AssertionError, ValueError)) and str(error) in known:
                 message = str(error)
             write_json(cache / 'validation-style-recovery.json', {
                 'schema_version': 1, 'edition_date': expected, 'stage': 'style-recovery',
                 'passed': False, 'publication_authorized': False,
                 'reason': reason, 'validation_message': message,
+                'source_labels': inspect_source_labels(candidate) if isinstance(candidate, dict) else None,
             })
         return None
     if (report.get('edition_date') != expected or report.get('stage') != 'content'
@@ -106,7 +109,7 @@ def take_style_recovery(cache: Path, expected: str):
         candidate, source_changes = normalize_source_identifiers(candidate)
         validate_edition(candidate, expected)
     except Exception as error:
-        return skip('normalized_draft_has_another_validation_failure', error)
+        return skip('normalized_draft_has_another_validation_failure', error, candidate)
     facts = {k: v for k, v in candidate.items() if k != 'podcast'}
     provenance = None
     for path in sorted((cache / 'candidates').glob('generated-*.json')):
