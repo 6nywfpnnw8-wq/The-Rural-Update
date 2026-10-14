@@ -1,0 +1,36 @@
+name: Review public code snapshot
+on:
+  push:
+    branches: [fix/source-evidence-verification]
+    paths: ['.github/workflows/review-code-snapshot.yml']
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 5dcbc7a462513bfd8a19d02e35761eefb8a9c904
+          persist-credentials: false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-code-review
+          retention-days: 1
+          include-hidden-files: true
+          path: |
+            scripts/
+            tests/
+            web/
+            sw.js
+            requirements-publisher.txt
+            index.html
+            manifest.webmanifest
+            intelligence.js
+            signals-reference.js
+            archive/
+            icons/
+            podcast.xml
+            editorial-review/
+            .github/workflows/
