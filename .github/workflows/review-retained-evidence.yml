@@ -16,32 +16,33 @@ jobs:
       - uses: actions/cache/restore@v4
         with:
           path: .release-cache
-          key: rural-release-v1-2026-10-14-evidence-review-${{ github.run_id }}
+          key: rural-release-v1-2026-10-14-source-record-${{ github.run_id }}
           restore-keys: rural-release-v1-2026-10-14-
       - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-      - name: Collect identified public-source draft for editorial review only
+      - name: Inspect actual audit provenance
         run: |
           python3 - <<'PY'
-          import json, pathlib, sys
-          sys.path.insert(0, 'scripts')
+          import json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from release_core import canonical_url,read_json
           from release_resume import _read_snapshot
           cache=pathlib.Path('.release-cache/2026-10-14')
-          out=pathlib.Path('evidence-review'); out.mkdir()
-          name='content-caf95742a2577efb.json'
-          record=_read_snapshot(cache/'candidates'/name,'2026-10-14','content')
-          if not record: raise SystemExit('Identified snapshot unavailable or integrity check failed')
-          (out/'unapproved-public-draft.json').write_text(json.dumps(record,indent=2))
-          # Retain the original public retrieval record for comparison, never treat it as approval.
-          facts={k:v for k,v in record['candidate'].items() if k!='podcast'}
-          for path in sorted((cache/'candidates').glob('generated-*.json')):
-              original=_read_snapshot(path,'2026-10-14','generated')
-              if original and {k:v for k,v in original['candidate'].items() if k!='podcast'}==facts:
-                  (out/'original-public-retrieval.json').write_text(json.dumps(original,indent=2))
-                  break
-          print('Identified unapproved public-source draft collected for review. No publication or API calls.')
+          out=pathlib.Path('evidence-review');out.mkdir()
+          snap=_read_snapshot(cache/'candidates/provenance-08217e28adaadfc3.json','2026-10-14','provenance')
+          if not snap: raise SystemExit('Verified candidate snapshot missing')
+          urls=set(snap['retrieved_urls'])
+          sources=snap['candidate']['sources']
+          report={'candidate_sha256':snap['candidate_sha256'],
+                  'audit':read_json(cache/'audit.json'),
+                  'validation':read_json(cache/'validation-provenance.json'),
+                  'actual_retrieved_urls':sorted(urls),
+                  'missing_sources':[s for s in sources if canonical_url(s['url']) not in urls],
+                  'publication_authorized':False}
+          (out/'source-retrieval-mismatch.json').write_text(json.dumps(report,indent=2))
+          print('Missing source records:',len(report['missing_sources']))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: retained-public-draft-editorial-review
+          name: source-retrieval-mismatch-review
           path: evidence-review
           retention-days: 1
