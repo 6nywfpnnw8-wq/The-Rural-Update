@@ -17,6 +17,7 @@ from release_core import *
 from release_narration import ensure_narration_length
 from release_diagnostics import Diagnostics, diagnose_cache
 from release_resume import take_style_recovery
+from release_editorial import take_reviewed_recovery
 
 ROOT=Path(__file__).resolve().parents[1]
 MODEL=os.getenv('RURAL_UPDATE_MODEL','gpt-5-mini')
@@ -83,12 +84,14 @@ def research(edition_date,previous,cache):
         diagnostics.validate(record['edition'],validate_edition,'cached-approved',set(record['retrieved_urls']))
         assert record['audit']['approved'],'Cached research did not pass audit'
         return record
-    recovered=take_style_recovery(cache,edition_date)
+    recovered=take_reviewed_recovery(cache,edition_date)
+    if recovered is None:
+        recovered=take_style_recovery(cache,edition_date)
     if recovered is not None:
         edition,provenance=recovered
         response={'usage':None}
         diagnostics.validate(edition,validate_edition,'resumed-content',None)
-        print('Retained style-only draft resumed for full evidence audit; no new research generation.',flush=True)
+        print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
     else:
         ledger=read_json(cache/'attempts.json',{'attempts':0})
         if ledger['attempts']>=2:
