@@ -29,11 +29,14 @@ def take_reviewed_recovery(cache: Path, expected: str):
             or plan.get('publication_authorized') is not False):
         raise ValueError('Reviewed correction metadata is invalid; it cannot authorize publication')
     relative = plan.get('base_snapshot', '')
+    stage = plan.get('base_stage', 'content')
+    if stage not in ('content','generated'):
+        raise ValueError('Reviewed correction stage is invalid')
     parts = Path(relative).parts
     if (len(parts) != 2 or parts[0] != 'candidates' or '..' in parts
-            or not parts[1].startswith('content-') or (cache / 'candidates').is_symlink()):
+            or not parts[1].startswith(stage+'-') or (cache / 'candidates').is_symlink()):
         raise ValueError('Reviewed correction base path is invalid')
-    snapshot = _read_snapshot(cache / relative, expected, 'content')
+    snapshot = _read_snapshot(cache / relative, expected, stage)
     if not snapshot or snapshot['candidate_sha256'] != plan.get('base_candidate_sha256'):
         raise ValueError('Reviewed correction does not match the retained draft')
     candidate = plan.get('candidate')

@@ -55,6 +55,17 @@ def verify(expected_date,expected=None):
     if manifest.get('audio_status')=='complete':
         assert f'audio/{expected_date}.mp3' in manifest['files'] and 'podcast.xml' in manifest['files'],'Missing audio/feed inventory'
     checked=[]
+    quality=None
+    quality_path='data/audio-quality-'+expected_date+'.json'
+    if expected_date>='2026-10-16' and manifest.get('audio_status')=='complete':
+        assert quality_path in manifest['files'],'Narration completion evidence missing'
+    if quality_path in manifest['files']:
+        status,_,qdata=public_get(quality_path)
+        info=manifest['files'][quality_path]
+        assert status==200 and len(qdata)==info['bytes'] and digest(qdata)==info['sha256'],'Narration quality report hash mismatch'
+        quality=json.loads(qdata)
+        assert quality.get('complete') is True and quality.get('audio_sha256')==manifest['files'][f'audio/{expected_date}.mp3']['sha256'],'Narration completion evidence mismatch'
+
     for path,info in manifest['files'].items():
         status,headers,data=public_get(path)
         assert status==200,'Public artifact unavailable: '+path
@@ -78,7 +89,7 @@ def verify(expected_date,expected=None):
             assert transcript is not None and f'transcript/{expected_date}.html' in transcript.get('url',''),'RSS transcript missing'
         checked.append(path)
     return {'edition_date':expected_date,'revision':manifest['revision'],'checked_at':datetime.now(TZ).isoformat(),
-            'public_text_verified':True,'complete':manifest.get('audio_status')=='complete','checked_files':checked}
+            'public_text_verified':True,'complete':manifest.get('audio_status')=='complete','checked_files':checked,'narration_completion_verified':bool(quality)}
 
 def github(path,method='GET',body=None):
     token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')

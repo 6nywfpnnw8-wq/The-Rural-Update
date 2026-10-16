@@ -96,6 +96,7 @@ class CompilerTests(unittest.TestCase):
         def audio(e,cache,out):
             out.parent.mkdir(exist_ok=True); out.write_bytes(b'ID3synthetic-test-bytes')
             if audio_failure: raise RuntimeError('Simulated audio outage')
+            core.write_json(cache/'audio-quality.json',{'complete':True,'audio_sha256':core.digest(out.read_bytes()),'script_sha256':core.digest(core.podcast_body(e))})
             return 720
         with patch.object(pipeline,'ROOT',self.root),patch.object(pipeline,'research',return_value=self.approved()),patch.object(pipeline,'migrate_legacy',return_value={'intelligence':{'issues':[],'actions':[]},'signals':[]}),patch.object(pipeline,'audio_for',side_effect=audio),patch.object(core,'probe_audio',return_value=720):
             return pipeline.build(DATE)
@@ -150,7 +151,10 @@ class CompilerTests(unittest.TestCase):
     def test_text_only_recovery_keeps_same_change_log(self):
         self.build(True)
         state=core.read_json(self.root/'data/intelligence.json'); signals=core.read_json(self.root/'data/signals.json')
-        def audio(e,cache,out): out.write_bytes(b'ID3recovered'); return 720
+        def audio(e,cache,out):
+            out.write_bytes(b'ID3recovered')
+            core.write_json(cache/'audio-quality.json',{'complete':True,'audio_sha256':core.digest(out.read_bytes()),'script_sha256':core.digest(core.podcast_body(e))})
+            return 720
         with patch.object(pipeline,'ROOT',self.root),patch.object(pipeline,'migrate_legacy',return_value={'intelligence':state,'signals':signals}),patch.object(pipeline,'research',side_effect=AssertionError('Do not regenerate approved text')),patch.object(pipeline,'audio_for',side_effect=audio),patch.object(core,'probe_audio',return_value=720):
             m=pipeline.build(DATE)
         self.assertEqual(m['audio_status'],'complete')

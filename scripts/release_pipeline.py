@@ -14,7 +14,7 @@ import urllib.request
 from datetime import datetime, date
 from pathlib import Path
 from release_core import *
-from release_narration import ensure_narration_length
+from release_narration import ensure_narration_length, generation_schema
 from release_diagnostics import Diagnostics, diagnose_cache
 from release_resume import take_style_recovery
 from release_editorial import take_reviewed_recovery
@@ -126,13 +126,22 @@ opening, BLUF, top three in depth, Oklahoma relevance, changed signals, actions,
 30-day deadlines and close. Do not read citations or URLs. Cover only verified facts
 and clearly framed analysis from this edition, not extra unsupported claims. Keep
 Executive BLUF under 180 words. Do not copy long source passages.
+Use short lowercase hyphenated identifiers without duplicates. Prefer 6-10 exact,
+substantive HTML primary sources; the source collector does not parse PDFs.
+Source publication dates must be ISO YYYY-MM-DD or null. A page-modification date
+is not necessarily an award date. Complete every field and closing sentence.
+Follow the schema's per-section word budgets: opening 50-70, BLUF 150-180,
+each of the three developments 300-320, Oklahoma 220-250, signals 160-180,
+actions 150-170, deadlines 70-90, closing 50-65. These total 1750-1965 words.
+Add no new facts or repetitive filler merely to meet length. Use practical analysis
+and clearly framed questions based on the verified reporting.
 Earlier public intelligence is context only, NOT independently verified evidence:
 {json.dumps(previous,ensure_ascii=False)[:55000]}
 """
         payload={'model':MODEL,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':18000,
             'max_tool_calls':12,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
             'include':['web_search_call.action.sources'],'input':prompt,
-            'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':SCHEMA}}}
+            'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':generation_schema()}}}
         try:
             response=request_api(payload)
             assert any(x.get('type')=='web_search_call' for x in response.get('output',[])),'Research did not use web search'
@@ -191,33 +200,8 @@ Candidate: """+json.dumps(edition,ensure_ascii=False)+evidence_prompt(documents)
     return record
 
 def audio_for(edition,cache,output):
-    body=podcast_body(edition)
-    model=os.getenv('OPENAI_TTS_MODEL','gpt-4o-mini-tts')
-    voice=os.getenv('OPENAI_TTS_VOICE','cedar')
-    # Reuse chunking from the existing tested speech utility, not its transient storage.
-    from generate_podcast_audio import chunk_text
-    parts=[]
-    instructions='Calm professional American English executive briefing. Natural pauses. Target 145 to 155 words per minute.'
-    folder=cache/'audio'; folder.mkdir(parents=True,exist_ok=True)
-    for chunk in chunk_text(body):
-        payload={'model':model,'voice':voice,'input':chunk,'instructions':instructions,'response_format':'mp3','speed':1.0}
-        part=folder/(digest(json.dumps(payload,sort_keys=True))+'.mp3')
-        if part.exists():
-            try: probe_audio(part)
-            except Exception: part.unlink()
-        if not part.exists():
-            data=request_api(payload,'audio/speech',True)
-            temp=part.with_suffix('.tmp.mp3'); temp.write_bytes(data); probe_audio(temp); temp.replace(part)
-        parts.append(part.resolve())
-    concat=folder/'concat.txt'
-    concat.write_text(''.join("file '"+str(p)+"'\n" for p in parts),encoding='utf-8')
-    output.parent.mkdir(parents=True,exist_ok=True)
-    temp=output.with_suffix('.tmp.mp3')
-    subprocess.run(['ffmpeg','-y','-v','error','-f','concat','-safe','0','-i',str(concat),'-c','copy',str(temp)],check=True,timeout=90)
-    seconds=probe_audio(temp); words=len(body.split())
-    assert 540<=seconds<=900 and 110<=words/(seconds/60)<=190,'Audio duration or speech pace outside release limits'
-    temp.replace(output)
-    return seconds
+    from release_audio import build_audio
+    return build_audio(edition,cache,output,request_api)
 
 def build(date_string):
     root=ROOT; cache=root/'.release-cache'/date_string; cache.mkdir(parents=True,exist_ok=True)
@@ -272,6 +256,10 @@ def build(date_string):
     previous_feed=feed_path.read_bytes() if feed_path.exists() else None
     try:
         audio_for(e,cache,audio)
+        quality=read_json(cache/'audio-quality.json',{})
+        assert quality.get('complete') is True and quality.get('audio_sha256')==digest(audio.read_bytes()),'Audio completion evidence missing or mismatched'
+        assert quality.get('script_sha256')==digest(body),'Audio completion evidence refers to another script'
+        write_json(root/f'data/audio-quality-{date_string}.json',quality)
         if not (root/'podcast-art.png').exists():
             subprocess.run(['ffmpeg','-y','-v','error','-i',str(root/'icons/icon-512.png'),'-vf','scale=1400:1400',str(root/'podcast-art.png')],check=True,timeout=30)
         stamp=(current.get('audio_published_at') if current.get('edition_date')==date_string else None) or datetime.now(TZ).isoformat()
@@ -287,6 +275,7 @@ def build(date_string):
         else:
             feed_path.write_bytes(previous_feed)
         write_json(cache/'audio-error.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
+        (root/f'data/audio-quality-{date_string}.json').unlink(missing_ok=True)
         if audio.exists(): audio.unlink()
         audio.with_suffix('.tmp.mp3').unlink(missing_ok=True)
         # Keep all earlier valid RSS episodes and deploy valid text + transcript.
@@ -305,7 +294,7 @@ def build(date_string):
     if (root/'podcast.xml').exists():
         ET.parse(root/'podcast.xml')
         paths.append('podcast.xml')
-    if audio_status=='complete': paths.extend([f'audio/{date_string}.mp3','podcast-art.png'])
+    if audio_status=='complete': paths.extend([f'audio/{date_string}.mp3','podcast-art.png',f'data/audio-quality-{date_string}.json'])
     revision=1 if not current or current.get('edition_date')!=date_string else current.get('revision',1)+1
     manifest=create_manifest(site,date_string,code_sha,audio_status,revision,paths)
     if audio_status=='complete': manifest['audio_published_at']=stamp
