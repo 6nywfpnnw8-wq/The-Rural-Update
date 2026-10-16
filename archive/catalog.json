@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-14",
+  "updated": "2026-10-16",
   "editions": [
+    {
+      "date": "2026-10-16",
+      "title": "The Rural Update | October 16, 2026 | Recovery edition",
+      "path": "archive/2026-10-16.html",
+      "format": "html",
+      "status": "available"
+    },
     {
       "date": "2026-10-14",
       "title": "The Rural Update | October 14, 2026 | Recovery edition",

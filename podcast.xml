@@ -2,6 +2,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <item>
+      <title>The Rural Update | October 16, 2026 | Recovery edition</title>
+      <description>This recovery edition reviews current primary sources and continuing priorities, not five announcements issued today. Oklahoma's recipient page was updated October 15, and county collaborative meetings begin October 26. RHC leaders should validate October telehealth claims without assuming the coding change replaced the underlying payment methodology. GENEROUS applications do not establish Oklahoma's final implementation terms. Medicaid provider-tax proposals require facility-specific scenarios, not an assumed hospital revenue cut.</description>
+      <pubDate>Fri, 16 Oct 2026 16:57:14 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-16</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-16.mp3?v=9fc0504ff1648e33" length="11174829" type="audio/mpeg" />
+      <itunes:duration>11:38</itunes:duration>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-16.html" type="text/html" />
+    </item>
+    <item>
       <title>The Rural Update | October 14, 2026 | Recovery edition</title>
       <description>This recovery edition combines the October 13 Missouri and Nebraska RHTP announcements with continuing operational priorities, not five announcements issued today. The immediate work is to review RHC telehealth claim performance, test Medicaid financing scenarios without treating proposed regulations as final, and connect grant investments to sustainable services. Oklahoma's $223,476,949 RHTP amount is its FY2026 state award, not a new October award or an individual hospital allocation. Proposed 2027 RHC preventive-service payments remain distinct from existing care-management and ACCESS billing pathways.</description>
       <pubDate>Wed, 14 Oct 2026 11:04:31 -0500</pubDate>
@@ -15,7 +24,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Wed, 14 Oct 2026 11:04:32 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2026 16:57:16 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>

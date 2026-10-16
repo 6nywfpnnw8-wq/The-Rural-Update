@@ -1,66 +1,66 @@
 [
   {
     "id": "regionalization",
-    "title": "Regional capability investment",
-    "direction": "Investment continuing",
+    "title": "Regional coordination",
+    "direction": "Active planning",
     "confidence": "High",
     "horizon": "1-5 years",
     "executiveRisk": "Opportunity",
-    "summary": "The October 13 Nebraska announcement and RHTP program goals support continued investment in workforce, remote care and coordination. These inputs do not yet demonstrate durable financial returns.",
-    "why": "Use the evidence as a design comparison for shared capability, then require local access and operating-cost tests.",
+    "summary": "Oklahoma's collaborative schedule and recipient examples support ongoing regional coordination; they do not establish measured returns.",
+    "why": "Use project and meeting information to build an accountable operating design.",
     "refs": [
       [
-        "CMS: Nebraska RHTP workforce and technology announcement",
-        "https://www.cms.gov/newsroom/press-releases/trump-administration-announces-more-177-million-recruit-rural-healthcare-workers-expand-mobile-care"
+        "Oklahoma: county collaborative meeting schedule",
+        "https://oklahoma.gov/rhtp.html"
       ],
       [
-        "CMS: FY2026 RHTP state award list",
-        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+        "Oklahoma: RHTP funding recipients, page updated October 15",
+        "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html"
       ]
     ],
-    "reviewed": "2026-10-14"
+    "reviewed": "2026-10-16"
   },
   {
     "id": "medicaid-financing",
     "title": "Medicaid financing pressure",
-    "direction": "Planning risk increasing",
+    "direction": "Planning risk",
     "confidence": "High",
     "horizon": "12-48 months",
     "executiveRisk": "High",
-    "summary": "Statutory provider-tax restrictions and CMS's proposed implementation narrow financing options. Individual hospital effects depend on state responses and facility exposure.",
-    "why": "Separate legal dates, regulatory proposals and budget scenarios; do not translate national federal savings directly into hospital losses.",
+    "summary": "The statute and proposed implementing regulation create financing constraints; facility effects depend on state action and exposure.",
+    "why": "Keep uncertain policy scenarios separate from confirmed budget changes.",
     "refs": [
       [
-        "CMS: CMS-2452-P provider-tax proposed-rule fact sheet",
+        "CMS: provider-tax proposed-rule fact sheet",
         "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ],
       [
-        "GPO: CMS-2452-P proposed rule, Federal Register document 2026-14897",
+        "Federal Register: CMS-2452-P proposed rule",
         "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm"
       ]
     ],
-    "reviewed": "2026-10-14"
+    "reviewed": "2026-10-16"
   },
   {
     "id": "rhc-sustainability",
-    "title": "Potential RHC preventive-service reimbursement",
-    "direction": "Conditional opportunity",
-    "confidence": "Medium",
-    "horizon": "6-18 months",
-    "executiveRisk": "Opportunity",
-    "summary": "CMS proposes stand-alone AIR-paid RHC visits for diabetes self-management training and medical nutrition therapy. This is not a proposal to pay an AIR for every chronic-care activity or add-on code.",
-    "why": "Evaluate the two proposed services separately. Final policy and implementation requirements must be verified before counting recurring revenue.",
+    "title": "RHC payment execution",
+    "direction": "Implementation watch",
+    "confidence": "High",
+    "horizon": "0-3 months",
+    "executiveRisk": "High",
+    "summary": "The telehealth coding conversion requires operational verification while the stated payment methodology continues.",
+    "why": "Separate code compliance from an assumed new reimbursement opportunity.",
     "refs": [
       [
-        "CMS: CY2027 PFS proposed-rule fact sheet",
-        "https://www.cms.gov/newsroom/fact-sheets/calendar-year-cy-2027-medicare-physician-fee-schedule-proposed-rule"
+        "CMS: current RHC and FQHC billing announcements",
+        "https://www.cms.gov/fqhc-rhc-news-announcements"
       ],
       [
-        "CMS: CMS-1848-P official rule page",
-        "https://www.cms.gov/medicare/payment/fee-schedules/physician/federal-regulation-notices/cms-1848-p"
+        "CMS: R13776OTN telehealth billing transmittal",
+        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
       ]
     ],
-    "reviewed": "2026-10-14"
+    "reviewed": "2026-10-16"
   },
   {
     "id": "payer-friction",
@@ -106,5 +106,26 @@
       ]
     ],
     "reviewed": "2026-10-14"
+  },
+  {
+    "id": "generous-implementation",
+    "title": "GENEROUS pharmacy readiness",
+    "direction": "Conditional implementation",
+    "confidence": "Medium",
+    "horizon": "3-12 months",
+    "executiveRisk": "Moderate",
+    "summary": "Broad application interest is verified; this edition does not establish Oklahoma-specific executed terms.",
+    "why": "Seek product-level and payer-level instructions rather than infer reimbursement changes.",
+    "refs": [
+      [
+        "CMS: GENEROUS model overview",
+        "https://www.cms.gov/priorities/innovation/innovation-models/generous"
+      ],
+      [
+        "CMS: GENEROUS state application announcement",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
+      ]
+    ],
+    "reviewed": "2026-10-16"
   }
 ]

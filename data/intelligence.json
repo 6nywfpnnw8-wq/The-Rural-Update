@@ -502,32 +502,32 @@
     },
     {
       "id": "action-medicaid-downside-model",
-      "title": "Quantify Medicaid supplemental-financing exposure and downside model",
+      "title": "Verify state terms before changing the base forecast",
       "status": "Open",
       "owner": "Finance / Medicaid Managed Care / CFO",
       "owner_is_suggested": true,
       "due": "Ongoing",
-      "next": "Separate provider-tax exposure from SDP and DSH assumptions. Prepare facility-specific downside scenarios and validate Oklahoma implementation assumptions with OHCA before revising the base budget.",
+      "next": "Request documented Oklahoma GENEROUS implementation terms and validate provider-tax assumptions separately from supplemental-payment scenarios.",
       "source": "medicaid-financing-2026-10-14"
     },
     {
       "id": "action-rhtp-sustainability-test",
-      "title": "Apply RHTP post-grant sustainability test",
+      "title": "Prepare a regional proposal with a post-grant budget",
       "status": "Open",
       "owner": "Strategy / Finance / Grants Office",
       "owner_is_suggested": true,
-      "due": "Ongoing",
-      "next": "Compare the Missouri and Nebraska implementation examples with local needs. For any proposed participation, identify recurring cost, eligible funding, local access safeguards and post-grant financing.",
+      "due": "2026-10-23",
+      "next": "Suggested internal checkpoint: prepare the access problem, participating communities, staffing, maintenance and post-grant funding before the October 26 meetings. Meeting attendance does not create an award.",
       "source": "rhtp-oct13-implementation"
     },
     {
       "id": "action-rhc-telehealth-validate",
-      "title": "Validate RHC telehealth billing conversion in production",
+      "title": "Complete a production claims review",
       "status": "Open",
       "owner": "Revenue Cycle / RHC Operations / IT",
       "owner_is_suggested": true,
       "due": "2026-10-21",
-      "next": "By the suggested October 21 internal checkpoint, sample October 1-14 RHC telehealth encounters and reconcile documentation, code mapping, modifiers, claims and remittances. This date is an editorial recommendation, not a CMS deadline.",
+      "next": "Use October 21 as a suggested internal checkpoint, not a federal deadline. Reconcile a sample of October telehealth services through remittance and separate coding defects from payment methodology.",
       "source": "rhc-telehealth-2026-10-14"
     }
   ],
@@ -551,5 +551,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-14"
+  "reviewed": "2026-10-16"
 }

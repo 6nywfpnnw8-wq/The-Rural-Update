@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-16",
+  "audio_sha256": "9fc0504ff1648e33e305c534c48acfa18500c9976b4d302732ab0bf7c1c4472b",
+  "script_sha256": "3c65ec0598f3b8c2028611c7a4b629fa9e9d5bf2bec1a1049bbb0689ee805508",
+  "duration_seconds": 698.4,
+  "expected_parts": 11,
+  "accepted_parts": 11,
+  "parts": [
+    {
+      "index": 0,
+      "attempt": 1,
+      "text_sha256": "eec314346c85bb20da25500f23559573b0dd86231ef940ce51a764ad5d133b95",
+      "audio_sha256": "ec781bdc63a085e98242f8a46b00b086707afd8ba593d7c888199c55594e082b",
+      "coverage": 1.0,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 1,
+      "attempt": 1,
+      "text_sha256": "ff63833c7b0d5ffafd73a8adb16933d9b2aa24000196ea5a0666d5497a71b0b9",
+      "audio_sha256": "da6f02a3b26dd2358f8fdcb90d8650d406e470d83a5efa1045907c9b4e299da7",
+      "coverage": 0.9937,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 2,
+      "attempt": 1,
+      "text_sha256": "e238b5d2acabc7dfec28ed7c9098557f0b42bf1b2dc78d85266cc6a6395b0d13",
+      "audio_sha256": "05e1422448cfd0de3aa5353a3c533a5a90ffa6a48a56690b4619de0838af49ff",
+      "coverage": 0.9581,
+      "opening": 1.0,
+      "ending": 0.5625,
+      "final_words": 0.1667,
+      "passed": false
+    },
+    {
+      "index": 2,
+      "attempt": 2,
+      "text_sha256": "e238b5d2acabc7dfec28ed7c9098557f0b42bf1b2dc78d85266cc6a6395b0d13",
+      "audio_sha256": "41eee6e3cd1dac575ee8c708e1cf4737b791d14d3561b4eb28a1bc446acb6331",
+      "coverage": 0.994,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 3,
+      "attempt": 1,
+      "text_sha256": "b3e6c1b132d6a5ebf873a46d198266f19bf18a6867297977fb369dead30efae8",
+      "audio_sha256": "1d9d34c9edfd5f0de9bf7588c90f636b394803af09e58e08fdcc97301b5d43cd",
+      "coverage": 0.994,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 4,
+      "attempt": 1,
+      "text_sha256": "12d69abbe2d62c3193016b6cd3f50951cf117eb53590718756af92112333fb71",
+      "audio_sha256": "27d4b7e6119b095ccddea0ebcabed4a7352e23fe2a8c2ccedd7bb7131cd7486b",
+      "coverage": 1.0,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 5,
+      "attempt": 1,
+      "text_sha256": "9bccbd40517bc76af2ba2f9a5ef7e1053184f07eee53e901b16a00acd546f5c2",
+      "audio_sha256": "001685cdbc51b0da0fee097fc276341ff6efe617c49b9b65d13cbb42dc94be2a",
+      "coverage": 0.9884,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 6,
+      "attempt": 1,
+      "text_sha256": "787c381f5691bcd20bf140cd642fe4de18c3cfa6dc88b1f943d961b631eff56e",
+      "audio_sha256": "0c50818970e15d1be7704e24aa505c815b82ceae011e028710dfbfdaf77e39e9",
+      "coverage": 0.9762,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 7,
+      "attempt": 1,
+      "text_sha256": "9445cb24fdf662b1977f9dce62e6227837cb21848251f5618677052e58c57180",
+      "audio_sha256": "46eb85c49e58c4ef3940c4bebcd12eeb44d06f1e9207e8cb997effba4f3e47b8",
+      "coverage": 0.9769,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 8,
+      "attempt": 1,
+      "text_sha256": "1af9d2b8d711a4c234a0bd55b1b9ad1d9dd4e8c730c0351811162c73a7e313f1",
+      "audio_sha256": "d1c771a3697db252ee658d06c7959631a40dbfecd49b13f55031b8c64d556e1c",
+      "coverage": 0.9826,
+      "opening": 1.0,
+      "ending": 0.875,
+      "final_words": 0.6667,
+      "passed": false
+    },
+    {
+      "index": 8,
+      "attempt": 2,
+      "text_sha256": "1af9d2b8d711a4c234a0bd55b1b9ad1d9dd4e8c730c0351811162c73a7e313f1",
+      "audio_sha256": "e50c0e97c1434b76fbe15303ae477fa423c360a141a66e7d78a83795c6427735",
+      "coverage": 1.0,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 9,
+      "attempt": 1,
+      "text_sha256": "0be2a840f7060962746482ee6f06122c8d29c66666133768df8ebf5bd870e2f9",
+      "audio_sha256": "0184f41236886cd5c4613f4d301f6f5f241ea49822aa2454c1ef2003f48612fb",
+      "coverage": 0.9942,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    },
+    {
+      "index": 10,
+      "attempt": 1,
+      "text_sha256": "92ca904f60ea428d6474525c16caa2d01b4750947d2602466a3e57969a34484a",
+      "audio_sha256": "21d0a8964af1e0ba1ec00571b9bbafb8979b4595817df230f8c7b09f24593779",
+      "coverage": 1.0,
+      "opening": 1.0,
+      "ending": 1.0,
+      "final_words": 1.0,
+      "passed": true
+    }
+  ],
+  "ending_check": {
+    "ending": 1.0,
+    "final_words": 1.0,
+    "passed": true
+  },
+  "complete": true,
+  "method": "Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee."
+}
