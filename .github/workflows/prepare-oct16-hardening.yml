@@ -1,0 +1,63 @@
+name: Prepare and test October 16 hardening review
+on:
+  push:
+    branches: [maintenance/prepare-oct16-hardening]
+    paths: ['.github/workflows/prepare-oct16-hardening.yml']
+permissions:
+  contents: write
+concurrency:
+  group: rural-update-review-branch-preparation
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage readable patch materials and verify exact review-branch base
+        run: |
+          cp -R maintenance/oct16 "$RUNNER_TEMP/oct16-patch"
+          git fetch origin fix/diagnostic-specificity-oct16
+          test "$(git rev-parse origin/fix/diagnostic-specificity-oct16)" = '15eb19578fa6ab53c1b9dba582bc5adb8466d412'
+          git checkout -B fix/diagnostic-specificity-oct16 origin/fix/diagnostic-specificity-oct16
+      - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+      - name: Apply only the reviewed source changes
+        run: python3 "$RUNNER_TEMP/oct16-patch/apply.py"
+      - name: Run all regression and compatibility tests without API credentials
+        run: |
+          python3 -m unittest discover -s tests -p 'test_release*.py' -v
+          python3 -m compileall -q scripts tests
+          node --check web/release-runtime.js
+          node --check sw.js
+          node tests/test_release_sw.cjs
+          git diff --check
+      - name: Retrieve all current edition source bodies without model calls
+        run: |
+          python3 - <<'PY'
+          import sys,json,pathlib
+          sys.path.insert(0,'scripts')
+          from release_evidence import collect_source_evidence,evidence_urls
+          e=json.loads(pathlib.Path('editorial-review/2026-10-16.json').read_text())['candidate']
+          docs=collect_source_evidence(e,pathlib.Path('.preflight'))
+          urls=evidence_urls(e,docs)
+          print('Source content coverage:',len(urls),'of',len(e['sources']))
+          assert len(urls)==len(e['sources'])
+          PY
+      - name: Save to the review branch only, never main
+        run: |
+          test "$(git branch --show-current)" = 'fix/diagnostic-specificity-oct16'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/release_audio.py scripts/release_pipeline.py scripts/release_editorial.py scripts/release_narration.py scripts/release_diagnostics.py scripts/release_verify.py tests/test_release.py tests/test_release_audio_completeness.py .github/workflows/publish.yml editorial-review/2026-10-16.json
+          git commit -m 'Bound generation length and require complete spoken narration before publication'
+          git fetch origin fix/diagnostic-specificity-oct16
+          test "$(git rev-parse origin/fix/diagnostic-specificity-oct16)" = '15eb19578fa6ab53c1b9dba582bc5adb8466d412'
+          git push origin HEAD:refs/heads/fix/diagnostic-specificity-oct16
+          git rev-parse HEAD
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: oct16-source-preflight
+          path: .preflight/source-evidence.json
+          if-no-files-found: ignore
+          retention-days: 7
