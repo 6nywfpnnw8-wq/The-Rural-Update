@@ -1,0 +1,48 @@
+name: Inspect retained candidates and published audio
+on:
+  push:
+    branches: [investigate/oct16-release-and-audio]
+    paths: ['.github/workflows/inspect-oct16.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: inspect-oct16-read-only
+          restore-keys: rural-release-v1-2026-10-16-
+      - name: Export only public code, released audio, and sanitized diagnostic JSON
+        run: |
+          python3 - <<'PY'
+          import pathlib,sys,zipfile,json
+          sys.path.insert(0,'scripts')
+          from release_diagnostics import redact
+          root=pathlib.Path('.')
+          names=['scripts','tests','web','.github','data','editions','templates','editorial-review','archive','icons']
+          paths=[]
+          for name in names:
+              paths.extend(p for p in (root/name).rglob('*') if p.is_file() and not p.is_symlink() and '__pycache__' not in p.parts)
+          for name in ['index.html','intelligence.js','signals-reference.js','archive-loader.js','sw.js','release.json','manifest.webmanifest','requirements-publisher.txt','podcast.xml','audio/2026-10-14.mp3','podcast-script/2026-10-14.txt','transcript/2026-10-14.html']:
+              if (root/name).is_file(): paths.append(root/name)
+          with zipfile.ZipFile('inspection.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for p in paths: z.write(p,str(p))
+              cache=root/'.release-cache'
+              for p in cache.rglob('*.json'):
+                  if not p.is_symlink() and p.stat().st_size<=1048576:
+                      data=redact(json.loads(p.read_text()))
+                      z.writestr(str(p),json.dumps(data,ensure_ascii=False))
+          print('Read-only inspection bundle created. No generation, API credentials, or production writes.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oct16-inspection
+          path: inspection.zip
+          retention-days: 1
