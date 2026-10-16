@@ -22,7 +22,9 @@ jobs:
           git checkout -B fix/diagnostic-specificity-oct16 origin/fix/diagnostic-specificity-oct16
       - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
       - name: Apply only the reviewed source changes
-        run: python3 "$RUNNER_TEMP/oct16-patch/apply.py"
+        run: |
+          python3 "$RUNNER_TEMP/oct16-patch/apply.py"
+          python3 "$RUNNER_TEMP/oct16-patch/finish.py"
       - name: Run all regression and compatibility tests without API credentials
         run: |
           python3 -m unittest discover -s tests -p 'test_release*.py' -v
