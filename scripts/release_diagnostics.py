@@ -139,7 +139,15 @@ def error_details(error: Exception, candidate=None) -> dict:
     if raw in messages:
         rule, path = messages[raw]
         return {'rule': rule, 'message': raw, 'path': path}
-    return {'rule': 'stage_failure', 'message': 'Processing stopped; inspect the named stage', 'path': '/'}
+    # Report a safe exception category without leaking source text or raw API payloads.
+    # Unknown exceptions remain blocked, but are no longer indistinguishable.
+    category = type(error).__name__
+    if category not in ('AssertionError', 'RuntimeError', 'ValueError', 'TypeError',
+                        'KeyError', 'JSONDecodeError', 'HTTPError', 'URLError',
+                        'TimeoutError', 'CalledProcessError'):
+        category = 'Other'
+    return {'rule': 'stage_failure', 'message': 'Processing stopped; inspect the named stage',
+            'path': '/', 'exception_category': category}
 
 
 def summary(report: dict) -> str:
