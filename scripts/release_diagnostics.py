@@ -139,6 +139,13 @@ def error_details(error: Exception, candidate=None) -> dict:
     if raw in messages:
         rule, path = messages[raw]
         return {'rule': rule, 'message': raw, 'path': path}
+    for field in ('stories','actions','signals','issue_updates','sources'):
+        if raw in ('Duplicate '+field+' IDs','Unsafe '+field+' ID'):
+            return {'rule':'identifier','message':'Invalid or duplicate identifier','path':'/'+field}
+    if raw in ('Model response incomplete or failed','Model returned no output text','Research did not use web search'):
+        return {'rule':'research_response','message':raw,'path':'/'}
+    if re.fullmatch(r'Spoken body has [0-9]+ words after 2 revisions; required 1700 to 2000. Publication blocked.',raw):
+        return {'rule':'spoken_word_count','message':raw,'path':'/podcast'}
     # Report a safe exception category without leaking source text or raw API payloads.
     # Unknown exceptions remain blocked, but are no longer indistinguishable.
     category = type(error).__name__
@@ -170,6 +177,8 @@ def summary(report: dict) -> str:
         return f'OpenAI {report["endpoint"]} request failed (HTTP {report["http_status"]})'
     if rule == 'evidence_audit':
         return 'Editorial audit rejected candidate; publication remains blocked.'
+    if rule in ('identifier','research_response','spoken_word_count'):
+        return 'Validation rule '+rule+' failed at '+pointer_from_report(report.get('path','/'))
     stage = report.get('stage', 'validation')
     if not isinstance(stage, str) or not re.fullmatch(r'[a-z-]{1,40}', stage): stage = 'validation'
     return 'Candidate validation stopped at ' + stage
