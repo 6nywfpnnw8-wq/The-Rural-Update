@@ -45,12 +45,15 @@ jobs:
           print('Source content coverage:',len(urls),'of',len(e['sources']))
           assert len(urls)==len(e['sources'])
           PY
-      - name: Save to the review branch only, never main
+      - name: Save ordinary source files to the review branch only
         run: |
           test "$(git branch --show-current)" = 'fix/diagnostic-specificity-oct16'
+          # The Actions token cannot edit workflows. Leave that file unchanged;
+          # its reviewed update must use the existing authorized connector.
+          git restore -- .github/workflows/publish.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/release_audio.py scripts/release_pipeline.py scripts/release_editorial.py scripts/release_narration.py scripts/release_diagnostics.py scripts/release_verify.py tests/test_release.py tests/test_release_audio_completeness.py .github/workflows/publish.yml editorial-review/2026-10-16.json
+          git add scripts/release_audio.py scripts/release_pipeline.py scripts/release_editorial.py scripts/release_narration.py scripts/release_diagnostics.py scripts/release_verify.py tests/test_release.py tests/test_release_audio_completeness.py editorial-review/2026-10-16.json
           git commit -m 'Bound generation length and require complete spoken narration before publication'
           git fetch origin fix/diagnostic-specificity-oct16
           test "$(git rev-parse origin/fix/diagnostic-specificity-oct16)" = '15eb19578fa6ab53c1b9dba582bc5adb8466d412'
