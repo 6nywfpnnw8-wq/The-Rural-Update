@@ -29,7 +29,7 @@ def ending_check(expected,actual):
     value=score(a,b); final=score(a[-6:],b[-8:])
     return {'ending':round(value,4),'final_words':round(final,4),'passed':bool(a) and value>=.88 and final>=.9}
 
-def segments(text,max_words=170):
+def segments(text,max_words=170,max_parts=24):
     units=re.split(r'(?<=[.!?])\s+',text.strip()); parts=[]; current=[]
     for unit in units:
         if len(unit.split())>max_words: raise ValueError('Narration sentence exceeds the speech segment limit')
@@ -37,7 +37,7 @@ def segments(text,max_words=170):
             parts.append(' '.join(current));current=[]
         current.append(unit)
     if current: parts.append(' '.join(current))
-    if not parts or len(parts)>24: raise ValueError('Speech segment count is outside limits')
+    if not parts or len(parts)>max_parts: raise ValueError('Speech segment count is outside limits')
     assert ' '.join(text.split())==' '.join(' '.join(parts).split()),'Speech segmentation lost source text'
     return parts
 
@@ -81,28 +81,86 @@ def inspect_ending(audio,script,cache):
     report={'audio_sha256':digest(audio.read_bytes()),'script_sha256':digest(script),'result':result,'recognized_tail':text[-900:]}
     write_json(out,report);return report
 
-def build_audio(edition,cache,output,request):
-    body=podcast_body(edition); parts=segments(body)
+MAX_SPEECH_REQUESTS = 64
+MAX_ACCEPTED_PARTS = 48
+
+
+def speech_payload(text,model,voice):
+    return {'model':model,'voice':voice,'input':text,
+            'instructions':'Read every word through the complete final sentence. Calm professional American English. Natural pauses. Approximately 145 to 155 words per minute.',
+            'response_format':'wav','speed':1.0}
+
+
+def split_failed_segment(text):
+    """One subdivision at sentence boundaries, never truncation or padding."""
+    sentences=re.split(r'(?<=[.!?])\s+',text.strip())
+    if len(sentences)<2:raise RuntimeError('Failed single-sentence audio requires review')
+    longest=max(len(s.split()) for s in sentences)
+    target=max(longest,(len(text.split())+1)//2)
+    children=segments(text,max_words=target,max_parts=4)
+    if not 2<=len(children)<=4:raise RuntimeError('Failed audio cannot be subdivided safely')
+    assert ' '.join(text.split())==' '.join(' '.join(children).split()),'Audio subdivision lost text'
+    return children
+
+
+def collect_verified_segments(body,cache,request,model,voice):
+    """Short initial passages; one bounded subdivision for failed passages.
+
+    Legacy 170-word work is reused when its exact first payload already exists.
+    Exhausted ledgers are never reset. Every accepted leaf must pass the same ASR
+    thresholds. A script-word partition proves that assembly cannot omit a leaf.
+    """
     folder=cache/'audio-v2';folder.mkdir(parents=True,exist_ok=True)
-    model=os.getenv('OPENAI_TTS_MODEL','gpt-4o-mini-tts');voice=os.getenv('OPENAI_TTS_VOICE','cedar')
-    accepted=[];report_parts=[]
-    for number,text in enumerate(parts):
-        payload={'model':model,'voice':voice,'input':text,'instructions':'Read every word through the complete final sentence. Calm professional American English. Natural pauses. Approximately 145 to 155 words per minute.','response_format':'wav','speed':1.0}
-        key=digest(json.dumps(payload,sort_keys=True)); ledger=folder/(key+'-attempts.json')
-        state=read_json(ledger,{'attempts':0}); good=False
+    legacy=segments(body,max_words=170)
+    first_key=digest(json.dumps(speech_payload(legacy[0],model,voice),sort_keys=True))
+    use_legacy=any((folder/(first_key+f'-{n}.wav')).exists() for n in range(2))
+    parts=legacy if use_legacy else segments(body,max_words=90,max_parts=32)
+    accepted=[];accepted_text=[];reports=[];position=0
+
+    def visit(text,origin,depth):
+        nonlocal position
+        if len(accepted)>=MAX_ACCEPTED_PARTS:raise RuntimeError('Accepted audio segment limit reached')
+        payload=speech_payload(text,model,voice)
+        key=digest(json.dumps(payload,sort_keys=True));ledger=folder/(key+'-attempts.json')
+        state=read_json(ledger,{'attempts':0})
+        if type(state.get('attempts')) is not int or not 0<=state['attempts']<=2:
+            raise RuntimeError('Invalid speech attempt ledger')
         for attempt in range(2):
             part=folder/(key+f'-{attempt}.wav')
             if not part.exists():
                 if state['attempts']>=2:break
+                spent=sum(read_json(p,{}).get('attempts',0) for p in folder.glob('*-attempts.json'))
+                if spent>=MAX_SPEECH_REQUESTS:raise RuntimeError('Daily speech request budget reached')
                 state['attempts']+=1;write_json(ledger,state)
                 data=request(payload,'audio/speech',True)
                 temp=part.with_suffix('.tmp.wav');temp.write_bytes(data);probe_audio(temp);temp.replace(part)
-            recognized=transcribe(part,folder); result=coverage(text,recognized)
-            report_parts.append({'index':number,'attempt':attempt+1,'text_sha256':digest(text),'audio_sha256':digest(part.read_bytes()),**result})
-            write_json(cache/'audio-quality-progress.json',{'parts':report_parts,'expected_parts':len(parts),'complete':False})
+            recognized=transcribe(part,folder);result=coverage(text,recognized)
+            row={'index':len(accepted),'original_index':origin,'split_depth':depth,
+                 'attempt':attempt+1,'text_sha256':digest(text),
+                 'normalized_text_sha256':digest(' '.join(text.split())),
+                 'audio_sha256':digest(part.read_bytes()),**result}
             if result['passed']:
-                accepted.append(part);good=True;break
-        if not good:raise RuntimeError(f'Incomplete spoken segment {number+1}; audio publication blocked')
+                row['start_word']=position;position+=len(text.split());row['end_word']=position
+                accepted.append(part);accepted_text.append(text)
+            reports.append(row)
+            write_json(cache/'audio-quality-progress.json',{'parts':reports,
+                'source_parts':len(parts),'accepted_leaf_parts':len(accepted),
+                'maximum_split_depth':1,'complete':False})
+            if result['passed']:return
+        if depth>=1:raise RuntimeError(f'Incomplete subdivided audio segment {origin+1}; publication blocked')
+        for child in split_failed_segment(text):visit(child,origin,depth+1)
+
+    for number,text in enumerate(parts):visit(text,number,0)
+    if ' '.join(body.split())!=' '.join(' '.join(accepted_text).split()):
+        raise RuntimeError('Accepted audio segments do not cover the complete script in order')
+    return accepted,reports,len(parts)
+
+
+def build_audio(edition,cache,output,request):
+    body=podcast_body(edition)
+    model=os.getenv('OPENAI_TTS_MODEL','gpt-4o-mini-tts');voice=os.getenv('OPENAI_TTS_VOICE','cedar')
+    accepted,report_parts,source_parts=collect_verified_segments(body,cache,request,model,voice)
+    folder=cache/'audio-v2'
     combined=folder/'assembled.wav';total=0
     with wave.open(str(combined),'wb') as dest:
         dest.setnchannels(1);dest.setsampwidth(2);dest.setframerate(24000)
@@ -118,6 +176,6 @@ def build_audio(edition,cache,output,request):
     tail=inspect_ending(temp,body,folder)
     if not tail['result']['passed']:raise RuntimeError('Assembled episode closing narration is incomplete')
     temp.replace(output)
-    report={'schema_version':1,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(parts),'accepted_parts':len(accepted),'parts':report_parts,'ending_check':tail['result'],'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
+    report={'schema_version':2,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
     write_json(cache/'audio-quality.json',report)
     return seconds
