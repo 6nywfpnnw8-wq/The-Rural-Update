@@ -5,5 +5,10 @@
   "maximum_additional_generation_attempts": 1,
   "publication_authorized": false,
   "user_request_at": "2026-10-17T16:03:05Z",
-  "reason": "The user explicitly requested repair after both monolithic research attempts failed. Permit one execution of the corrected staged generator, without resetting or deleting the original two-attempt ledger. This permission expires with the October 17 date, is consumed before an API request, and cannot approve content. Existing source retrieval, evidence audit, narration, audio-completeness and public-delivery gates all remain mandatory. Future dates retain their normal two-attempt allowance."
+  "maximum_output_limit_resumes": 1,
+  "resume_stage": "reporting",
+  "previous_output_limit": 10000,
+  "corrected_output_limit": 16000,
+  "observed_run_id": 39049582204,
+  "reason": "The authorized corrective attempt completed source discovery but reporting stopped with status incomplete and reason max_output_tokens at 10000 tokens. Permit one continuation using the hash-checked retained discovery, bounded executive fields and a 16000-token reporting ceiling. No new discovery request, existing completed report replacement, or rejected-audit override is allowed through this continuation. Reserve it before calling the API and refuse any further replay. The original two-attempt ledger and the original corrective reservation remain unchanged. Exact source retrieval, independent evidence audit, narration length, all audio-completeness checks and public-delivery verification remain mandatory. The authorization is limited to October 17."
 }
