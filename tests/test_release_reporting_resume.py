@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator,ValidationError
 import release_research as sr
 from release_core import SCHEMA,write_json
 from test_release import fixture,DATE
-from test_release_staged_research import response
+from test_release_staged_research import response,bounded_fixture
 
 class ReportingResumeTests(unittest.TestCase):
     def setUp(self):
@@ -21,14 +21,14 @@ class ReportingResumeTests(unittest.TestCase):
         self.assertTrue(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
         self.payload={'model':'gpt-5-mini','input':'Edition '+DATE,'tools':[{'type':'web_search'}]}
         raw=response('partial report',status='incomplete');raw['incomplete_details']={'reason':'max_output_tokens'}
-        send=Mock(side_effect=[response('Retained source notes',web=True),raw])
+        send=Mock(side_effect=[response('Retained source notes',web=True),response({'sources':fixture()['sources']}),raw])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.cache)
         sr.record_response(self.cache,{'max_output_tokens':10000,'text':{'format':{'name':'reporting'}}},raw,10)
     def test_resumes_once_without_discovery_or_counter_reset(self):
         before=(self.cache/'attempts.json').read_bytes()
         self.assertTrue(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
         self.assertFalse(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
-        e=fixture();brief=copy.deepcopy(e);brief.pop('podcast')
+        e=bounded_fixture();brief=copy.deepcopy(e);brief.pop('podcast');brief.pop('sources')
         send=Mock(side_effect=[response(brief),response(e['podcast'])])
         sr.staged_request(self.payload,send,self.cache)
         self.assertEqual(send.call_count,2)
