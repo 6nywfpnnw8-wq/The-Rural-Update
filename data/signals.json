@@ -127,5 +127,89 @@
       ]
     ],
     "reviewed": "2026-10-16"
+  },
+  {
+    "id": "signal-regionalization",
+    "title": "Regional coordination",
+    "direction": "Active planning",
+    "confidence": "High",
+    "horizon": "1-5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "Oklahoma RHTP program pages and funding-recipient lists show active regional projects and collaborative meetings; this is evidence of planning and subaward activity but not proof of measured returns or post-grant sustainability.",
+    "why": "Use project and meeting information to build accountable operating designs and post-grant budgets.",
+    "refs": [
+      [
+        "Oklahoma Rural Health Transformation Program - resources and funding recipients",
+        "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html"
+      ],
+      [
+        "CMS: Rural Health Transformation Program awards press release and state abstracts",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+      ]
+    ],
+    "reviewed": "2026-10-17"
+  },
+  {
+    "id": "signal-medicaid-financing",
+    "title": "Medicaid financing pressure",
+    "direction": "Planning risk",
+    "confidence": "High",
+    "horizon": "12-48 months",
+    "executiveRisk": "High",
+    "summary": "CMS proposed changes in CMS-2452-P to provider-tax tests and reporting create material planning risk; final effects depend on CMS final rule text and Oklahoma policy responses.",
+    "why": "Separate uncertain policy scenarios from confirmed budget changes and prepare downside models.",
+    "refs": [
+      [
+        "CMS: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes Proposed Rule (CMS-2452-P) - Fact Sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+      ],
+      [
+        "Federal Register: CMS-2452-P proposed rule, document 2026-14897",
+        "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm"
+      ]
+    ],
+    "reviewed": "2026-10-17"
+  },
+  {
+    "id": "signal-rhc-telehealth",
+    "title": "RHC telehealth payment execution",
+    "direction": "Implementation watch",
+    "confidence": "High",
+    "horizon": "0-3 months",
+    "executiveRisk": "High",
+    "summary": "The billing change applies to dates of service beginning October 1, while the transmittal lists October 5 for implementation. Measure claim acceptance and adjudication without assuming an increased payment rate.",
+    "why": "Validate claim edits, modifiers and remittance behavior rather than assume improved payment.",
+    "refs": [
+      [
+        "CMS Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs and FQHCs",
+        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
+      ],
+      [
+        "CMS FQHC/RHC News and Announcements",
+        "https://www.cms.gov/fqhc-rhc-news-announcements"
+      ]
+    ],
+    "reviewed": "2026-10-17"
+  },
+  {
+    "id": "signal-generous-implementation",
+    "title": "GENEROUS pharmacy readiness",
+    "direction": "Conditional implementation",
+    "confidence": "Medium",
+    "horizon": "3-12 months",
+    "executiveRisk": "Moderate",
+    "summary": "National GENEROUS participation announcements justify an implementation watch, but Oklahoma-specific executed terms and provider-level effects require separate confirmation.",
+    "why": "Seek product-level and payer-level instructions rather than infer reimbursement changes.",
+    "refs": [
+      [
+        "CMS: GENEROUS Medicaid drug-pricing model overview and state RFA materials",
+        "https://www.cms.gov/priorities/innovation/innovation-models/generous"
+      ],
+      [
+        "CMS GENEROUS participant announcement, September 18, 2026",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
+      ]
+    ],
+    "reviewed": "2026-10-17"
   }
 ]

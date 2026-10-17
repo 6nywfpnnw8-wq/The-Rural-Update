@@ -529,6 +529,36 @@
       "due": "2026-10-21",
       "next": "Use October 21 as a suggested internal checkpoint, not a federal deadline. Reconcile a sample of October telehealth services through remittance and separate coding defects from payment methodology.",
       "source": "rhc-telehealth-2026-10-14"
+    },
+    {
+      "id": "action-finance-downside",
+      "title": "Model Medicaid downside from provider-tax changes",
+      "status": "Open",
+      "owner": "Finance",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Produce a state-level downside scenario that isolates provider-tax and supplemental-payment exposure; request OHCA assumptions and state tax-data used for 2026 budget planning.",
+      "source": "medicaid-provider-tax-rulemaking"
+    },
+    {
+      "id": "action-rhtp-sustainability-plans",
+      "title": "Prepare post-grant sustainability plans for RHTP projects",
+      "status": "Open",
+      "owner": "Grants/Strategy",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Document grant-period and post-grant staffing, technology, maintenance and replacement costs, with recurring revenue, support commitments and a fallback if expected volume or funding does not materialize.",
+      "source": "rhtp-oklahoma-implementation"
+    },
+    {
+      "id": "action-telehealth-claims-review",
+      "title": "Reconcile production telehealth claims and remittances",
+      "status": "Open",
+      "owner": "Revenue Cycle / RHC Operations",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Review Medicare telehealth dates of service from October 1 onward, with separate attention to the October 5 systems implementation. Track coding, modifiers, denials and remittance amounts, and validate other payers separately.",
+      "source": "rhc-distant-site-telehealth"
     }
   ],
   "changes": {
@@ -551,5 +581,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-16"
+  "reviewed": "2026-10-17"
 }
