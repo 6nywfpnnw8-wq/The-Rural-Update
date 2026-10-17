@@ -2,6 +2,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <item>
+      <title>The Rural Update | October 17, 2026 | Recovery edition</title>
+      <description>This recovery edition reviews five continuing priorities, not five new announcements issued today. Separate enacted Medicaid provider-tax requirements from proposed regulatory details; verify RHC telehealth billing for dates of service beginning October 1; and tie Oklahoma RHTP projects to recurring operating budgets. The October 5 transmittal implementation date is not the telehealth billing effective date. GENEROUS applications do not establish Oklahoma-specific executed terms or hospital savings. ACCESS offers chronic-care and coordination pathways, not automatic referral revenue. The decisions are practical: measure actual claims performance, identify facility-specific financing exposure, and confirm program terms before changing budgets.</description>
+      <pubDate>Sat, 17 Oct 2026 12:53:51 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-17</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-17.mp3?v=9c32517d93dce6d7" length="11622957" type="audio/mpeg" />
+      <itunes:duration>12:06</itunes:duration>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-17.html" type="text/html" />
+    </item>
+    <item>
       <title>The Rural Update | October 16, 2026 | Recovery edition</title>
       <description>This recovery edition reviews current primary sources and continuing priorities, not five announcements issued today. Oklahoma's recipient page was updated October 15, and county collaborative meetings begin October 26. RHC leaders should validate October telehealth claims without assuming the coding change replaced the underlying payment methodology. GENEROUS applications do not establish Oklahoma's final implementation terms. Medicaid provider-tax proposals require facility-specific scenarios, not an assumed hospital revenue cut.</description>
       <pubDate>Fri, 16 Oct 2026 16:57:14 -0500</pubDate>
@@ -24,7 +33,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Fri, 16 Oct 2026 16:57:16 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 12:53:53 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
