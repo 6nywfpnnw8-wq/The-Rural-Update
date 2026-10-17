@@ -122,6 +122,59 @@ def _web_items(response):
     return result
 
 
+def reporting_schema() -> dict:
+    """Constrain executive-field size during generation, never truncate a draft."""
+    schema=json.loads(json.dumps(SCHEMA))
+    schema['properties'].pop('podcast')
+    schema['required'].remove('podcast')
+    limits={'id':80,'title':200,'bluf':1000,'what_changed':850,
+            'why_it_matters':650,'executive_question':300,'category':80,
+            'next_step':650,'suggested_function':120,'issue_id':80,
+            'direction':120,'horizon':120,'executiveRisk':120,'risk':120,
+            'summary':850,'why':650,'nextMilestone':350,'history_note':500,
+            'description':600,'url':1600,'relevance':80}
+    def walk(node,field=''):
+        types=node.get('type')
+        if types=='string' or isinstance(types,list) and 'string' in types:
+            node['maxLength']=limits.get(field,160)
+        for k,v in node.get('properties',{}).items():walk(v,k)
+        if isinstance(node.get('items'),dict):walk(node['items'],field)
+    walk(schema)
+    return schema
+
+
+def _resume_output_limit(cache: Path,plan: dict) -> bool:
+    """One reviewed continuation of a proven reporting-limit failure only."""
+    if plan.get('maximum_output_limit_resumes')!=1:return False
+    if plan.get('resume_stage')!='reporting' or plan.get('previous_output_limit')!=10000:
+        raise RuntimeError('Invalid output-limit continuation authorization')
+    if plan.get('corrected_output_limit')!=16000:
+        raise RuntimeError('Unexpected reporting output allowance')
+    records=read_json(Path(cache)/'api-responses.json',{}).get('responses',[])
+    if not records:return False
+    last=records[-1]
+    if not (last.get('stage')=='reporting' and last.get('status')=='incomplete'
+            and last.get('incomplete_reason')=='max_output_tokens'
+            and last.get('requested_output_limit')==10000):return False
+    folder=Path(cache)/ENGINE
+    saved=read_json(folder/'discovery.json',{})
+    identity=saved.get('identity')
+    if not isinstance(identity,str):return False
+    discovery=_cached(folder/'discovery.json',identity)
+    if not discovery or not discovery.get('web_search_items'):return False
+    # This authorization cannot replace a completed report or a rejected audit.
+    if (folder/'reporting.json').exists() or (Path(cache)/'audit.json').exists():return False
+    reservation=Path(cache)/'reporting-limit-resume-used.json'
+    try:
+        with reservation.open('x',encoding='utf-8') as f:
+            json.dump({'engine':ENGINE,'edition_date':plan['edition_date'],
+                'stage':'reporting','reserved_at':datetime.now(TZ).isoformat(),
+                'cached_discovery_identity':identity,'publication_authorized':False,
+                'new_discovery_prohibited':True,'original_attempt_ledger_unchanged':True},f,indent=2)
+    except FileExistsError:return False
+    return True
+
+
 def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     """Three small requests replace one search-plus-long-JSON generation request.
 
@@ -135,6 +188,8 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     common={'model':payload['model'],'store':False,'reasoning':{'effort':'low'}}
     discovery=_cached(folder/'discovery.json',identity)
     if discovery is None:
+        if (Path(cache)/'reporting-limit-resume-used.json').exists():
+            raise RuntimeError('Reporting continuation requires the retained discovery; new discovery is prohibited')
         req={**common,'max_output_tokens':10000,'max_tool_calls':8,
              'tools':copy.deepcopy(payload['tools']),
              'include':['web_search_call.action.sources'],
@@ -160,13 +215,12 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
         _save(folder/'discovery.json',identity,discovery)
     if not discovery.get('web_search_items'):
         raise AssertionError('Research did not use web search')
-    schema=json.loads(json.dumps(SCHEMA))
-    schema['properties'].pop('podcast')
-    schema['required'].remove('podcast')
+    schema=reporting_schema()
     reporting=_cached(folder/'reporting.json',identity)
     if reporting is None:
-        req={**common,'max_output_tokens':10000,
+        req={**common,'max_output_tokens':16000,
              'instructions':(
+                 'Keep the complete executive briefing concise, roughly 1000-1500 words excluding sources. '
                  'Compile only the web briefing into the supplied JSON schema, not its podcast. '
                  'Use only facts and source URLs in the supplied research notes. Keep the same '
                  'intended America/Chicago edition date. There are five ranked stories, one to '
@@ -235,7 +289,7 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
     marker=Path(cache)/'corrective-generation-used.json'
-    if marker.exists(): return False
+    if marker.exists(): return _resume_output_limit(cache,plan)
     # Exclusive creation prevents accidental replay even if this helper is reused.
     marker.parent.mkdir(parents=True,exist_ok=True)
     try:
