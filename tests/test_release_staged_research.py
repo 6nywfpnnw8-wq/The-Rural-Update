@@ -8,11 +8,20 @@ import release_pipeline as rp
 from release_core import SCHEMA,validate_edition,write_json
 from release_diagnostics import error_details,summary
 from test_release import fixture,DATE
+from release_narration import bounded_podcast_schema
+
+def bounded_fixture():
+    e=fixture()
+    words={'opening':60,'bluf':165,'developments':310,'oklahoma':235,
+           'signals':170,'actions':160,'deadlines':80,'closing':55}
+    for k,n in words.items():
+        e['podcast'][k]=[' '.join(['Test']*n)]*3 if k=='developments' else ' '.join(['Test']*n)
+    return e
 
 
 def response(value,status='completed',web=False):
     output=[]
-    if web: output.append({'type':'web_search_call','action':{'type':'search','sources':[{'url':'https://www.cms.gov/test-1'}]}})
+    if web: output.append({'type':'web_search_call','action':{'type':'search','sources':[{'url':s['url']} for s in fixture()['sources']]}})
     output.append({'type':'message','content':[{'type':'output_text','text':value if isinstance(value,str) else json.dumps(value)}]})
     return {'status':status,'output':output,'usage':{'input_tokens':50,'output_tokens':80,'output_tokens_details':{'reasoning_tokens':10}}}
 
@@ -20,18 +29,18 @@ class StagedResearchTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
-        self.e=fixture();self.report=copy.deepcopy(self.e);self.report.pop('podcast')
+        self.e=bounded_fixture();self.report=copy.deepcopy(self.e);self.report.pop('podcast');self.report.pop('sources')
         self.payload={'model':'gpt-5-mini','input':'Edition '+DATE,'tools':[{'type':'web_search','filters':{'allowed_domains':['cms.gov']}}]}
     def fake(self):
-        return Mock(side_effect=[response('Verified public evidence notes.',web=True),response(self.report),response(self.e['podcast'])])
-    def test_three_stages_only_first_has_tools(self):
+        return Mock(side_effect=[response('Verified public evidence notes.',web=True),response({'sources':self.e['sources']}),response(self.report),response(self.e['podcast'])])
+    def test_four_stages_only_first_has_tools(self):
         send=self.fake();out=sr.staged_request(self.payload,send,self.root)
         self.assertEqual(json.loads(rp.output_text(out)),self.e)
-        self.assertEqual(send.call_count,3)
+        self.assertEqual(send.call_count,4)
         calls=[x.args[0] for x in send.call_args_list]
         self.assertIn('tools',calls[0]);self.assertNotIn('tools',calls[1]);self.assertNotIn('tools',calls[2])
-        self.assertNotIn('podcast',calls[1]['text']['format']['schema']['properties'])
-        self.assertEqual(calls[2]['text']['format']['schema'],SCHEMA['properties']['podcast'])
+        self.assertNotIn('podcast',calls[2]['text']['format']['schema']['properties'])
+        self.assertEqual(calls[3]['text']['format']['schema'],bounded_podcast_schema())
     def test_stage_cache_repeat_has_no_new_api_calls(self):
         first=sr.staged_request(self.payload,self.fake(),self.root)
         send=Mock(side_effect=AssertionError('Unexpected paid call'))
@@ -43,14 +52,14 @@ class StagedResearchTests(unittest.TestCase):
         self.assertEqual(send.call_count,1)
         self.assertFalse((self.root/sr.ENGINE/'discovery.json').exists())
     def test_incomplete_reporting_keeps_discovery_for_retry(self):
-        send=Mock(side_effect=[response('notes',web=True),response('half output',status='incomplete')])
+        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response('half output',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
         resumed=Mock(side_effect=[response(self.report),response(self.e['podcast'])])
         sr.staged_request(self.payload,resumed,self.root)
         self.assertEqual(resumed.call_count,2)
         self.assertNotIn('tools',resumed.call_args_list[0].args[0])
     def test_incomplete_narration_cannot_publish(self):
-        send=Mock(side_effect=[response('notes',web=True),response(self.report),response('half',status='incomplete')])
+        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response(self.report),response('half',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
         self.assertFalse((self.root/'approved.json').exists())
         self.assertFalse((self.root/sr.ENGINE/'narration.json').exists())
@@ -70,12 +79,12 @@ class StagedResearchTests(unittest.TestCase):
     def test_changed_date_cannot_reuse_old_stages(self):
         sr.staged_request(self.payload,self.fake(),self.root)
         changed={**self.payload,'input':'Edition 2026-10-12'};send=self.fake()
-        sr.staged_request(changed,send,self.root);self.assertEqual(send.call_count,3)
+        sr.staged_request(changed,send,self.root);self.assertEqual(send.call_count,4)
     def test_partial_schema_rejected_before_narration(self):
-        bad=copy.deepcopy(self.report);bad.pop('sources')
-        send=Mock(side_effect=[response('notes',web=True),response(bad)])
+        bad=copy.deepcopy(self.report);bad.pop('title')
+        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response(bad)])
         with self.assertRaises(Exception):sr.staged_request(self.payload,send,self.root)
-        self.assertEqual(send.call_count,2)
+        self.assertEqual(send.call_count,3)
     def test_secrets_never_retained(self):
         with patch.dict(os.environ,{'OPENAI_API_KEY':'test-secret-key-123456'}):
             send=Mock(return_value=response('test-secret-key-123456',web=True))
