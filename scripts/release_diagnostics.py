@@ -108,6 +108,23 @@ def word_count(candidate) -> int | None:
 
 def error_details(error: Exception, candidate=None) -> dict:
     # str(ValidationError) contains the rejected instance. Never use it in a log.
+    api = getattr(error, 'api_response', None)
+    if isinstance(api, dict):
+        status = api.get('status')
+        reason = api.get('incomplete_reason')
+        code = api.get('error_code')
+        statuses = {'completed','incomplete','failed','cancelled','queued','in_progress','unknown'}
+        reasons = {'max_output_tokens','max_messages','content_filter','steered','other',None}
+        codes = {'server_error','rate_limit_exceeded','invalid_prompt','vector_store_timeout',
+                 'invalid_request_error','insufficient_quota','other',None}
+        safe = {'status':status if status in statuses else 'unknown',
+                'incomplete_reason':reason if reason in reasons else 'other',
+                'error_code':code if code in codes else 'other'}
+        for key in ('input_tokens','output_tokens','reasoning_tokens','visible_characters'):
+            value=api.get(key)
+            safe[key]=value if type(value) is int and value>=0 else None
+        return {'rule':'api_response','message':'Model response did not complete',
+                'path':'/','response':safe}
     keyword = getattr(error, 'validator', None)
     if isinstance(keyword, str) and re.fullmatch(r'[a-zA-Z]{1,32}', keyword):
         return {'rule': 'schema', 'message': 'Candidate does not match the required schema',
@@ -159,6 +176,13 @@ def error_details(error: Exception, candidate=None) -> dict:
 
 def summary(report: dict) -> str:
     rule = report.get('rule')
+    if rule == 'api_response':
+        d=report.get('response',{})
+        status=d.get('status')
+        reason=d.get('incomplete_reason') or d.get('error_code') or 'unspecified'
+        if status not in ('completed','incomplete','failed','cancelled','queued','in_progress','unknown'):status='unknown'
+        if reason not in ('max_output_tokens','max_messages','content_filter','steered','other','server_error','rate_limit_exceeded','invalid_prompt','vector_store_timeout','invalid_request_error','insufficient_quota','unspecified'):reason='other'
+        return 'API response '+status+'; stopping reason: '+reason
     if rule == 'placeholder_text':
         matches = report.get('findings', [])[:MAX_FINDINGS]
         parts = []
