@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-17",
+  "engine": "staged-research-v2",
+  "maximum_additional_generation_attempts": 1,
+  "publication_authorized": false,
+  "user_request_at": "2026-10-17T16:03:05Z",
+  "reason": "The user explicitly requested repair after both monolithic research attempts failed. Permit one execution of the corrected staged generator, without resetting or deleting the original two-attempt ledger. This permission expires with the October 17 date, is consumed before an API request, and cannot approve content. Existing source retrieval, evidence audit, narration, audio-completeness and public-delivery gates all remain mandatory. Future dates retain their normal two-attempt allowance."
+}
