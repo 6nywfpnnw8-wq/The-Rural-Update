@@ -25,15 +25,31 @@ ROOT=Path(__file__).resolve().parents[1]
 MODEL=os.getenv('RURAL_UPDATE_MODEL','gpt-5-mini')
 
 def request_api(payload,endpoint='responses',binary=False):
+    from release_research import staged_request
+    name=((payload.get('text') or {}).get('format') or {}).get('name')
+    if endpoint=='responses' and name=='rural_update_edition':
+        d=os.getenv('REQUESTED_DATE') or datetime.now(TZ).date().isoformat()
+        return staged_request(payload,_request_api,ROOT/'.release-cache'/d)
+    return _request_api(payload,endpoint,binary)
+
+def _request_api(payload,endpoint='responses',binary=False):
     key=os.getenv('OPENAI_API_KEY')
     if not key: raise RuntimeError('OPENAI_API_KEY is missing; publication credentials must be configured')
     req=urllib.request.Request('https://api.openai.com/v1/'+endpoint,data=json.dumps(payload).encode(),
         headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},method='POST')
     for attempt in range(3):
         try:
+            started=time.monotonic()
             with urllib.request.urlopen(req,timeout=300) as r:
                 data=r.read()
-            return data if binary else json.loads(data)
+            if binary:
+                return data
+            response=json.loads(data)
+            from release_research import record_response, response_metadata
+            d=os.getenv('REQUESTED_DATE') or datetime.now(TZ).date().isoformat()
+            record_response(ROOT/'.release-cache'/d,payload,response,time.monotonic()-started)
+            print('API status: '+json.dumps(response_metadata(response,payload)),flush=True)
+            return response
         except urllib.error.HTTPError as exc:
             if exc.code not in (429,500,502,503,504) or attempt==2:
                 raise RuntimeError(f'OpenAI {endpoint} HTTP {exc.code}; credentials, model access or service request failed') from None
@@ -41,7 +57,8 @@ def request_api(payload,endpoint='responses',binary=False):
     raise RuntimeError('API retry limit reached')
 
 def output_text(response):
-    assert response.get('status')=='completed','Model response incomplete or failed'
+    from release_research import assert_completed
+    assert_completed(response)
     texts=[c['text'] for x in response.get('output',[]) if x.get('type')=='message'
            for c in x.get('content',[]) if c.get('type')=='output_text']
     assert texts,'Model returned no output text'
@@ -100,8 +117,12 @@ def research(edition_date,previous,cache):
     else:
         ledger=read_json(cache/'attempts.json',{'attempts':0})
         if ledger['attempts']>=2:
-            raise diagnostics.limit_reached()
-        ledger['attempts']+=1; write_json(cache/'attempts.json',ledger)
+            from release_research import reserve_corrective_attempt
+            if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):
+                raise diagnostics.limit_reached()
+            print('Using the date-specific staged-research repair allowance. Original ledger unchanged.',flush=True)
+        else:
+            ledger['attempts']+=1; write_json(cache/'attempts.json',ledger)
         prompt=f"""Create the public-source Rural Update for {edition_date}, America/Chicago.
 Research as of now, not from memory. Target rural hospital executives in Oklahoma.
 Prioritize operational/financial consequences, CAHs, REHs, RHCs, Medicaid, Medicare,
