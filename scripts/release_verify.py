@@ -41,6 +41,36 @@ def public_get(path, headers=None):
         assert len(content)<=35*1024*1024,'Unexpectedly large public artifact'
         return response.status,dict(response.headers.items()),content
 
+def validate_audio_quality(quality,script,edition_date,audio_sha):
+    """Bind complete narration evidence to the exact public script and MP3."""
+    header,separator,body=script.partition('\n\n')
+    assert separator and 'Edition date: '+edition_date in header,'Podcast script header mismatch'
+    body=body.strip()
+    assert quality.get('complete') is True and quality.get('edition_date')==edition_date,'Narration quality edition mismatch'
+    assert quality.get('audio_sha256')==audio_sha and quality.get('script_sha256')==digest(body.encode()),'Narration script/audio binding mismatch'
+    count=quality.get('expected_parts')
+    assert type(count) is int and 1<=count<=48 and quality.get('accepted_parts')==count,'Narration segment count mismatch'
+    accepted=[p for p in quality.get('parts',[]) if p.get('passed') is True]
+    assert len(accepted)==count and [p.get('index') for p in accepted]==list(range(count)),'Accepted narration order or coverage incomplete'
+    minima={'coverage':.88,'opening':.83,'ending':.88,'final_words':.9}
+    for part in accepted:
+        assert all(type(part.get(k)) in (int,float) and minimum<=part[k]<=1 for k,minimum in minima.items()),'Accepted segment scores do not satisfy completeness thresholds'
+    ending=quality.get('ending_check',{})
+    assert ending.get('passed') is True and ending.get('ending',0)>=.88 and ending.get('final_words',0)>=.9,'Assembled ending not verified'
+    version=quality.get('schema_version')
+    assert version in (1,2),'Unknown narration quality schema'
+    if edition_date>='2026-10-17':assert version==2,'Public narration requires source-word coverage evidence'
+    if version==2:
+        words=body.split();position=0
+        for part in accepted:
+            start,end=part.get('start_word'),part.get('end_word')
+            assert type(start) is int and type(end) is int and start==position and start<end<=len(words),'Narration word partition has a gap or overlap'
+            assert part.get('normalized_text_sha256')==digest(' '.join(words[start:end]).encode()),'Narration leaf differs from the approved source words'
+            position=end
+        assert position==len(words),'Final narration words missing from assembly'
+    return True
+
+
 def verify(expected_date,expected=None):
     status,headers,raw=public_get('release.json')
     assert status==200,'Public release record not available'
@@ -65,6 +95,12 @@ def verify(expected_date,expected=None):
         assert status==200 and len(qdata)==info['bytes'] and digest(qdata)==info['sha256'],'Narration quality report hash mismatch'
         quality=json.loads(qdata)
         assert quality.get('complete') is True and quality.get('audio_sha256')==manifest['files'][f'audio/{expected_date}.mp3']['sha256'],'Narration completion evidence mismatch'
+        script_path=f'podcast-script/{expected_date}.txt'
+        assert script_path in manifest['files'],'Narration source script missing'
+        status,_,script_bytes=public_get(script_path)
+        info=manifest['files'][script_path]
+        assert status==200 and len(script_bytes)==info['bytes'] and digest(script_bytes)==info['sha256'],'Narration source script hash mismatch'
+        validate_audio_quality(quality,script_bytes.decode('utf-8'),expected_date,manifest['files'][f'audio/{expected_date}.mp3']['sha256'])
 
     for path,info in manifest['files'].items():
         status,headers,data=public_get(path)
@@ -118,7 +154,6 @@ def incident(edition_date,message,healthy=False,recover=False,test=False):
     else:
         body+='\n\n'+('Recovery requested for this edition.' if 'Recovery requested for this edition.' in (issue.get('body') or '') else '')
         github(f'issues/{issue["number"]}','PATCH',{'state':'open','body':body})
-    # One automatic dispatch per edition; the publisher still holds the global write lock.
     if recover and 'Recovery requested for this edition.' not in (issue.get('body') or ''):
         github(f'issues/{issue["number"]}','PATCH',{'body':body+'\n\nRecovery requested for this edition.'})
         github('actions/workflows/publish.yml/dispatches','POST',{'ref':'main','inputs':{'mode':'recover','edition_date':edition_date}})
