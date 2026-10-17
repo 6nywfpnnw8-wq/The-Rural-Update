@@ -1,0 +1,48 @@
+name: Inspect retained October 17 source bindings
+on:
+  push:
+    branches: [inspect/oct17-source-binding]
+    paths: ['.github/workflows/inspect-source-binding.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: rural-release-v1-2026-10-17-39052121318-1
+          restore-keys: rural-release-v1-2026-10-17-
+      - name: Export only reviewable code and redacted public-source working data
+        run: |
+          python3 - <<'PY'
+          import sys, json, zipfile, pathlib, subprocess
+          sys.path.insert(0,'scripts')
+          from release_diagnostics import redact
+          out=pathlib.Path('.inspection');out.mkdir()
+          files=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          allowed=('scripts/','tests/','ops/','web/','.github/','archive/','data/','templates/','editorial-review/','repair-authorizations/','source-recovery/')
+          with zipfile.ZipFile(out/'code.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in files:
+                  p=pathlib.Path(name)
+                  if p.is_file() and (name.startswith(allowed) or name in ('index.html','intelligence.js','signals-reference.js','sw.js','manifest.webmanifest','requirements-publisher.txt','podcast.xml','release.json','icons/icon-512.png')):
+                      z.write(p,name)
+          cache=pathlib.Path('.release-cache/2026-10-17')
+          with zipfile.ZipFile(out/'unapproved-working-data.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for p in cache.rglob('*.json'):
+                  if p.stat().st_size>1024*1024:continue
+                  value=redact(json.loads(p.read_text()))
+                  z.writestr(str(p.relative_to(cache)),json.dumps(value,ensure_ascii=False,indent=2))
+          print('Read-only inspection exported. Working data is unapproved and not a released edition.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oct17-source-binding-inspection
+          path: .inspection/*.zip
+          include-hidden-files: true
+          retention-days: 1
