@@ -1,0 +1,12 @@
+{
+  "edition_date": "2026-10-20",
+  "failure_run_id": 39492964507,
+  "section": "developments-1",
+  "maximum_revalidations": 1,
+  "additional_generation_requests": 0,
+  "publication_authorized": false,
+  "observed_words": 359,
+  "observed_characters": 2740,
+  "observed_attempt": 2,
+  "reason": "The existing second-development passage completed in run 39492964507 but its 359 words exceeded an internal section cap. That is not a factual rejection or a violation of the user's full-episode requirement. Reuse the exact retained completed passage after verifying its original checksum, response metadata, word-count-only rejection, intact source/reporting records, two spent section requests and absence of an audit. Do not regenerate or edit the passage, reset counters or add any request allowance. The original first-development recheck must already exist. Remaining sections may use only unspent requests under the unchanged twenty-request aggregate. The complete episode must still meet 1700-2000 words; the existing at-most-two editorial length revisions remain available before mandatory source retrieval, evidence audit, complete-audio checks and public verification. No artifact is approved by this recheck and it cannot reopen a failed audit."
+}
