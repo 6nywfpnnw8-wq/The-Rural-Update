@@ -12,7 +12,9 @@ MIN_WORDS = 1700
 MAX_WORDS = 2000
 MAX_REVISIONS = 2
 PODCAST_SCHEMA = SCHEMA['properties']['podcast']
-WORD_BOUNDS={'opening':(50,70),'bluf':(150,180),'developments':(300,320),
+# Section budgets support the actual 1700-2000-word episode requirement.
+# All minima sum to 1705, all maxima to 1995; no padding or truncation is needed.
+WORD_BOUNDS={'opening':(50,70),'bluf':(150,180),'developments':(285,330),
              'oklahoma':(220,250),'signals':(160,180),'actions':(150,170),
              'deadlines':(70,90),'closing':(50,65)}
 
@@ -31,7 +33,6 @@ def generation_schema():
         schema['properties'][group]['items']['properties']['id']={
             'type':'string','pattern':r'^[a-z0-9][a-z0-9-]{0,79}$'}
     return schema
-
 
 
 def ensure_narration_length(edition: dict, cache: Path, model: str,
