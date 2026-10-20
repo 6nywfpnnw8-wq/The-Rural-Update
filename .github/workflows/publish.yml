@@ -75,6 +75,12 @@ jobs:
           node --check web/release-runtime.js
           node --check sw.js
           node tests/test_release_sw.cjs
+      - name: Check provider readiness before reserving an editorial attempt
+        id: provider_access
+        if: env.MODE == 'publish' || env.MODE == 'recover'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python3 ops/publisher_provider_check.py --date '${{ steps.edition.outputs.date }}'
       - name: Inspect cached diagnostics without generation or publication
         if: env.MODE == 'diagnose'
         run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --diagnose-cached
@@ -105,7 +111,7 @@ jobs:
           PY
       - name: Prepare and atomically save validated release
         id: prepare
-        if: env.MODE == 'publish' || env.MODE == 'recover'
+        if: (env.MODE == 'publish' || env.MODE == 'recover') && steps.provider_access.outcome == 'success'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_TTS_MODEL: gpt-4o-mini-tts
@@ -143,7 +149,22 @@ jobs:
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 scripts/release_verify.py alert --date '${{ steps.edition.outputs.date }}'
+          CHECK_DATE: ${{ steps.edition.outputs.date }}
+          PROVIDER_OUTCOME: ${{ steps.provider_access.outcome }}
+        run: |
+          if [ "$PROVIDER_OUTCOME" = failure ]; then
+            python3 - <<'PY'
+          import os, sys
+          from pathlib import Path
+          sys.path[:0] = ['ops', 'scripts']
+          from publisher_provider_check import failure_message
+          from release_verify import incident
+          d = os.environ['CHECK_DATE']
+          incident(d, failure_message(Path.cwd(), d))
+          PY
+          else
+            python3 scripts/release_verify.py alert --date "$CHECK_DATE"
+          fi
       - name: Save resumable work even after failure
         if: always() && (env.MODE == 'publish' || env.MODE == 'recover')
         uses: actions/cache/save@v4
@@ -159,8 +180,10 @@ jobs:
           if-no-files-found: ignore
           include-hidden-files: true
           path: |
+            credential-check-report.json
             .release-cache/failure.json
             .release-cache/delivery-report.json
+            .release-cache/*/api-responses.json
             .release-cache/*/audit.json
             .release-cache/*/audio-error.json
             .release-cache/*/validation-*.json
