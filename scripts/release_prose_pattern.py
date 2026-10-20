@@ -11,11 +11,7 @@ PLAIN_FAILURE_RUN=39485880713
 
 
 def generation_schema(count):
-    """Avoid a large word-count regex in constrained decoding.
-
-    The unchanged validate_prose function still checks the exact word range,
-    finished ending, URLs, markup and placeholders before any section is cached.
-    """
+    """Keep compact JSON generation separate from mandatory local prose checks."""
     from release_prose import prose_schema
     schema=prose_schema(count)
     schema['properties']['text'].pop('pattern',None)
@@ -81,15 +77,13 @@ def reserve(cache,plan,engine,load,validate_report):
 
 
 def reserve_plain(cache,plan,engine,load,validate_report):
-    """One last section request after the verified zero-output API response.
-
-    This is an explicit October 20 repair, not an automatic extension of future
-    days' limits. It reuses all three source/reporting files, preserves the four
-    spent first-development requests, and cannot reopen an audit or restart news.
-    """
+    """One section request after a zero-output response; no implicit extra retries."""
     from release_sectioned_narration import assert_retained_stages,_ledger,MAX_REQUESTS,METHOD
     cache=Path(cache);p=cache/PLAIN_MARKER
-    if plan.get('maximum_plain_prose_resumes')!=1 or p.exists():return False
+    if p.exists():
+        from release_section_recheck import reserve_recheck
+        return reserve_recheck(cache,plan,engine,load,validate_report)
+    if plan.get('maximum_plain_prose_resumes')!=1:return False
     if (plan.get('edition_date')!='2026-10-20' or cache.name!='2026-10-20'
         or plan.get('plain_prose_failure_run_id')!=PLAIN_FAILURE_RUN
         or plan.get('plain_prose_maximum_extra_section_requests')!=3):
@@ -131,7 +125,7 @@ def reserve_plain(cache,plan,engine,load,validate_report):
         'previous_ledger_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
         'reserved_at':datetime.now(timezone.utc).isoformat(),'run_id':os.getenv('GITHUB_RUN_ID','local')}
     try:
-        with p.open('x') as f:json.dump(record,f,indent=2)
+        with p.open('x',encoding='utf-8') as f:json.dump(record,f,indent=2)
     except FileExistsError:return False
     return True
 
