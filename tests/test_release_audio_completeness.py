@@ -56,11 +56,13 @@ class GenerationBudgetTests(unittest.TestCase):
  def test_lower_budget_is_valid_and_above_total_minimum(self):
   candidate=self.sample();Draft202012Validator(bounded_podcast_schema()).validate(candidate)
   total=sum(len(x.split()) if isinstance(x,str) else sum(len(v.split()) for v in x) for x in candidate.values())
-  self.assertEqual(total,1750)
+  self.assertEqual(total,1705)
+  self.assertGreaterEqual(total,1700)
  def test_upper_budget_is_valid_and_below_total_maximum(self):
   candidate=self.sample(True);Draft202012Validator(bounded_podcast_schema()).validate(candidate)
   total=sum(len(x.split()) if isinstance(x,str) else sum(len(v.split()) for v in x) for x in candidate.values())
-  self.assertEqual(total,1965)
+  self.assertEqual(total,1995)
+  self.assertLessEqual(total,2000)
  def test_short_section_rejected_before_paid_revision_is_wasted(self):
   candidate=self.sample();candidate['closing']='too short'
   with self.assertRaises(ValidationError):Draft202012Validator(bounded_podcast_schema()).validate(candidate)
