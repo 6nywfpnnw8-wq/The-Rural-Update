@@ -10,5 +10,10 @@
   "credential_check_report": "https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/39470409283/artifacts/12286762158",
   "incident": 55,
   "research_counter_reset": false,
-  "validation_override": false
+  "validation_override": false,
+  "maximum_narration_limit_resumes": 1,
+  "narration_recovery_method": "sectioned-narration-v1",
+  "previous_narration_output_limit": 8000,
+  "narration_failure_run_id": 39472720663,
+  "narration_continuation_reason": "The authorized recovery successfully completed discovery, observed-source selection, and structured reporting, then the narration response stopped incomplete at 8000 output tokens. Permit one continuation only when that exact stopping condition is recorded and all three completed stage files remain valid and hash-bound. Generate only bounded narration sections, at most two requests per section and twenty total, without redoing discovery, source selection, reporting, or resetting any prior ledger. Full source retrieval, independent evidence audit, complete-audio checks, and public verification are still required. Refused, content-filtered, missing-source, completed-narration, or previously audited work cannot use this continuation. The original additional-generation allowance remains consumed."
 }
