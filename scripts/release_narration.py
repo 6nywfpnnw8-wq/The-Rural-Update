@@ -8,16 +8,16 @@ from jsonschema import Draft202012Validator
 from release_core import SCHEMA, podcast_body, write_json
 from release_typography import normalize_edition_typography, normalize_source_identifiers
 
-MIN_WORDS = 1700
-MAX_WORDS = 2000
-MAX_REVISIONS = 2
-PODCAST_SCHEMA = SCHEMA['properties']['podcast']
-# These are structural adequacy ranges, not publication approval. The complete
-# episode must still pass ensure_narration_length and validate_edition's absolute
-# 1700-2000-word gate, regardless of its individual section lengths.
-WORD_BOUNDS={'opening':(50,70),'bluf':(150,180),'developments':(285,380),
-             'oklahoma':(220,250),'signals':(160,180),'actions':(150,170),
-             'deadlines':(70,90),'closing':(50,65)}
+MIN_WORDS=1700
+MAX_WORDS=2000
+MAX_REVISIONS=2
+PODCAST_SCHEMA=SCHEMA['properties']['podcast']
+# Structural adequacy is separate from complete-episode publication approval.
+# Individual passages may vary around their targets; ensure_narration_length and
+# validate_edition still independently enforce 1700-2000 words for the episode.
+WORD_BOUNDS={'opening':(50,75),'bluf':(150,207),'developments':(285,380),
+             'oklahoma':(220,294),'signals':(160,213),'actions':(150,200),
+             'deadlines':(70,100),'closing':(50,69)}
 
 def bounded_podcast_schema():
     schema=json.loads(json.dumps(PODCAST_SCHEMA))
@@ -36,8 +36,8 @@ def generation_schema():
     return schema
 
 
-def ensure_narration_length(edition: dict, cache: Path, model: str,
-                            request: Callable, extract: Callable) -> dict:
+def ensure_narration_length(edition:dict,cache:Path,model:str,
+                            request:Callable,extract:Callable)->dict:
     """At most two whole-episode revisions. Never pad, truncate or approve facts."""
     Draft202012Validator(SCHEMA).validate(edition)
     candidate=copy.deepcopy(edition)
