@@ -11,6 +11,7 @@ from unittest.mock import Mock
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 import release_sectioned_narration as sn
+from release_prose import TOLERANCE
 
 
 def save(path,identity,value):
@@ -47,8 +48,9 @@ class SectionedNarrationTests(unittest.TestCase):
         self.assertNotIn('tools',payload)
         self.assertEqual(payload['max_output_tokens'],4000)
         self.assertEqual(payload['reasoning']['effort'],'minimal')
-        n=payload['text']['format']['schema']['properties']['words']['minItems']
-        return response(n)
+        field=payload['text']['format']['schema']['properties']['text']
+        n=field['minLength']//2+TOLERANCE
+        return {'status':'completed','text':json.dumps({'text':' '.join(['Synthetic']*(n-1)+['ending.'])}),'usage':{}}
 
     def generate(self,send):
         return sn.generate_sections(self.report,self.model,self.root,self.identity,send,extract,load,save)
@@ -109,7 +111,7 @@ class SectionedNarrationTests(unittest.TestCase):
     def test_cache_tampering_stops_before_network(self):
         self.generate(self.good)
         p=next(self.root.rglob('opening-None.json'))
-        d=json.loads(p.read_text());d['value']['result']['words'][0]='Tampered';p.write_text(json.dumps(d))
+        d=json.loads(p.read_text());d['value']['result']['text']='Tampered';p.write_text(json.dumps(d))
         send=Mock(side_effect=self.good)
         with self.assertRaises(RuntimeError):self.generate(send)
         send.assert_not_called()
