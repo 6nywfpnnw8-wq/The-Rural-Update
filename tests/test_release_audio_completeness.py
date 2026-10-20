@@ -6,8 +6,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from release_audio import coverage,ending_check,segments,inspect_ending
 from release_editorial import take_reviewed_recovery
 from release_narration import WORD_BOUNDS,bounded_podcast_schema,generation_schema
-from release_core import SCHEMA,digest
+from release_core import SCHEMA,digest,validate_edition
 from jsonschema import Draft202012Validator,ValidationError
+from test_release import fixture
 
 class AudioCompletenessTests(unittest.TestCase):
  def test_complete_passes(self):
@@ -56,13 +57,13 @@ class GenerationBudgetTests(unittest.TestCase):
  def test_lower_budget_is_valid_and_above_total_minimum(self):
   candidate=self.sample();Draft202012Validator(bounded_podcast_schema()).validate(candidate)
   total=sum(len(x.split()) if isinstance(x,str) else sum(len(v.split()) for v in x) for x in candidate.values())
-  self.assertEqual(total,1705)
-  self.assertGreaterEqual(total,1700)
- def test_upper_budget_is_valid_and_below_total_maximum(self):
+  self.assertEqual(total,1705);self.assertGreaterEqual(total,1700)
+ def test_valid_individual_sections_cannot_bypass_episode_maximum(self):
   candidate=self.sample(True);Draft202012Validator(bounded_podcast_schema()).validate(candidate)
   total=sum(len(x.split()) if isinstance(x,str) else sum(len(v.split()) for v in x) for x in candidate.values())
-  self.assertEqual(total,1995)
-  self.assertLessEqual(total,2000)
+  self.assertEqual(total,2298);self.assertGreater(total,2000)
+  edition=fixture();edition['podcast']=candidate
+  with self.assertRaisesRegex(AssertionError,'1700'):validate_edition(edition,edition['edition_date'])
  def test_short_section_rejected_before_paid_revision_is_wasted(self):
   candidate=self.sample();candidate['closing']='too short'
   with self.assertRaises(ValidationError):Draft202012Validator(bounded_podcast_schema()).validate(candidate)
