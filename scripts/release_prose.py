@@ -18,7 +18,6 @@ TOLERANCE = 10
 
 
 def lower_words(count: int) -> int:
-    # Keep the existing full-edition closing minimum of fifty words.
     return max(50, count - TOLERANCE) if count == 55 else count - TOLERANCE
 
 
@@ -28,6 +27,7 @@ def prose_schema(count: int) -> dict:
     return {'type': 'object', 'properties': {'text': {
         'type': 'string', 'minLength': 2 * (count - TOLERANCE),
         'maxLength': 12 * (count + TOLERANCE),
+        'pattern':r'^([^\s\u2014]+\s+){'+str(lower_words(count)-1)+','+str(count+TOLERANCE-1)+r'}[^\s\u2014]*[.!?]["\u0027\u201d\u2019]?$',
         'description': f'One finished spoken passage of {lower_words(count)} to {count+TOLERANCE} words.'}},
         'required': ['text'], 'additionalProperties': False}
 
@@ -51,16 +51,17 @@ def validate_prose(value: dict, count: int) -> str:
     return ' '.join(words)
 
 
-def recovery_grant(cache: Path, identity: str, section_identity: str) -> set[str]:
+def recovery_grant(cache: Path, identity: str, section_identity: str) -> dict[str,int]:
     marker = Path(cache)/'narration-prose-resume-used.json'
-    if not marker.exists(): return set()
+    if not marker.exists(): return {}
     value = json.loads(marker.read_text())
     if (value.get('identity') != identity or value.get('section_identity') != section_identity
         or value.get('publication_authorized') is not False
         or value.get('format') != FORMAT or value.get('maximum_extra_section_requests') != 1
         or value.get('section') != 'developments-0'):
         raise RuntimeError('Invalid prose-recovery grant')
-    return {value['section']}
+    from release_prose_pattern import extra_attempts
+    return {value['section']:extra_attempts(cache,identity,section_identity)}
 
 
 def generate(reporting: dict, model: str, folder: Path, identity: str,
@@ -88,7 +89,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
             usage.append(cached.get('usage'))
         else:
             text=None; prior='none'
-            limit=sn.MAX_SECTION_ATTEMPTS+(1 if label in extra else 0)
+            limit=sn.MAX_SECTION_ATTEMPTS+extra.get(label,0)
             while state['attempts'].get(label,0)<limit:
                 if state['requests']>=sn.MAX_REQUESTS:
                     raise RuntimeError('Sectioned narration request budget reached')
@@ -119,10 +120,17 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                              'strict':True,'schema':prose_schema(count)}}}
                 raw=send(payload)
                 raw_text=extract(raw)
+                from release_prose_pattern import record_section
                 try:
-                    result=json.loads(raw_text);text=validate_prose(result,count)
+                    result=json.loads(raw_text)
                 except (ValueError,TypeError):
+                    prior='invalid_json_section';continue
+                try:
+                    text=validate_prose(result,count)
+                except (ValueError,TypeError) as exc:
+                    record_section(Path(folder).parent,label,state['attempts'][label],result,exc)
                     prior='invalid_length_or_unfinished_spoken_section';continue
+                record_section(Path(folder).parent,label,state['attempts'][label],result)
                 save(path,section_identity,{'section':label,'format':FORMAT,'result':result,'usage':raw.get('usage')})
                 usage.append(raw.get('usage'));break
             if text is None:
@@ -134,11 +142,10 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
 
 
 def reserve(cache: Path, plan: dict, engine: str, load: Callable, validate_report: Callable) -> bool:
-    """One reviewed replacement for the recorded failed first development.
+    """Reviewed replacement for the recorded failed first development.
 
-    The original two attempts remain spent. Only this section receives one extra
-    request, and it still counts within the unchanged twenty-request total ceiling.
-    Other sections retain their original limits. No audit can be reopened.
+    Every spent request remains recorded. Any additional date-specific correction
+    must match its own retained failure and still obey the twenty-request total.
     """
     import release_sectioned_narration as sn
     if plan.get('maximum_prose_serialization_resumes') != 1:return False
@@ -147,7 +154,9 @@ def reserve(cache: Path, plan: dict, engine: str, load: Callable, validate_repor
         or plan.get('maximum_extra_section_requests')!=1):
         raise RuntimeError('Invalid prose serialization repair authorization')
     cache=Path(cache); marker=cache/'narration-prose-resume-used.json'
-    if marker.exists():return False
+    if marker.exists():
+        from release_prose_pattern import reserve as reserve_pattern
+        return reserve_pattern(cache,plan,engine,load,validate_report)
     old=cache/'narration-capacity-resume-used.json'
     if not old.exists():return False
     previous=json.loads(old.read_text());identity=previous.get('identity')

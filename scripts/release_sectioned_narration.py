@@ -55,8 +55,10 @@ def validate_words(value, count: int) -> str:
 
 
 def _ledger(path: Path, identity: str, extra_sections=None) -> dict:
-    extra_sections=set(extra_sections or ())
-    if not extra_sections.issubset({'developments-0'}):
+    extra_sections = (dict(extra_sections) if isinstance(extra_sections,dict)
+                      else {k:1 for k in (extra_sections or ())})
+    if (not set(extra_sections).issubset({'developments-0'})
+        or any(type(v) is not int or v not in (1,2) for v in extra_sections.values())):
         raise RuntimeError('Invalid section repair allowance')
     if not path.exists():
         return {'identity':identity,'requests':0,'attempts':{},'publication_authorized':False}
@@ -64,7 +66,7 @@ def _ledger(path: Path, identity: str, extra_sections=None) -> dict:
     attempts=state.get('attempts')
     valid=isinstance(attempts,dict) and all(
         k in {f'{n}-{i}' for n,i,_ in SECTION_PLAN}
-        and type(v) is int and 0 <= v <= MAX_SECTION_ATTEMPTS+(1 if k in extra_sections else 0)
+        and type(v) is int and 0 <= v <= MAX_SECTION_ATTEMPTS+extra_sections.get(k,0)
         for k,v in attempts.items())
     if (state.get('identity') != identity or state.get('publication_authorized') is not False
         or not valid or type(state.get('requests')) is not int
