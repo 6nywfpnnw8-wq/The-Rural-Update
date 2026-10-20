@@ -18,7 +18,7 @@ from release_diagnostics import redact
 
 ENGINE = 'staged-research-v3'
 STAGES = {'discovery', 'sources', 'reporting', 'narration', 'editorial_audit',
-          'rural_update_narration', 'other'}
+          'rural_update_narration', 'narration_section', 'other'}
 STATUS = {'completed','incomplete','failed','cancelled','queued','in_progress'}
 REASONS = {'max_output_tokens','max_messages','content_filter','steered'}
 
@@ -248,6 +248,8 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     identity=digest(json.dumps({'engine':ENGINE,'model':payload['model'],'context':context},sort_keys=True))
     folder=Path(cache)/ENGINE
     folder.mkdir(parents=True,exist_ok=True)
+    from release_sectioned_narration import assert_retained_stages, generate_sections, METHOD
+    narration_resume=assert_retained_stages(cache,ENGINE,identity)
     common={'model':payload['model'],'store':False,'reasoning':{'effort':'low'}}
     discovery=_cached(folder/'discovery.json',identity)
     if discovery is None:
@@ -347,10 +349,21 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
              'input':json.dumps(reporting['edition'],ensure_ascii=False),
              'text':{'format':{'type':'json_schema','name':'narration','strict':True,
                                'schema':bounded_podcast_schema()}}}
-        raw=send(req)
-        value=json.loads(_text(raw))
-        Draft202012Validator(bounded_podcast_schema()).validate(value)
-        narration={'podcast':value,'usage':raw.get('usage')}
+        if narration_resume or (folder/METHOD).exists():
+            narration=generate_sections(reporting['edition'],payload['model'],folder,
+                identity,send,_text,_cached,_save)
+        else:
+            raw=send(req)
+            if (raw.get('status')=='incomplete' and
+                (raw.get('incomplete_details') or {}).get('reason')=='max_output_tokens'):
+                # A response-limit stop is not a partial script. Reuse only the
+                # completed reporting and generate bounded, independently cached sections.
+                narration=generate_sections(reporting['edition'],payload['model'],folder,
+                    identity,send,_text,_cached,_save)
+            else:
+                value=json.loads(_text(raw))
+                narration={'podcast':value,'usage':raw.get('usage')}
+        Draft202012Validator(bounded_podcast_schema()).validate(narration['podcast'])
         _save(folder/'narration.json',identity,narration)
     Draft202012Validator(bounded_podcast_schema()).validate(narration['podcast'])
     edition=copy.deepcopy(reporting['edition'])
@@ -380,7 +393,15 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
     marker=Path(cache)/'corrective-generation-used.json'
-    if marker.exists(): return _resume_output_limit(cache,plan)
+    if marker.exists():
+        if _resume_output_limit(cache,plan):return True
+        from release_sectioned_narration import reserve_narration_resume
+        def validate_retained(values):
+            urls=observed_html_urls(values['discovery'])
+            catalog=validate_source_catalog(values['sources']['sources'],urls)
+            Draft202012Validator(reporting_schema(catalog)).validate(values['reporting']['edition'])
+            validate_reference_bindings(values['reporting']['edition'],catalog)
+        return reserve_narration_resume(cache,plan,ENGINE,_cached,validate_retained)
     # Exclusive creation prevents accidental replay even if this helper is reused.
     marker.parent.mkdir(parents=True,exist_ok=True)
     try:
