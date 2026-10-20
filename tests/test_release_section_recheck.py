@@ -8,56 +8,76 @@ import release_section_recheck as rc
 import release_prose as prose
 import release_prose_pattern as pattern
 import release_sectioned_narration as sn
-from release_narration import WORD_BOUNDS,bounded_podcast_schema
-from test_release_plain_prose import PlainProseTests
+from release_narration import WORD_BOUNDS,bounded_podcast_schema,ensure_narration_length
+from release_core import validate_edition
+import test_release_plain_prose as fixtures
 from test_release_prose import load
+from test_release import fixture
 
 class SectionRecheckTests(unittest.TestCase):
     def setUp(self):
-        self.f=PlainProseTests(methodName='test_exact_recovery_does_not_reset_either_ledger')
+        self.f=fixtures.PlainProseTests(methodName='test_exact_recovery_does_not_reset_either_ledger')
         self.f.setUp();self.addCleanup(self.f.doCleanups)
         p=self.f.seed();self.assertTrue(self.f.reserve(p))
         ledger=self.f.work/'attempts.json';state=json.loads(ledger.read_text())
-        state['attempts']['developments-0']=5;state['requests']=8
-        sn._write_ledger(ledger,state)
+        state['attempts']['developments-0']=5;state['requests']=8;sn._write_ledger(ledger,state)
         self.candidate={'text':' '.join(['testing']*147+['sample']*139+['ending.'])}
-        self.assertEqual(len(self.candidate['text']),2156)
-        self.assertEqual(len(self.candidate['text'].split()),287)
+        self.assertEqual(len(self.candidate['text']),2156);self.assertEqual(len(self.candidate['text'].split()),287)
         with patch.dict('os.environ',{'GITHUB_RUN_ID':rc.FAILURE_RUN}):
             pattern.record_section(self.f.cache,'developments-0',5,self.candidate,ValueError('section_word_count'))
         (self.f.cache/'api-responses.json').write_text(json.dumps({'responses':[{
             'run_id':rc.FAILURE_RUN,'status':'completed','stage':'narration_section',
             'requested_output_limit':4000,'output_tokens':394,'visible_characters':2167}]}))
-        self.policy=self.f.cache/'policy';self.policy.mkdir()
-        self.plan={'edition_date':'2026-10-20'}
+        self.policy=self.f.cache/'policy';self.policy.mkdir();self.plan={'edition_date':'2026-10-20'}
         self.policy_file=self.policy/'2026-10-20-length.json'
-        self.policy_file.write_text(json.dumps({'edition_date':'2026-10-20',
-            'failure_run_id':int(rc.FAILURE_RUN),'section':'developments-0',
-            'maximum_revalidations':1,'additional_generation_requests':0,
+        self.policy_file.write_text(json.dumps({'edition_date':'2026-10-20','failure_run_id':int(rc.FAILURE_RUN),
+            'section':'developments-0','maximum_revalidations':1,'additional_generation_requests':0,
             'publication_authorized':False,'observed_words':287,'observed_characters':2156,'observed_attempt':5}))
     def reserve(self):
         with patch.object(rc,'POLICY_ROOT',self.policy):
-            return rc.reserve_recheck(self.f.cache,self.plan,self.f.engine if hasattr(self.f,'engine') else 'staged-research-v3',load,lambda _:None)
+            return rc.reserve_recheck(self.f.cache,self.plan,'staged-research-v3',load,lambda _:None)
+    def second(self):
+        self.assertTrue(self.reserve())
+        candidate={'text':' '.join(['testing']*227+['sample']*131+['ending.'])}
+        self.assertEqual(len(candidate['text']),2740)
+        self.assertEqual(len(candidate['text'].split()),359)
+        with patch.dict('os.environ',{'GITHUB_RUN_ID':'39492964507'}):
+            pattern.record_section(self.f.cache,'developments-1',2,candidate,ValueError('section_word_count'))
+        (self.f.cache/'api-responses.json').write_text(json.dumps({'responses':[{
+            'run_id':'39492964507','status':'completed','stage':'narration_section',
+            'requested_output_limit':4000,'output_tokens':527,'visible_characters':2751}]}))
+        ledger=self.f.work/'attempts.json';state=json.loads(ledger.read_text())
+        state['attempts']['developments-1']=2;state['requests']=10;sn._write_ledger(ledger,state)
+        (self.policy/'2026-10-20-following-length.json').write_text(json.dumps({
+            'edition_date':'2026-10-20','failure_run_id':39492964507,'section':'developments-1',
+            'maximum_revalidations':1,'additional_generation_requests':0,'publication_authorized':False,
+            'observed_words':359,'observed_characters':2740,'observed_attempt':2}))
+        return candidate
     def test_exact_retained_words_saved_without_ledger_change(self):
-        ledger=self.f.work/'attempts.json';before=ledger.read_bytes()
-        old=(self.f.cache/'attempts.json').read_bytes()
+        ledger=self.f.work/'attempts.json';before=ledger.read_bytes();old=(self.f.cache/'attempts.json').read_bytes()
         self.assertTrue(self.reserve());self.assertFalse(self.reserve())
-        self.assertEqual(ledger.read_bytes(),before)
-        self.assertEqual((self.f.cache/'attempts.json').read_bytes(),old)
-        saved=load(self.f.work/'developments-0.json',self.f.sid)
-        self.assertEqual(saved['result'],self.candidate)
+        self.assertEqual(ledger.read_bytes(),before);self.assertEqual((self.f.cache/'attempts.json').read_bytes(),old)
+        saved=load(self.f.work/'developments-0.json',self.f.sid);self.assertEqual(saved['result'],self.candidate)
         self.assertFalse((self.f.cache/'approved.json').exists())
         marker=json.loads((self.f.cache/rc.MARKER).read_text())
         self.assertFalse(marker['publication_authorized']);self.assertEqual(marker['additional_generation_requests'],0)
     def test_remaining_generation_never_rewrites_retained_section(self):
-        self.assertTrue(self.reserve());calls=Mock(side_effect=self.f.good)
-        value=self.f.generate(calls)
-        self.assertEqual(calls.call_count,7)
-        self.assertEqual(value['podcast']['developments'][0],self.candidate['text'])
+        self.assertTrue(self.reserve());calls=Mock(side_effect=self.f.good);value=self.f.generate(calls)
+        self.assertEqual(calls.call_count,7);self.assertEqual(value['podcast']['developments'][0],self.candidate['text'])
         state=json.loads((self.f.work/'attempts.json').read_text())
         self.assertEqual(state['attempts']['developments-0'],5);self.assertEqual(state['requests'],15)
         Draft202012Validator(bounded_podcast_schema()).validate(value['podcast'])
         self.assertFalse((self.f.cache/'approved.json').exists())
+    def test_second_passage_reused_without_spending_third_attempt(self):
+        second=self.second();ledger=self.f.work/'attempts.json';before=ledger.read_bytes()
+        self.assertTrue(self.reserve());self.assertFalse(self.reserve());self.assertEqual(ledger.read_bytes(),before)
+        calls=Mock(side_effect=self.f.good);value=self.f.generate(calls)
+        self.assertEqual(calls.call_count,6);self.assertEqual(value['podcast']['developments'][1],second['text'])
+        state=json.loads(ledger.read_text());self.assertEqual(state['attempts']['developments-1'],2)
+        self.assertEqual(state['requests'],16)
+        e=fixture();e['podcast']=value['podcast'];validate_edition(e,e['edition_date'])
+    def test_second_passage_cannot_reopen_audit(self):
+        self.second();(self.f.cache/'audit.json').write_text('{"approved":false}');self.assertFalse(self.reserve())
     def test_missing_policy_cannot_reuse_rejected_work(self):
         self.policy_file.unlink();self.assertFalse(self.reserve())
     def test_missing_candidate_does_not_generate_replacement(self):
@@ -69,28 +89,33 @@ class SectionRecheckTests(unittest.TestCase):
         p=self.f.folder/'sources.json';p.write_text(p.read_text()+' ')
         with self.assertRaises(RuntimeError):self.reserve()
     def test_incomplete_response_not_rechecked(self):
-        p=self.f.cache/'api-responses.json';d=json.loads(p.read_text());d['responses'][0]['status']='incomplete';p.write_text(json.dumps(d))
-        self.assertFalse(self.reserve())
+        p=self.f.cache/'api-responses.json';d=json.loads(p.read_text());d['responses'][0]['status']='incomplete';p.write_text(json.dumps(d));self.assertFalse(self.reserve())
     def test_other_validation_error_not_rechecked(self):
-        p=self.f.cache/'validation-narration-sections.json';d=json.loads(p.read_text());d['sections'][0]['rule']='section_sentence_ending';p.write_text(json.dumps(d))
-        self.assertFalse(self.reserve())
+        p=self.f.cache/'validation-narration-sections.json';d=json.loads(p.read_text());d['sections'][0]['rule']='section_sentence_ending';p.write_text(json.dumps(d));self.assertFalse(self.reserve())
     def test_another_date_not_rechecked(self):
         self.plan['edition_date']='2026-10-21';self.assertFalse(self.reserve())
     def test_candidate_hash_not_optional(self):
         p=next((self.f.cache/'section-candidates').glob('*.json'));p.rename(p.with_name('0'*64+'.json'))
         with self.assertRaises(RuntimeError):self.reserve()
-    def test_all_section_bound_extremes_preserve_episode_requirement(self):
-        for i in (0,1):
-            value={'developments':[]}
-            for name,(low,high) in WORD_BOUNDS.items():
-                n=(low,high)[i];text=' '.join(['word']*(n-1)+['ending.'])
-                value[name]=[text]*3 if name=='developments' else text
-            Draft202012Validator(bounded_podcast_schema()).validate(value)
-            n=sum(len(t.split()) for v in value.values() for t in (v if isinstance(v,list) else [v]))
-            self.assertEqual(n,(1705,1995)[i])
+    def test_section_adequacy_cannot_override_whole_episode_maximum(self):
+        value={'developments':[]}
+        for name,(low,high) in WORD_BOUNDS.items():
+            text=' '.join(['word']*(high-1)+['ending.']);value[name]=[text]*3 if name=='developments' else text
+        Draft202012Validator(bounded_podcast_schema()).validate(value)
+        n=sum(len(t.split()) for v in value.values() for t in (v if isinstance(v,list) else [v]))
+        self.assertEqual(n,2298)
+        e=fixture();e['podcast']=value
+        with self.assertRaisesRegex(AssertionError,'1700'):validate_edition(e,e['edition_date'])
+    def test_episode_repair_is_bounded_and_keeps_sources(self):
+        e=fixture();original=json.dumps(e['sources'],sort_keys=True)
+        e['podcast']['opening']+=' word'*300
+        request=Mock(return_value={'result':fixture()['podcast']})
+        result=ensure_narration_length(e,self.f.cache,'gpt-5-mini',request,lambda x:json.dumps(x['result']))
+        self.assertEqual(request.call_count,1);self.assertEqual(json.dumps(result['sources'],sort_keys=True),original)
+        self.assertEqual(len(' '.join([result['podcast']['opening'],result['podcast']['bluf'],*result['podcast']['developments'],result['podcast']['oklahoma'],result['podcast']['signals'],result['podcast']['actions'],result['podcast']['deadlines'],result['podcast']['closing']]).split()),1800)
     def test_development_ending_markup_and_limits_remain_mandatory(self):
         self.assertEqual(prose.validate_prose(self.candidate,310),self.candidate['text'])
-        for n in (284,331):
+        for n in (284,381):
             with self.assertRaises(ValueError):prose.validate_prose({'text':' '.join(['word']*(n-1)+['ending.'])},310)
         for text in (' '.join(['word']*287),' '.join(['word']*286+['<script>.'])):
             with self.assertRaises(ValueError):prose.validate_prose({'text':text},310)
