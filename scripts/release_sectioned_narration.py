@@ -56,7 +56,7 @@ def validate_words(value, count: int) -> str:
 
 def _ledger(path: Path, identity: str, extra_sections=None) -> dict:
     extra_sections=set(extra_sections or ())
-    if not extra_sections.issubset({'developments-1'}):
+    if not extra_sections.issubset({'developments-0'}):
         raise RuntimeError('Invalid section repair allowance')
     if not path.exists():
         return {'identity':identity,'requests':0,'attempts':{},'publication_authorized':False}
