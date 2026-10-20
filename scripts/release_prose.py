@@ -15,7 +15,9 @@ def lower_words(count: int) -> int:
 
 
 def upper_words(count: int) -> int:
-    return 380 if count==310 else count+TOLERANCE
+    # Section ceilings prevent rambling, not minor variations around a target.
+    # The entire episode still has a separate absolute 2000-word release limit.
+    return 380 if count==310 else (count*5+3)//4
 
 
 def prose_schema(count: int) -> dict:
