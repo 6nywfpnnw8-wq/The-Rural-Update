@@ -76,7 +76,7 @@ class ProseTests(unittest.TestCase):
         send.assert_not_called()
     def test_third_section_attempt_not_normally_allowed(self):
         self.work.mkdir(parents=True);p=self.work/'attempts.json'
-        sn._write_ledger(p,{'identity':self.section_identity,'requests':3,'attempts':{'developments-1':3},'publication_authorized':False})
+        sn._write_ledger(p,{'identity':self.section_identity,'requests':3,'attempts':{'developments-0':3},'publication_authorized':False})
         with self.assertRaises(RuntimeError):self.generate(self.good)
     def seed_repair(self):
         values={'discovery':{'web_search_items':[]},'sources':{'sources':[]},'reporting':{'edition':self.report}}
@@ -88,18 +88,18 @@ class ProseTests(unittest.TestCase):
         (self.cache/'narration-capacity-resume-used.json').write_text(json.dumps({'identity':self.identity,'edition_date':'2026-10-20'}))
         (self.cache/'api-responses.json').write_text(json.dumps({'responses':[{'stage':'narration_section','status':'incomplete','incomplete_reason':'max_output_tokens','requested_output_limit':4000,'run_id':'39477476587'}]}))
         (self.cache/'attempts.json').write_text('{"attempts":2}')
-        sn._write_ledger(self.work/'attempts.json',{'identity':self.section_identity,'requests':5,'attempts':{'opening-None':1,'bluf-None':1,'developments-0':1,'developments-1':2},'publication_authorized':False})
-        for n,i,c in sn.SECTION_PLAN[:3]:save(self.work/f'{n}-{i}.json',self.section_identity,{'section':f'{n}-{i}','result':{'words':['Legacy']*(c-1)+['ending.']},'usage':{}})
+        sn._write_ledger(self.work/'attempts.json',{'identity':self.section_identity,'requests':5,'attempts':{'opening-None':1,'bluf-None':2,'developments-0':2},'publication_authorized':False})
+        for n,i,c in sn.SECTION_PLAN[:2]:save(self.work/f'{n}-{i}.json',self.section_identity,{'section':f'{n}-{i}','result':{'words':['Legacy']*(c-1)+['ending.']},'usage':{}})
         return {'edition_date':'2026-10-20','maximum_prose_serialization_resumes':1,'prose_format':prose.FORMAT,
-            'prose_failure_run_id':39477476587,'prose_replacement_section':'developments-1','maximum_extra_section_requests':1}
+            'prose_failure_run_id':39477476587,'prose_replacement_section':'developments-0','maximum_extra_section_requests':1}
     def reserve(self,plan):return prose.reserve(self.cache,plan,'staged-research-v3',load,lambda _:None)
     def test_precise_repair_preserves_spent_attempts_and_overall_cap(self):
         plan=self.seed_repair();before=(self.work/'attempts.json').read_bytes();old=(self.cache/'attempts.json').read_bytes()
         self.assertTrue(self.reserve(plan));self.assertFalse(self.reserve(plan))
         self.assertEqual((self.work/'attempts.json').read_bytes(),before)
-        send=Mock(side_effect=self.good);self.generate(send);self.assertEqual(send.call_count,7)
+        send=Mock(side_effect=self.good);self.generate(send);self.assertEqual(send.call_count,8)
         ledger=json.loads((self.work/'attempts.json').read_text())
-        self.assertEqual(ledger['requests'],12);self.assertEqual(ledger['attempts']['developments-1'],3)
+        self.assertEqual(ledger['requests'],13);self.assertEqual(ledger['attempts']['developments-0'],3)
         self.assertEqual((self.cache/'attempts.json').read_bytes(),old)
     def test_failed_extra_request_cannot_repeat(self):
         plan=self.seed_repair();self.assertTrue(self.reserve(plan))

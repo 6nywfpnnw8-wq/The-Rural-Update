@@ -58,7 +58,7 @@ def recovery_grant(cache: Path, identity: str, section_identity: str) -> set[str
     if (value.get('identity') != identity or value.get('section_identity') != section_identity
         or value.get('publication_authorized') is not False
         or value.get('format') != FORMAT or value.get('maximum_extra_section_requests') != 1
-        or value.get('section') != 'developments-1'):
+        or value.get('section') != 'developments-0'):
         raise RuntimeError('Invalid prose-recovery grant')
     return {value['section']}
 
@@ -118,7 +118,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                          'text':{'format':{'type':'json_schema','name':'narration_section',
                              'strict':True,'schema':prose_schema(count)}}}
                 raw=send(payload)
-                raw_text=extract(raw)  # Incomplete or refused responses are never parsed.
+                raw_text=extract(raw)
                 try:
                     result=json.loads(raw_text);text=validate_prose(result,count)
                 except (ValueError,TypeError):
@@ -134,7 +134,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
 
 
 def reserve(cache: Path, plan: dict, engine: str, load: Callable, validate_report: Callable) -> bool:
-    """One reviewed replacement for the recorded failed second development.
+    """One reviewed replacement for the recorded failed first development.
 
     The original two attempts remain spent. Only this section receives one extra
     request, and it still counts within the unchanged twenty-request total ceiling.
@@ -143,7 +143,7 @@ def reserve(cache: Path, plan: dict, engine: str, load: Callable, validate_repor
     import release_sectioned_narration as sn
     if plan.get('maximum_prose_serialization_resumes') != 1:return False
     if (plan.get('prose_format')!=FORMAT or plan.get('prose_failure_run_id')!=39477476587
-        or plan.get('prose_replacement_section')!='developments-1'
+        or plan.get('prose_replacement_section')!='developments-0'
         or plan.get('maximum_extra_section_requests')!=1):
         raise RuntimeError('Invalid prose serialization repair authorization')
     cache=Path(cache); marker=cache/'narration-prose-resume-used.json'
