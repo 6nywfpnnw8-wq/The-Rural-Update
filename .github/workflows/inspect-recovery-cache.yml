@@ -1,0 +1,75 @@
+name: Inspect retained recovery state
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/inspect-recovery-cache.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Resolve current Central date
+        id: date
+        run: |
+          python3 - <<'PY'
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import os
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('value='+datetime.now(ZoneInfo('America/Chicago')).date().isoformat()+'\n')
+          PY
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: inspection-only-${{ github.run_id }}
+          restore-keys: rural-release-v1-${{ steps.date.outputs.value }}-
+      - name: Print counters and integrity metadata, never draft text
+        env:
+          EDITION: ${{ steps.date.outputs.value }}
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,re
+          from pathlib import Path
+          date=os.environ['EDITION']
+          if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',date):raise SystemExit('Invalid date')
+          root=Path('.release-cache')/date
+          def read(p):
+              if not p.exists():return None
+              if p.stat().st_size>2000000:raise SystemExit('Unexpected metadata size')
+              return json.loads(p.read_text())
+          def safe(d,keys):return {k:d.get(k) for k in keys} if isinstance(d,dict) else None
+          report={'edition_date':date,'operation':'read_only_recovery_inspection','publication_attempted':False,'paid_api_calls':0,'cache_modified':False}
+          report['editorial_attempts']=safe(read(root/'attempts.json'),['attempts'])
+          keys=['engine','edition_date','identity','method','section_identity','section','publication_authorized','run_id','observed_section_requests']
+          report['markers']={n:safe(read(root/(n+'.json')),keys) for n in ['corrective-generation-used','narration-limit-resume-used','narration-capacity-resume-used','narration-prose-resume-used']}
+          folder=root/'staged-research-v3'
+          report['stages']={}
+          for n in ['discovery','sources','reporting','narration']:
+              p=folder/(n+'.json');d=read(p)
+              report['stages'][n]={'exists':p.exists(),'metadata':safe(d,['engine','identity','sha256','publication_authorized']),'file_sha256':hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None}
+          report['audit_files_present']=[n for n in ['audit.json','audit-bound.json','approved.json'] if (root/n).exists()]
+          report['section_ledgers']=[]
+          labels=[f'{n}-{i}' for n,i in [('opening',None),('bluf',None),('developments',0),('developments',1),('developments',2),('oklahoma',None),('signals',None),('actions',None),('deadlines',None),('closing',None)]]
+          for p in (folder/'sectioned-narration-v1').glob('*/attempts.json'):
+              d=read(p);row={'identity':d.get('identity'),'requests':d.get('requests'),'attempts':{k:d.get('attempts',{}).get(k,0) for k in labels},'publication_authorized':d.get('publication_authorized'),'completed_sections':[]}
+              for label in labels:
+                  q=p.parent/(label+'.json');v=read(q)
+                  if v is not None:row['completed_sections'].append({'section':label,'identity_matches':v.get('identity')==d.get('identity'),'file_sha256':hashlib.sha256(q.read_bytes()).hexdigest()})
+              report['section_ledgers'].append(row)
+          responses=read(root/'api-responses.json') or {}
+          report['last_api_response']=safe((responses.get('responses') or [{}])[-1],['stage','status','incomplete_reason','requested_output_limit','run_id','visible_characters'])
+          Path('recovery-inspection.json').write_text(json.dumps(report,indent=2)+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: recovery-inspection-${{ github.run_id }}
+          path: recovery-inspection.json
+          retention-days: 7
