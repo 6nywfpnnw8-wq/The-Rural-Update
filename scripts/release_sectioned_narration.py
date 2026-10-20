@@ -58,7 +58,7 @@ def _ledger(path: Path, identity: str, extra_sections=None) -> dict:
     extra_sections = (dict(extra_sections) if isinstance(extra_sections,dict)
                       else {k:1 for k in (extra_sections or ())})
     if (not set(extra_sections).issubset({'developments-0'})
-        or any(type(v) is not int or v not in (1,2) for v in extra_sections.values())):
+        or any(type(v) is not int or v not in (1,2,3) for v in extra_sections.values())):
         raise RuntimeError('Invalid section repair allowance')
     if not path.exists():
         return {'identity':identity,'requests':0,'attempts':{},'publication_authorized':False}
