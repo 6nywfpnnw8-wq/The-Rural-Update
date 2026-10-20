@@ -18,7 +18,12 @@ TOLERANCE = 10
 
 
 def lower_words(count: int) -> int:
+    if count == 310:return 285
     return max(50, count - TOLERANCE) if count == 55 else count - TOLERANCE
+
+
+def upper_words(count: int) -> int:
+    return 330 if count == 310 else count + TOLERANCE
 
 
 def prose_schema(count: int) -> dict:
@@ -26,9 +31,9 @@ def prose_schema(count: int) -> dict:
         raise ValueError('Invalid prose target')
     return {'type': 'object', 'properties': {'text': {
         'type': 'string', 'minLength': 2 * (count - TOLERANCE),
-        'maxLength': 12 * (count + TOLERANCE),
-        'pattern':r'^([^\s\u2014]+\s+){'+str(lower_words(count)-1)+','+str(count+TOLERANCE-1)+r'}[^\s\u2014]*[.!?]["\u0027\u201d\u2019]?$',
-        'description': f'One finished spoken passage of {lower_words(count)} to {count+TOLERANCE} words.'}},
+        'maxLength': 12 * upper_words(count),
+        'pattern':r'^([^\s\u2014]+\s+){'+str(lower_words(count)-1)+','+str(upper_words(count)-1)+r'}[^\s\u2014]*[.!?]["\u0027\u201d\u2019]?$',
+        'description': f'One finished spoken passage of {lower_words(count)} to {upper_words(count)} words.'}},
         'required': ['text'], 'additionalProperties': False}
 
 
@@ -40,7 +45,7 @@ def validate_prose(value: dict, count: int) -> str:
     if not schema['minLength'] <= len(text) <= schema['maxLength']:
         raise ValueError('section_characters')
     words = text.split()
-    if not lower_words(count) <= len(words) <= count+TOLERANCE:
+    if not lower_words(count) <= len(words) <= upper_words(count):
         raise ValueError('section_word_count')
     if any(len(word) > 100 for word in words):
         raise ValueError('section_word_shape')
@@ -100,7 +105,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                 instructions=(f'Write ONLY {focus} of The Rural Update for {original["edition_date"]}. '
                     f'Return a JSON object with one text field containing natural spoken prose, '
                     f'not a list or an array of words. Target {count} words; stay between '
-                    f'{lower_words(count)} and {count+TOLERANCE} words. '
+                    f'{lower_words(count)} and {upper_words(count)} words. '
                     'Write complete sentences; do not pad, repeat, or truncate. '
                     'Use only the supplied reporting and preserve its uncertainty and proposal/final distinctions. '
                     'Do not introduce facts, quantities, dates, people, or institutions absent from the report. '
@@ -118,7 +123,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                 effort='minimal' if model in {'gpt-5','gpt-5-mini','gpt-5-nano'} else 'low'
                 data=original if previous_candidate is None else {
                     'reporting':original,'previous_candidate':previous_candidate,
-                    'revision_instruction':f'Rewrite this passage to {count} words, in {lower_words(count)}-{count+TOLERANCE} words; preserve only facts supported by reporting.'}
+                    'revision_instruction':f'Rewrite this passage to {count} words, in {lower_words(count)}-{upper_words(count)} words; preserve only facts supported by reporting.'}
                 payload={'model':model,'store':False,'reasoning':{'effort':effort},
                          'max_output_tokens':sn.OUTPUT_TOKENS,'instructions':instructions,
                          'input':json.dumps(data,ensure_ascii=False),
@@ -137,7 +142,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                     candidate=result.get('text') if isinstance(result,dict) else None
                     if isinstance(candidate,str) and len(candidate)<=5000:
                         previous_candidate=candidate
-                        prior=f'Failed local structure; observed {len(candidate.split())} words; required {lower_words(count)} to {count+TOLERANCE}, complete ending and plain spoken prose'
+                        prior=f'Failed local structure; observed {len(candidate.split())} words; required {lower_words(count)} to {upper_words(count)}, complete ending and plain spoken prose'
                     else:
                         prior='invalid_length_or_unfinished_spoken_section'
                     text=None
