@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-20",
+  "failed_run_id": 39494950677,
+  "base_candidate_sha256": "2200f5c71611e2cc5c7994dc69c98684fb68950e0d3cf6afdc00cebceecdc45f",
+  "maximum_audits": 1,
+  "additional_generation_calls": 0,
+  "publication_authorized": false,
+  "expected_failed_sources": [
+    {
+      "source_id": "cms-rhtp-program",
+      "url": "https://www.cms.gov/priorities/innovation/data-and-reports/2021/sim-rd2-test-final"
+    }
+  ],
+  "source_corrections": [
+    {
+      "source_id": "cms-rhtp-program",
+      "previous_url": "https://www.cms.gov/priorities/innovation/data-and-reports/2021/sim-rd2-test-final",
+      "replacement": {
+        "id": "cms-rhtp-program",
+        "title": "CMS Launches Landmark $50 Billion Rural Health Transformation Program",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program",
+        "published_date": "2025-09-15"
+      }
+    },
+    {
+      "source_id": "cms-generous-model",
+      "previous_url": "https://www.cms.gov/priorities/innovation/key-concepts/total-cost-care-and-hospital-global-budgets",
+      "replacement": {
+        "id": "cms-generous-model",
+        "title": "GENEROUS (GENErating cost Reductions fOr U.S. Medicaid) Model",
+        "url": "https://www.cms.gov/priorities/innovation/innovation-models/generous",
+        "published_date": null
+      }
+    }
+  ],
+  "review_notes": "The complete 1842-word candidate passed structural validation in run 39494950677. Exact-source retrieval failed for the RHTP reference, whose URL points to an unrelated 2021 SIM evaluation. The GENEROUS reference points to a hospital-global-budget concepts page rather than the drug-payment model. Both replacement CMS pages were opened directly during this review on October 20. The RHTP launch page has a displayed September 15, 2025 publication date. The GENEROUS page is a maintained overview; its last-modified date is not asserted as original publication, so published_date is null. Correct only these reference records, preserving every claim, narration word and source ID. This is not an assertion that those claims are supported: every source must be retrieved again and an independent evidence audit must validate the exact corrected candidate before any release. No prior rejected audit may be reopened, no research or narration generation is allowed by this plan, and no attempt ledger is reset. The standard complete-audio and public-delivery gates remain mandatory."
+}
