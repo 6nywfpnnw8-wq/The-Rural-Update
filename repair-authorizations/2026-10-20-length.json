@@ -1,0 +1,12 @@
+{
+  "edition_date": "2026-10-20",
+  "failure_run_id": 39490951990,
+  "section": "developments-0",
+  "maximum_revalidations": 1,
+  "additional_generation_requests": 0,
+  "publication_authorized": false,
+  "observed_words": 287,
+  "observed_characters": 2156,
+  "observed_attempt": 5,
+  "reason": "The user requested completing the working daily edition. The complete first-development passage from run 39490951990 was rejected solely by an internal 300-word section minimum, not the user's 1700-2000-word episode requirement. A reviewed development range of 285-330 words makes the minimum possible full episode 1705 and maximum 1995 without padding or truncation. Recheck the exact retained 287-word, 2156-character passage under that structural range, with intact source/reporting hashes, recorded completed-response metadata, five already-spent section attempts, no prior audit, and the candidate's original content hash. Do not rewrite the passage, make another generation call for it, reset ledgers, change the twenty-request ceiling, or authorize factual publication. Remaining sections may use only their previously unspent allowance. Exact source retrieval, independent evidence audit, whole-episode word-count validation, complete-audio checks, and public verification remain mandatory. This authorization is single-use and specific to October 20."
+}
