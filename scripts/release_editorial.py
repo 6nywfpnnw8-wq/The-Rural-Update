@@ -21,7 +21,8 @@ def fingerprint(value):
 def take_reviewed_recovery(cache: Path, expected: str):
     path = REVIEW_ROOT / (expected + '.json')
     if not path.exists():
-        return None
+        from release_reference_repair import take_reference_repair
+        return take_reference_repair(cache, expected, REVIEW_ROOT.parent / 'source-recovery')
     if path.is_symlink() or not path.is_file() or path.stat().st_size > MAX_BYTES:
         raise ValueError('Reviewed correction file is unsafe or oversized')
     plan = read_json(path)
