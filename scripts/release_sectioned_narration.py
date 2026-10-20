@@ -84,6 +84,9 @@ def generate_sections(reporting: dict, model: str, folder: Path, identity: str,
     Transport, authentication and refusal errors propagate without retry here.
     A completed but malformed section can be revised once within the same budget.
     """
+    if os.getenv('RURAL_UPDATE_PARAGRAPH_NARRATION') == 'true':
+        from release_paragraph_narration import generate_paragraph_sections
+        return generate_paragraph_sections(reporting,model,folder,identity,send,extract,load,save)
     original=copy.deepcopy(reporting)
     edition_date=original.get('edition_date')
     date.fromisoformat(edition_date)
@@ -169,7 +172,12 @@ def reserve_narration_resume(cache: Path, plan: dict, engine: str,
     if plan.get('narration_recovery_method') != METHOD or plan.get('previous_narration_output_limit') != 8000:
         raise RuntimeError('Invalid narration continuation authorization')
     cache=Path(cache); marker=cache/'narration-limit-resume-used.json'
-    if marker.exists():return reserve_capacity_resume(cache,plan,engine,load,validate_report)
+    if marker.exists():
+        if reserve_capacity_resume(cache,plan,engine,load,validate_report):return True
+        if os.getenv('RURAL_UPDATE_PARAGRAPH_NARRATION') == 'true':
+            from release_paragraph_narration import reserve_plain_resume
+            return reserve_plain_resume(cache,plan,engine,load,validate_report)
+        return False
     records=json.loads((cache/'api-responses.json').read_text()) if (cache/'api-responses.json').exists() else {}
     rows=records.get('responses',[])
     if not rows:return False
