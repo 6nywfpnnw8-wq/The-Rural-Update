@@ -17,13 +17,18 @@ FORMAT = 'natural-prose-v1'
 TOLERANCE = 10
 
 
+def lower_words(count: int) -> int:
+    # Keep the existing full-edition closing minimum of fifty words.
+    return max(50, count - TOLERANCE) if count == 55 else count - TOLERANCE
+
+
 def prose_schema(count: int) -> dict:
     if type(count) is not int or not 20 <= count <= 400:
         raise ValueError('Invalid prose target')
     return {'type': 'object', 'properties': {'text': {
         'type': 'string', 'minLength': 2 * (count - TOLERANCE),
         'maxLength': 12 * (count + TOLERANCE),
-        'description': f'One finished spoken passage of {count-TOLERANCE} to {count+TOLERANCE} words.'}},
+        'description': f'One finished spoken passage of {lower_words(count)} to {count+TOLERANCE} words.'}},
         'required': ['text'], 'additionalProperties': False}
 
 
@@ -35,7 +40,7 @@ def validate_prose(value: dict, count: int) -> str:
     if not schema['minLength'] <= len(text) <= schema['maxLength']:
         raise ValueError('section_characters')
     words = text.split()
-    if not count-TOLERANCE <= len(words) <= count+TOLERANCE:
+    if not lower_words(count) <= len(words) <= count+TOLERANCE:
         raise ValueError('section_word_count')
     if any(len(word) > 100 for word in words):
         raise ValueError('section_word_shape')
@@ -93,7 +98,7 @@ def generate(reporting: dict, model: str, folder: Path, identity: str,
                 instructions=(f'Write ONLY {focus} of The Rural Update for {original["edition_date"]}. '
                     f'Return a JSON object with one text field containing natural spoken prose, '
                     f'not a list or an array of words. Target {count} words; stay between '
-                    f'{count-TOLERANCE} and {count+TOLERANCE} words. '
+                    f'{lower_words(count)} and {count+TOLERANCE} words. '
                     'Write complete sentences; do not pad, repeat, or truncate. '
                     'Use only the supplied reporting and preserve its uncertainty and proposal/final distinctions. '
                     'Do not introduce facts, quantities, dates, people, or institutions absent from the report. '

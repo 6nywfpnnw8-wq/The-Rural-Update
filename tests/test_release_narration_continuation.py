@@ -9,6 +9,7 @@ from unittest.mock import Mock
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import release_research as sr
 from release_core import validate_edition, write_json
+from release_prose import TOLERANCE
 from test_release_staged_research import bounded_fixture, response, DATE
 
 
@@ -23,8 +24,9 @@ class NarrationContinuationIntegrationTests(unittest.TestCase):
     def section(self,payload):
         self.assertEqual(payload['text']['format']['name'],'narration_section')
         self.assertNotIn('tools',payload)
-        count=payload['text']['format']['schema']['properties']['words']['minItems']
-        return response({'words':['Synthetic']*(count-1)+['ending.']})
+        field=payload['text']['format']['schema']['properties']['text']
+        count=field['minLength']//2+TOLERANCE
+        return response({'text':' '.join(['Synthetic']*(count-1)+['ending.'])})
 
     def prepare(self):
         incomplete=response('partial text',status='incomplete')
