@@ -45,7 +45,8 @@ class SectionedNarrationTests(unittest.TestCase):
 
     def good(self,payload):
         self.assertNotIn('tools',payload)
-        self.assertEqual(payload['max_output_tokens'],2200)
+        self.assertEqual(payload['max_output_tokens'],4000)
+        self.assertEqual(payload['reasoning']['effort'],'minimal')
         n=payload['text']['format']['schema']['properties']['words']['minItems']
         return response(n)
 
