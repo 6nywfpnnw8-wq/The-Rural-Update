@@ -1,8 +1,10 @@
 {
-  "request_id": "2026-10-19-live-fire-1",
-  "edition_date": "2026-10-19",
+  "request_id": "2026-10-20-verified-provider-recovery-1",
+  "edition_date": "2026-10-20",
   "requested_operation": "publish-current-edition-through-existing-workflow",
-  "reason": "User explicitly requested a full live test producing today's app and podcast. Start the existing coordinated publisher through its established push entry. This tests real source research, audit, complete narration, audio assembly, RSS, archive, Pages deployment and public verification. It is an operator-triggered test, not proof of the independent Render scheduler or its credential's dispatch permission. Leave the Render morning window and all source, audio, retry, credential and single-writer controls unchanged.",
+  "reason": "The user requested proceeding after the replacement OpenAI key passed production research, speech, and transcription tests. Once this reviewed change is merged, request one current-day run through the existing single-publisher push entry. The October 20 authorization permits exactly one additional generation reservation without resetting the original two failed attempts. All source, evidence-audit, narration-completeness, audio, archive, RSS, deployment, and public-delivery gates remain in force. This afternoon recovery is not on-time unattended delivery. Do not invent historical editions.",
+  "credential_check_run_id": 39470409283,
+  "authorization_path": "repair-authorizations/2026-10-20.json",
   "previous_successful_run_id": 39055588819,
   "research_counter_reset": false,
   "validation_override": false

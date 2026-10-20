@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-20",
+  "engine": "staged-research-v3",
+  "maximum_additional_generation_attempts": 1,
+  "publication_authorized": false,
+  "reason": "The user authorized controlled recovery after replacing OPENAI_API_KEY and successfully testing production research with web search, speech, and transcription in credential-check run 39470409283 on October 20. Earlier authentication failures exhausted the normal two-attempt allowance before usable reporting was produced. Permit one additional current-date generation attempt through the existing reserve_corrective_attempt mechanism. Preserve the original attempt ledger and its failures. All source retrieval, factual audit, narration, audio completeness, single-writer, deployment, and public-verification gates remain mandatory. This authorization does not approve content or extend future dates' allowances.",
+  "credential_check_run_id": 39470409283,
+  "credential_check_completed_at": "2026-10-20T17:56:56.634727+00:00",
+  "credential_check_report": "https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/39470409283/artifacts/12286762158",
+  "incident": 55,
+  "research_counter_reset": false,
+  "validation_override": false
+}
