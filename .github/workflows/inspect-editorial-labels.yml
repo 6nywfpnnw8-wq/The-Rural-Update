@@ -1,0 +1,46 @@
+name: Inspect saved editorial labels
+on:
+  push:
+    branches: [fix/editorial-finding-labels]
+    paths: [.github/workflows/inspect-editorial-labels.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: rural-release-v1-2026-10-21-39682132078-1
+          fail-on-cache-miss: true
+      - name: Validate and export only the completed public-source review
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,re
+          from pathlib import Path
+          folder=Path('.release-cache/2026-10-21/editorial-loop-v1')
+          out=Path('saved-review');out.mkdir()
+          def fp(v):return hashlib.sha256(json.dumps(v,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+          for name in ['initial-result.json','original.json']:
+              p=folder/name
+              if p.is_symlink() or not p.is_file() or p.stat().st_size>1048576:raise SystemExit('Missing or unsafe review checkpoint')
+              raw=p.read_text();d=json.loads(raw)
+              if re.search(r'(?:sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{16,}|github_pat_[A-Za-z0-9_]{16,}|gh[pousr]_[A-Za-z0-9]{16,}|-----BEGIN .*PRIVATE KEY)',raw):raise SystemExit('Credential pattern; export refused')
+              if name=='initial-result.json':
+                  if fp(d['value'])!=d['value_sha256']:raise SystemExit('Review integrity mismatch')
+                  print(json.dumps({'finding_labels':[{'id':f['id'],'path':f['path'],'kind':f['kind']} for f in d['value']['findings']],'review_complete':d['value']['review_complete'],'paid_requests':0,'publication_attempted':False}))
+              else:
+                  if fp(d['candidate'])!=d['candidate_sha256'] or d['edition_date']!='2026-10-21' or d['publication_authorized'] is not False:raise SystemExit('Candidate identity mismatch')
+              (out/name).write_text(raw)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: saved-editorial-review-${{ github.run_id }}
+          path: saved-review/
+          retention-days: 3
+          if-no-files-found: error
