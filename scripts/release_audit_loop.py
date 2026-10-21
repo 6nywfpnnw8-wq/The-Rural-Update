@@ -80,7 +80,9 @@ def validate_review(report, edition):
         raise RuntimeError('Structured evidence review is incomplete')
     fields=text_fields(edition);ids=set()
     for finding in report['findings']:
-        if not re.fullmatch(r'[a-z][a-z0-9-]{0,59}',finding['id']) or finding['id'] in ids:
+        # Internal opaque labels are used only as exact references, never paths.
+        # Accept safe case and underscore variants without rewriting or merging IDs.
+        if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,79}',finding['id']) or finding['id'] in ids:
             raise ValueError('Invalid or duplicate audit finding ID')
         ids.add(finding['id'])
         if not finding['quote'].strip() or finding['quote'] not in fields[finding['path']]:
@@ -290,7 +292,10 @@ review complete if source metadata prevents reliable verification. No em dashes.
         patch_schema=obj(replacements=arr(obj(path={'type':'string','enum':sorted(fields)},
             before=S,after=S,addresses=arr({'type':'string','enum':ids},1,24)),1,24))
         instruction='''Correct only the listed blocking findings in this candidate using the fetched
-sources. Return exact field replacements, not a new edition. For every blocking finding,
+sources. Audit findings are review comments, not primary evidence. Do not copy
+unsupported reviewer assumptions. Clarify the distinct roles of policy-effective
+and contractor-implementation dates; different roles are not inherently conflicting,
+and must not imply unverified alternate coding rules. Return exact field replacements, not a new edition. For every blocking finding,
 replace its named field and address all occurrences elsewhere (especially narration).
 Preserve valid unrelated reporting. Use complete replacement field text in before/after.
 Do not change source records, URLs, citation IDs, edition date or structure. Remove or
