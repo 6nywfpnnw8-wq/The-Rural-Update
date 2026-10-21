@@ -116,6 +116,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_TTS_MODEL: gpt-4o-mini-tts
           OPENAI_TTS_VOICE: cedar
+          RURAL_UPDATE_STRUCTURED_REVIEW: 'true'
         run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --commit
       - name: Configure Pages
         if: steps.prepare.outcome == 'success'
