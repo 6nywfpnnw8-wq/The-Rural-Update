@@ -1,0 +1,72 @@
+name: Inspect rejected edition for editorial correction
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/inspect-audit-candidate.yml']
+permissions:
+  contents: read
+concurrency:
+  group: rural-update-single-publisher
+  cancel-in-progress: false
+jobs:
+  inspect:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: audit-inspection-only-${{ github.run_id }}
+          restore-keys: rural-release-v1-2026-10-20-
+      - name: Export only the hash-pinned public-source candidate and offline test files
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,re,subprocess,zipfile
+          from pathlib import Path
+          root=Path('.release-cache/2026-10-20')
+          sha='cbbd1b44f2158612b9fa9fab9efa9a61b439001d56275c05b7b9aba4107cfe3a'
+          p=root/'candidates'/('resumed-content-'+sha[:16]+'.json')
+          if p.is_symlink() or not p.is_file() or p.stat().st_size>1048576:
+              raise SystemExit('Expected retained candidate is missing or unsafe')
+          snapshot=json.loads(p.read_text())
+          candidate=snapshot.get('candidate')
+          fingerprint=hashlib.sha256(json.dumps(candidate,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+          if fingerprint!=sha or snapshot.get('candidate_sha256')!=sha or snapshot.get('redacted') is not False:
+              raise SystemExit('Candidate identity or redaction state differs')
+          if candidate.get('edition_date')!='2026-10-20' or snapshot.get('publication_authorized') is not False:
+              raise SystemExit('Invalid candidate state')
+          raw=json.dumps(candidate,ensure_ascii=False)
+          if re.search(r'(?:sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{16,}|github_pat_[A-Za-z0-9_]{16,}|gh[pousr]_[A-Za-z0-9]{16,}|-----BEGIN .*PRIVATE KEY)',raw):
+              raise SystemExit('Potential credential pattern; export refused')
+          failure=json.loads((root/'validation-evidence-audit.json').read_text())
+          audit=json.loads((root/'audit.json').read_text())
+          if str(failure.get('run_id'))!='39496748118' or failure.get('passed') is not False or audit.get('approved') is not False:
+              raise SystemExit('Expected rejected audit is absent')
+          out=Path('editorial-inspection');out.mkdir()
+          (out/'candidate.json').write_text(json.dumps(candidate,ensure_ascii=False,indent=2)+'\n')
+          (out/'audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
+          metadata={'edition_date':'2026-10-20','candidate_sha256':sha,'audit_run_id':39496748118,'publication_attempted':False,'cache_modified':False,'paid_api_calls':0}
+          (out/'inspection.json').write_text(json.dumps(metadata,indent=2)+'\n')
+          # Only already-public tracked code/assets needed by offline compatibility tests.
+          prefixes=('scripts/','tests/','ops/','.github/workflows/','archive/','data/','icons/','web/','source-recovery/','editorial-review/','repair-authorizations/')
+          names={'requirements-publisher.txt','index.html','manifest.webmanifest','intelligence.js','signals-reference.js','sw.js'}
+          tracked=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          with zipfile.ZipFile(out/'repository-test-files.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in tracked:
+                  if not name or not (name in names or name.startswith(prefixes)):continue
+                  q=Path(name)
+                  if q.is_symlink() or not q.is_file() or q.stat().st_size>3000000:continue
+                  z.write(q,name)
+          print(json.dumps(metadata))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: editorial-inspection-${{ github.run_id }}
+          path: editorial-inspection/
+          retention-days: 3
+          if-no-files-found: error
