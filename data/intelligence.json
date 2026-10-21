@@ -559,6 +559,36 @@
       "due": "Ongoing",
       "next": "Review Medicare telehealth dates of service from October 1 onward, with separate attention to the October 5 systems implementation. Track coding, modifiers, denials and remittance amounts, and validate other payers separately.",
       "source": "rhc-distant-site-telehealth"
+    },
+    {
+      "id": "action-validate-oct-telehealth-claims",
+      "title": "run and reconcile an october telehealth production-claims sample for rhc services",
+      "status": "Open",
+      "owner": "revenue-cycle / rhc operations / it",
+      "owner_is_suggested": true,
+      "due": "2026-10-21",
+      "next": "extract a representative sample of october 1 onward rhc telehealth claims, confirm cpt/hcpcs codes and telehealth modifiers, reconcile remittances and log payer-specific rejections for corrective edits.",
+      "source": "rhc-telehealth-billing-change"
+    },
+    {
+      "id": "action-verify-generous-oklahoma-status",
+      "title": "confirm oklahoma generous participation terms and pharmacy operational effects",
+      "status": "Open",
+      "owner": "medicaid / pharmacy / finance",
+      "owner_is_suggested": true,
+      "due": "2026-11-16",
+      "next": "By the suggested November 16 internal review date, ask OHCA whether Oklahoma has executed GENEROUS agreements and request any applicable published terms. Only if participation and requirements are documented should pharmacy teams map product, rebate and potential 340B implications. Do not assume those changes are already effective.",
+      "source": "generous-medicaid-model-implementation-watch"
+    },
+    {
+      "id": "action-model-medicaid-financing-downside",
+      "title": "build a state-level downside model isolating provider-tax and supplemental-payment exposure",
+      "status": "Open",
+      "owner": "finance / cfo / medicaid managed care",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "assemble finance, medicaid managed-care and cfo teams to quantify revenue tied to provider-tax funded supplemental payments; create cash-stress scenarios if cms finalizes cms-2452-p.",
+      "source": "medicaid-financing-cms-2452-p"
     }
   ],
   "changes": {
@@ -581,5 +611,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-17"
+  "reviewed": "2026-10-20"
 }
