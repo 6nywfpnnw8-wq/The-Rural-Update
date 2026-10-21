@@ -26,6 +26,8 @@ MODEL=os.getenv('RURAL_UPDATE_MODEL','gpt-5-mini')
 
 def request_api(payload,endpoint='responses',binary=False):
     from release_research import staged_request
+    from release_audit_search import require_audit_search
+    payload = require_audit_search(payload)
     name=((payload.get('text') or {}).get('format') or {}).get('name')
     if endpoint=='responses' and name=='rural_update_edition':
         d=os.getenv('REQUESTED_DATE') or datetime.now(TZ).date().isoformat()
@@ -133,7 +135,14 @@ action, deadline and signal must reference the sources that support it. Distingu
 proposed rules, final rules, effective dates and editorial checkpoints. Never infer
 institutional staff progress, completion, assignments or non-public information.
 A quiet news day may contain current verified continuing watches. Do not redraft an
-old story as new. Use only plain text, no HTML or em dashes. All source URLs must have
+old story as new.
+For state-specific programs distinguish applications, public support, signed agreements,
+selected measures, effective requirements and provider implementation. A governor's
+endorsement is not a signed agreement. Never infer Oklahoma participation or a hospital
+financial effect from a national announcement alone; label unverified impacts conditional.
+Every Official deadline must be stated explicitly in its cited source. Suggested internal
+review dates must be Editorial checkpoints in both the app and spoken narration.
+ Use only plain text, no HTML or em dashes. All source URLs must have
 been retrieved by web_search and publication dates must be real or null if unknown.
 Provide four evidence-backed signals with 2-4 references each and stable IDs; preserve
 existing IDs when applicable. Issue updates are material public developments only;

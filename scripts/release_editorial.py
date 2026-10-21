@@ -19,6 +19,10 @@ def fingerprint(value):
 
 
 def take_reviewed_recovery(cache: Path, expected: str):
+    from release_audit_search import take_tool_omission_recovery
+    retry = take_tool_omission_recovery(cache, expected, REVIEW_ROOT.parent / 'audit-tool-recovery')
+    if retry is not None:
+        return retry
     from release_claim_correction import take_claim_correction
     corrected = take_claim_correction(cache, expected, REVIEW_ROOT.parent / 'claim-review')
     if corrected is not None:
