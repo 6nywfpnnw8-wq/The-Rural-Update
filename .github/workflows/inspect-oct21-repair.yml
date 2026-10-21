@@ -1,0 +1,78 @@
+name: Inspect October 21 repair evidence
+on:
+  push:
+    branches: [fix/bounded-editorial-review-oct21]
+    paths: [.github/workflows/inspect-oct21-repair.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: inspect-editorial-oct21-${{ github.run_id }}
+          restore-keys: rural-release-v1-2026-10-21-
+      - name: Preserve exact public-source rejected candidate
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,re,subprocess,zipfile
+          from pathlib import Path
+          out=Path('repair-inspection');out.mkdir()
+          root=Path('.release-cache/2026-10-21')
+          sha='8996eed0f30f1dae4c47d4301fe64809d21c9d95e81b77d86713c13982864e96'
+          p=root/'candidates'/('content-'+sha[:16]+'.json')
+          if p.is_symlink() or not p.is_file() or p.stat().st_size>1048576:raise SystemExit('Expected candidate missing or unsafe')
+          snapshot=json.loads(p.read_text());candidate=snapshot.get('candidate')
+          actual=hashlib.sha256(json.dumps(candidate,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+          if actual!=sha or snapshot.get('candidate_sha256')!=sha or snapshot.get('redacted') is not False:raise SystemExit('Candidate integrity failed')
+          if candidate.get('edition_date')!='2026-10-21' or snapshot.get('publication_authorized') is not False:raise SystemExit('Unexpected candidate state')
+          raw=json.dumps(snapshot,ensure_ascii=False)
+          if re.search(r'(?:sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{16,}|github_pat_[A-Za-z0-9_]{16,}|gh[pousr]_[A-Za-z0-9]{16,}|-----BEGIN .*PRIVATE KEY)',raw):raise SystemExit('Credential pattern; export refused')
+          (out/'candidate-snapshot.json').write_text(raw)
+          for name in ['audit.json','source-evidence.json','validation-evidence-audit.json','attempts.json']:
+              q=root/name
+              if q.is_file() and not q.is_symlink() and q.stat().st_size<2097152:(out/name).write_bytes(q.read_bytes())
+          prefixes=('scripts/','tests/','ops/','.github/workflows/','archive/','data/','icons/','web/','source-recovery/','editorial-review/','repair-authorizations/','templates/','editions/','releases/','podcast-script/')
+          names={'requirements-publisher.txt','index.html','manifest.webmanifest','intelligence.js','signals-reference.js','sw.js','podcast.xml','release.json'}
+          with zipfile.ZipFile(out/'repository-test-files.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in subprocess.check_output(['git','ls-files','-z']).decode().split('\0'):
+                  if not name or not (name in names or name.startswith(prefixes)):continue
+                  q=Path(name)
+                  if q.is_file() and not q.is_symlink() and q.stat().st_size<3000000:z.write(q,name)
+          print('Exact retained public-source candidate and tracked test files preserved; no publication or API call.')
+          PY
+      - uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: inspect-audio-oct20-${{ github.run_id }}
+          restore-keys: rural-release-v1-2026-10-20-
+      - name: Preserve only the two exact rejected speech samples
+        run: |
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('.release-cache/2026-10-20/audio-v2');out=Path('repair-inspection/audio');out.mkdir()
+          wanted={'f9758c00839cee44a1435f5b0dc1d792f6a76ef088d9b88a21395bc2a15177e4','b3831498835af24f5efc0edd6707b7bc1dc89fd4339c674976f165f8ed2cf9ee'}
+          found=[]
+          for p in root.glob('*.wav'):
+              if p.is_symlink() or p.stat().st_size>5000000:continue
+              data=p.read_bytes();sha=hashlib.sha256(data).hexdigest()
+              if sha not in wanted:continue
+              (out/(sha+'.wav')).write_bytes(data);found.append(sha)
+              a=root/('asr-'+sha+'.json')
+              if a.is_file() and not a.is_symlink() and a.stat().st_size<20000:(out/a.name).write_bytes(a.read_bytes())
+          (out/'inspection.json').write_text(json.dumps({'expected':sorted(wanted),'found':sorted(found),'publication_attempted':False,'paid_api_calls':0}))
+          print('Rejected speech samples located:',len(found))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oct21-repair-inspection-${{ github.run_id }}
+          path: repair-inspection/
+          retention-days: 3
+          if-no-files-found: error
