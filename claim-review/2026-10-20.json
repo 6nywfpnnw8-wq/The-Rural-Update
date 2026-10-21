@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-20",
+  "rejected_run_id": "39496748118",
+  "base_stage": "resumed-content",
+  "base_candidate_sha256": "cbbd1b44f2158612b9fa9fab9efa9a61b439001d56275c05b7b9aba4107cfe3a",
+  "rejected_audit_sha256": "c517ac6671e9b093c065accc87917a36a79efd5666193b53d92a0066b9a5cc22",
+  "candidate_sha256": "c587591a73abf253b8c6e5249e59c9e78d9aa41106ef8bfac73d90ad9939bcbd",
+  "maximum_fresh_audits": 1,
+  "additional_generation_calls": 0,
+  "publication_authorized": false,
+  "review_basis": "User requested completion after the credential correction. Independently opened the two cited CMS press releases and GENEROUS overview. Correct unverified implications, distinguish state support from executed agreements, make pharmacy impacts conditional, and correct the unsupported official deadline. This plan does not approve any factual claim; unchanged full-source retrieval and a fresh evidence audit are mandatory. It preserves previous failed budgets and verdicts.",
+  "patches": [
+    {
+      "path": ["bluf"],
+      "expected": {"sha256": "b42bc2e52225683eae13628b897b22d3539ce3ce4ac3b91be710cde4abfabf32"},
+      "replacement": {
+        "replace": "verified developments matter now for Oklahoma rural hospitals: (1) CMS proposed rule CMS-2452-P would limit states ability to use provider taxes and could reduce supplemental Medicaid funding if finalized; (2) RHC/FQHC distant-site telehealth billing changed for dates of service on/after 2026-10-01 and requires immediate revenue-cycle validation; (3) CMS Rural Health Transformation Program (RHTP) is in active implementation and Oklahoma has published recipients and guidance requiring strong post-grant sustainability planning; (4) CMS announced GENEROUS Medicaid drug-payment participants; Oklahoma hospitals must confirm state-level execution and pharmacy impacts; (5) CMS launched Investing in Health Outcomes with 37 states to shift Medicaid quality measurement toward outcomes which may change contracting and reporting. Immediate priorities: run an October telehealth claim sample, verify Oklahoma GENEROUS and OHCA guidance, and model Medicaid-financing downside should CMS finalize 1",
+        "with": "continuing developments require attention for Oklahoma rural hospitals. CMS-2452-P remains a provider-tax proposal and warrants downside modeling, not an assumed reimbursement cut. October RHC/FQHC distant-site telehealth billing changes require claims validation. RHTP implementation requires project-specific, post-grant operating plans. CMS reported broad applications to GENEROUS, but the cited materials do not establish Oklahoma's signed agreement or hospital pharmacy effects. CMS also announced Investing in Health Outcomes with 37 state partners; Oklahoma's governor expressed support, but that statement alone does not establish executed participation, measures, or contract requirements. Immediate recommendations are to reconcile October telehealth claims, seek written Oklahoma implementation evidence, and model financing exposure. Dates assigned to these internal reviews are editorial checkpoints, not federal deadlines."
+      },
+      "reason": "Complete the truncated BLUF and distinguish national announcements, state support, execution, and suggested review dates.",
+      "source_ids": ["cms-2452-p", "rhc-telehealth-transmittal", "oklahoma-rhtp", "cms-generous-press", "cms-refocus-outcomes"]
+    },
+    {
+      "path": ["stories", 0, "change"],
+      "expected": "New",
+      "replacement": "Continuing",
+      "reason": "The cited proposal is not newly issued on this edition date.",
+      "source_ids": ["cms-2452-p"]
+    },
+    {
+      "path": ["stories", 4, "change"],
+      "expected": "New",
+      "replacement": "Continuing",
+      "reason": "The cited announcement predates this edition; do not portray it as breaking news.",
+      "source_ids": ["cms-refocus-outcomes"]
+    },
+    {
+      "path": ["stories", 3, "what_changed"],
+      "expected": "cms announced participating states and the generous model design on 2026-09-18; states executed participation agreements or applied and state-level implementation terms will determine operational pharmacy impacts.",
+      "replacement": "CMS reported on September 18 that all 50 states, DC and Puerto Rico had applied to GENEROUS, and 40 states plus Puerto Rico had signed agreements at that time. The cited materials do not identify Oklahoma's signed-agreement status or establish hospital-specific implementation terms.",
+      "reason": "Do not conflate an application with an executed state agreement.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["stories", 3, "why_it_matters"],
+      "expected": "changes to Medicaid drug-price contracts and supplemental-rebate mechanics can alter outpatient pharmacy flows, 340b contract pharmacy arrangements and managed-care pharmacy passthroughs that affect hospital pharmacy revenue and patient access to drugs.",
+      "replacement": "If Oklahoma implements applicable model terms, pharmacy and finance teams should assess the documented product, rebate and payer requirements. The cited national materials do not establish changes to any Oklahoma hospital's 340B receipts, contract-pharmacy arrangements or Medicaid reimbursement. Treat those as questions for review, not confirmed financial effects.",
+      "reason": "Qualify state and hospital impacts instead of asserting them.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["stories", 4, "what_changed"],
+      "expected": "cms announced a voluntary partnership with 37 states to refocus medicaid and chip quality measurement toward outcomes, streamline measure inventories and expand digital measurement capabilities.",
+      "replacement": "CMS announced Investing in Health Outcomes with a founding group of 37 state partners. Its press release quotes Oklahoma's governor expressing support. That endorsement is not evidence of Oklahoma's executed participation terms, selected measures or changed provider contracts.",
+      "reason": "An endorsement must not be treated as an executed implementation commitment.",
+      "source_ids": ["cms-refocus-outcomes"]
+    },
+    {
+      "path": ["stories", 4, "why_it_matters"],
+      "expected": "state alignment with outcomes-focused measurement may change contracted quality expectations, reporting requirements and the structure of value-based payments. rural hospitals should inventory measurement capacity and digital reporting pipelines to assess readiness for new state-level commitments.",
+      "replacement": "The national initiative emphasizes outcomes and digital measurement. Oklahoma hospitals can assess readiness, but should not assume new state contract or reporting duties until OHCA or CMS publishes applicable requirements. Any future financial impact remains conditional on documented implementation.",
+      "reason": "Make operational implications conditional on actual state requirements.",
+      "source_ids": ["cms-refocus-outcomes", "mln-oct1-2026"]
+    },
+    {
+      "path": ["actions", 1, "next_step"],
+      "expected": "contact ohca pharmacy/medicaid leads to request executed participation terms, covered-product lists, rebate mechanics and effective dates; map those to 340b contract-pharmacy and outpatient-pharmacy workflows.",
+      "replacement": "By the suggested November 16 internal review date, ask OHCA whether Oklahoma has executed GENEROUS agreements and request any applicable published terms. Only if participation and requirements are documented should pharmacy teams map product, rebate and potential 340B implications. Do not assume those changes are already effective.",
+      "reason": "The date is an internal review target; execution and pharmacy effects are not established.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["deadlines", 1, "kind"],
+      "expected": "Official deadline",
+      "replacement": "Editorial checkpoint",
+      "reason": "No cited source establishes November 16 as an official deadline.",
+      "source_ids": ["cms-generous-press"]
+    },
+    {
+      "path": ["deadlines", 1, "description"],
+      "expected": "target date to secure ohca pharmacy implementation details and map impacts to hospital pharmacy and 340b operations.",
+      "replacement": "Suggested internal review date, not a CMS or OHCA deadline: confirm whether Oklahoma has signed applicable agreements and whether any published terms affect hospital pharmacy or 340B operations.",
+      "reason": "Remove unsupported official deadline designation.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["signals", 0, "source_ids"],
+      "expected": ["cms-2452-p", "rhc-telehealth-transmittal", "fqhc-rhc-news"],
+      "replacement": ["cms-2452-p", "cms-rhtp-program"],
+      "reason": "Remove unrelated telehealth sources; distinguish provider-tax risk from finite transformation support.",
+      "source_ids": ["cms-2452-p", "cms-rhtp-program"]
+    },
+    {
+      "path": ["signals", 0, "summary"],
+      "expected": "cms-2452-p proposes new limits on provider-tax practices and indirect hold-harmless thresholds that could materially change state supplemental-payment mechanics. facility exposure depends on oklahoma policy responses and existing tax structures.",
+      "replacement": "CMS-2452-P remains a provider-tax proposal requiring scenario analysis. Separately, RHTP provides time-limited transformation support, not an assumed permanent replacement for Medicaid operating revenue. Oklahoma facility exposure depends on enacted state and federal requirements and each facility's funding structure.",
+      "reason": "Tie each signal statement to the actual supporting source.",
+      "source_ids": ["cms-2452-p", "cms-rhtp-program"]
+    },
+    {
+      "path": ["signals", 3, "summary"],
+      "expected": "cms announced generous participants nationally; state-level executed terms and covered-product lists will determine operational pharmacy impacts for hospitals and 340b arrangements.",
+      "replacement": "CMS reported national applications and signed agreements for GENEROUS. The cited materials do not establish Oklahoma's execution status or changes to hospital pharmacy or 340B revenue. Assess possible effects only after applicable state and product terms are documented.",
+      "reason": "State-specific execution and hospital effects remain unverified.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["podcast", "bluf"],
+      "expected": {"sha256": "c3c3049499d11749960b5478b6f6149c636a83ad803b5368be015aab3d3255a3"},
+      "replacement": {
+        "replace": "announced GENEROUS participants; hospitals must confirm Oklahoma’s execution, covered products, rebate mechanics and effective dates and then map impacts to 340B and outpatient-pharmacy workflows by November 16. Fifth, CMS’s Investing in Health Outcomes partnership with states may change measurement, reporting and value-based contracting; verify Oklahoma’s participation and likely measure selection to anticipate contract and reporting chang",
+        "with": "reported national GENEROUS applications and signed agreements, but these sources do not establish Oklahoma's executed participation or hospital pharmacy effects. November sixteenth is our suggested internal review date, not an official deadline. Fifth, CMS announced Investing in Health Outcomes with state partners. Oklahoma's governor voiced support, but the cited announcement does not establish Oklahoma's executed terms, selected measures or new provider duti"
+      },
+      "reason": "Explicitly distinguish unverified state commitments and internal checkpoints in the spoken briefing.",
+      "source_ids": ["cms-generous-press", "cms-refocus-outcomes"]
+    },
+    {
+      "path": ["podcast", "oklahoma"],
+      "expected": {"sha256": "d489e4b28f9e534dce82b7736e071e3551433f36a35c64b2bf0e3cdb480b6262"},
+      "replacement": {
+        "replace": "GENEROUS participants and a national model; state execution will determine pharmacy impacts. Recommended action: confirm Oklahoma’s participation terms with OHCA pharmacy and Medicaid leads and map the terms to 340B contract-pharmacy and outpatient-pharmacy workflows to surface revenue and access risks by the November 16 target. Fifth, Investing in Health Outcomes may change measurement and contracting",
+        "with": "national GENEROUS applications and agreements. These sources do not confirm Oklahoma's executed agreement or specific pharmacy impacts. Recommended action: confirm Oklahoma’s participation terms with OHCA pharmacy and Medicaid leads and map the terms to 340B contract-pharmacy and outpatient-pharmacy workflows to surface revenue and access risks by the November 16 target. Fifth, Investing in Health Outcomes is a national policy direction. Oklahoma's governor expressed support; formal state implementation terms are not established here"
+      },
+      "reason": "Support does not establish participation, and participation does not establish specific financial effects.",
+      "source_ids": ["cms-generous-press", "cms-refocus-outcomes"]
+    },
+    {
+      "path": ["podcast", "signals"],
+      "expected": {"sha256": "1e39536ebdc0cd09865432a2feae36c628ad814f0ab21a7d271a05d7bad225e8"},
+      "replacement": {
+        "replace": "CMS announced national participants and a model but state-level execution will determine pharmacy and 340B impac",
+        "with": "the cited materials do not establish Oklahoma's executed participation or changes to hospital pharmacy and 340B receip"
+      },
+      "reason": "Remove implied known pharmacy and 340B impact.",
+      "source_ids": ["cms-generous-press", "cms-generous-model"]
+    },
+    {
+      "path": ["podcast", "deadlines"],
+      "expected": {"sha256": "c46eff70c8b1178fd83cbab55ea4e8183a483afc99d6fd3771770769157b8074"},
+      "replacement": {"replace": "Official target", "with": "Suggested internal checkpoint, not an official deadline"},
+      "reason": "The spoken deadline designation must match the source-supported status.",
+      "source_ids": ["cms-generous-press"]
+    },
+    {
+      "path": ["podcast", "closing"],
+      "expected": {"sha256": "e3c8d1c638ffbe1a4e857423322d928b4f6a1c3b79a2ef66f1338eba4ebbe126"},
+      "replacement": {
+        "replace": "November sixteenth; and task finance, Medicaid managed-care and CFO teams to build a downside model isolating provider-tax and supplemental-payment exposure should CMS finalize CMS-2452-P. This i",
+        "with": "the suggested November sixteenth internal review date; and task finance, Medicaid managed-care and CFO teams to build a downside model isolating provider-tax and supplemental-payment exposure should CMS finalize CMS-2452-P. This conclude"
+      },
+      "reason": "Label the date as internal and finish with an explicit complete closing sentence.",
+      "source_ids": ["cms-generous-press"]
+    }
+  ]
+}

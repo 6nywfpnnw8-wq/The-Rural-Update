@@ -19,6 +19,10 @@ def fingerprint(value):
 
 
 def take_reviewed_recovery(cache: Path, expected: str):
+    from release_claim_correction import take_claim_correction
+    corrected = take_claim_correction(cache, expected, REVIEW_ROOT.parent / 'claim-review')
+    if corrected is not None:
+        return corrected
     path = REVIEW_ROOT / (expected + '.json')
     if not path.exists():
         from release_reference_repair import take_reference_repair
