@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-20",
+  "failed_run_id": 39541250383,
+  "candidate_sha256": "c587591a73abf253b8c6e5249e59c9e78d9aa41106ef8bfac73d90ad9939bcbd",
+  "publication_authorized": false,
+  "maximum_audit_calls": 1,
+  "generation_calls": 0,
+  "reason": "The corrected draft returned approved=true with no issues, but the API output had no web_search_call. Its content is not treated as approved. Require web search explicitly using tool_choice=required and perform one fresh full audit of the exact unchanged draft. Retain all prior failed budgets, the old verdict, and response metadata. Do not reset counters or repeat a rejected verdict. Source retrieval, evidence assessment, narration completeness and public delivery remain mandatory."
+}
