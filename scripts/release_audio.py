@@ -9,7 +9,12 @@ from release_core import digest,read_json,write_json,podcast_body,probe_audio
 
 NUMBERS=set(('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety hundred thousand million billion first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth thirtieth').split())
 
+NORMALIZATION_VERSION = 2
+
 def tokens(text):
+    # Documented orthographic equivalents, not fuzzy semantic substitutions.
+    text=text.lower().replace('\u2019', "'").replace('\u2018', "'")
+    text=re.sub(r'\bpassthrough\b', 'pass through', text)
     out=[]
     for t in re.findall(r'[a-z]+|[0-9]+',text.lower().replace("'",'')):
         t='num' if t in NUMBERS or t.isdigit() else t
@@ -74,11 +79,12 @@ def inspect_ending(audio,script,cache):
     cache.mkdir(parents=True,exist_ok=True); out=cache/('ending-'+digest(audio.read_bytes())+'.json')
     if out.exists():
         saved=read_json(out)
-        if saved.get('script_sha256')==digest(script):return saved
+        if (saved.get('script_sha256')==digest(script) and
+                saved.get('normalization_version')==NORMALIZATION_VERSION):return saved
     tail=cache/'inspection-tail.wav'
     run(['ffmpeg','-y','-v','error','-sseof','-90','-i',str(audio),'-ar','24000','-ac','1','-c:a','pcm_s16le',str(tail)])
     text=transcribe(tail,cache); result=ending_check(script,text)
-    report={'audio_sha256':digest(audio.read_bytes()),'script_sha256':digest(script),'result':result,'recognized_tail':text[-900:]}
+    report={'normalization_version':NORMALIZATION_VERSION,'audio_sha256':digest(audio.read_bytes()),'script_sha256':digest(script),'result':result,'recognized_tail':text[-900:]}
     write_json(out,report);return report
 
 MAX_SPEECH_REQUESTS = 64
@@ -143,7 +149,7 @@ def collect_verified_segments(body,cache,request,model,voice):
                 row['start_word']=position;position+=len(text.split());row['end_word']=position
                 accepted.append(part);accepted_text.append(text)
             reports.append(row)
-            write_json(cache/'audio-quality-progress.json',{'parts':reports,
+            write_json(cache/'audio-quality-progress.json',{'normalization_version':NORMALIZATION_VERSION,'parts':reports,
                 'source_parts':len(parts),'accepted_leaf_parts':len(accepted),
                 'maximum_split_depth':1,'complete':False})
             if result['passed']:return
@@ -176,6 +182,6 @@ def build_audio(edition,cache,output,request):
     tail=inspect_ending(temp,body,folder)
     if not tail['result']['passed']:raise RuntimeError('Assembled episode closing narration is incomplete')
     temp.replace(output)
-    report={'schema_version':2,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
+    report={'schema_version':2,'normalization_version':NORMALIZATION_VERSION,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
     write_json(cache/'audio-quality.json',report)
     return seconds
