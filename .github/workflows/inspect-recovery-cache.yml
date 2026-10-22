@@ -35,14 +35,14 @@ jobs:
           EDITION: ${{ steps.date.outputs.value }}
         run: |
           python3 - <<'PY'
-          import hashlib,json,os,re
+          import hashlib,json,os,re,wave
           from pathlib import Path
           date=os.environ['EDITION']
           if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',date):raise SystemExit('Invalid date')
           root=Path('.release-cache')/date
           def read(p):
               if not p.exists():return None
-              if p.stat().st_size>2000000:raise SystemExit('Unexpected metadata size')
+              if p.is_symlink() or p.stat().st_size>2000000:raise SystemExit('Unexpected metadata size or type')
               return json.loads(p.read_text())
           def safe(d,keys):return {k:d.get(k) for k in keys} if isinstance(d,dict) else None
           report={'edition_date':date,'operation':'read_only_recovery_inspection','publication_attempted':False,'paid_api_calls':0,'cache_modified':False}
@@ -65,6 +65,18 @@ jobs:
               report['section_ledgers'].append(row)
           responses=read(root/'api-responses.json') or {}
           report['last_api_response']=safe((responses.get('responses') or [{}])[-1],['stage','status','incomplete_reason','requested_output_limit','run_id','visible_characters'])
+          audio=root/'audio-v2/assembled.wav'
+          report['audio_assembly']={'exists':audio.exists()}
+          if audio.exists():
+              if audio.is_symlink() or (root/'audio-v2').is_symlink() or audio.stat().st_size>268435456:
+                  raise SystemExit('Unsafe assembled audio')
+              with wave.open(str(audio),'rb') as f:
+                  report['audio_assembly'].update(frames=f.getnframes(),sample_rate=f.getframerate(),channels=f.getnchannels(),sample_width=f.getsampwidth(),duration_seconds=f.getnframes()/f.getframerate())
+          quality=read(root/'audio-quality-progress.json') or {}
+          report['audio_progress']=safe(quality,['normalization_version','source_parts','accepted_leaf_parts','maximum_split_depth','complete'])
+          rows=quality.get('parts',[])
+          report['accepted_word_end']=max((r.get('end_word',0) for r in rows if r.get('passed') is True),default=0)
+          report['speech_request_count']=sum((read(p) or {}).get('attempts',0) for p in (root/'audio-v2').glob('*-attempts.json'))
           Path('recovery-inspection.json').write_text(json.dumps(report,indent=2)+'\n')
           print(json.dumps(report,indent=2))
           PY
