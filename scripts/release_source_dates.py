@@ -86,7 +86,9 @@ def take_source_date_review(edition, cache, model, request, output_text, provena
     else: write_json(identity,marker)
     documents=collect_source_evidence(candidate,cache)
     urls=set(provenance)|evidence_urls(candidate,documents)
-    prompt=policy+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents)
+    from release_audit_evidence import bound_evidence_documents
+    audit_documents=bound_evidence_documents(folder,candidate,documents,REVIEW_ROOT)
+    prompt=policy+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(audit_documents)
     payload={'model':model,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':7000,
         'max_tool_calls':10,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
         'tool_choice':'required','include':['web_search_call.action.sources'],'input':prompt,
