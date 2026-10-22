@@ -23,13 +23,13 @@ jobs:
           path: .release-cache
           key: audit-inspection-only-${{ github.run_id }}
           restore-keys: rural-release-v1-2026-10-22-
-      - name: Inspect the exact retained candidate and incomplete initial review
+      - name: Inspect the hash-pinned corrected candidate and incomplete follow-up review
         run: |
           python3 - <<'PY'
           import hashlib,json,re
           from pathlib import Path
           root=Path('.release-cache/2026-10-22')
-          sha='b4ea9702ca2077eac59747f840c61b691f83240e5c78ff91be8399ea1985a4e6'
+          sha='e1e0643f5f69b39bd09b9c034119b5e05161d3770f2df9f610f87fb095e2b821'
           def fingerprint(value):
               return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
           def read(p):
@@ -43,23 +43,25 @@ jobs:
           folder=root/'editorial-loop-v1'
           if root.is_symlink() or (root/'candidates').is_symlink() or folder.is_symlink():
               raise SystemExit('Unsafe diagnostic directory')
-          original=read(folder/'original.json')
-          candidate=original.get('candidate')
-          if fingerprint(candidate)!=sha or original.get('candidate_sha256')!=sha:
-              raise SystemExit('Candidate identity differs')
-          if candidate.get('edition_date')!='2026-10-22' or original.get('publication_authorized') is not False:
+          snapshot=read(root/'candidates'/('editorial-corrected-'+sha[:16]+'.json'))
+          candidate=snapshot.get('candidate')
+          correction=read(root/'validation-editorial-correction.json')
+          if fingerprint(candidate)!=sha or snapshot.get('candidate_sha256')!=sha or correction.get('candidate_sha256')!=sha:
+              raise SystemExit('Corrected candidate identity differs')
+          if candidate.get('edition_date')!='2026-10-22' or snapshot.get('publication_authorized') is not False or snapshot.get('redacted') is not False:
               raise SystemExit('Invalid candidate state')
-          result=read(folder/'initial-result.json')
-          reservation=read(folder/'initial-reserved.json')
+          slot='reference-corrected-final'
+          result=read(folder/(slot+'-result.json'))
+          reservation=read(folder/(slot+'-reserved.json'))
           review=result.get('value')
           if result.get('value_sha256')!=fingerprint(review) or result.get('payload_sha256')!=reservation.get('payload_sha256'):
               raise SystemExit('Saved review integrity differs')
           if review.get('review_complete') is not False:
-              raise SystemExit('Expected incomplete review is absent')
+              raise SystemExit('Expected incomplete follow-up review is absent')
           out=Path('editorial-inspection');out.mkdir()
           (out/'candidate.json').write_text(json.dumps(candidate,ensure_ascii=False,indent=2)+'\n')
-          (out/'initial-review.json').write_text(json.dumps(review,ensure_ascii=False,indent=2)+'\n')
-          metadata={'edition_date':'2026-10-22','candidate_sha256':sha,'review_sha256':fingerprint(review),'review_complete':False,'finding_count':len(review.get('findings',[])),'correction_reserved':(folder/'correction-reserved.json').exists(),'final_review_reserved':(folder/'final-reserved.json').exists(),'publication_attempted':False,'cache_modified':False,'paid_api_calls':0,'publication_authorized':False}
+          (out/'followup-review.json').write_text(json.dumps(review,ensure_ascii=False,indent=2)+'\n')
+          metadata={'edition_date':'2026-10-22','candidate_sha256':sha,'review_sha256':fingerprint(review),'review_complete':False,'finding_count':len(review.get('findings',[])),'slot':slot,'publication_attempted':False,'cache_modified':False,'paid_api_calls':0,'publication_authorized':False}
           (out/'inspection.json').write_text(json.dumps(metadata,indent=2)+'\n')
           print(json.dumps(metadata))
           PY
