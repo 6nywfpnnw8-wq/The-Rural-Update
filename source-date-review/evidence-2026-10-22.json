@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-22",
+  "candidate_sha256": "799faeda94dd5d1f92d854799d098001509a731f21cd165384461735f27a59a1",
+  "publication_authorized": false,
+  "sources": [
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56010,
+      "sha256": "c9fe2d343dec1aaed87e09b66aa45e0768190c4afabb389b1ae2ff4b1f836fc4",
+      "text_sha256": "fb0414ea7b7b9fa937af50fa0d260d650e359b80000c212e6e843de0b52930bc",
+      "retrieved_at": "2026-10-22T21:01:52.115474+00:00",
+      "method": "direct_https",
+      "source_id": "cms-indirect-hold-harmless"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "final_url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 184560,
+      "sha256": "486cce5b2083b11f4c38520f9beea88d4023d7c874b53ff482d27830fdffc312",
+      "text_sha256": "7466d6c7a6d8670e65178f1290a4202742fab64e9b7e29f90250ec6c75a3f371",
+      "retrieved_at": "2026-10-22T21:01:52.224143+00:00",
+      "method": "direct_https",
+      "source_id": "cms-rhc-telehealth-transmittal"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 53694,
+      "sha256": "6f42598ec712e86491c4f988cc65456c0e5afba343fab0f7f0799de3fad61ee4",
+      "text_sha256": "92005ab1cbc479a770d35aeb2c7e8a9462dd4ded0ad65ed0ccbeee359ee24c2d",
+      "retrieved_at": "2026-10-22T21:01:52.327860+00:00",
+      "method": "direct_https",
+      "source_id": "cms-generous-press-release"
+    },
+    {
+      "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "final_url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 186493,
+      "sha256": "e9e09702419c71d3bff4677329b8f4e24baf18da7c32d7c715915b278569a04d",
+      "text_sha256": "39d989b340fcf8d4b4de7deb45cddb1ce165a1e558239a8f553e9071d1678634",
+      "retrieved_at": "2026-10-22T21:01:52.452315+00:00",
+      "method": "direct_https",
+      "source_id": "cms-fqhc-rhc-news"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/health-safety-standards/certification-compliance/rural-emergency-hospitals",
+      "final_url": "https://www.cms.gov/medicare/health-safety-standards/certification-compliance/rural-emergency-hospitals",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 204427,
+      "sha256": "217254c5f91ce8df448360f1723d95ad3e810c018aea5488da7835c7db6ad484",
+      "text_sha256": "16e8082456b1858accf361b7a7f4a8527f71da6bcb980674bc43dbe6a3bccacf",
+      "retrieved_at": "2026-10-22T21:01:52.718187+00:00",
+      "method": "direct_https",
+      "source_id": "cms-reh-main"
+    },
+    {
+      "url": "https://www.oklahoma.gov/rhtp.html",
+      "final_url": "https://www.oklahoma.gov/rhtp.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 185788,
+      "sha256": "6dc413f8c141524533a60164f9b3678e4532c4d17f54624948ed71d42f35ca78",
+      "text_sha256": "ec079fd79510380d70d25a9e0334ca7ea972d68611bcce0de62a27cb62fccb9c",
+      "retrieved_at": "2026-10-22T21:01:52.911196+00:00",
+      "method": "direct_https",
+      "source_id": "ok-rhtp-main"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 260244,
+      "sha256": "95f5bcebced345bec36033853605fa96c81c2f040537621a9163fe33643284fa",
+      "text_sha256": "478932156da417d95f842ac0002aac268e118c6d736b6140f11490a4052e3830",
+      "retrieved_at": "2026-10-22T21:01:53.021217+00:00",
+      "method": "direct_https",
+      "source_id": "ok-rhtp-recipients"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 384936,
+      "sha256": "c7fe0f057b25a239f6d2e499339b257ad716bfa268781914d0d7f3aaf321c2ae",
+      "text_sha256": "de4bac8a3b5202bf071faf5ad5632ca7aced3495840305dbdb3d081a7286f2c3",
+      "retrieved_at": "2026-10-22T21:01:53.231018+00:00",
+      "method": "direct_https",
+      "source_id": "ok-rhtp-funding"
+    }
+  ],
+  "failures": [],
+  "complete": true
+}
