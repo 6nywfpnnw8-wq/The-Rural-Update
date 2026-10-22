@@ -71,12 +71,37 @@ class AuditEvidenceReuseTests(unittest.TestCase):
         self.bind();self.docs[0]['text']+=' Changed policy.'
         with self.assertRaisesRegex(ValueError,'text digest'):self.bind()
 
-    def test_changed_raw_bytes_or_url_or_status_rejected(self):
+    def test_changed_source_identity_or_status_rejected(self):
         self.bind();base=copy.deepcopy(self.docs)
-        for key,value in (('sha256','0'*64),('bytes',5),('url','https://www.cms.gov/other'),('http_status',403)):
+        for key,value in (('url','https://www.cms.gov/other'),('final_url','https://www.cms.gov/other'),('content_type','text/plain'),('http_status',403)):
             with self.subTest(key=key):
                 self.docs=copy.deepcopy(base);self.docs[0][key]=value
                 with self.assertRaises(ValueError):self.bind()
+
+    def test_raw_html_change_with_identical_audit_text_is_recorded(self):
+        original=self.bind();self.docs[0]['sha256']='0'*64;self.docs[0]['bytes']+=17
+        self.docs[0]['retrieved_at']='2026-10-22T11:00:00+00:00'
+        fresh=copy.deepcopy(self.docs);bound=self.bind()
+        self.assertEqual(evidence_prompt(original),evidence_prompt(bound))
+        self.assertEqual(self.docs,fresh)
+        report=read_json(self.folder.parent/'validation-audit-evidence-reuse.json')
+        self.assertEqual(report['raw_metadata_changed_sources'],['one'])
+        self.assertIs(report['publication_authorized'],False)
+
+    def test_malformed_raw_metadata_rejected(self):
+        self.bind();base=copy.deepcopy(self.docs)
+        for key,value in (('sha256','invalid'),('bytes',0),('bytes',True),('bytes',2097153)):
+            with self.subTest(key=key,value=value):
+                self.docs=copy.deepcopy(base);self.docs[0][key]=value
+                with self.assertRaisesRegex(ValueError,'raw source'):
+                    self.bind()
+
+    def test_raw_and_text_change_still_requires_new_review(self):
+        self.bind();self.docs[0]['sha256']='0'*64
+        self.docs[0]['text']+=' New substantive sentence.'
+        self.docs[0]['text_sha256']=digest(self.docs[0]['text'])
+        with self.assertRaisesRegex(ValueError,'contents changed'):
+            self.bind()
 
     def test_candidate_change_is_rejected(self):
         self.bind();self.edition['title']='Changed candidate'
