@@ -121,9 +121,25 @@ class ReviewedReferenceTests(unittest.TestCase):
     def test_final_blocking_claim_still_blocks(self):
         f=copy.deepcopy(self.initial['findings'][0]);f['quote']=self.corrected['stories'][0]['what_changed']
         f['source_ids']=['s1'];f['kind']='unsupported_claim'
-        with self.assertRaisesRegex(RuntimeError,'Blocking findings remain'):
-            self.run_audit({'review_complete':True,'findings':[f]})
+        report={'review_complete':True,'findings':[f]}
+        replacement='Leadership should independently verify this operational update.'
+        plan={'replacements':[{'path':f['path'],'before':f['quote'],
+                              'after':replacement,'addresses':['F1']}]}
+        final=copy.deepcopy(report);final['findings'][0]['quote']=replacement
+        urls={s['url'] for s in self.corrected['sources']}
+        # Model each stage distinctly: a valid correction is not final approval.
+        with patch('release_reviewed_reference.REVIEW_ROOT',self.review_root), \
+             patch.object(loop,'collect_source_evidence',return_value=[]), \
+             patch.object(loop,'evidence_urls',return_value=urls), \
+             patch.object(loop,'_call',side_effect=[(report,urls,None),
+                 (plan,set(),None),(final,urls,None)]) as call:
+            with self.assertRaisesRegex(RuntimeError,'Blocking findings remain'):
+                loop.audit_and_correct(self.edition,self.cache,'test-model',None,None,[],urls,None)
+        self.assertEqual([c.args[1] for c in call.call_args_list],
+                         ['final','reference-correction','reference-corrected-final'])
         self.assertFalse((self.cache/'approved.json').exists())
+        self.assertEqual(read_json(self.cache/'attempts.json'),{'attempts':2})
+        self.assertFalse(read_json(self.folder/'initial-result.json')['value']['review_complete'])
     def test_final_unbound_quote_still_blocks(self):
         f=copy.deepcopy(self.initial['findings'][0]);f['source_ids']=['s1']
         with self.assertRaisesRegex(ValueError,'does not quote'):
