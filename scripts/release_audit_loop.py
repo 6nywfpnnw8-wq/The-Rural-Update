@@ -269,7 +269,12 @@ review complete if source metadata prevents reliable verification. No em dashes.
             'tool_choice':'required','include':['web_search_call.action.sources'],'input':prompt,
             'text':{'format':{'type':'json_schema','name':'editorial_audit_structured','strict':True,
                             'schema':audit_schema(candidate)}}}
-        report,urls,usage=_call(folder,slot,payload,request,output_text)
+        if reviewed is not None and slot=='final':
+            from release_rejected_review import call_with_rejected_feedback
+            report,urls,usage=call_with_rejected_feedback(folder,slot,payload,request,
+                output_text,candidate,_call,validate_review)
+        else:
+            report,urls,usage=_call(folder,slot,payload,request,output_text)
         blocking=validate_review(report,candidate);all_urls.update(urls);audit_usage.append(usage)
         print('Structured editorial review: '+slot+'; blocking='+str(len(blocking))+
               '; advisory='+str(len(report['findings'])-len(blocking)),flush=True)
