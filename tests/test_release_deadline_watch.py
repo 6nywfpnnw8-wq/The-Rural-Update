@@ -63,7 +63,7 @@ class DeadlineWatchTests(unittest.TestCase):
         self.assertEqual(original['candidate'],e)
         self.assertFalse(report['publication_authorized'])
         self.assertTrue(report['evidence_review_required'])
-        self.assertFalse(report['dates_changed'])
+        self.assertFalse(report['deadline_dates_changed'])
         self.assertFalse((self.cache/'approved.json').exists())
         self.assertNotEqual(report['original_candidate_sha256'],report['selected_candidate_sha256'])
     def test_unresolved_source_in_expired_row_not_discarded(self):
@@ -78,10 +78,36 @@ class DeadlineWatchTests(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError,'approved public domains'):
             core.validate_edition(e,DATE)
     def test_other_later_validation_error_stays_blocked(self):
-        e=self.expired(); e['actions'][0]['due_date']='2026-10-10'
+        e=self.expired(); e['actions'][0]['due_date']='2026-10-09'
         out=select_upcoming_deadlines(e,self.cache)
         with self.assertRaisesRegex(AssertionError,'Action due date is already past'):
             core.validate_edition(out,DATE)
+    def test_matched_expired_internal_action_has_no_invented_due_date(self):
+        e=self.expired(); e['actions'][0]['due_date']='2026-10-10'
+        original=copy.deepcopy(e)
+        out=select_upcoming_deadlines(e,self.cache)
+        self.assertEqual(e,original)
+        self.assertIsNone(out['actions'][0]['due_date'])
+        self.assertEqual(out['podcast'],e['podcast'])
+        self.assertEqual(out['sources'],e['sources'])
+        self.assertEqual(out['actions'][0]['next_step'],e['actions'][0]['next_step'])
+        core.validate_edition(out,DATE)
+        report=core.read_json(self.cache/'validation-deadline-watch.json')
+        self.assertFalse(report['new_dates_assigned'])
+        self.assertEqual(report['action_dates_cleared'][0]['previous_date'],'2026-10-10')
+        self.assertTrue(report['evidence_review_required'])
+    def test_official_expired_deadline_cannot_clear_action(self):
+        e=self.expired();e['actions'][0]['due_date']='2026-10-10'
+        e['deadlines'][0]['kind']='Official deadline'
+        out=select_upcoming_deadlines(e,self.cache)
+        self.assertEqual(out['actions'][0]['due_date'],'2026-10-10')
+        with self.assertRaisesRegex(AssertionError,'already past'):core.validate_edition(out,DATE)
+    def test_unrelated_source_cannot_clear_action(self):
+        e=self.expired();e['actions'][0]['due_date']='2026-10-10'
+        e['deadlines'][0]['source_ids']=['s2']
+        out=select_upcoming_deadlines(e,self.cache)
+        self.assertEqual(out['actions'][0]['due_date'],'2026-10-10')
+        with self.assertRaisesRegex(AssertionError,'already past'):core.validate_edition(out,DATE)
     def test_same_date_recovery_preserves_ledger_and_provenance(self):
         self.retained(); before=(self.cache/'attempts.json').read_bytes()
         out,urls=take_deadline_recovery(self.cache,DATE)
