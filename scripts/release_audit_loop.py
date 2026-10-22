@@ -3,6 +3,8 @@
 One structured audit, at most one field-replacement request, and one fresh audit.
 Each request is reserved before submission. Retries reuse recorded results; they
 cannot reset an editorial/research ledger or spend another correction allowance.
+A reviewed reference repair can use one separately reserved claim-correction
+cycle after its complete review. Its earlier incomplete review stays rejected.
 """
 from __future__ import annotations
 import copy
@@ -253,10 +255,13 @@ review complete if source metadata prevents reliable verification. No em dashes.
     if reviewed is not None:
         candidate=reviewed
         print('Reviewed citation correction retained; the unused final full-source audit is still required.',flush=True)
-    for iteration in ((1,) if reviewed is not None else (0,1)):
-        slot='initial' if iteration==0 else 'final'
+    # Citation repair is not a factual claim correction. Reuse its completed
+    # review, then permit exactly one separately reserved correction and check.
+    # Never reopen initial/final slots or approve an incomplete review.
+    review_slots=('final','reference-corrected-final') if reviewed is not None else ('initial','final')
+    for iteration,slot in enumerate(review_slots):
         # Rebind fetched source evidence to the exact corrected candidate.
-        if iteration:documents=collect_source_evidence(candidate,cache)
+        if reviewed is not None or iteration:documents=collect_source_evidence(candidate,cache)
         all_urls.update(evidence_urls(candidate,documents))
         prompt=policy+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents)
         payload={'model':model,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':7000,
@@ -274,8 +279,8 @@ review complete if source metadata prevents reliable verification. No em dashes.
         public_report={'schema_version':1,'edition_date':date,'stage':'structured-review',
             'candidate_sha256':fingerprint(candidate),'review_complete':True,
             'blocking_count':len(blocking),'advisory_count':len(report['findings'])-len(blocking),
-            'findings':report['findings'],'correction_calls':0 if reviewed is not None else iteration,
-            'correction_method':'reviewed-reference' if reviewed is not None else 'automated',
+            'findings':report['findings'],'correction_calls':iteration,
+            'correction_method':('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated',
             'publication_authorized':False}
         write_json(cache/'validation-structured-review.json',public_report)
         if not blocking:
@@ -284,8 +289,8 @@ review complete if source metadata prevents reliable verification. No em dashes.
                 'candidate_sha256':fingerprint(candidate),'audit':verdict,
                 'source_evidence_sha256':digest((cache/'source-evidence.json').read_bytes()),
                 'retrieved_urls':sorted(all_urls),'run_id':os.getenv('GITHUB_RUN_ID'),
-                'review_version':VERSION,'correction_calls':0 if reviewed is not None else iteration,
-                'correction_method':'reviewed-reference' if reviewed is not None else 'automated'})
+                'review_version':VERSION,'correction_calls':iteration,
+                'correction_method':('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated'})
             record={'edition':candidate,'audit':verdict,'retrieved_urls':sorted(all_urls),
                 'model':model,'audit_candidate_sha256':fingerprint(candidate),
                 'source_retrieval':read_json(cache/'source-evidence.json')['sources'],
@@ -320,7 +325,8 @@ IDs it addresses. A separate independent full-source audit will review the resul
                     '\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents),
             'text':{'format':{'type':'json_schema','name':'editorial_field_correction','strict':True,
                             'schema':patch_schema}}}
-        plan,_,_=_call(folder,'correction',patch_payload,request,output_text)
+        correction_slot='reference-correction' if reviewed is not None else 'correction'
+        plan,_,_=_call(folder,correction_slot,patch_payload,request,output_text)
         from release_editorial_budget import apply_with_bluf_budget
         candidate=apply_with_bluf_budget(candidate,report,plan,
             apply=apply_replacements,call=_call,folder=folder,model=model,
