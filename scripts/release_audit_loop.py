@@ -165,7 +165,7 @@ def load_rejected_candidate(cache, expected):
                 or snap.get('candidate_sha256')!=sha):continue
         item=_read_snapshot(cache/'candidates'/(stage+'-'+sha[:16]+'.json'),expected,stage)
         if item and item['candidate_sha256']==sha:
-            validate_edition(item['candidate'],expected)
+            validate_edition(candidate,expected)
             return item['candidate'],set(item.get('retrieved_urls',[]))
     raise ValueError('Rejected audit has no matching intact candidate checkpoint')
 
@@ -249,6 +249,11 @@ Do not demand additional sources for a cautious recommendation that makes no uns
 factual assertion. Missing material evidence must block, not be guessed. Do not mark a
 review complete if source metadata prevents reliable verification. No em dashes.
 '''
+    from release_source_dates import DATE_POLICY, take_source_date_review
+    policy += DATE_POLICY
+    date_recovery=take_source_date_review(edition,cache,model,request,output_text,
+        provenance,generation_usage,policy,audit_schema,validate_review,_call)
+    if date_recovery is not None:return date_recovery
     audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(edition)
     from release_reviewed_reference import take_reviewed_reference
     reviewed=take_reviewed_reference(edition,cache)
