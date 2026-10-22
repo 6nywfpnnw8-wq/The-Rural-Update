@@ -9,7 +9,7 @@ import copy
 import json
 import os
 import re
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Callable
 from jsonschema import Draft202012Validator
@@ -122,7 +122,7 @@ def _web_items(response):
     return result
 
 
-def reporting_schema(catalog: list[dict] | None = None) -> dict:
+def reporting_schema(catalog: list[dict] | None = None, expected: str | None = None) -> dict:
     """Constrain executive-field size during generation, never truncate a draft."""
     schema=json.loads(json.dumps(SCHEMA))
     schema['properties'].pop('podcast')
@@ -153,6 +153,12 @@ def reporting_schema(catalog: list[dict] | None = None) -> dict:
                 else:bind(child)
             if isinstance(node.get('items'),dict):bind(node['items'])
         bind(schema)
+    if expected is not None:
+        start=date.fromisoformat(expected)
+        upcoming=[(start+timedelta(days=n)).isoformat() for n in range(31)]
+        schema['properties']['edition_date']['enum']=[expected]
+        schema['properties']['deadlines']['items']['properties']['date']['enum']=upcoming
+        schema['properties']['actions']['items']['properties']['due_date']['enum']=[None,*upcoming]
     return schema
 
 
@@ -302,7 +308,8 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
         selected={'sources':catalog,'usage':raw.get('usage')}
         _save(folder/'sources.json',identity,selected)
     catalog=validate_source_catalog(selected['sources'],urls)
-    schema=reporting_schema(catalog)
+    expected=Path(cache).name
+    schema=reporting_schema(catalog,expected if re.fullmatch(r'\d{4}-\d{2}-\d{2}',expected) else None)
     reporting=_cached(folder/'reporting.json',identity)
     if reporting is None:
         req={**common,'max_output_tokens':16000,
@@ -316,7 +323,9 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'source_ids only from the supplied fixed catalog, and ISO dates or null. Do not treat a last-modified date '
                  'as a new award. Recommendations are not completed staff work. Keep the '
                  'executive BLUF under 180 words. Include only deadlines in the next 30 days; '
-                 'label optional internal checkpoints explicitly. No HTML or unfinished text. '
+                 'label optional internal checkpoints explicitly. Omit out-of-window deadlines rather than changing their dates. '
+                 'Leave an action due_date null when no supported current planning date exists. '
+                 'Never invent a statutory or planning date just to match the date enum. No HTML or unfinished text. '
                  'Use no em dashes. Do not invent references or force news into every category. '
                  'The older intelligence is context, not evidence. A later independent audit '
                  'will compare all claims with the actual contents of the sources.'),
