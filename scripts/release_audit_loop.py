@@ -165,7 +165,7 @@ def load_rejected_candidate(cache, expected):
                 or snap.get('candidate_sha256')!=sha):continue
         item=_read_snapshot(cache/'candidates'/(stage+'-'+sha[:16]+'.json'),expected,stage)
         if item and item['candidate_sha256']==sha:
-            validate_edition(candidate,expected)
+            validate_edition(item['candidate'],expected)
             return item['candidate'],set(item.get('retrieved_urls',[]))
     raise ValueError('Rejected audit has no matching intact candidate checkpoint')
 
