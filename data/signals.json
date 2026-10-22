@@ -151,24 +151,24 @@
   },
   {
     "id": "signal-medicaid-financing",
-    "title": "medicaid financing pressure",
+    "title": "medicaid financing pressure from provider-tax proposal",
     "direction": "Planning risk",
     "confidence": "High",
     "horizon": "12-48 months",
     "executiveRisk": "High",
-    "summary": "CMS-2452-P remains a provider-tax proposal requiring scenario analysis. Separately, RHTP provides time-limited transformation support, not an assumed permanent replacement for Medicaid operating revenue. Oklahoma facility exposure depends on enacted state and federal requirements and each facility's funding structure.",
-    "why": "separate uncertain policy scenarios from confirmed budget changes and prepare downside financial scenarios.",
+    "summary": "CMS-2452-P would change indirect hold-harmless thresholds and limit provider-tax constructs used to fund supplemental payments; facility impact depends on final rule and state responses.",
+    "why": "Separate uncertain federal scenarios from confirmed state budget changes; run downside models and seek OHCA guidance before altering operating forecasts.",
     "refs": [
       [
-        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P) - CMS fact sheet",
+        "Fact Sheet: Amending the Indirect Hold Harmless Threshold (Proposed Rule CMS-2452-P)",
         "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ],
       [
-        "CMS Launches Landmark $50 Billion Rural Health Transformation Program",
-        "https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program"
+        "CMS Press Release - CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
       ]
     ],
-    "reviewed": "2026-10-20"
+    "reviewed": "2026-10-21"
   },
   {
     "id": "signal-rhc-telehealth",
@@ -177,60 +177,64 @@
     "confidence": "High",
     "horizon": "0-3 months",
     "executiveRisk": "High",
-    "summary": "transmittal r13776otn and cms announcements require rhc and fqhc distant-site telehealth billing using individual service codes for dates of service starting 2026-10-01; measure payer acceptance and remittance behavior.",
-    "why": "validate claim edits, modifiers and remittance behavior rather than assume improved payment.",
+    "summary": "Transmittal R13776OTN requires distant-site telehealth billing by individual CPT/HCPCS codes plus telehealth modifiers; CMS’s FQHC/RHC news indicates the policy begins October 1, 2026 while the transmittal lists an Implementation Date of October 5, 2026. Payer acceptance and remittance behavior should be measured now with an initial focused sample for dates of service October 1–October 5 (inclusive) to document whether payers accepted CPT/HCPCS plus telehealth modifiers prior to the transmittal’s implementation date, followed by a broader October reconciliation to capture ongoing adjudication patterns.",
+    "why": "Operational revenue risk is driven by EDI edits, modifier logic and payer adjudication rather than by policy uncertainty; reconcile claims and remittances to measure real-dollar impact.",
     "refs": [
       [
-        "R13776OTN - Billing of Distant Site Telehealth Services in RHCs and FQHCs (CMS transmittal)",
+        "Medicare Transmittals - R13776OTN (Billing of Distant Site Telehealth Services for RHCs/FQHCs)",
         "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
       ],
       [
-        "FQHC/RHC News & Announcements (telehealth billing updates)",
+        "CMS FQHC & RHC News and Announcements",
         "https://www.cms.gov/fqhc-rhc-news-announcements"
       ]
     ],
-    "reviewed": "2026-10-20"
+    "reviewed": "2026-10-21"
   },
   {
     "id": "signal-generous-implementation",
-    "title": "generous pharmacy readiness",
+    "title": "generous model national participation (state-level execution conditional)",
     "direction": "Conditional implementation",
     "confidence": "Medium",
     "horizon": "3-12 months",
     "executiveRisk": "Moderate",
-    "summary": "CMS reported national applications and signed agreements for GENEROUS. The cited materials do not establish Oklahoma's execution status or changes to hospital pharmacy or 340B revenue. Assess possible effects only after applicable state and product terms are documented.",
-    "why": "seek product-level and payer-level instructions rather than infer reimbursement changes.",
+    "summary": "CMS reported broad state application and multiple signed agreements for the GENEROUS model, but the national announcement alone does not prove Oklahoma executed participation terms that would change pharmacy or 340B economics.",
+    "why": "Hospitals need state-level documentation of executed terms and product lists before mapping operational or financial impact to pharmacy and 340B programs.",
     "refs": [
       [
-        "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS) - press release",
+        "CMS Press Release - CMS Announces Participants in GENEROUS Medicaid Drug Payment Model",
         "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
       ],
       [
-        "GENEROUS (GENErating cost Reductions fOr U.S. Medicaid) Model",
-        "https://www.cms.gov/priorities/innovation/innovation-models/generous"
+        "CMS Press Release - CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
       ]
     ],
-    "reviewed": "2026-10-20"
+    "reviewed": "2026-10-21"
   },
   {
     "id": "signal-rhtp-regionalization",
-    "title": "regional coordination",
+    "title": "rhtp moving into state implementation",
     "direction": "Active planning",
     "confidence": "High",
     "horizon": "1-5 years",
     "executiveRisk": "Opportunity",
-    "summary": "cms rhtp awards are in implementation and oklahoma has published recipient lists and program guidance, signaling active regional projects that require post-grant sustainability planning.",
-    "why": "use project and meeting information to build accountable operating designs and post-grant budgets.",
+    "summary": "CMS RHTP awards are transitioning into state subawards; Oklahoma published NOFOs and recipient lists that show active regional projects and funding windows.",
+    "why": "Use NOFO timelines and subaward terms to build accountable operating designs and post-grant budgets; do not treat grant funding as permanent operating revenue.",
     "refs": [
       [
-        "CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States (RHTP press release)",
+        "CMS Press Release - CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States",
         "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
       ],
       [
-        "Oklahoma RHTP program and funding pages",
-        "https://www.oklahoma.gov/rhtp.html"
+        "Oklahoma RHTP - Program and Funding Information (NOFOs, guidance, timelines)",
+        "https://www.oklahoma.gov/rhtp/rhtp-funding.html"
+      ],
+      [
+        "Oklahoma RHTP - Funding Recipients",
+        "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html"
       ]
     ],
-    "reviewed": "2026-10-20"
+    "reviewed": "2026-10-21"
   }
 ]

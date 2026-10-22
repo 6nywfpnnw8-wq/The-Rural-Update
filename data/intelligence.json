@@ -589,6 +589,36 @@
       "due": "Ongoing",
       "next": "assemble finance, medicaid managed-care and cfo teams to quantify revenue tied to provider-tax funded supplemental payments; create cash-stress scenarios if cms finalizes cms-2452-p.",
       "source": "medicaid-financing-cms-2452-p"
+    },
+    {
+      "id": "validate-oct-telehealth-claims",
+      "title": "validate October RHC distant-site telehealth claims including an Oct 1–Oct 5 focused test window",
+      "status": "Open",
+      "owner": "revenue-cycle / rhc operations / it",
+      "owner_is_suggested": true,
+      "due": "2026-10-21",
+      "next": "Extract a representative sample of RHC telehealth claims with dates of service from 2026-10-01 to 2026-10-21, confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and log payer-specific denials for corrective edits.",
+      "source": "rhc-telehealth-billing-change"
+    },
+    {
+      "id": "model-medicaid-financing-downside",
+      "title": "build a state-level downside model isolating provider-tax and supplemental-payment exposure",
+      "status": "Open",
+      "owner": "finance / cfo / medicaid managed care",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Quantify revenue and cash-flow tied to provider-tax funded supplemental payments under the CMS-2452-P proposed scenarios; request OHCA statements of intent before rebasing budgets.",
+      "source": "cms-2452p-provider-tax-proposal"
+    },
+    {
+      "id": "confirm-generous-oklahoma-status",
+      "title": "confirm oklahoma GENEROUS participation and operational effects",
+      "status": "Open",
+      "owner": "medicaid / pharmacy / finance",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Request written OHCA confirmation of GENEROUS execution status, covered-drug lists and any MCO pass-through or formulary instructions before changing pharmacy or 340B forecasts.",
+      "source": "generous-medicaid-drug-payment-model"
     }
   ],
   "changes": {
@@ -611,5 +641,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-20"
+  "reviewed": "2026-10-21"
 }
