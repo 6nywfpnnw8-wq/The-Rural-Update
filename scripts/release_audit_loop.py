@@ -85,7 +85,8 @@ def validate_review(report, edition):
         if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,79}',finding['id']) or finding['id'] in ids:
             raise ValueError('Invalid or duplicate audit finding ID')
         ids.add(finding['id'])
-        if not finding['quote'].strip() or finding['quote'] not in fields[finding['path']]:
+        from release_quote_binding import quote_binding
+        if quote_binding(finding['quote'], fields[finding['path']], finding['path']) is None:
             raise ValueError('Audit finding does not quote the named candidate field')
         if not finding['explanation'].strip(): raise ValueError('Audit finding lacks explanation')
         if finding['kind'] in BLOCKING and not finding['required_change'].strip():
