@@ -110,6 +110,9 @@ def research(edition_date,previous,cache):
     if structured:
         from release_audit_loop import load_rejected_candidate
         recovered=load_rejected_candidate(cache,edition_date)
+    if recovered is None:
+        from release_deadline_watch import take_deadline_recovery
+        recovered=take_deadline_recovery(cache,edition_date)
     source_recovery=None
     if recovered is None:
         source_recovery=take_source_recovery(cache,edition_date,ROOT/'editorial-review')
@@ -191,6 +194,8 @@ Earlier public intelligence is context only, NOT independently verified evidence
             edition=ensure_narration_length(edition,cache,MODEL,request_api,output_text)
         except Exception as exc:
             raise diagnostics.fail('narration',exc,edition) from None
+        from release_deadline_watch import select_upcoming_deadlines
+        edition=select_upcoming_deadlines(edition,cache)
         diagnostics.validate(edition,validate_edition,'content',None)
     try:
         documents=collect_source_evidence(edition,cache)
