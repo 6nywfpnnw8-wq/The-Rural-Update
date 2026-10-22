@@ -572,12 +572,12 @@
     },
     {
       "id": "action-verify-generous-oklahoma-status",
-      "title": "confirm oklahoma generous participation terms and pharmacy operational effects",
+      "title": "Request written OHCA confirmation of GENEROUS participation and obtain state implementation terms",
       "status": "Open",
       "owner": "medicaid / pharmacy / finance",
       "owner_is_suggested": true,
-      "due": "2026-11-16",
-      "next": "By the suggested November 16 internal review date, ask OHCA whether Oklahoma has executed GENEROUS agreements and request any applicable published terms. Only if participation and requirements are documented should pharmacy teams map product, rebate and potential 340B implications. Do not assume those changes are already effective.",
+      "due": "Ongoing",
+      "next": "Contact OHCA to request written confirmation of executed GENEROUS participation, obtain lists of covered products, MCO passthrough instructions and any pharmacy or 340B operational guidance before changing forecasts.",
       "source": "generous-medicaid-model-implementation-watch"
     },
     {
@@ -619,6 +619,26 @@
       "due": "Ongoing",
       "next": "Request written OHCA confirmation of GENEROUS execution status, covered-drug lists and any MCO pass-through or formulary instructions before changing pharmacy or 340B forecasts.",
       "source": "generous-medicaid-drug-payment-model"
+    },
+    {
+      "id": "action-reconcile-oct-telehealth-claims",
+      "title": "Reconcile RHC distant-site telehealth production claims for dates of service Oct 1 onward",
+      "status": "Open",
+      "owner": "Revenue Cycle / RHC Operations / IT",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Extract a representative sample of RHC telehealth claims with dates of service from 2026-10-01 to 2026-10-21, confirm CPT/HCPCS codes and telehealth modifier usage, reconcile remittances and log payer-specific rejections for corrective edits.",
+      "source": "rhc-distant-site-telehealth-billing-conversion"
+    },
+    {
+      "id": "action-model-medicaid-provider-tax-downside",
+      "title": "Model state-level Medicaid downside that isolates provider-tax and supplemental-payment exposure",
+      "status": "Open",
+      "owner": "Finance / CFO / Medicaid Managed Care",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Assemble finance, Medicaid managed-care and CFO teams to quantify revenue tied to provider-tax funded supplemental payments; produce cash-stress scenarios assuming CMS finalizes CMS-2452-P language.",
+      "source": "medicaid-provider-tax-proposal-cms-2452-p"
     }
   ],
   "changes": {
@@ -641,5 +661,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-21"
+  "reviewed": "2026-10-22"
 }

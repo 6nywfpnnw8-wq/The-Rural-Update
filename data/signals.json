@@ -6,19 +6,19 @@
     "confidence": "High",
     "horizon": "1-5 years",
     "executiveRisk": "Opportunity",
-    "summary": "Oklahoma's collaborative schedule and recipient examples support ongoing regional coordination; they do not establish measured returns.",
-    "why": "Use project and meeting information to build an accountable operating design.",
+    "summary": "Oklahoma RHTP program pages and funding-recipient lists show active state subaward planning and collaborative meetings that enable regional projects across telehealth, workforce and transport; these are planning signals, not measured returns.",
+    "why": "Use published project and meeting information to build accountable operating designs and post-grant budgets; do not treat grants as permanent operating revenue.",
     "refs": [
       [
-        "Oklahoma: county collaborative meeting schedule",
-        "https://oklahoma.gov/rhtp.html"
+        "Oklahoma Rural Health Transformation Program (RHTP) - Program Overview",
+        "https://www.oklahoma.gov/rhtp.html"
       ],
       [
-        "Oklahoma: RHTP funding recipients, page updated October 15",
+        "Oklahoma RHTP - Funding Recipients (Awardee List)",
         "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html"
       ]
     ],
-    "reviewed": "2026-10-16"
+    "reviewed": "2026-10-22"
   },
   {
     "id": "medicaid-financing",
@@ -27,40 +27,40 @@
     "confidence": "High",
     "horizon": "12-48 months",
     "executiveRisk": "High",
-    "summary": "The statute and proposed implementing regulation create financing constraints; facility effects depend on state action and exposure.",
-    "why": "Keep uncertain policy scenarios separate from confirmed budget changes.",
+    "summary": "CMS-2452-P would change indirect hold-harmless thresholds and limit some provider-tax constructs used to fund supplemental payments; facility impact depends on final rule text and state responses.",
+    "why": "Keep federal proposed scenarios separate from confirmed state budget changes; run downside models and request OHCA guidance before changing forecasts.",
     "refs": [
       [
-        "CMS: provider-tax proposed-rule fact sheet",
+        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P) - Fact Sheet",
         "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ],
       [
-        "Federal Register: CMS-2452-P proposed rule",
-        "https://www.govinfo.gov/content/pkg/FR-2026-07-23/html/2026-14897.htm"
+        "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS) - Press Release",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
       ]
     ],
-    "reviewed": "2026-10-16"
+    "reviewed": "2026-10-22"
   },
   {
     "id": "rhc-sustainability",
-    "title": "RHC payment execution",
+    "title": "RHC telehealth payment execution",
     "direction": "Implementation watch",
     "confidence": "High",
     "horizon": "0-3 months",
     "executiveRisk": "High",
-    "summary": "The telehealth coding conversion requires operational verification while the stated payment methodology continues.",
-    "why": "Separate code compliance from an assumed new reimbursement opportunity.",
+    "summary": "Transmittal R13776OTN requires distant-site telehealth billing by CPT/HCPCS plus modifiers and CMS guidance cites Oct 1, 2026 dates of service; payer acceptance and remittance behavior should be measured now with focused claims reconciliation.",
+    "why": "Operational revenue risk is driven by EDI edits, modifier logic and payer adjudication rather than by policy wording alone; reconcile claims and remittances to measure real-dollar impact.",
     "refs": [
       [
-        "CMS: current RHC and FQHC billing announcements",
-        "https://www.cms.gov/fqhc-rhc-news-announcements"
+        "Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs/FQHCs",
+        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
       ],
       [
-        "CMS: R13776OTN telehealth billing transmittal",
-        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
+        "FQHC & RHC News and Announcements (CMS)",
+        "https://www.cms.gov/fqhc-rhc-news-announcements"
       ]
     ],
-    "reviewed": "2026-10-16"
+    "reviewed": "2026-10-22"
   },
   {
     "id": "payer-friction",
@@ -109,24 +109,24 @@
   },
   {
     "id": "generous-implementation",
-    "title": "GENEROUS pharmacy readiness",
+    "title": "GENEROUS model national participation (state-level execution conditional)",
     "direction": "Conditional implementation",
     "confidence": "Medium",
     "horizon": "3-12 months",
     "executiveRisk": "Moderate",
-    "summary": "Broad application interest is verified; this edition does not establish Oklahoma-specific executed terms.",
-    "why": "Seek product-level and payer-level instructions rather than infer reimbursement changes.",
+    "summary": "CMS announced broad state application and multiple signed agreements for GENEROUS nationally; this edition does not establish Oklahoma-specific executed terms that would change pharmacy or 340B economics.",
+    "why": "Hospitals need state-level documentation of executed terms and product lists before mapping operational or financial impact to pharmacy and 340B programs.",
     "refs": [
       [
-        "CMS: GENEROUS model overview",
-        "https://www.cms.gov/priorities/innovation/innovation-models/generous"
+        "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS) - Press Release",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
       ],
       [
-        "CMS: GENEROUS state application announcement",
-        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
+        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P) - Fact Sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ]
     ],
-    "reviewed": "2026-10-16"
+    "reviewed": "2026-10-22"
   },
   {
     "id": "signal-regionalization",

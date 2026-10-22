@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "updated": "2026-10-21",
+  "updated": "2026-10-22",
   "editions": [
+    {
+      "date": "2026-10-22",
+      "title": "Rural Update - Oklahoma edition",
+      "path": "archive/2026-10-22.html",
+      "format": "html",
+      "status": "available"
+    },
     {
       "date": "2026-10-21",
       "title": "Rural Update - Oklahoma edition",
