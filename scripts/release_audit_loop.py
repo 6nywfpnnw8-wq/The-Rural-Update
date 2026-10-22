@@ -248,7 +248,12 @@ factual assertion. Missing material evidence must block, not be guessed. Do not 
 review complete if source metadata prevents reliable verification. No em dashes.
 '''
     audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(edition)
-    for iteration in (0,1):
+    from release_reviewed_reference import take_reviewed_reference
+    reviewed=take_reviewed_reference(edition,cache)
+    if reviewed is not None:
+        candidate=reviewed
+        print('Reviewed citation correction retained; the unused final full-source audit is still required.',flush=True)
+    for iteration in ((1,) if reviewed is not None else (0,1)):
         slot='initial' if iteration==0 else 'final'
         # Rebind fetched source evidence to the exact corrected candidate.
         if iteration:documents=collect_source_evidence(candidate,cache)
@@ -269,7 +274,9 @@ review complete if source metadata prevents reliable verification. No em dashes.
         public_report={'schema_version':1,'edition_date':date,'stage':'structured-review',
             'candidate_sha256':fingerprint(candidate),'review_complete':True,
             'blocking_count':len(blocking),'advisory_count':len(report['findings'])-len(blocking),
-            'findings':report['findings'],'correction_calls':iteration,'publication_authorized':False}
+            'findings':report['findings'],'correction_calls':0 if reviewed is not None else iteration,
+            'correction_method':'reviewed-reference' if reviewed is not None else 'automated',
+            'publication_authorized':False}
         write_json(cache/'validation-structured-review.json',public_report)
         if not blocking:
             validate_edition(candidate,date,all_urls)
@@ -277,7 +284,8 @@ review complete if source metadata prevents reliable verification. No em dashes.
                 'candidate_sha256':fingerprint(candidate),'audit':verdict,
                 'source_evidence_sha256':digest((cache/'source-evidence.json').read_bytes()),
                 'retrieved_urls':sorted(all_urls),'run_id':os.getenv('GITHUB_RUN_ID'),
-                'review_version':VERSION,'correction_calls':iteration})
+                'review_version':VERSION,'correction_calls':0 if reviewed is not None else iteration,
+                'correction_method':'reviewed-reference' if reviewed is not None else 'automated'})
             record={'edition':candidate,'audit':verdict,'retrieved_urls':sorted(all_urls),
                 'model':model,'audit_candidate_sha256':fingerprint(candidate),
                 'source_retrieval':read_json(cache/'source-evidence.json')['sources'],
