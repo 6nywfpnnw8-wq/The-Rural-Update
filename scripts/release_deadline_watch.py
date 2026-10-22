@@ -1,7 +1,7 @@
 """Project dated records into the next-30-day watch without changing their facts.
 
 Expired and more distant records are retained in the original diagnostic snapshot.
-This calendar-only selection never approves content, edits a date or resets a ledger.
+This calendar-only selection never approves content, invents dates or resets a ledger.
 Every selected candidate must still pass the full source and editorial review.
 """
 from __future__ import annotations
@@ -41,6 +41,22 @@ def select_upcoming_deadlines(edition: dict, cache: Path) -> dict:
                              'reason': 'expired' if delta < 0 else 'beyond_30_days'})
     selected = copy.deepcopy(original)
     selected['deadlines'] = kept
+    # A generated internal checkpoint is a recommendation, not a recorded staff
+    # commitment or statutory deadline. When its date has passed, leave the
+    # replacement date unknown. Never carry this rule over to official deadlines.
+    expired_internal = [d for d in original['deadlines']
+                        if d['kind'] == 'Editorial checkpoint'
+                        and date.fromisoformat(d['date']) < base]
+    cleared = []
+    for index, action in enumerate(selected['actions']):
+        previous = action['due_date']
+        if previous and date.fromisoformat(previous) < base and any(
+                d['date'] == previous and set(d['source_ids']) & set(action['source_ids'])
+                for d in expired_internal):
+            action['due_date'] = None
+            cleared.append({'path': '/actions/'+str(index)+'/due_date',
+                            'previous_date': previous,
+                            'reason': 'expired_internal_checkpoint_no_replacement_assigned'})
     snapshot = Diagnostics(Path(cache), expected).capture('deadline-watch-input', original)
     write_json(Path(cache)/'validation-deadline-watch.json', {
         'schema_version': 1, 'edition_date': expected,
@@ -48,7 +64,8 @@ def select_upcoming_deadlines(edition: dict, cache: Path) -> dict:
         'original_candidate_sha256': fingerprint(original),
         'selected_candidate_sha256': fingerprint(selected),
         'retained_original': snapshot, 'excluded': excluded,
-        'kept_count': len(kept), 'dates_changed': False,
+        'kept_count': len(kept), 'deadline_dates_changed': False,
+        'action_dates_cleared': cleared, 'new_dates_assigned': False,
         'prose_changed': False, 'source_records_changed': False,
         'publication_authorized': False, 'evidence_review_required': True,
     })
