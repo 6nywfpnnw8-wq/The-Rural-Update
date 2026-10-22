@@ -175,13 +175,18 @@ def build_audio(edition,cache,output,request):
             with wave.open(str(pcm),'rb') as src:
                 count=src.getnframes();total+=count;dest.writeframes(src.readframes(count))
     output.parent.mkdir(parents=True,exist_ok=True);temp=output.with_suffix('.tmp.mp3')
-    run(['ffmpeg','-y','-v','error','-i',str(combined),'-c:a','libmp3lame','-b:a','128k','-write_xing','1',str(temp)])
+    from release_audio_timing import timing_plan, encoder_arguments, validate_output_duration
+    timing=timing_plan(total/24000)
+    write_json(cache/'audio-quality-timing.json',{'edition_date':edition['edition_date'],
+        'source_frames':total,'source_sample_rate':24000,'script_sha256':digest(body),
+        'accepted_parts':len(accepted),'publication_authorized':False,**timing})
+    run(['ffmpeg','-y','-v','error','-i',str(combined),*encoder_arguments(timing),
+         '-c:a','libmp3lame','-b:a','128k','-write_xing','1',str(temp)])
     seconds=probe_audio(temp)
-    if abs(seconds-total/24000)>1:raise RuntimeError('Assembled audio duration does not match all decoded segments')
-    if not 540<=seconds<=900:raise RuntimeError('Episode audio outside the 9 to 15 minute release limit')
+    validate_output_duration(seconds,timing)
     tail=inspect_ending(temp,body,folder)
     if not tail['result']['passed']:raise RuntimeError('Assembled episode closing narration is incomplete')
     temp.replace(output)
-    report={'schema_version':2,'normalization_version':NORMALIZATION_VERSION,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
+    report={'schema_version':2,'normalization_version':NORMALIZATION_VERSION,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'timing_adjustment':timing,'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
     write_json(cache/'audio-quality.json',report)
     return seconds
