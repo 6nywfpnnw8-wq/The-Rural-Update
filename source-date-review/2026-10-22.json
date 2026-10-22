@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-22",
+  "base_candidate_sha256": "b4ea9702ca2077eac59747f840c61b691f83240e5c78ff91be8399ea1985a4e6",
+  "candidate_sha256": "e1e0643f5f69b39bd09b9c034119b5e05161d3770f2df9f610f87fb095e2b821",
+  "incomplete_review_sha256": "f83a933c6799d102396004f1c8688e00022595eac5b80e28cb572ffbf49fae1a",
+  "updated_candidate_sha256": "799faeda94dd5d1f92d854799d098001509a731f21cd165384461735f27a59a1",
+  "publication_authorized": false,
+  "maximum_additional_audits": 1,
+  "source_update": {
+    "id": "cms-generous-press-release",
+    "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+    "before": null,
+    "after": "2026-09-18"
+  },
+  "reason": "CMS shows Sep 18, 2026 as this press release publication date. Page-modification, policy-effective, contractor implementation and retrieval dates must not be placed into other sources published_date fields. The old incomplete review remains unapproved. Independently audit all corrected candidate claims and narration against current exact sources; metadata repair does not establish factual approval.",
+  "evidence_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
+}
