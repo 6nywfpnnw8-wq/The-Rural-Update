@@ -1,4 +1,4 @@
-"""Reuse an audit only when freshly retrieved evidence is byte-for-byte identical.
+"""Reuse an audit only when its full extracted source-text input is identical.
 
 The saved request keeps its original retrieval timestamps. Current retrieval
 metadata remains in source-evidence.json. This helper never approves a review
@@ -6,6 +6,7 @@ or changes its request/result signature, reservations, or attempt counters.
 """
 from __future__ import annotations
 import copy
+import re
 from datetime import date, datetime
 from pathlib import Path
 from release_core import read_json, write_json, digest
@@ -45,16 +46,26 @@ def bound_evidence_documents(folder, edition, documents, reviewed_root):
         raise ValueError('Audit evidence source coverage differs')
     if len({d.get('source_id') for d in documents})!=len(documents):
         raise ValueError('Duplicate audit evidence source')
-    bound=copy.deepcopy(documents)
+    bound=copy.deepcopy(documents);raw_changes=[]
     for source,previous,current,result in zip(sources,saved,documents,bound):
         if (current.get('source_id')!=source['id'] or current.get('url')!=source['url']
                 or current.get('http_status')!=200 or not current.get('text')
                 or digest(current['text'])!=current.get('text_sha256')):
             raise ValueError('Fresh evidence does not match its source or text digest')
-        old_metadata={k:v for k,v in previous.items() if k!='retrieved_at'}
-        new_metadata={k:v for k,v in current.items() if k not in ('retrieved_at','text')}
+        # HTML wrappers may change without changing any text given to the reviewer.
+        # Retain fresh raw hashes/lengths; require identical source identity and text.
+        for item in (previous,current):
+            if (not isinstance(item.get('sha256'),str)
+                    or not re.fullmatch(r'[a-f0-9]{64}',item['sha256'])
+                    or type(item.get('bytes')) is not int or not 0<item['bytes']<=2097152):
+                raise ValueError('Invalid raw source retrieval metadata')
+        excluded={'retrieved_at','sha256','bytes'}
+        old_metadata={k:v for k,v in previous.items() if k not in excluded}
+        new_metadata={k:v for k,v in current.items() if k not in excluded|{'text'}}
         if old_metadata!=new_metadata:
             raise ValueError('Source contents changed since the audit; reviewed re-audit required')
+        if any(previous[k]!=current[k] for k in ('sha256','bytes')):
+            raw_changes.append(current['source_id'])
         old_time=datetime.fromisoformat(previous['retrieved_at'])
         new_time=datetime.fromisoformat(current['retrieved_at'])
         if old_time.tzinfo is None or new_time.tzinfo is None or old_time>new_time:
@@ -65,6 +76,7 @@ def bound_evidence_documents(folder, edition, documents, reviewed_root):
         'edition_date':day,'candidate_sha256':fingerprint(edition),
         'original_evidence_sha256':fingerprint(original),
         'fresh_evidence_sha256':fingerprint(fresh),'source_count':len(sources),
-        'only_retrieval_timestamps_may_differ':True,'fresh_source_contents_identical':True,
+        'fresh_audited_source_text_identical':True,'raw_metadata_changed_sources':raw_changes,
+        'current_raw_metadata_preserved':True,'original_retrieval_times_used_for_request_only':True,
         'original_request_signature_still_required':True,'publication_authorized':False})
     return bound
