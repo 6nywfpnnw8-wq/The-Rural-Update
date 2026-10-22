@@ -22,37 +22,57 @@ jobs:
         with:
           path: .release-cache
           key: audit-inspection-only-${{ github.run_id }}
-          restore-keys: rural-release-v1-2026-10-20-
-      - name: Export only the hash-pinned public-source candidate and offline test files
+          restore-keys: rural-release-v1-2026-10-21-
+      - name: Inspect the exact retained candidate and completed final review
         run: |
           python3 - <<'PY'
           import hashlib,json,re,subprocess,zipfile
           from pathlib import Path
-          root=Path('.release-cache/2026-10-20')
-          sha='cbbd1b44f2158612b9fa9fab9efa9a61b439001d56275c05b7b9aba4107cfe3a'
-          p=root/'candidates'/('resumed-content-'+sha[:16]+'.json')
-          if p.is_symlink() or not p.is_file() or p.stat().st_size>1048576:
-              raise SystemExit('Expected retained candidate is missing or unsafe')
-          snapshot=json.loads(p.read_text())
+          root=Path('.release-cache/2026-10-21')
+          sha='184496d3daed1e6e6c426d6dbaa1395bb1ea4e55adb4ef17d6a878feaa885003'
+          def fingerprint(value):
+              return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+          def read(p):
+              if p.is_symlink() or not p.is_file() or p.stat().st_size>2097152:
+                  raise SystemExit('Expected retained diagnostic is missing or unsafe')
+              value=json.loads(p.read_text())
+              raw=json.dumps(value,ensure_ascii=False)
+              if re.search(r'(?:sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{16,}|github_pat_[A-Za-z0-9_]{16,}|gh[pousr]_[A-Za-z0-9]{16,}|-----BEGIN .*PRIVATE KEY)',raw):
+                  raise SystemExit('Potential credential pattern; export refused')
+              return value
+          if root.is_symlink() or (root/'candidates').is_symlink() or (root/'editorial-loop-v1').is_symlink():
+              raise SystemExit('Unsafe diagnostic directory')
+          snapshot=read(root/'candidates'/('editorial-corrected-'+sha[:16]+'.json'))
           candidate=snapshot.get('candidate')
-          fingerprint=hashlib.sha256(json.dumps(candidate,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
-          if fingerprint!=sha or snapshot.get('candidate_sha256')!=sha or snapshot.get('redacted') is not False:
+          if fingerprint(candidate)!=sha or snapshot.get('candidate_sha256')!=sha or snapshot.get('redacted') is not False:
               raise SystemExit('Candidate identity or redaction state differs')
-          if candidate.get('edition_date')!='2026-10-20' or snapshot.get('publication_authorized') is not False:
+          if candidate.get('edition_date')!='2026-10-21' or snapshot.get('publication_authorized') is not False:
               raise SystemExit('Invalid candidate state')
-          raw=json.dumps(candidate,ensure_ascii=False)
-          if re.search(r'(?:sk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{16,}|github_pat_[A-Za-z0-9_]{16,}|gh[pousr]_[A-Za-z0-9]{16,}|-----BEGIN .*PRIVATE KEY)',raw):
-              raise SystemExit('Potential credential pattern; export refused')
-          failure=json.loads((root/'validation-evidence-audit.json').read_text())
-          audit=json.loads((root/'audit.json').read_text())
-          if str(failure.get('run_id'))!='39496748118' or failure.get('passed') is not False or audit.get('approved') is not False:
-              raise SystemExit('Expected rejected audit is absent')
+          completed=read(root/'editorial-loop-v1/final-result.json')
+          review=completed.get('value')
+          if completed.get('value_sha256')!=fingerprint(review):
+              raise SystemExit('Final review integrity mismatch')
+          failure=read(Path('.release-cache/failure.json'))
+          if failure.get('error')!='Audit finding does not quote the named candidate field':
+              raise SystemExit('Expected quotation-binding failure is absent')
+          rows=[]
+          for finding in review.get('findings',[]):
+              path=finding.get('path','')
+              if not re.fullmatch(r'/(?:bluf|title|podcast/(?:opening|bluf|oklahoma|signals|actions|deadlines|closing|developments/[012])|(?:stories|signals|actions|deadlines|issue_updates)/[0-9]+/[A-Za-z_]+)',path):
+                  raise SystemExit('Unexpected finding field path')
+              field=candidate
+              for part in path.split('/')[1:]:
+                  field=field[int(part)] if isinstance(field,list) else field[part]
+              quote=finding.get('quote','')
+              rows.append({'id':finding.get('id'),'path':path,'kind':finding.get('kind'),
+                           'exact_match':bool(quote.strip()) and quote in field,
+                           'whitespace_only_match':' '.join(quote.split()) in ' '.join(field.split()),
+                           'quote_sha256':fingerprint(quote),'field_sha256':fingerprint(field)})
           out=Path('editorial-inspection');out.mkdir()
           (out/'candidate.json').write_text(json.dumps(candidate,ensure_ascii=False,indent=2)+'\n')
-          (out/'audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')
-          metadata={'edition_date':'2026-10-20','candidate_sha256':sha,'audit_run_id':39496748118,'publication_attempted':False,'cache_modified':False,'paid_api_calls':0}
+          (out/'final-review.json').write_text(json.dumps(review,ensure_ascii=False,indent=2)+'\n')
+          metadata={'edition_date':'2026-10-21','candidate_sha256':sha,'review_sha256':fingerprint(review),'checks':rows,'publication_attempted':False,'cache_modified':False,'paid_api_calls':0}
           (out/'inspection.json').write_text(json.dumps(metadata,indent=2)+'\n')
-          # Only already-public tracked code/assets needed by offline compatibility tests.
           prefixes=('scripts/','tests/','ops/','.github/workflows/','archive/','data/','icons/','web/','source-recovery/','editorial-review/','repair-authorizations/')
           names={'requirements-publisher.txt','index.html','manifest.webmanifest','intelligence.js','signals-reference.js','sw.js'}
           tracked=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
@@ -68,5 +88,5 @@ jobs:
         with:
           name: editorial-inspection-${{ github.run_id }}
           path: editorial-inspection/
-          retention-days: 3
+          retention-days: 1
           if-no-files-found: error
