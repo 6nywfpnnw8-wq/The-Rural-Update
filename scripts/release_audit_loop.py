@@ -87,9 +87,15 @@ def validate_review(report, edition):
         if not re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]{0,79}',finding['id']) or finding['id'] in ids:
             raise ValueError('Invalid or duplicate audit finding ID')
         ids.add(finding['id'])
-        from release_quote_binding import quote_binding
-        if quote_binding(finding['quote'], fields[finding['path']], finding['path']) is None:
+        from release_quote_binding import finding_binding
+        bound_path=finding_binding(finding,fields)
+        if bound_path is None:
             raise ValueError('Audit finding does not quote the named candidate field')
+        if bound_path!=finding['path']:
+            # Preserve the raw review and every finding; log only safe anchor metadata.
+            print('Audit advisory quotation binding: '+json.dumps({
+                'id':finding['id'],'reported_path':finding['path'],
+                'bound_path':bound_path,'method':'unique_exact_advisory_quote'}),flush=True)
         if not finding['explanation'].strip(): raise ValueError('Audit finding lacks explanation')
         if finding['kind'] in BLOCKING and not finding['required_change'].strip():
             raise ValueError('Blocking audit finding lacks a correction instruction')
