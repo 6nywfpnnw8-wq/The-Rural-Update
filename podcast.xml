@@ -2,6 +2,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <item>
+      <title>Rural Update - Oklahoma edition</title>
+      <description>Five developments require immediate operational or financial action for Oklahoma rural hospitals. 1) CMS telehealth billing: CMS FQHC/RHC guidance states the policy begins October 1, 2026 while Transmittal R13776OTN lists an Implementation Date of October 5, 2026 and Provider Education release May 27, 2026; revenue-cycle must validate payer adjudication for dates of service October 1–October 5 (inclusive) and then complete broader October reconciliation. 2) CMS-2452-P is a proposed rule changing indirect hold-harmless thresholds and provider-tax limits; build state-level downside models and await OHCA intent before rebasing budgets. 3) GENEROUS: national participation announced; obtain written OHCA confirmation before changing pharmacy or 340B forecasts. 4) RHTP: state implementation and Oklahoma NOFOs; treat grants as time-limited and require post-grant sustainment plans. 5) OHCA removed prior authorization for Brixadi under a value-based agreement and HRSA published FY26 RCORP awards; verify clinical, billing and cold-chain workflows and map partners.</description>
+      <pubDate>Wed, 21 Oct 2026 19:50:47 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-21</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-21.mp3?v=d2b4f029fc040b6b" length="13441581" type="audio/mpeg" />
+      <itunes:duration>14:00</itunes:duration>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-21.html" type="text/html" />
+    </item>
+    <item>
       <title>The Rural Update | October 17, 2026 | Recovery edition</title>
       <description>This recovery edition reviews five continuing priorities, not five new announcements issued today. Separate enacted Medicaid provider-tax requirements from proposed regulatory details; verify RHC telehealth billing for dates of service beginning October 1; and tie Oklahoma RHTP projects to recurring operating budgets. The October 5 transmittal implementation date is not the telehealth billing effective date. GENEROUS applications do not establish Oklahoma-specific executed terms or hospital savings. ACCESS offers chronic-care and coordination pathways, not automatic referral revenue. The decisions are practical: measure actual claims performance, identify facility-specific financing exposure, and confirm program terms before changing budgets.</description>
       <pubDate>Sat, 17 Oct 2026 12:53:51 -0500</pubDate>
@@ -33,7 +42,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Sat, 17 Oct 2026 12:53:53 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 19:50:48 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>

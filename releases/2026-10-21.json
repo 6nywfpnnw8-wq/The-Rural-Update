@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "edition_date": "2026-10-21",
-  "revision": 1,
-  "code_sha": "97c9e1fba2cd02b6845d39a15e83db779ce65dc5",
-  "built_at": "2026-10-21T19:39:10.349713-05:00",
-  "audio_status": "unavailable",
+  "revision": 2,
+  "code_sha": "77036bb44c4749d9b6daaf98d85e6e39a7814c9a",
+  "built_at": "2026-10-21T19:50:49.116845-05:00",
+  "audio_status": "complete",
   "files": {
     "archive/2026-10-20.html": {
       "sha256": "39bb9d289ae426c48934d31432a6aba3bdfa7b108ed51cfa129f2260fedca30c",
@@ -17,6 +17,14 @@
     "archive/catalog.json": {
       "sha256": "a2a81488402984268fc8f95b3dce9e59a7acc500adf43c1a3f2a6a2f6d8d1032",
       "bytes": 7729
+    },
+    "audio/2026-10-21.mp3": {
+      "sha256": "d2b4f029fc040b6b0d81ab430b8ebdc0c57f7c7a7b583746552b2d6c8e1acbf5",
+      "bytes": 13441581
+    },
+    "data/audio-quality-2026-10-21.json": {
+      "sha256": "482ca3a2d26593a76a7dbc47e0cf89d1a87436be2cfbb67302df5fb9a39c2ee4",
+      "bytes": 15114
     },
     "data/intelligence.json": {
       "sha256": "0ba20c6fef72036d393525c3aac77feb33c35f1b3447c33fffacdfca822de564",
@@ -34,13 +42,17 @@
       "sha256": "15af18a450aa1895cf8b5bd4fa157bb6a785960c634fea11f1cf31dd832ac82f",
       "bytes": 616
     },
+    "podcast-art.png": {
+      "sha256": "4b327bedf6d0a338d87184859ae77faf3ff295888e7449fcfb3266962c84c063",
+      "bytes": 1129601
+    },
     "podcast-script/2026-10-21.txt": {
       "sha256": "1757d44d7a8f109d47ab1c23e690a87bdcddd8f21e8f46d0691964cc06a1228f",
       "bytes": 14736
     },
     "podcast.xml": {
-      "sha256": "c9ba955bd82399e8c01b456e9e08f16cd484dc48d89a5c0bb1b3f43d691ceafc",
-      "bytes": 43885
+      "sha256": "396d4cee82f37e0ecc286acaecc549767513b43321dd06fe8e94edfaa1fc7314",
+      "bytes": 45516
     },
     "sw.js": {
       "sha256": "07a236516bc2d3710ed9717dcf194468628bed39ec63b4fcadb6c558ff406153",
@@ -58,5 +70,6 @@
       "sha256": "eb405646c38446f8c41fe49517dd64b84a5491ae6a099030870f31c5a4878ff9",
       "bytes": 2038
     }
-  }
+  },
+  "audio_published_at": "2026-10-21T19:50:47.116771-05:00"
 }
