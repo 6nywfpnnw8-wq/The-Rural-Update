@@ -36,6 +36,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import hashlib,json,os,re,wave
+          from datetime import date as calendar_date
           from pathlib import Path
           date=os.environ['EDITION']
           if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',date):raise SystemExit('Invalid date')
@@ -65,6 +66,26 @@ jobs:
               report['section_ledgers'].append(row)
           responses=read(root/'api-responses.json') or {}
           report['last_api_response']=safe((responses.get('responses') or [{}])[-1],['stage','status','incomplete_reason','requested_output_limit','run_id','visible_characters'])
+          failure=read(root/'validation-content.json') or {}
+          snap=failure.get('snapshot') or {}
+          if failure.get('rule')=='deadline_window' and failure.get('edition_date')==date:
+              sha=snap.get('candidate_sha256','')
+              if not re.fullmatch(r'[a-f0-9]{64}',sha):raise SystemExit('Invalid candidate hash')
+              if root.is_symlink() or (root/'candidates').is_symlink():raise SystemExit('Unsafe candidate directory')
+              saved=read(root/'candidates'/('content-'+sha[:16]+'.json')) or {}
+              candidate=saved.get('candidate')
+              actual=hashlib.sha256(json.dumps(candidate,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
+              if actual!=sha or saved.get('candidate_sha256')!=sha or saved.get('redacted') is not False:
+                  raise SystemExit('Candidate integrity differs')
+              if candidate.get('edition_date')!=date or saved.get('publication_authorized') is not False:
+                  raise SystemExit('Candidate state differs')
+              rows=[]
+              for i,item in enumerate(candidate.get('deadlines',[])):
+                  value=item.get('date','')
+                  if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',value):raise SystemExit('Invalid candidate date')
+                  delta=(calendar_date.fromisoformat(value)-calendar_date.fromisoformat(date)).days
+                  rows.append({'path':'/deadlines/'+str(i),'date':value,'days_from_edition':delta,'within_window':0<=delta<=30})
+              report['deadline_window']={'candidate_sha256':sha,'failed_run_id':failure.get('run_id'),'dates':rows}
           audio=root/'audio-v2/assembled.wav'
           report['audio_assembly']={'exists':audio.exists()}
           if audio.exists():
