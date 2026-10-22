@@ -312,7 +312,10 @@ IDs it addresses. A separate independent full-source audit will review the resul
             'text':{'format':{'type':'json_schema','name':'editorial_field_correction','strict':True,
                             'schema':patch_schema}}}
         plan,_,_=_call(folder,'correction',patch_payload,request,output_text)
-        candidate=apply_replacements(candidate,report,plan)
+        from release_editorial_budget import apply_with_bluf_budget
+        candidate=apply_with_bluf_budget(candidate,report,plan,
+            apply=apply_replacements,call=_call,folder=folder,model=model,
+            documents=documents,request=request,output_text=output_text)
         Diagnostics(cache,date).capture('editorial-corrected',candidate,all_urls)
         write_json(cache/'validation-editorial-correction.json',{'edition_date':date,
             'base_candidate_sha256':sha,'candidate_sha256':fingerprint(candidate),
