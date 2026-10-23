@@ -65,5 +65,10 @@ class ExternalClockTests(unittest.TestCase):
         result=run_once(client,self.now(),True,mode='diagnose')
         client.dispatch.assert_called_once_with('2026-10-18',mode='diagnose')
         self.assertFalse(result['publication_complete'])
+    def test_diagnostic_runs_do_not_consume_publish_attempts(self):
+        diagnostic=self.job(display_title='Publish validated Rural Update / mode=diagnose / date=2026-10-18')
+        result=decide(self.now(),None,[diagnostic])
+        self.assertEqual(result['action'],'dispatch')
+        self.assertEqual(result['observed_attempts'],0)
 
 if __name__=='__main__':unittest.main()
