@@ -208,6 +208,10 @@ class DiagnosticTests(unittest.TestCase):
         self.assertIn('validation-*.json', artifact_section)
         self.assertNotIn('candidates', artifact_section)
         self.assertNotIn('approved.json', artifact_section)
+        self.assertIn('      - name: Diagnose blocked recovery without generation', workflow)
+        self.assertIn("if: always() && steps.prepare.outcome == 'failure' && (env.MODE == 'publish' || env.MODE == 'recover')", workflow)
+        self.assertIn("run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --diagnose-cached", workflow)
+        self.assertLess(workflow.index('Diagnose blocked recovery without generation'), workflow.index('Configure Pages'))
 
 
 if __name__ == '__main__': unittest.main()
