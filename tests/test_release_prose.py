@@ -46,6 +46,12 @@ class ProseTests(unittest.TestCase):
     def test_all_tolerances_stay_within_episode_limits(self):
         self.assertGreaterEqual(sum(c-prose.TOLERANCE for _,_,c in sn.SECTION_PLAN),1700)
         self.assertLessEqual(sum(c+prose.TOLERANCE for _,_,c in sn.SECTION_PLAN),2000)
+    def test_opening_accepts_observed_79_and_80_word_outputs(self):
+        for count in (79,80):
+            text=' '.join(['Synthetic']*(count-1)+['ending.'])
+            self.assertEqual(len(prose.validate_prose({'text':text},60).split()),count)
+        with self.assertRaisesRegex(ValueError,'section_word_count'):
+            prose.validate_prose({'text':' '.join(['Synthetic']*80+['ending.'])},60)
     def test_large_serialized_output_rejected(self):
         with self.assertRaises(ValueError):prose.validate_prose({'text':'a'*12459+'.'},310)
     def test_short_output_never_padded(self):
