@@ -1,9 +1,6 @@
 name: Publish validated Rural Update
 run-name: "Publish validated Rural Update / mode=${{ inputs.mode || 'publish' }} / date=${{ inputs.edition_date || 'auto' }}"
 on:
-  schedule:
-    - cron: '15,35 5 * * *'
-      timezone: America/Chicago
   workflow_dispatch:
     inputs:
       mode:
