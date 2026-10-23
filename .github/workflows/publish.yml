@@ -118,6 +118,9 @@ jobs:
           OPENAI_TTS_VOICE: cedar
           RURAL_UPDATE_STRUCTURED_REVIEW: 'true'
         run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --commit
+      - name: Diagnose blocked recovery without generation
+        if: always() && steps.prepare.outcome == 'failure' && (env.MODE == 'publish' || env.MODE == 'recover')
+        run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --diagnose-cached
       - name: Configure Pages
         if: steps.prepare.outcome == 'success'
         uses: actions/configure-pages@v5
