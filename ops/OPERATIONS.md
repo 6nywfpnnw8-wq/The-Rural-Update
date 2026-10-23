@@ -17,12 +17,11 @@ A separate timer can request the existing workflow when a daily edition is missi
 It cannot make GitHub runners, the research API or external source sites infallible.
 Do not equate a successful HTTP dispatch with publication.
 
-An optional Render cron job uses the repository's main branch, Python 3.11 or newer,
-no additional packages, and these settings after explicit activation approval:
+The active Render cron job uses the repository's main branch, Python 3.11 or newer,
+and no additional packages. Its current settings are:
 
-- Build command: `python3 -m py_compile ops/trigger_publisher.py`
-- Initial read-only command: `python3 ops/trigger_publisher.py`
-- Approved operating command: `python3 ops/trigger_publisher.py --execute`
+- Build command: compile and test the trigger, then perform a read-only GitHub and public-manifest preflight.
+- Start command: run `python3 ops/trigger_publisher.py --execute` when `RURAL_UPDATE_EXECUTE=true`; otherwise run read-only mode.
 - Safe bridge test: `python3 ops/trigger_publisher.py --mode diagnose --execute`
 - UTC cron: `5,35 10-13 * * *`
 
@@ -128,10 +127,9 @@ A read-only status observer should remain separate from the publishing workflow.
 ## Tests and activation sequence
 
 Run `python3 -m unittest discover -s tests -p 'test_release*.py' -v` and the existing
-service-worker checks. Seventeen specific external-clock tests use mock HTTP calls,
+service-worker checks. Twenty-two specific external-clock tests use mock HTTP calls,
 covering daylight-saving dates, duplicate suppression, dry-run, attempt bounds,
-unknown POST outcomes and credential isolation. These do not establish production
-authentication or an actually running Render service.
+unknown POST outcomes and credential isolation. These do not replace verification of production authentication or the actual Render service.
 
 For a safe end-to-end check, run the Render trigger with `--mode diagnose --execute`
 during its Central morning window. Confirm GitHub records a `workflow_dispatch` run on
