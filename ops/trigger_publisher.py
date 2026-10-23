@@ -44,8 +44,12 @@ def decide(now: datetime, release: dict | None, runs: list[dict], mode: str = 'p
         return {**base,'action':'skip','reason':'current_complete_manifest_present'}
     if release and release.get('edition_date','') > day:
         return {**base,'action':'alert','reason':'unexpected_future_release_date'}
+    # Diagnostic handoff runs have a run-name marker and do not consume the
+    # conservative publisher-run budget. Older/unmarked runs remain counted.
+    publish_runs = [r for r in main
+                    if 'mode=diagnose' not in str(r.get('display_title','')).lower()]
     today = []
-    for r in main:
+    for r in publish_runs:
         stamp=r.get('run_started_at') or r.get('created_at')
         try:
             started=datetime.fromisoformat(stamp.replace('Z','+00:00'))
