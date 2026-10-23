@@ -33,7 +33,7 @@ class ExternalClockTests(unittest.TestCase):
     def test_one_dispatch_to_existing_publisher(self):
         client=Mock();client.get.side_effect=[{}, {'workflow_runs':[]}, {'workflow_runs':[]}]
         client.dispatch.return_value={'dispatch_accepted':True,'publication_complete':False}
-        result=run_once(client,self.now(),True);client.dispatch.assert_called_once_with('2026-10-18')
+        result=run_once(client,self.now(),True);client.dispatch.assert_called_once_with('2026-10-18',mode='publish')
         self.assertFalse(result['publication_complete'])
     def test_unknown_post_failure_not_retried(self):
         client=Mock();client.get.side_effect=[{}, {'workflow_runs':[]}, {'workflow_runs':[]}];client.dispatch.side_effect=TimeoutError()
@@ -48,5 +48,27 @@ class ExternalClockTests(unittest.TestCase):
     def test_future_release_alerts(self):self.assertEqual(decide(self.now(),{'edition_date':'2026-10-19'},[])['action'],'alert')
     def test_naive_clock_rejected(self):
         with self.assertRaises(ValueError):decide(datetime(2026,10,18),None,[])
+
+
+    def test_diagnostic_mode_ignores_publish_attempt_cap(self):
+        runs=[self.job(run_started_at='2026-10-18T10:02:00Z'),self.job(run_started_at='2026-10-18T10:03:00Z')]
+        self.assertEqual(decide(self.now(),None,runs,mode='diagnose')['action'],'dispatch')
+    def test_diagnostic_mode_bypasses_complete_manifest(self):
+        result=decide(self.now(),{'edition_date':'2026-10-18','audio_status':'complete'},[],mode='diagnose')
+        self.assertEqual(result['action'],'dispatch')
+        self.assertEqual(result['mode'],'diagnose')
+    def test_diagnostic_mode_still_respects_active_publisher(self):
+        self.assertEqual(decide(self.now(),None,[self.job(status='in_progress')],mode='diagnose')['action'],'skip')
+    def test_diagnostic_execution_dispatches_read_only_mode(self):
+        client=Mock();client.get.side_effect=[{}, {'workflow_runs':[]}, {'workflow_runs':[]}]
+        client.dispatch.return_value={'dispatch_accepted':True,'publication_complete':False}
+        result=run_once(client,self.now(),True,mode='diagnose')
+        client.dispatch.assert_called_once_with('2026-10-18',mode='diagnose')
+        self.assertFalse(result['publication_complete'])
+    def test_diagnostic_runs_do_not_consume_publish_attempts(self):
+        diagnostic=self.job(display_title='Publish validated Rural Update / mode=diagnose / date=2026-10-18')
+        result=decide(self.now(),None,[diagnostic])
+        self.assertEqual(result['action'],'dispatch')
+        self.assertEqual(result['observed_attempts'],0)
 
 if __name__=='__main__':unittest.main()

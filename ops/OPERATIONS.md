@@ -2,11 +2,13 @@
 
 ## Status and approval boundary
 
-The external clock code is prepared, not activated. Committing or merging these
-files does not purchase a service, create a Render cron job, configure a token,
-alter a GitHub schedule, or publish content. No render.yaml auto-provisioning file
-is included. Activate only after the owner connects and approves the service and
-its recurring cost. The publication workflow remains the sole content writer.
+The Render cron job `the-rural-update-morning-trigger` is active on the
+repository's `main` branch. Its current configuration runs a read-only GitHub and
+public-manifest preflight, then executes `ops/trigger_publisher.py --execute` when
+`RURAL_UPDATE_EXECUTE=true`. Render logs on October 23, 2026 confirmed two accepted
+GitHub workflow dispatches before the same-day limit guard stopped further requests.
+Render remains the external clock; the GitHub Actions workflow is the only content
+publisher. The service is configured in Render rather than a `render.yaml` file.
 
 ## Independent morning clock
 
@@ -15,12 +17,12 @@ A separate timer can request the existing workflow when a daily edition is missi
 It cannot make GitHub runners, the research API or external source sites infallible.
 Do not equate a successful HTTP dispatch with publication.
 
-An optional Render cron job uses the repository's main branch, Python 3.11 or newer,
-no additional packages, and these settings after explicit activation approval:
+The active Render cron job uses the repository's main branch, Python 3.11 or newer,
+and no additional packages. Its current settings are:
 
-- Build command: `python3 -m py_compile ops/trigger_publisher.py`
-- Initial read-only command: `python3 ops/trigger_publisher.py`
-- Approved operating command: `python3 ops/trigger_publisher.py --execute`
+- Build command: compile and test the trigger, then perform a read-only GitHub and public-manifest preflight.
+- Start command: run `python3 ops/trigger_publisher.py --execute` when `RURAL_UPDATE_EXECUTE=true`; otherwise run read-only mode.
+- Safe bridge test: `python3 ops/trigger_publisher.py --mode diagnose --execute`
 - UTC cron: `5,35 10-13 * * *`
 
 The UTC expression covers both Central daylight and standard time. The script only
@@ -58,7 +60,8 @@ Before starting work the external clock checks the public release manifest and
 recent runs of the fixed publisher. A queued, active or approval-waiting publisher
 prevents another request. A current complete manifest suppresses unnecessary work;
 it is not treated as independent verification of the audio or sources. Two
-observed same-day workflow attempts stop automatic dispatch. The publisher retains
+observed same-day publish attempts stop automatic publishing. Read-only diagnostic
+dispatches can validate the handoff without spending editorial attempts. The publisher retains
 its own authoritative generation-attempt ledger and single-writer lock. Neither
 this script nor the timer can reset those counters or override failed evidence.
 
@@ -124,14 +127,13 @@ A read-only status observer should remain separate from the publishing workflow.
 ## Tests and activation sequence
 
 Run `python3 -m unittest discover -s tests -p 'test_release*.py' -v` and the existing
-service-worker checks. Seventeen specific external-clock tests use mock HTTP calls,
+service-worker checks. Twenty-two specific external-clock tests use mock HTTP calls,
 covering daylight-saving dates, duplicate suppression, dry-run, attempt bounds,
-unknown POST outcomes and credential isolation. These do not establish production
-authentication or an actually running Render service.
+unknown POST outcomes and credential isolation. These do not replace verification of production authentication or the actual Render service.
 
-After code review, connect the chosen scheduler, approve its plan, configure the
-restricted secret, run read-only mode during the morning window and inspect the
-reported decision. Enable --execute only after review. Observe one actual dispatch
-and complete public verification, then test a failure notification and begin the
-seven-morning record. Leave this document marked prepared until that live evidence
-exists.
+For a safe end-to-end check, run the Render trigger with `--mode diagnose --execute`
+during its Central morning window. Confirm GitHub records a `workflow_dispatch` run on
+`main` with mode `diagnose`, and confirm the job does not access the provider or deploy
+Pages. The normal scheduled command remains `--execute` with the default `publish` mode.
+A dispatch acceptance is not publication proof. For a real edition, require successful
+source/evidence checks, complete audio, Pages deployment, and exact public verification.
