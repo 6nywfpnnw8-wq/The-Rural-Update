@@ -10,12 +10,12 @@ GitHub workflow dispatches before the same-day limit guard stopped further reque
 Render remains the external clock; the GitHub Actions workflow is the only content
 publisher. The service is configured in Render rather than a `render.yaml` file.
 
-## Independent morning clock
+## One automatic morning clock
 
-The existing GitHub scheduler has not met the 06:00 America/Chicago delivery target.
-A separate timer can request the existing workflow when a daily edition is missing.
-It cannot make GitHub runners, the research API or external source sites infallible.
-Do not equate a successful HTTP dispatch with publication.
+Render is the only automatic clock for publication. GitHub Actions accepts the
+Render `workflow_dispatch` request and runs the single content publisher. Manual
+workflow dispatch remains available for owner-directed recovery. A successful HTTP
+dispatch means GitHub accepted the request; it does not mean the edition published.
 
 The active Render cron job uses the repository's main branch, Python 3.11 or newer,
 and no additional packages. Its current settings are:
@@ -29,7 +29,8 @@ The UTC expression covers both Central daylight and standard time. The script on
 acts between 05:00 inclusive and 07:00 exclusive America/Chicago. Thus the effective
 checks are 05:05, 05:35, 06:05 and 06:35 Central; other UTC invocations exit without
 network calls. The first check precedes the 06:00 target, later ones support bounded
-recovery. The extra GitHub schedule remains a fallback, not a competing publisher.
+recovery. This workflow has no GitHub schedule, so the two schedulers cannot launch
+competing automatic editions.
 
 Render documentation states UTC cron scheduling, one active run per cron service,
 and a minimum monthly charge of $1 per cron job. Actual usage and account pricing
@@ -119,7 +120,7 @@ time, recovery count and any required human repair. Categorize results as on-tim
 late, partial, manually recovered, missing or unverified. Only completed on-time
 scheduled releases count toward the 06:00 unattended target.
 
-Required fault tests: missed native GitHub trigger, incomplete research response,
+Required fault tests: missed Render trigger, incomplete research response,
 source rejection, bad narration ending, failed deployment, duplicate external
 trigger, stale public cache, expired scheduler credential and notification failure.
 A read-only status observer should remain separate from the publishing workflow.
