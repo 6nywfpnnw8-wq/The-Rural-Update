@@ -10,12 +10,13 @@ PLAIN_MARKER='narration-plain-prose-resume-used.json'
 PLAIN_FAILURE_RUN=39485880713
 
 
-def generation_schema(count, constrain_words=False):
-    """Keep local prose checks; optionally constrain the provider's word count."""
+def generation_schema(count):
+    """Use a simple provider shape; enforce spoken word counts locally."""
     from release_prose import prose_schema
     schema=prose_schema(count)
-    if not constrain_words:
-        schema['properties']['text'].pop('pattern',None)
+    # A repeated word-count pattern has twice coincided with a zero-token
+    # incomplete response. It must not be reintroduced by a recovery grant.
+    schema['properties']['text'].pop('pattern',None)
     return schema
 
 

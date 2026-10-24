@@ -100,9 +100,37 @@ jobs:
           report['speech_request_count']=sum((read(p) or {}).get('attempts',0) for p in (root/'audio-v2').glob('*-attempts.json'))
           Path('recovery-inspection.json').write_text(json.dumps(report,indent=2)+'\n')
           print(json.dumps(report,indent=2))
+          # Export only screened, date-scoped public-source working material.
+          # This inspection has no provider credentials and never writes the cache.
+          import sys,zipfile
+          sys.path.insert(0,'scripts')
+          from release_diagnostics import redact
+          files=[root/n for n in ('attempts.json','api-responses.json',
+              'narration-structural-resume-used.json','narration-structural-followup-used.json')]
+          files.extend(folder/(n+'.json') for n in ('discovery','sources','reporting'))
+          files.extend(root.glob('validation-*.json'))
+          files.extend((root/'section-candidates').glob('*.json'))
+          files.extend((folder/'sectioned-narration-v1').glob('*/*.json'))
+          inventory=[];total=0
+          with zipfile.ZipFile('retained-recovery-state.zip','w',zipfile.ZIP_DEFLATED) as archive:
+              for p in sorted(set(files)):
+                  if not p.exists():continue
+                  if p.is_symlink() or any(q.is_symlink() for q in p.parents):
+                      raise SystemExit('Unsafe retained-state path')
+                  p.resolve().relative_to(root.resolve())
+                  value=read(p)
+                  if redact(value)!=value:raise SystemExit('Retained state failed credential screening')
+                  data=p.read_bytes();total+=len(data)
+                  if total>10000000:raise SystemExit('Retained-state export exceeds size limit')
+                  archive.writestr(p.as_posix(),data)
+                  inventory.append({'path':p.as_posix(),'sha256':hashlib.sha256(data).hexdigest()})
+              archive.writestr('inventory.json',json.dumps({'edition_date':date,
+                  'paid_api_calls':0,'cache_modified':False,'files':inventory},indent=2))
           PY
       - uses: actions/upload-artifact@v4
         with:
           name: recovery-inspection-${{ github.run_id }}
-          path: recovery-inspection.json
+          path: |
+            recovery-inspection.json
+            retained-recovery-state.zip
           retention-days: 7

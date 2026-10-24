@@ -62,7 +62,7 @@ class StructuralFollowupTests(unittest.TestCase):
             'reason':'A single reviewed narration-only continuation'}
     def reserve(self):
         return prose.reserve_structural_followup(self.cache,self.date,self.plan,self.engine,load,lambda _:None)
-    def test_exact_followup_preserves_daily_and_section_ledgers_and_pattern(self):
+    def test_exact_followup_preserves_ledgers_and_simple_provider_schema(self):
         ledger=self.work/'attempts.json';daily=self.cache/'attempts.json'
         daily_before=daily.read_bytes()
         self.assertTrue(self.reserve());self.assertFalse(self.reserve())
@@ -75,9 +75,8 @@ class StructuralFollowupTests(unittest.TestCase):
             field=payload['text']['format']['schema']['properties']['text']
             if label=='narration_section' and 'Target 165 words' in payload['instructions']:
                 if payload['input'].find('previous_candidate')!=-1:pass
-            if 'section bluf' in payload['instructions'].lower():
-                self.assertIn('pattern',field)
-            else:self.assertNotIn('pattern',field)
+            self.assertNotIn('pattern',field)
+            self.assertNotIn('complete episode still must',payload['instructions'])
             desc=field['description'];low=int(desc.split('of ')[1].split(' to')[0])
             calls.append(payload)
             return {'status':'completed','text':json.dumps({'text':' '.join(['word']*(low-1)+['ending.'])}),'usage':{}}
