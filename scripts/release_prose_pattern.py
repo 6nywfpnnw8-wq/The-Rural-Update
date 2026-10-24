@@ -10,11 +10,12 @@ PLAIN_MARKER='narration-plain-prose-resume-used.json'
 PLAIN_FAILURE_RUN=39485880713
 
 
-def generation_schema(count):
-    """Keep compact JSON generation separate from mandatory local prose checks."""
+def generation_schema(count, constrain_words=False):
+    """Keep local prose checks; optionally constrain the provider's word count."""
     from release_prose import prose_schema
     schema=prose_schema(count)
-    schema['properties']['text'].pop('pattern',None)
+    if not constrain_words:
+        schema['properties']['text'].pop('pattern',None)
     return schema
 
 
