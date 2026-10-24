@@ -24,7 +24,8 @@ class ProsePatternTests(unittest.TestCase):
                 self.assertIsNotNone(re.fullmatch(rule,' '.join(['word']*(n-1)+['end.'])))
             self.assertIsNone(re.fullmatch(rule,' '.join(['word']*(count+prose.TOLERANCE+1))))
     def test_provider_schema_enforces_bluf_word_range(self):
-        field=pattern.generation_schema(165)['properties']['text']
+        field=pattern.generation_schema(165,constrain_words=True)['properties']['text']
+        self.assertNotIn('pattern',pattern.generation_schema(165)['properties']['text'])
         rule=prose.prose_schema(165)['properties']['text']['pattern']
         self.assertEqual(field['pattern'],rule)
         valid=' '.join(['word']*154+['ending.'])

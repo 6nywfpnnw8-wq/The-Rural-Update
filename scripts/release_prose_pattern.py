@@ -10,13 +10,13 @@ PLAIN_MARKER='narration-plain-prose-resume-used.json'
 PLAIN_FAILURE_RUN=39485880713
 
 
-def generation_schema(count):
-    """Keep compact JSON generation separate from mandatory local prose checks."""
+def generation_schema(count, constrain_words=False):
+    """Keep local prose checks; optionally constrain the provider's word count."""
     from release_prose import prose_schema
-    # Keep the locally validated word range in the provider schema as well.
-    # Without this pattern, a completed JSON response can be far over budget,
-    # consuming a bounded repair attempt before the local validator rejects it.
-    return prose_schema(count)
+    schema=prose_schema(count)
+    if not constrain_words:
+        schema['properties']['text'].pop('pattern',None)
+    return schema
 
 
 def extra_attempts(cache,identity,section_identity):
