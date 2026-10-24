@@ -22,7 +22,7 @@ def take_retained_reporting_recovery(cache: Path, expected: str, review_root: Pa
     """Submit one reviewed full script from intact reporting, without generation."""
     if expected != '2026-10-24' or Path(cache).name != expected:
         return None
-    path = Path(review_root) / (expected + '-retained-reporting.json')
+    path = Path(review_root) / (expected + '.json')
     if not path.exists():
         return None
     from release_retained_bluf import _read, _hash, MARKER, POLICY
@@ -30,6 +30,8 @@ def take_retained_reporting_recovery(cache: Path, expected: str, review_root: Pa
     from release_sectioned_narration import METHOD, SECTION_PLAN, fingerprint as section_fingerprint, _ledger
     cache = Path(cache)
     plan = _read(path)
+    if plan.get('base_staged_reporting') is not True:
+        return None
     required = {'schema_version': 1, 'edition_date': expected, 'failure_run_id': 40106342027,
                 'maximum_recoveries': 1, 'publication_authorized': False,
                 'additional_research_generation_calls': 0, 'additional_narration_generation_calls': 0}
