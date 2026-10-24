@@ -52,6 +52,13 @@ def recovery_grant(cache:Path,identity:str,section_identity:str)->dict[str,int]:
             or value.get('publication_authorized') is not False
             or value.get('section')!='bluf-None' or value.get('maximum_extra_section_requests')!=1):
             raise RuntimeError('Invalid narration structural recovery grant')
+        for name,sha in value.get('retained_stage_sha256',{}).items():
+            retained=Path(cache)/'staged-research-v3'/(name+'.json')
+            if not retained.is_file() or hashlib.sha256(retained.read_bytes()).hexdigest()!=sha:
+                raise RuntimeError('Narration recovery lost a retained research stage')
+        ledger=Path(cache)/'staged-research-v3'/'sectioned-narration-v1'/section_identity/'attempts.json'
+        if not ledger.is_file() or hashlib.sha256(ledger.read_bytes()).hexdigest()!=value.get('section_ledger_sha256_before'):
+            raise RuntimeError('Narration recovery ledger changed after reservation')
         return {'bluf-None':1}
     marker=Path(cache)/'narration-prose-resume-used.json'
     if not marker.exists():return {}
