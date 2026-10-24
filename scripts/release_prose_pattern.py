@@ -132,15 +132,21 @@ def reserve_plain(cache,plan,engine,load,validate_report):
     return True
 
 
-def record_section(cache,label,attempt,result,error=None):
-    """Retain unpublished completed sections separately; expose numeric results only."""
+def retain_section_candidate(cache,label,result):
+    """Preserve a completed response before deterministic typography changes."""
     cache=Path(cache);cache.mkdir(parents=True,exist_ok=True)
-    text=result.get('text') if isinstance(result,dict) else None
     payload=json.dumps(result,ensure_ascii=False,sort_keys=True)
     if len(payload.encode())<=50000:
         folder=cache/'section-candidates';folder.mkdir(exist_ok=True)
         p=folder/(hashlib.sha256(payload.encode()).hexdigest()+'.json')
         p.write_text(json.dumps({'section':label,'candidate':result,'publication_authorized':False},ensure_ascii=False))
+
+
+def record_section(cache,label,attempt,result,error=None):
+    """Retain unpublished completed sections separately; expose numeric results only."""
+    cache=Path(cache);cache.mkdir(parents=True,exist_ok=True)
+    retain_section_candidate(cache,label,result)
+    text=result.get('text') if isinstance(result,dict) else None
     safe={'section_shape','section_characters','section_word_count','section_word_shape','section_spoken_prose','section_sentence_ending'}
     path=cache/'validation-narration-sections.json'
     rows=json.loads(path.read_text()).get('sections',[]) if path.exists() else []
@@ -149,3 +155,4 @@ def record_section(cache,label,attempt,result,error=None):
         'rule':str(error) if str(error) in safe else ('unrecognized_section_failure' if error else None),
         'publication_authorized':False,'run_id':os.getenv('GITHUB_RUN_ID','local')})
     path.write_text(json.dumps({'sections':rows[-30:],'publication_authorized':False},indent=2))
+
