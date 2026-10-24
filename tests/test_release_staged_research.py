@@ -106,6 +106,16 @@ class APIDiagnosticTests(unittest.TestCase):
         report=error_details(sr.ResponseStateError(raw))
         self.assertEqual(report['rule'],'api_response')
         self.assertIn('max_output_tokens',summary(report));self.assertNotIn('unpublished',json.dumps(report))
+    def test_incomplete_narration_api_stage_is_preserved(self):
+        raw=response('',status='incomplete')
+        raw['incomplete_details']={'reason':'max_output_tokens'}
+        error=sr.ResponseStateError(raw)
+        error.api_response['stage']='narration_section'
+        report=error_details(error)
+        self.assertEqual(report['api_stage'],'narration_section')
+        self.assertEqual(report['rule'],'api_response')
+        self.assertNotIn('stage',report['response'])
+
     def test_overlong_narration_section_is_reported_at_its_own_stage(self):
         error=RuntimeError('Narration section failed its bounded structural checks: bluf-None')
         report=error_details(error)
