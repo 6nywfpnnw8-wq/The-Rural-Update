@@ -57,6 +57,22 @@ def recovery_grant(cache:Path,identity:str,section_identity:str)->dict[str,int]:
             if not retained.is_file() or hashlib.sha256(retained.read_bytes()).hexdigest()!=sha:
                 raise RuntimeError('Narration recovery lost a retained research stage')
         ledger=Path(cache)/'staged-research-v3'/'sectioned-narration-v1'/section_identity/'attempts.json'
+        followup=Path(cache)/'narration-structural-followup-used.json'
+        if followup.exists():
+            grant=json.loads(followup.read_text())
+            if (grant.get('identity')!=identity or grant.get('section_identity')!=section_identity
+                or grant.get('publication_authorized') is not False
+                or grant.get('section')!='bluf-None'
+                or grant.get('maximum_additional_section_requests')!=1):
+                raise RuntimeError('Invalid narration structural follow-up')
+            from release_sectioned_narration import _ledger
+            state=_ledger(ledger,section_identity,{'bluf-None':2})
+            count=state['attempts'].get('bluf-None',0)
+            if count not in (3,4) or (count==3 and state['requests']!=5):
+                raise RuntimeError('Narration follow-up exceeded its one-request allowance')
+            if count==3 and hashlib.sha256(ledger.read_bytes()).hexdigest()!=grant.get('section_ledger_sha256_before'):
+                raise RuntimeError('Narration follow-up ledger changed before its request')
+            return {'bluf-None':2}
         if not ledger.is_file() or hashlib.sha256(ledger.read_bytes()).hexdigest()!=value.get('section_ledger_sha256_before'):
             raise RuntimeError('Narration recovery ledger changed after reservation')
         return {'bluf-None':1}
@@ -194,6 +210,82 @@ def reserve_structural_resume(cache:Path,expected:str,plan:dict,engine:str,
         'section_ledger_sha256_before':hashlib.sha256(ledger.read_bytes()).hexdigest(),
         'retained_stage_sha256':hashes,'reserved_at':datetime.now(timezone.utc).isoformat(),
         'failure_run_id':plan['failure_run_id']}
+    try:
+        with marker.open('x',encoding='utf-8') as f:json.dump(record,f,indent=2)
+    except FileExistsError:return False
+    return True
+
+
+def reserve_structural_followup(cache:Path,expected:str,plan:dict,engine:str,
+                                load:Callable,validate_report:Callable)->bool:
+    """One more date-specific BLUF request after the first authorized retry failed."""
+    required={'maximum_narration_structural_resumes':2,
+              'maximum_narration_structural_followups':1,
+              'maximum_additional_narration_requests':1,
+              'section':'bluf-None','previous_failure_run_id':40084542457,
+              'failure_run_id':40102773243,'observed_words':298,
+              'observed_attempt':3,'publication_authorized':False}
+    if plan.get('maximum_narration_structural_followups')!=1:return False
+    if any(plan.get(k)!=v for k,v in required.items()):
+        raise RuntimeError('Invalid narration structural follow-up authorization')
+    cache=Path(cache);parent=cache/'narration-structural-resume-used.json'
+    marker=cache/'narration-structural-followup-used.json'
+    if marker.exists() or not parent.is_file():return False
+    previous=json.loads(parent.read_text())
+    if (previous.get('edition_date')!=expected or previous.get('section')!='bluf-None'
+        or previous.get('failure_run_id')!=40084542457
+        or previous.get('maximum_extra_section_requests')!=1
+        or previous.get('publication_authorized') is not False):
+        raise RuntimeError('Previous BLUF recovery does not match follow-up authorization')
+    if any((cache/n).exists() for n in ('audit.json','audit-bound.json','approved.json')):return False
+    rows=json.loads((cache/'api-responses.json').read_text()).get('responses',[])
+    if not rows:return False
+    last=rows[-1]
+    if not (last.get('stage')=='narration_section' and last.get('status')=='completed'
+        and last.get('requested_output_limit')==4000
+        and str(last.get('run_id'))==str(plan['failure_run_id'])):return False
+    validation=__import__('release_core').read_json(cache/'validation-narration-section.json',{})
+    if not (validation.get('passed') is False and validation.get('rule')=='narration_section'
+        and validation.get('path')=='/podcast/bluf'
+        and str(validation.get('run_id'))==str(plan['failure_run_id'])):return False
+    history=json.loads((cache/'validation-narration-sections.json').read_text()).get('sections',[])
+    bluf=[x for x in history if x.get('section')=='bluf-None']
+    if len(bluf)!=3:return False
+    expected_rows=[(1,311,40084542457),(2,222,40084542457),(3,298,40102773243)]
+    if [(x.get('attempt'),x.get('word_count'),int(x.get('run_id',0))) for x in bluf]!=expected_rows:return False
+    if any(x.get('passed') is not False or x.get('rule')!='section_word_count' for x in bluf):return False
+    folders=list((cache/engine/'sectioned-narration-v1').glob('*/attempts.json'))
+    if len(folders)!=1:return False
+    ledger=folders[0];sid=ledger.parent.name
+    from release_sectioned_narration import _ledger,MAX_REQUESTS
+    state=_ledger(ledger,sid,{'bluf-None':1})
+    if state.get('requests')!=5 or state.get('attempts')!={'opening-None':2,'bluf-None':3}:return False
+    if state['requests']>=MAX_REQUESTS or (ledger.parent/'bluf-None.json').exists():return False
+    if not (ledger.parent/'opening-None.json').is_file():return False
+    research_attempts=__import__('release_core').read_json(cache/'attempts.json',{})
+    if research_attempts.get('attempts')!=2:return False
+    identity=previous.get('identity')
+    if not isinstance(identity,str) or identity!=json.loads((cache/engine/'discovery.json').read_text()).get('identity'):return False
+    values={n:load(cache/engine/(n+'.json'),identity) for n in ('discovery','sources','reporting')}
+    if any(v is None for v in values.values()):return False
+    if values['reporting'].get('edition',{}).get('edition_date')!=expected:return False
+    retained=previous.get('retained_stage_sha256',{})
+    hashes={n:hashlib.sha256((cache/engine/(n+'.json')).read_bytes()).hexdigest() for n in values}
+    if hashes!=retained:return False
+    validate_report(values)
+    record={'edition_date':expected,'identity':identity,'section_identity':sid,
+        'section':'bluf-None','maximum_additional_section_requests':1,
+        'maximum_total_bluf_attempts':4,'maximum_total_section_requests':MAX_REQUESTS,
+        'previous_failure_run_id':plan['previous_failure_run_id'],
+        'failure_run_id':plan['failure_run_id'],'observed_words':298,
+        'publication_authorized':False,'new_discovery_prohibited':True,
+        'new_source_selection_prohibited':True,'new_reporting_prohibited':True,
+        'original_research_attempts_unchanged':True,'research_attempts_at_reservation':2,
+        'section_attempts_before':3,'section_requests_before':5,
+        'retained_stage_sha256':hashes,
+        'section_ledger_sha256_before':hashlib.sha256(ledger.read_bytes()).hexdigest(),
+        'reserved_at':datetime.now(timezone.utc).isoformat(),
+        'run_id':os.getenv('GITHUB_RUN_ID','local')}
     try:
         with marker.open('x',encoding='utf-8') as f:json.dump(record,f,indent=2)
     except FileExistsError:return False
