@@ -139,7 +139,12 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
                     'max_output_tokens':sn.OUTPUT_TOKENS,'instructions':instructions,
                     'input':json.dumps(data,ensure_ascii=False),
                     'text':{'format':{'type':'json_schema','name':'narration_section','strict':True,'schema':generation_schema(count,constrain_words=(label=='bluf-None' and label in extra))}}}
-                raw=send(payload);raw_text=extract(raw)
+                raw=send(payload)
+                try:raw_text=extract(raw)
+                except Exception as exc:
+                    api=getattr(exc,'api_response',None)
+                    if isinstance(api,dict):api['stage']='narration_section'
+                    raise
                 try:result=json.loads(raw_text)
                 except (ValueError,TypeError):prior='invalid_json_section';continue
                 try:text=validate_prose(result,count)

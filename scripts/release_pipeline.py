@@ -188,7 +188,9 @@ Earlier public intelligence is context only, NOT independently verified evidence
             edition=json.loads(output_text(response))
         except Exception as exc:
             from release_diagnostics import error_details
-            stage = 'narration-section' if error_details(exc).get('rule') == 'narration_section' else 'research-response'
+            details=error_details(exc)
+            stage = ('narration-section' if details.get('rule') == 'narration_section'
+                     or details.get('api_stage') == 'narration_section' else 'research-response')
             raise diagnostics.fail(stage,exc) from None
         provenance=retrieved_urls(response)
         diagnostics.capture('generated',edition,provenance)

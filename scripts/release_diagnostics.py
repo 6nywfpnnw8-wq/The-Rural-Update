@@ -123,8 +123,12 @@ def error_details(error: Exception, candidate=None) -> dict:
         for key in ('input_tokens','output_tokens','reasoning_tokens','visible_characters'):
             value=api.get(key)
             safe[key]=value if type(value) is int and value>=0 else None
-        return {'rule':'api_response','message':'Model response did not complete',
+        result={'rule':'api_response','message':'Model response did not complete',
                 'path':'/','response':safe}
+        if api.get('stage') in {'discovery','sources','reporting','narration','editorial_audit',
+                                'rural_update_narration','narration_section','other'}:
+            result['api_stage']=api['stage']
+        return result
     keyword = getattr(error, 'validator', None)
     if isinstance(keyword, str) and re.fullmatch(r'[a-zA-Z]{1,32}', keyword):
         return {'rule': 'schema', 'message': 'Candidate does not match the required schema',
