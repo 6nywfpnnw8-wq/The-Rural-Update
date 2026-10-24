@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-24",
+  "engine": "staged-research-v3",
+  "maximum_additional_generation_attempts": 1,
+  "publication_authorized": false,
+  "reason": "The user requested safe recovery of the October 24 edition. Run 40084542457 retained completed discovery, source selection, and reporting, and the final narration-section response was complete but exceeded the BLUF local word limit (222 words versus a 155-206 range). Permit one final narration-only request for bluf-None after verifying the exact retained files, failure metadata, local section ledger and absence of any audit. Do not rerun discovery, source selection, or reporting; do not change the two-attempt daily research ledger, reset the section ledger, or exceed its twenty-request aggregate. The new section must pass local prose and full episode validation, exact source retrieval, independent evidence audit, audio validation, and the existing single-publisher deployment and public verification gates.",
+  "maximum_narration_structural_resumes": 1,
+  "section": "bluf-None",
+  "failure_run_id": 40084542457,
+  "observed_words": 222,
+  "observed_attempt": 2
+}
