@@ -87,10 +87,27 @@ def recovery_grant(cache:Path,identity:str,section_identity:str)->dict[str,int]:
     return {value['section']:extra_attempts(cache,identity,section_identity)}
 
 
+def section_input(reporting,name,index):
+    """Supply only the assigned ranked story to a development request."""
+    if name!='developments' or 'stories' not in reporting:return reporting
+    story=reporting['stories'][index]
+    return {'edition_date':reporting['edition_date'],'development_number':index+1,
+            'story':story,'actions':[a for a in reporting.get('actions',[])
+                                      if a.get('issue_id')==story['id']]}
+
+
+def normalize_section(result):
+    """Use the existing fact-preserving typography rule before local checks."""
+    if not isinstance(result,dict) or set(result)!={'text'} or not isinstance(result['text'],str):return result
+    from release_typography import normalize_edition_typography
+    value,_=normalize_edition_typography({'podcast':{'passage':result['text']}})
+    return {'text':value['podcast']['passage']}
+
+
 def generate(reporting:dict,model:str,folder:Path,identity:str,
              send:Callable,extract:Callable,load:Callable,save:Callable)->dict:
     import release_sectioned_narration as sn
-    from release_prose_pattern import generation_schema,record_section
+    from release_prose_pattern import generation_schema,record_section,retain_section_candidate
     from datetime import date
     original=copy.deepcopy(reporting);date.fromisoformat(original['edition_date'])
     section_identity=sn.fingerprint({'method':sn.METHOD,'identity':identity,'model':model,
@@ -132,7 +149,8 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
                     'The full evidence audit remains mandatory. '
                     f'Prior local structural issue: {prior}.')
                 effort='minimal' if model in {'gpt-5','gpt-5-mini','gpt-5-nano'} else 'low'
-                data=original if previous_candidate is None else {'reporting':original,
+                scoped=section_input(original,name,index)
+                data=scoped if previous_candidate is None else {'reporting':scoped,
                     'previous_candidate':previous_candidate,
                     'revision_instruction':f'Rewrite to {count} words, in {lower_words(count)}-{upper_words(count)} words; preserve only reporting-supported facts.'}
                 payload={'model':model,'store':False,'reasoning':{'effort':effort},
@@ -147,6 +165,9 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
                     raise
                 try:result=json.loads(raw_text)
                 except (ValueError,TypeError):prior='invalid_json_section';continue
+                normalized=normalize_section(result)
+                if normalized!=result:retain_section_candidate(Path(folder).parent,label,result)
+                result=normalized
                 try:text=validate_prose(result,count)
                 except (ValueError,TypeError) as exc:
                     record_section(Path(folder).parent,label,state['attempts'][label],result,exc)
@@ -339,3 +360,4 @@ def reserve(cache:Path,plan:dict,engine:str,load:Callable,validate_report:Callab
         with marker.open('x',encoding='utf-8') as f:json.dump(record,f,indent=2)
     except FileExistsError:return False
     return True
+
