@@ -4,7 +4,7 @@
   "engine": "staged-research-v3",
   "maximum_additional_generation_attempts": 1,
   "publication_authorized": false,
-  "reason": "The user authorized the necessary targeted correction and safe recovery continuation after the first one-time BLUF retry returned a completed but overlong 298-word section (run 40102773243). Permit exactly one further narration-only BLUF request against the intact October 24 discovery, source catalog, and reporting cache. Keep the daily research ledger at 2/2 and the existing section ledger unchanged at reservation; do not rerun discovery, source selection, or reporting. The new BLUF must satisfy the provider word-count pattern and local prose checks. It remains unpublished until full-edition validation, exact source retrieval, independent evidence audit, audio validation, and the existing single-publisher deployment and public verification gates pass.",
+  "reason": "After the zero-output narration response in run 40104289530, the user requested the necessary fix and safe recovery. Permit the exact local retained-passage recovery defined in 2026-10-24-retained-bluf.json, with zero new BLUF requests or research attempts. The earlier request grants remain spent. Only the eight pending narration sections may use their existing unspent allowances; the aggregate 20-request section cap, editorial audit, exact evidence retrieval, audio validation and single publisher gates remain mandatory.",
   "maximum_narration_structural_resumes": 2,
   "section": "bluf-None",
   "failure_run_id": 40102773243,
@@ -12,5 +12,7 @@
   "observed_attempt": 3,
   "maximum_narration_structural_followups": 1,
   "maximum_additional_narration_requests": 1,
-  "previous_failure_run_id": 40084542457
+  "previous_failure_run_id": 40084542457,
+  "maximum_retained_bluf_recoveries": 1
 }
+

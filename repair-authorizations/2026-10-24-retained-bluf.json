@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-24",
+  "failure_run_id": 40104289530,
+  "maximum_recoveries": 1,
+  "additional_bluf_requests": 0,
+  "additional_research_attempts": 0,
+  "publication_authorized": false,
+  "section": "bluf-None",
+  "method": "complete-sentence-prefix",
+  "model": "gpt-5-mini",
+  "identity": "8bac854d29a5a1411e5ee35f2948fe1818c71c56d67887b2b892f4b14d06cf44",
+  "section_identity": "e9bb40bfbfe5b9ed56411aafa098a1fdd9f3fa2e508f0d5caf82df1bf7250cbb",
+  "candidate_sha256": "9a360ffc15cc901bc17efc4c243012dd2e1622a5b15c7036b516573b705f4838",
+  "retained_characters": 1232,
+  "retained_words": 155,
+  "retained_text_sha256": "fa5269b3208fd7c980c2c50f99d3d75343aef3069ec47d6ecae9973f8a75b2a7",
+  "original_web_bluf_sha256": "79fbc1cbd2dab3f2127c589be4a607d78b2478b4e08da7941fb17979a1208576",
+  "retained_file_sha256": {
+    "attempts.json": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+    "narration-structural-resume-used.json": "e54b0e84990d5c693357e23881cf1f50778d38a15f216ad89c9ec47aa3169f58",
+    "narration-structural-followup-used.json": "4e1450166016d3f6f7b31c478758c1e7b5b81c077a497e8f8ab0e1a7bb16c913",
+    "staged-research-v3/discovery.json": "cd26df23836ebeb5e3056b7d4de133969b0a0c917a85b9ca1faf734fd14b9a91",
+    "staged-research-v3/sources.json": "fa04e2f3e480e55b0d0d90a49a056a811f48bca0a2429d00f3dcdf3f957fbcb8",
+    "staged-research-v3/reporting.json": "95530bd09bf145a3f11aab94e9b92914afe4ed47c08a9eaa989cc26aec4d5550",
+    "staged-research-v3/sectioned-narration-v1/e9bb40bfbfe5b9ed56411aafa098a1fdd9f3fa2e508f0d5caf82df1bf7250cbb/attempts.json": "170aff62b98814e3596e808aa1b220967a6969f212b9e337c88945bc07a31ec1",
+    "staged-research-v3/sectioned-narration-v1/e9bb40bfbfe5b9ed56411aafa098a1fdd9f3fa2e508f0d5caf82df1bf7250cbb/opening-None.json": "264d06f4ff09905506952f48f8ca3d7fd0b95bfb321378f6e2c27a0f69d30720"
+  },
+  "citation_replacement": {
+    "source_id": "oklahoma-rhtp-program",
+    "before_url": "https://www.oklahoma.gov/hwtc/rural-health-transformation-program.html",
+    "after_url": "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+    "title": "Oklahoma Rural Health Transformation Program funding recipients"
+  },
+  "reason": "Recover the reviewed complete 155-word passage already present in the 222-word completed BLUF candidate. Remove only the following recommendations and episode signoff; add no text. Use the same complete passage for the web BLUF, whose original cached field ends mid-sentence. Correct the Oklahoma RHTP citation to the exact funding-recipient URL already named in the retained discovery notes. Preserve all original cache files and the 2/2 research and 6-request section ledgers. The eight remaining narration sections may use only their unspent existing allowances under the unchanged 20-request ceiling. Require exact HTTPS evidence retrieval, a complete independent evidence audit, all audio checks, and single-publisher public delivery verification. The user authorized a targeted fix and safe recovery from existing material."
+}
