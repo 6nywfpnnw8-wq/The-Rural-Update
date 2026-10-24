@@ -324,7 +324,8 @@ review complete if source metadata prevents reliable verification. No em dashes.
             write_json(cache/'approved.json',record)
             return record
         Diagnostics(cache,date).fail('evidence-audit',RuntimeError('Audit rejected candidate'),candidate)
-        if iteration or protocol_recovery:raise RuntimeError('Blocking findings remain after the final evidence review')
+        if protocol_recovery:raise RuntimeError('Blocking findings remain after the final evidence review')
+        if iteration:raise RuntimeError('Blocking findings remain after the single editorial correction')
         fields=text_fields(candidate)
         ids=[f['id'] for f in blocking]
         patch_schema=obj(replacements=arr(obj(path={'type':'string','enum':sorted(fields)},
