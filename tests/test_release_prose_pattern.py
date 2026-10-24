@@ -23,15 +23,14 @@ class ProsePatternTests(unittest.TestCase):
             for n in (prose.lower_words(count),count,count+prose.TOLERANCE):
                 self.assertIsNotNone(re.fullmatch(rule,' '.join(['word']*(n-1)+['end.'])))
             self.assertIsNone(re.fullmatch(rule,' '.join(['word']*(count+prose.TOLERANCE+1))))
-    def test_provider_schema_enforces_bluf_word_range(self):
-        field=pattern.generation_schema(165,constrain_words=True)['properties']['text']
-        self.assertNotIn('pattern',pattern.generation_schema(165)['properties']['text'])
-        rule=prose.prose_schema(165)['properties']['text']['pattern']
-        self.assertEqual(field['pattern'],rule)
-        valid=' '.join(['word']*154+['ending.'])
-        overlong=' '.join(['word']*297+['ending.'])
-        self.assertIsNotNone(re.fullmatch(field['pattern'],valid))
-        self.assertIsNone(re.fullmatch(field['pattern'],overlong))
+    def test_simple_provider_schema_keeps_local_bluf_limits(self):
+        field=pattern.generation_schema(165)['properties']['text']
+        self.assertNotIn('pattern',field)
+        valid={'text':' '.join(['word']*154+['ending.'])}
+        self.assertEqual(prose.validate_prose(valid,165),valid['text'])
+        for words in (154,208,298):
+            with self.assertRaisesRegex(ValueError,'section_word_count'):
+                prose.validate_prose({'text':' '.join(['word']*(words-1)+['ending.'])},165)
 
     def test_single_repair_preserves_prior_ledgers_and_total_limit(self):
         plan=self.seed();p=self.f.work/'attempts.json';before=p.read_bytes();parent=(self.f.cache/'narration-prose-resume-used.json').read_bytes()

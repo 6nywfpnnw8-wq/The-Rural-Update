@@ -116,7 +116,7 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
                 instructions=(f'Write ONLY {focus} of The Rural Update for {original["edition_date"]}. '
                     f'Return a JSON object with one text field containing natural spoken prose, not a list or array of words. '
                     f'Target {count} words; stay between {lower_words(count)} and {upper_words(count)} words. '
-                    'The complete episode still must contain 1700 to 2000 words. Aim for the target, not the upper bound. '
+                    'Only this section belongs in the response. Aim for its target word count. '
                     'Write complete sentences; do not pad, repeat, or truncate. '
                     'Use only the supplied reporting and preserve its uncertainty and proposal/final distinctions. '
                     'Do not introduce facts, quantities, dates, people, or institutions absent from the report. '
@@ -138,7 +138,7 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
                 payload={'model':model,'store':False,'reasoning':{'effort':effort},
                     'max_output_tokens':sn.OUTPUT_TOKENS,'instructions':instructions,
                     'input':json.dumps(data,ensure_ascii=False),
-                    'text':{'format':{'type':'json_schema','name':'narration_section','strict':True,'schema':generation_schema(count,constrain_words=(label=='bluf-None' and label in extra))}}}
+                    'text':{'format':{'type':'json_schema','name':'narration_section','strict':True,'schema':generation_schema(count)}}}
                 raw=send(payload)
                 try:raw_text=extract(raw)
                 except Exception as exc:
