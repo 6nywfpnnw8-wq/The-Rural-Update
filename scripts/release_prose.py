@@ -45,6 +45,14 @@ def validate_prose(value: dict,count: int) -> str:
 
 
 def recovery_grant(cache:Path,identity:str,section_identity:str)->dict[str,int]:
+    structural=Path(cache)/'narration-structural-resume-used.json'
+    if structural.exists():
+        value=json.loads(structural.read_text())
+        if (value.get('identity')!=identity or value.get('section_identity')!=section_identity
+            or value.get('publication_authorized') is not False
+            or value.get('section')!='bluf-None' or value.get('maximum_extra_section_requests')!=1):
+            raise RuntimeError('Invalid narration structural recovery grant')
+        return {'bluf-None':1}
     marker=Path(cache)/'narration-prose-resume-used.json'
     if not marker.exists():return {}
     value=json.loads(marker.read_text())
@@ -129,6 +137,60 @@ def generate(reporting:dict,model:str,folder:Path,identity:str,
     if reporting!=original:raise RuntimeError('Narration generation mutated reporting')
     return {'podcast':podcast,'usage':{'sectioned':usage},'method':sn.METHOD}
 
+
+
+def reserve_structural_resume(cache:Path,expected:str,plan:dict,engine:str,
+                              load:Callable,validate_report:Callable)->bool:
+    """One reviewed narration-only retry after the retained BLUF failed twice."""
+    required={'maximum_narration_structural_resumes':1,'section':'bluf-None',
+              'failure_run_id':40084542457,'observed_words':222,
+              'observed_attempt':2,'publication_authorized':False}
+    if plan.get('maximum_narration_structural_resumes') != 1:return False
+    if any(plan.get(k)!=v for k,v in required.items()):
+        raise RuntimeError('Invalid narration structural recovery authorization')
+    cache=Path(cache);marker=cache/'narration-structural-resume-used.json'
+    if marker.exists():return False
+    if any((cache/n).exists() for n in ('audit.json','audit-bound.json','approved.json')):return False
+    rows=json.loads((cache/'api-responses.json').read_text()).get('responses',[])
+    if not rows:return False
+    last=rows[-1]
+    if not (last.get('stage')=='narration_section' and last.get('status')=='completed'
+        and last.get('requested_output_limit')==4000
+        and str(last.get('run_id'))==str(plan['failure_run_id'])):return False
+    history=json.loads((cache/'validation-narration-sections.json').read_text()).get('sections',[])
+    bluf=[x for x in history if x.get('section')=='bluf-None']
+    if len(bluf)!=2 or any(x.get('passed') is not False or x.get('rule')!='section_word_count' for x in bluf):return False
+    if [x.get('attempt') for x in bluf]!=[1,2] or [x.get('word_count') for x in bluf]!=[311,222]:return False
+    folders=list((cache/engine/'sectioned-narration-v1').glob('*/attempts.json'))
+    if len(folders)!=1:return False
+    ledger=folders[0];sid=ledger.parent.name
+    from release_sectioned_narration import _ledger,SECTION_PLAN,MAX_REQUESTS
+    state=_ledger(ledger,sid,{'bluf-None':1})
+    if state.get('requests')!=4 or state.get('attempts')!={'opening-None':2,'bluf-None':2}:return False
+    if state['requests']>=MAX_REQUESTS or (ledger.parent/'bluf-None.json').exists():return False
+    opening=ledger.parent/'opening-None.json'
+    if not opening.is_file():return False
+    discovery_path=cache/engine/'discovery.json'
+    if not discovery_path.exists():return False
+    identity=json.loads(discovery_path.read_text()).get('identity')
+    if not isinstance(identity,str):return False
+    values={n:load(cache/engine/(n+'.json'),identity) for n in ('discovery','sources','reporting')}
+    if any(v is None for v in values.values()):return False
+    if values['reporting'].get('edition',{}).get('edition_date')!=expected:return False
+    validate_report(values)
+    hashes={n:hashlib.sha256((cache/engine/(n+'.json')).read_bytes()).hexdigest() for n in values}
+    record={'edition_date':expected,'identity':identity,'section_identity':sid,
+        'section':'bluf-None','maximum_extra_section_requests':1,
+        'maximum_total_section_requests':MAX_REQUESTS,'publication_authorized':False,
+        'new_discovery_prohibited':True,'new_source_selection_prohibited':True,
+        'new_reporting_prohibited':True,'original_research_ledger_unchanged':True,
+        'section_ledger_sha256_before':hashlib.sha256(ledger.read_bytes()).hexdigest(),
+        'retained_stage_sha256':hashes,'reserved_at':datetime.now(timezone.utc).isoformat(),
+        'failure_run_id':plan['failure_run_id']}
+    try:
+        with marker.open('x',encoding='utf-8') as f:json.dump(record,f,indent=2)
+    except FileExistsError:return False
+    return True
 
 def reserve(cache:Path,plan:dict,engine:str,load:Callable,validate_report:Callable)->bool:
     """Honor explicit historical grants without resetting or expanding daily limits."""
