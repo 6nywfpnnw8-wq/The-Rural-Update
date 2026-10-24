@@ -134,6 +134,12 @@ def error_details(error: Exception, candidate=None) -> dict:
     if api_error:
         return {'rule': 'api_request', 'message': 'External API request failed',
                 'endpoint': api_error.group(1), 'http_status': int(api_error.group(2))}
+    narration_section = re.fullmatch(r'Narration section failed its bounded structural checks: (opening-None|bluf-None|developments-[012]|oklahoma-None|signals-None|actions-None|deadlines-None|closing-None)', raw)
+    if narration_section:
+        section = narration_section.group(1).split('-')[0]
+        path = '/podcast/' + section
+        if section == 'developments': path += '/' + narration_section.group(1).rsplit('-', 1)[1]
+        return {'rule': 'narration_section', 'message': 'Narration section failed bounded structural checks', 'path': path}
     if raw == 'Audit rejected candidate':
         return {'rule': 'evidence_audit', 'message': 'Editorial audit rejected candidate', 'path': '/'}
     if raw == 'Placeholder text':
@@ -199,6 +205,8 @@ def summary(report: dict) -> str:
         return 'Candidate schema validation failed at ' + pointer_from_report(report.get('path', '/'))
     if rule == 'api_request' and report.get('endpoint') in ('responses', 'audio/speech') and type(report.get('http_status')) is int:
         return f'OpenAI {report["endpoint"]} request failed (HTTP {report["http_status"]})'
+    if rule == 'narration_section':
+        return 'Narration section validation failed at ' + pointer_from_report(report.get('path', '/'))
     if rule == 'evidence_audit':
         return 'Editorial audit rejected candidate; publication remains blocked.'
     if rule in ('identifier','research_response','spoken_word_count'):
