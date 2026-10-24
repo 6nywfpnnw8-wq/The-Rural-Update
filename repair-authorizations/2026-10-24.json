@@ -4,10 +4,13 @@
   "engine": "staged-research-v3",
   "maximum_additional_generation_attempts": 1,
   "publication_authorized": false,
-  "reason": "The user requested safe recovery of the October 24 edition. Run 40084542457 retained completed discovery, source selection, and reporting, and the final narration-section response was complete but exceeded the BLUF local word limit (222 words versus a 155-206 range). Permit one final narration-only request for bluf-None after verifying the exact retained files, failure metadata, local section ledger and absence of any audit. Do not rerun discovery, source selection, or reporting; do not change the two-attempt daily research ledger, reset the section ledger, or exceed its twenty-request aggregate. The new section must pass local prose and full episode validation, exact source retrieval, independent evidence audit, audio validation, and the existing single-publisher deployment and public verification gates.",
-  "maximum_narration_structural_resumes": 1,
+  "reason": "The user authorized the necessary targeted correction and safe recovery continuation after the first one-time BLUF retry returned a completed but overlong 298-word section (run 40102773243). Permit exactly one further narration-only BLUF request against the intact October 24 discovery, source catalog, and reporting cache. Keep the daily research ledger at 2/2 and the existing section ledger unchanged at reservation; do not rerun discovery, source selection, or reporting. The new BLUF must satisfy the provider word-count pattern and local prose checks. It remains unpublished until full-edition validation, exact source retrieval, independent evidence audit, audio validation, and the existing single-publisher deployment and public verification gates pass.",
+  "maximum_narration_structural_resumes": 2,
   "section": "bluf-None",
-  "failure_run_id": 40084542457,
-  "observed_words": 222,
-  "observed_attempt": 2
+  "failure_run_id": 40102773243,
+  "observed_words": 298,
+  "observed_attempt": 3,
+  "maximum_narration_structural_followups": 1,
+  "maximum_additional_narration_requests": 1,
+  "previous_failure_run_id": 40084542457
 }
