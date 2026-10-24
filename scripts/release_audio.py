@@ -35,10 +35,17 @@ def ending_check(expected,actual):
     value=score(a,b); final=score(a[-6:],b[-8:])
     return {'ending':round(value,4),'final_words':round(final,4),'passed':bool(a) and value>=.88 and final>=.9}
 
-def segments(text,max_words=170,max_parts=24):
-    units=re.split(r'(?<=[.!?])\s+',text.strip()); parts=[]; current=[]
+def segments(text,max_words=170,max_parts=24,allow_clauses=False):
+    units=[]
+    for sentence in re.split(r'(?<=[.!?])\s+',text.strip()):
+        if len(sentence.split())<=max_words:
+            units.append(sentence);continue
+        clauses=re.split(r'(?<=[;:])\s+',sentence) if allow_clauses else [sentence]
+        if len(clauses)<2 or any(len(clause.split())>max_words for clause in clauses):
+            raise ValueError('Narration sentence exceeds the speech segment limit')
+        units.extend(clauses)
+    parts=[];current=[]
     for unit in units:
-        if len(unit.split())>max_words: raise ValueError('Narration sentence exceeds the speech segment limit')
         if current and len((' '.join(current)+' '+unit).split())>max_words:
             parts.append(' '.join(current));current=[]
         current.append(unit)
@@ -99,12 +106,13 @@ def speech_payload(text,model,voice):
 
 
 def split_failed_segment(text):
-    """One subdivision at sentence boundaries, never truncation or padding."""
+    """One subdivision at sentence or explicit clause boundaries, with no text loss."""
     sentences=re.split(r'(?<=[.!?])\s+',text.strip())
+    if len(sentences)<2:sentences=re.split(r'(?<=[;:])\s+',text.strip())
     if len(sentences)<2:raise RuntimeError('Failed single-sentence audio requires review')
     longest=max(len(s.split()) for s in sentences)
     target=max(longest,(len(text.split())+1)//2)
-    children=segments(text,max_words=target,max_parts=4)
+    children=segments(text,max_words=target,max_parts=4,allow_clauses=True)
     if not 2<=len(children)<=4:raise RuntimeError('Failed audio cannot be subdivided safely')
     assert ' '.join(text.split())==' '.join(' '.join(children).split()),'Audio subdivision lost text'
     return children
@@ -118,10 +126,10 @@ def collect_verified_segments(body,cache,request,model,voice):
     thresholds. A script-word partition proves that assembly cannot omit a leaf.
     """
     folder=cache/'audio-v2';folder.mkdir(parents=True,exist_ok=True)
-    legacy=segments(body,max_words=170)
+    legacy=segments(body,max_words=170,allow_clauses=True)
     first_key=digest(json.dumps(speech_payload(legacy[0],model,voice),sort_keys=True))
     use_legacy=any((folder/(first_key+f'-{n}.wav')).exists() for n in range(2))
-    parts=legacy if use_legacy else segments(body,max_words=90,max_parts=32)
+    parts=legacy if use_legacy else segments(body,max_words=90,max_parts=32,allow_clauses=True)
     accepted=[];accepted_text=[];reports=[];position=0
 
     def visit(text,origin,depth):
@@ -191,3 +199,4 @@ def build_audio(edition,cache,output,request):
     report={'schema_version':2,'normalization_version':NORMALIZATION_VERSION,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'timing_adjustment':timing,'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
     write_json(cache/'audio-quality.json',report)
     return seconds
+
