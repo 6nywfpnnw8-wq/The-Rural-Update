@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-24",
+  "failure_run_id": 40108030234,
+  "candidate_sha256": "6fe86caeae109770269eea00e5cdcb2870b8f115dfe6ae74db62e1cac8a506cd",
+  "initial_review_sha256": "902f22978cb9965fb1380a5d9cc32eaffb701259588f5f0d86bb8dd2111a3ba6",
+  "initial_request_sha256": "a34cd1e6fb2ecf243d1db5866a04b36d5719c83daa88aefea0090ab89eb48f60",
+  "maximum_total_audit_requests": 2,
+  "use_existing_slot": "final",
+  "additional_research_generation_calls": 0,
+  "additional_narration_generation_calls": 0,
+  "publication_authorized": false,
+  "reason": "The preserved initial review completed but returned supported claims as blocking findings with required_change=none, plus non-exact candidate quotes. Preserve the entire malformed review without relabeling, dropping findings or granting approval. Review the same candidate and complete fresh source evidence once in the already unspent final slot using the clarified defect-only contract. Do not reset or extend the existing two-review allowance. Real blocking findings or another malformed final review must stop publication. The user authorized the necessary correction and safe recovery."
+}

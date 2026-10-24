@@ -109,10 +109,12 @@ jobs:
               'narration-structural-resume-used.json','narration-structural-followup-used.json')]
           files.extend(folder/(n+'.json') for n in ('discovery','sources','reporting'))
           files.extend(root.glob('validation-*.json'))
-          files.extend(root/'editorial-recovery-attempt.json' for _ in [0])
-          files.extend(root/'retained-bluf-recovery-used.json' for _ in [0])
+          files.append(root/'editorial-recovery-attempt.json')
+          files.append(root/'retained-bluf-recovery-used.json')
           files.extend((root/'editorial-loop-v1').glob('*.json'))
           files.extend((root/'candidates').glob('*.json'))
+          files.append(root/'source-text-cache.json')
+          files.append(root/'audit-protocol-recovery-used.json')
           files.extend((root/'section-candidates').glob('*.json'))
           files.extend((folder/'sectioned-narration-v1').glob('*/*.json'))
           inventory=[];total=0

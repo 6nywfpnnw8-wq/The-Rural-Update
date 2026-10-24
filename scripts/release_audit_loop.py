@@ -99,6 +99,8 @@ def validate_review(report, edition):
         if not finding['explanation'].strip(): raise ValueError('Audit finding lacks explanation')
         if finding['kind'] in BLOCKING and not finding['required_change'].strip():
             raise ValueError('Blocking audit finding lacks a correction instruction')
+        if finding['kind'] in BLOCKING and finding['required_change'].strip().lower() in {'none','no change','n/a'}:
+            raise ValueError('Blocking audit finding must specify a substantive correction')
         if len(finding['source_ids'])!=len(set(finding['source_ids'])):
             raise ValueError('Duplicate audit source references')
     return [f for f in report['findings'] if f['kind'] in BLOCKING]
@@ -255,6 +257,9 @@ Do not demand additional sources for a cautious recommendation that makes no uns
 factual assertion. Missing material evidence must block, not be guessed. Do not mark a
 review complete if source metadata prevents reliable verification. No em dashes.
 '''
+    from release_audit_protocol import DEFECT_ONLY_POLICY, use_final_review
+    protocol_recovery=use_final_review(edition,cache,Path(__file__).resolve().parents[1]/'audit-protocol-recovery',validate_review)
+    if date>='2026-10-24':policy+=DEFECT_ONLY_POLICY
     from release_source_dates import DATE_POLICY, take_source_date_review
     policy += DATE_POLICY
     date_recovery=take_source_date_review(edition,cache,model,request,output_text,
@@ -263,13 +268,16 @@ review complete if source metadata prevents reliable verification. No em dashes.
     audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(edition)
     from release_reviewed_reference import take_reviewed_reference
     reviewed=take_reviewed_reference(edition,cache)
+    if protocol_recovery and reviewed is not None:
+        raise ValueError('Audit-protocol continuation cannot alter the reviewed candidate')
     if reviewed is not None:
         candidate=reviewed
         print('Reviewed citation correction retained; the unused final full-source audit is still required.',flush=True)
     # Citation repair is not a factual claim correction. Reuse its completed
     # review, then permit exactly one separately reserved correction and check.
     # Never reopen initial/final slots or approve an incomplete review.
-    review_slots=('final','reference-corrected-final') if reviewed is not None else ('initial','final')
+    review_slots=(('final',) if protocol_recovery else
+                  (('final','reference-corrected-final') if reviewed is not None else ('initial','final')))
     for iteration,slot in enumerate(review_slots):
         # Rebind fetched source evidence to the exact corrected candidate.
         if reviewed is not None or iteration:documents=collect_source_evidence(candidate,cache)
@@ -316,7 +324,7 @@ review complete if source metadata prevents reliable verification. No em dashes.
             write_json(cache/'approved.json',record)
             return record
         Diagnostics(cache,date).fail('evidence-audit',RuntimeError('Audit rejected candidate'),candidate)
-        if iteration:raise RuntimeError('Blocking findings remain after the single editorial correction')
+        if iteration or protocol_recovery:raise RuntimeError('Blocking findings remain after the final evidence review')
         fields=text_fields(candidate)
         ids=[f['id'] for f in blocking]
         patch_schema=obj(replacements=arr(obj(path={'type':'string','enum':sorted(fields)},
@@ -353,3 +361,4 @@ IDs it addresses. A separate independent full-source audit will review the resul
             'changed_paths':[p['path'] for p in plan['replacements']],
             'correction_calls':1,'old_attempt_ledgers_preserved':True,'publication_authorized':False})
     raise RuntimeError('Editorial review did not reach a terminal result')
+
