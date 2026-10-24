@@ -13,9 +13,10 @@ PLAIN_FAILURE_RUN=39485880713
 def generation_schema(count):
     """Keep compact JSON generation separate from mandatory local prose checks."""
     from release_prose import prose_schema
-    schema=prose_schema(count)
-    schema['properties']['text'].pop('pattern',None)
-    return schema
+    # Keep the locally validated word range in the provider schema as well.
+    # Without this pattern, a completed JSON response can be far over budget,
+    # consuming a bounded repair attempt before the local validator rejects it.
+    return prose_schema(count)
 
 
 def extra_attempts(cache,identity,section_identity):
