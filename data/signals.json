@@ -236,5 +236,89 @@
       ]
     ],
     "reviewed": "2026-10-21"
+  },
+  {
+    "id": "signal-rhc-telehealth-payment-execution",
+    "title": "Immediate revenue-cycle risk from RHC distant-site telehealth billing change",
+    "direction": "Down",
+    "confidence": "High",
+    "horizon": "0-3 months",
+    "executiveRisk": "High",
+    "summary": "CMS transmittal R13776OTN makes distant-site telehealth billing by CPT/HCPCS and modifiers mandatory for DOS on/after 2026-10-01 with systems implementation noted 2026-10-05. Clearinghouse and payer edits will determine actual payment outcomes; early reconciliation is required to measure denials and cash impact.",
+    "why": "Policy is final for Medicare FFS but payer acceptance and EDI handling vary; only claims-reconciliation will quantify financial effect.",
+    "refs": [
+      [
+        "Transmittal R13776OTN (Change Request 14468) - Billing Distant-Site Telehealth for RHCs/FQHCs",
+        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
+      ],
+      [
+        "Federally Qualified Health Center (FQHC) & Rural Health Clinic (RHC) News and Announcements",
+        "https://www.cms.gov/fqhc-rhc-news-announcements"
+      ]
+    ],
+    "reviewed": "2026-10-24"
+  },
+  {
+    "id": "signal-medicaid-provider-tax-pressure",
+    "title": "Medicaid financing exposure and temporary grant dependence",
+    "direction": "Down",
+    "confidence": "High",
+    "horizon": "12-48 months",
+    "executiveRisk": "High",
+    "summary": "Provider-tax requirements and the proposed implementing rule create financing-planning risk, while federal rural transformation awards provide time-limited grant resources. Finance should assess these streams separately rather than assume that transformation awards replace recurring supplemental payments.",
+    "why": "The CMS provider-tax fact sheet and RHTP award announcement address different financing mechanisms. The recommendation to keep their budget assumptions separate is management analysis.",
+    "refs": [
+      [
+        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (Proposed Rule CMS-2452-P) - Fact Sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+      ],
+      [
+        "CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States (RHTP)",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+      ]
+    ],
+    "reviewed": "2026-10-24"
+  },
+  {
+    "id": "signal-generous-conditional",
+    "title": "Separate Medicaid pharmacy assumptions from provider-tax financing assumptions",
+    "direction": "Neutral",
+    "confidence": "Medium",
+    "horizon": "3-12 months",
+    "executiveRisk": "Moderate",
+    "summary": "CMS announced broad participation in GENEROUS. Oklahoma-specific pharmacy effects require applicable state terms. Separately, provider-tax requirements affect state financing assumptions; a national drug-model announcement does not resolve that exposure.",
+    "why": "The GENEROUS announcement and provider-tax fact sheet support distinct policy watches. Request written state implementation guidance and keep any hospital-specific financial effects conditional.",
+    "refs": [
+      [
+        "CMS Announces Participants in Landmark Medicaid Drug-Payment Model (GENEROUS) - Press Release",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
+      ],
+      [
+        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (Proposed Rule CMS-2452-P) - Fact Sheet",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+      ]
+    ],
+    "reviewed": "2026-10-24"
+  },
+  {
+    "id": "signal-ok-rhtp-regionalization",
+    "title": "Oklahoma RHTP moving into state subawards and microgrants",
+    "direction": "Opportunity",
+    "confidence": "High",
+    "horizon": "1-5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "Oklahoma published RHTP program pages, NOFO and microgrant materials and an awardee list, signaling active subaward activity and regional project planning across telehealth, workforce and transport.",
+    "why": "Subawards create near-term project funding but post-grant sustainability must be required in subaward budgets to avoid creating unfunded operating obligations.",
+    "refs": [
+      [
+        "Oklahoma Rural Health Transformation Program funding recipients",
+        "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html"
+      ],
+      [
+        "CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States (RHTP)",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+      ]
+    ],
+    "reviewed": "2026-10-24"
   }
 ]

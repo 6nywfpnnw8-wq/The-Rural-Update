@@ -639,6 +639,36 @@
       "due": "Ongoing",
       "next": "Assemble finance, Medicaid managed-care and CFO teams to quantify revenue tied to provider-tax funded supplemental payments; produce cash-stress scenarios assuming CMS finalizes CMS-2452-P language.",
       "source": "medicaid-provider-tax-proposal-cms-2452-p"
+    },
+    {
+      "id": "action-reconcile-rhc-oct-claims",
+      "title": "Reconcile RHC distant-site telehealth production claims (DOS 2026-10-01 to 2026-10-21) and produce payer exception log",
+      "status": "Open",
+      "owner": "Revenue Cycle / RHC Operations / IT",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Extract representative sample of RHC telehealth claims (DOS 2026-10-01 onward), confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and list payer-specific denials and edits for corrective coding and clearinghouse filter updates.",
+      "source": "rhc-telehealth-billing"
+    },
+    {
+      "id": "action-model-medicaid-supplemental-downside",
+      "title": "Model downside cash-flow isolating revenue tied to provider-tax funded supplemental payments",
+      "status": "Open",
+      "owner": "Finance / CFO / Medicaid Managed Care",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Finance should quantify current revenue tied to state supplemental payments and provider-tax constructs, run a conditional downside scenario assuming CMS-2452-P finalizes proposed thresholds, and request OHCA confirmation of state exposure before rebasing budgets.",
+      "source": "cms-2452-p-provider-tax-proposal"
+    },
+    {
+      "id": "action-verify-generous-oklahoma",
+      "title": "Request written OHCA confirmation of GENEROUS participation and obtain covered-product and passthrough details",
+      "status": "Open",
+      "owner": "Medicaid / Pharmacy / Finance",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Contact OHCA in writing to confirm whether Oklahoma has executed GENEROUS participation, request the list of covered drugs, MCO passthrough guidance and implementation schedule before changing pharmacy or 340B forecasts.",
+      "source": "generous-participation-national"
     }
   ],
   "changes": {
@@ -661,5 +691,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-22"
+  "reviewed": "2026-10-24"
 }

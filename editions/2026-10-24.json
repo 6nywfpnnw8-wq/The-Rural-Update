@@ -1,0 +1,383 @@
+{
+  "edition": {
+    "edition_date": "2026-10-24",
+    "title": "The Rural Update: Oklahoma edition",
+    "bluf": "Five verified developments matter to Oklahoma rural hospitals this week: Medicare finalized distant-site telehealth billing for RHCs/FQHCs for dates of service on or after 2026-10-01 with systems implementation activity on 2026-10-05, creating an immediate revenue-cycle reconciliation need to detect clearinghouse edits, payer denials and cash-flow impacts; CMS proposed rule CMS-2452-P would change the indirect hold-harmless threshold used to review health-care-related taxes and could reduce state-funded supplemental payments if finalized, posing medium-term budget risk; CMS announced broad state participation in the GENEROUS Medicaid drug-payment model, but Oklahoma execution terms and covered-product/passthrough details are required before any pharmacy or 340B financial effects can be assumed; Oklahoma’s RHTP program has posted NOFOs, microgrants and an awardee list and is moving into state subaward activity, raising post-grant sustainability questions that subaward budgets must address; and HRSA’s RCORP awards (nationwide) expand rural addiction-treatment capacity, offering referral and medication-access opportunities if local awardees establish operational agreements with hospital pharmacies and Medicaid/MCOs.",
+    "stories": [
+      {
+        "id": "rhc-telehealth-billing",
+        "title": "Medicare RHC/FQHC distant-site telehealth billing goes live for Oct 1 dates of service; implementation systems date Oct 5",
+        "what_changed": "CMS published Transmittal R13776OTN (Change Request 14468) with billing instructions requiring distant-site telehealth services furnished to RHC/FQHC beneficiaries to be billed using individual CPT/HCPCS codes plus applicable telehealth modifiers for dates of service on or after 2026-10-01; the transmittal lists an implementation date of 2026-10-05 for systems processing.",
+        "why_it_matters": "For Oklahoma critical-access and rural clinics that bill as RHCs or operate associated RHCs, the change is an operational revenue-cycle event. Real-dollar impact depends on clearinghouse and payer EDI edits, modifier-handling logic and commercial/MCO acceptance. Early production claims (DOS 2026-10-01 onward) must be reconciled against remittances to detect front-end rejections, payer-specific edits, or denials. Without active reconciliation, hospitals risk misstated revenue, unexpected denials and cash-flow disruption.",
+        "executive_question": "Can revenue-cycle and IT teams extract a representative claims sample for dates of service Oct 1–Oct 21, reconcile remittances and produce an exception log by payer within two weeks?",
+        "category": "Revenue & Claims",
+        "change": "Continuing",
+        "policy_state": "Final",
+        "source_ids": [
+          "cms-r13776otn",
+          "cms-fqhc-rhc-news"
+        ]
+      },
+      {
+        "id": "cms-2452-p-provider-tax-proposal",
+        "title": "CMS proposed rule CMS-2452-P would amend indirect hold-harmless thresholds for health-care-related taxes",
+        "what_changed": "CMS published proposed rule CMS-2452-P to implement federal statutory requirements for indirect hold-harmless thresholds on healthcare-related taxes. The proposed regulatory details and the underlying statutory effective dates require separate review; publication of an NPRM does not suspend requirements established by law.",
+        "why_it_matters": "Provider-tax arrangements and state supplemental payments create potential financing exposure for rural hospitals. Finance should identify the affected revenue and ask OHCA which statutory requirements, proposed regulatory details and state mitigation decisions apply before revising a forecast. Temporary transformation grants should not be assumed to replace recurring supplemental-payment revenue.",
+        "executive_question": "Has OHCA quantified which supplemental payments or provider-tax flows would be affected in Oklahoma and are there contingency plans to replace any at-risk dollars?",
+        "category": "Medicaid / Finance",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_ids": [
+          "cms-2452-p-fact-sheet"
+        ]
+      },
+      {
+        "id": "generous-participation-national",
+        "title": "CMS announces broad state participation in GENEROUS Medicaid drug-payment model; Oklahoma execution conditional",
+        "what_changed": "CMS released a press announcement that states have applied and many have signed participation agreements for the GENEROUS Medicaid drug-payment model designed to align Medicaid drug net prices with international benchmarks and use model-negotiated supplemental rebates.",
+        "why_it_matters": "GENEROUS can change Medicaid pharmacy net prices, rebate flows and managed-care passthrough practices. For hospitals that rely on 340B economics or hospital-based pharmacy margins, state-level execution details (covered-product lists, rebate passthrough rules and MCO implementation dates) determine financial impact. A national CMS announcement is not a substitute for a written OHCA execution letter.",
+        "executive_question": "Has OHCA executed GENEROUS participation and provided the list of covered products, rebate passthrough instructions and MCO operational dates that would affect 340B and hospital pharmacy margins?",
+        "category": "Medicaid / Pharmacy",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_ids": [
+          "cms-generous-press"
+        ]
+      },
+      {
+        "id": "oklahoma-rhtp-implementation",
+        "title": "Oklahoma RHTP moves from award design into state subaward activity; NOFOs and microgrants posted",
+        "what_changed": "Following the federal RHTP awards, Oklahoma has published program pages, NOFO and microgrant materials and a funding-recipient list indicating active state-level subaward processes and regional project planning.",
+        "why_it_matters": "These subawards present near-term funding and partnership opportunities for telehealth expansion, workforce supports and transport/EMS projects. The material management question is post-grant operating sustainability. Hospitals and rural systems must require post-grant sustainability budgets in any accepted subaward and verify disbursement timelines before relying on grant dollars to fund ongoing operating costs.",
+        "executive_question": "Which Oklahoma RHTP subawards intersect with our service area, and do subaward budgets include explicit post-grant recurring operating funds, staffing commitments and replacement-capital plans?",
+        "category": "Grants & Regional Strategy",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_ids": [
+          "cms-rhtp-awards",
+          "oklahoma-rhtp-program"
+        ]
+      },
+      {
+        "id": "hrsa-rcorp-sud-awards",
+        "title": "HRSA awards nearly $90M through RCORP to expand rural addiction treatment and recovery services",
+        "what_changed": "HRSA announced awards to strengthen rural substance use disorder prevention, treatment and recovery (RCORP), totaling approximately $89.3 million nationwide, to be distributed to rural partners and communities.",
+        "why_it_matters": "This funding increases the number of community organizations, clinics and treatment sites that can provide medication-assisted treatment and recovery supports. For Oklahoma hospitals, the opportunity is to integrate referral pathways, ensure pharmacy administration capacity for long-acting buprenorphine formulations and align Medicaid coverage and MCO referral workflows to convert award activity into sustained patient flows.",
+        "executive_question": "Which local entities received RCORP funding in our service area, and do they have operational referral and medication-administration agreements with hospital and clinic pharmacies?",
+        "category": "Behavioral Health / Grants",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_ids": [
+          "hrsa-rcorp-press"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "action-reconcile-rhc-oct-claims",
+        "title": "Reconcile RHC distant-site telehealth production claims (DOS 2026-10-01 to 2026-10-21) and produce payer exception log",
+        "due_date": null,
+        "next_step": "Extract representative sample of RHC telehealth claims (DOS 2026-10-01 onward), confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and list payer-specific denials and edits for corrective coding and clearinghouse filter updates.",
+        "suggested_function": "Revenue Cycle / RHC Operations / IT",
+        "issue_id": "rhc-telehealth-billing",
+        "source_ids": [
+          "cms-r13776otn",
+          "cms-fqhc-rhc-news"
+        ]
+      },
+      {
+        "id": "action-model-medicaid-supplemental-downside",
+        "title": "Model downside cash-flow isolating revenue tied to provider-tax funded supplemental payments",
+        "due_date": null,
+        "next_step": "Finance should quantify current revenue tied to state supplemental payments and provider-tax constructs, run a conditional downside scenario assuming CMS-2452-P finalizes proposed thresholds, and request OHCA confirmation of state exposure before rebasing budgets.",
+        "suggested_function": "Finance / CFO / Medicaid Managed Care",
+        "issue_id": "cms-2452-p-provider-tax-proposal",
+        "source_ids": [
+          "cms-2452-p-fact-sheet"
+        ]
+      },
+      {
+        "id": "action-verify-generous-oklahoma",
+        "title": "Request written OHCA confirmation of GENEROUS participation and obtain covered-product and passthrough details",
+        "due_date": null,
+        "next_step": "Contact OHCA in writing to confirm whether Oklahoma has executed GENEROUS participation, request the list of covered drugs, MCO passthrough guidance and implementation schedule before changing pharmacy or 340B forecasts.",
+        "suggested_function": "Medicaid / Pharmacy / Finance",
+        "issue_id": "generous-participation-national",
+        "source_ids": [
+          "cms-generous-press"
+        ]
+      }
+    ],
+    "deadlines": [
+      {
+        "date": "2026-10-31",
+        "title": "Editorial checkpoint: initial RHC telehealth reconciliation complete",
+        "description": "Suggested internal checkpoint to complete first-pass reconciliation of Oct 1–Oct 21 RHC telehealth claims and produce an exception log by payer. This is not a federal deadline.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "cms-r13776otn",
+          "cms-fqhc-rhc-news"
+        ]
+      },
+      {
+        "date": "2026-11-07",
+        "title": "Editorial checkpoint: finance downside scenario reviewed with OHCA outreach status",
+        "description": "Suggested internal checkpoint to review provider-tax downside modeling and confirm status of written OHCA responses regarding GENEROUS participation and any state-level supplemental-payment exposure.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "cms-2452-p-fact-sheet",
+          "cms-generous-press"
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "id": "signal-rhc-telehealth-payment-execution",
+        "title": "Immediate revenue-cycle risk from RHC distant-site telehealth billing change",
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "0-3 months",
+        "executiveRisk": "High",
+        "summary": "CMS transmittal R13776OTN makes distant-site telehealth billing by CPT/HCPCS and modifiers mandatory for DOS on/after 2026-10-01 with systems implementation noted 2026-10-05. Clearinghouse and payer edits will determine actual payment outcomes; early reconciliation is required to measure denials and cash impact.",
+        "why": "Policy is final for Medicare FFS but payer acceptance and EDI handling vary; only claims-reconciliation will quantify financial effect.",
+        "source_ids": [
+          "cms-r13776otn",
+          "cms-fqhc-rhc-news"
+        ]
+      },
+      {
+        "id": "signal-medicaid-provider-tax-pressure",
+        "title": "Medicaid financing exposure and temporary grant dependence",
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "12-48 months",
+        "executiveRisk": "High",
+        "summary": "Provider-tax requirements and the proposed implementing rule create financing-planning risk, while federal rural transformation awards provide time-limited grant resources. Finance should assess these streams separately rather than assume that transformation awards replace recurring supplemental payments.",
+        "why": "The CMS provider-tax fact sheet and RHTP award announcement address different financing mechanisms. The recommendation to keep their budget assumptions separate is management analysis.",
+        "source_ids": [
+          "cms-2452-p-fact-sheet",
+          "cms-rhtp-awards"
+        ]
+      },
+      {
+        "id": "signal-generous-conditional",
+        "title": "Separate Medicaid pharmacy assumptions from provider-tax financing assumptions",
+        "direction": "Neutral",
+        "confidence": "Medium",
+        "horizon": "3-12 months",
+        "executiveRisk": "Moderate",
+        "summary": "CMS announced broad participation in GENEROUS. Oklahoma-specific pharmacy effects require applicable state terms. Separately, provider-tax requirements affect state financing assumptions; a national drug-model announcement does not resolve that exposure.",
+        "why": "The GENEROUS announcement and provider-tax fact sheet support distinct policy watches. Request written state implementation guidance and keep any hospital-specific financial effects conditional.",
+        "source_ids": [
+          "cms-generous-press",
+          "cms-2452-p-fact-sheet"
+        ]
+      },
+      {
+        "id": "signal-ok-rhtp-regionalization",
+        "title": "Oklahoma RHTP moving into state subawards and microgrants",
+        "direction": "Opportunity",
+        "confidence": "High",
+        "horizon": "1-5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "Oklahoma published RHTP program pages, NOFO and microgrant materials and an awardee list, signaling active subaward activity and regional project planning across telehealth, workforce and transport.",
+        "why": "Subawards create near-term project funding but post-grant sustainability must be required in subaward budgets to avoid creating unfunded operating obligations.",
+        "source_ids": [
+          "oklahoma-rhtp-program",
+          "cms-rhtp-awards"
+        ]
+      }
+    ],
+    "issue_updates": [],
+    "sources": [
+      {
+        "id": "cms-r13776otn",
+        "title": "Transmittal R13776OTN (Change Request 14468) - Billing Distant-Site Telehealth for RHCs/FQHCs",
+        "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "cms-fqhc-rhc-news",
+        "title": "Federally Qualified Health Center (FQHC) & Rural Health Clinic (RHC) News and Announcements",
+        "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+        "published_date": null
+      },
+      {
+        "id": "cms-2452-p-fact-sheet",
+        "title": "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (Proposed Rule CMS-2452-P) - Fact Sheet",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+        "published_date": "2026-07-21"
+      },
+      {
+        "id": "cms-generous-press",
+        "title": "CMS Announces Participants in Landmark Medicaid Drug-Payment Model (GENEROUS) - Press Release",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+        "published_date": null
+      },
+      {
+        "id": "cms-rhtp-awards",
+        "title": "CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States (RHTP)",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+        "published_date": "2025-12-29"
+      },
+      {
+        "id": "oklahoma-rhtp-program",
+        "title": "Oklahoma Rural Health Transformation Program funding recipients",
+        "url": "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+        "published_date": null
+      },
+      {
+        "id": "hrsa-rcorp-press",
+        "title": "HRSA Awards Nearly $90 Million to Expand Addiction Treatment and Recovery Services in Rural Communities - Press Release",
+        "url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+        "published_date": null
+      }
+    ],
+    "podcast": {
+      "developments": [
+        "The first development is a Medicare billing change that is already operational. For dates of service on or after October first, rural health clinics and federally qualified health centers bill distant-site telehealth using the individual procedure codes and applicable telehealth modifiers. The CMS transmittal lists October fifth as the systems implementation date. These are different milestones: the service date determines which claims belong in the review, while the implementation date identifies the processing change. For a rural hospital with associated clinics, the immediate management question is whether the new billing instructions are producing the expected remittances. A final instruction does not establish that every clearinghouse edit or payer workflow has been updated correctly. Revenue cycle, clinic operations and information technology should therefore work from actual claims and remittances. The recommended first step is a representative sample of telehealth claims from October first through October twenty-first. Check the procedure code, the applicable modifier, the submission result and the payment response. Record exceptions by payer so the team can distinguish a coding problem from a clearinghouse rejection or an adjudication issue. This is operational analysis, not a claim that denials have already increased at any affiliate. The value of the exercise is to measure what is happening locally before a billing problem becomes a month-end revenue surprise. Leaders should ask who can assemble that sample, how exceptions will be assigned for review, and what evidence will show that a correction worked. The proposed October thirty-first checkpoint is an internal planning target for the first reconciliation, not a federal filing deadline. The next watch item is the pattern across payers and service dates. If claims are paying as expected, document that result. If exceptions cluster around a code, modifier or payer, use the evidence to guide the next correction. Avoid estimating a hospital financial loss from the policy announcement alone.",
+        "The second development concerns Medicaid financing and the proposed changes to the indirect hold-harmless threshold for healthcare-related taxes. CMS published the proposal identified as CMS twenty-four fifty-two P to implement requirements in federal legislation. The distinction matters: a proposed regulation and the underlying statutory requirements are separate layers of the policy. Hospital planning should distinguish obligations already established by law from details that remain proposed. For Oklahoma rural hospitals, the practical question is which revenues depend on provider-tax arrangements and state supplemental-payment mechanisms. The retained reporting identifies a possible financial exposure; it does not quantify a loss for an individual hospital or establish the final state response. Finance teams should begin with a revenue inventory. Separate ordinary patient-service payments, supplemental payments and temporary grant receipts so a scenario does not combine unlike funding streams. Identify which assumptions depend on the state financing structure, and request clarification from the Oklahoma Health Care Authority before changing the operating forecast. As management analysis, a useful downside scenario shows the affected revenue, the assumption being tested, the timing and the decisions that would follow. It should also show what remains unknown. A scenario is a planning tool, not a prediction that every proposed provision will take effect unchanged. Boards need that distinction when they consider capital commitments, recurring staffing costs or affiliate support. Ask whether the organization can explain the exposure without assuming that temporary funding will replace a recurring payment stream. The recommended November seventh checkpoint is an internal opportunity to review the scenario and the status of state outreach. It is not a federal compliance date. What to watch next is the final regulatory language, the applicable statutory timetable and written Oklahoma guidance about specific financing arrangements. Until those pieces are reconciled, leaders should preserve a range of outcomes and identify the assumptions that would cause the organization to revise its plan.",
+        "The third development is the national announcement about participation in the GENEROUS Medicaid drug-payment model. CMS described broad state interest and signed participation agreements. The model uses supplemental rebates to move participating Medicaid drug prices toward international benchmarks. That national announcement is relevant to hospital pharmacy planning, but it does not establish the operational terms that apply to a particular Oklahoma hospital. The retained reporting does not verify an Oklahoma execution letter, a covered-product list, managed-care instructions or a hospital-specific effect on pharmacy margins. Those gaps should remain visible. The recommended action is to obtain written confirmation from the Oklahoma Health Care Authority and review the actual implementation documents before changing a pharmacy or three-forty-B forecast. Pharmacy, Medicaid and finance leaders should use the same set of assumptions when they assess the information. As operational analysis, the review should distinguish state participation, the products covered by the model, rebate administration and any managed-care payment instructions. These are related questions, but an answer to one does not settle the others. A signed state agreement, for example, does not by itself quantify the financial effect for every hospital service or dispensing arrangement. Boards should ask what has been confirmed in writing and which financial assumptions remain conditional. They should also ask whether the forecast separates the model's possible effects from other Medicaid financing pressures. Combining the two can hide the reason an estimate changes. The next watch item is the availability of state-specific instructions that allow a defensible operational assessment. If the necessary documents are not available, keep the forecast assumption explicit and identify who will review the next update. This is a recommendation to verify implementation, not a statement that Oklahoma has declined participation or that a particular pharmacy payment change has occurred. The management objective is a documented decision based on applicable terms rather than an inference drawn from a national announcement."
+      ],
+      "oklahoma": "For Oklahoma, the Rural Health Transformation Program is moving through state implementation, and the state's funding-recipient material provides a practical starting point for local review. Federal awards and a published recipient list do not establish the terms, payment schedule or continuing operating support for every hospital project. Leaders should match the official information to their service areas and examine the actual subaward documents before relying on a grant in an operating plan. The central management issue is sustainability after the grant period. As analysis, a useful project review separates the initial purchase from recurring staffing, maintenance, technology and replacement costs. It asks who will carry those costs when the temporary funding ends, what partnership commitments are documented, and how the project will connect with existing services. A regional opportunity should be assessed for the access it creates and the obligations it leaves behind. The HRSA Rural Communities Opioid Response Program awards offer a related watch for behavioral-health partnerships. The national award announcement supports an opportunity to identify local recipients and discuss referral and medication-access arrangements. It does not show that a particular hospital has received an award or completed an agreement. For both programs, distinguish a published funding opportunity, a selected recipient and a signed local operating commitment. That distinction helps rural boards evaluate partnerships without treating an announcement as unrestricted cash or a permanent replacement for patient-service revenue.",
+      "signals": "Four signals deserve continued attention. First, the RHC telehealth billing change creates an immediate execution question that can be measured through claims and remittances. The direction of the financial effect at an individual clinic remains unmeasured until that work is done. Second, provider-tax policy creates a financing-planning risk, while temporary transformation grants require their own sustainability assumptions. These funding streams should remain separate in a board forecast. Third, the GENEROUS announcement calls for written state implementation details before a hospital assumes a pharmacy or three-forty-B effect. National participation and local financial impact are different questions. Fourth, Oklahoma transformation funding creates opportunities for service coordination, workforce support and technology, together with the need to document continuing operating obligations. These are continuing implementation watches, not claims that every development was announced today. The recommended response is a short list of evidence to obtain, assumptions to test and decisions to revisit. Confidence in a policy announcement should not be confused with confidence in a hospital-specific financial estimate. Keep the uncertainty attached to the estimate.",
+      "actions": "The recommended actions fall into three workstreams. Revenue cycle, RHC operations and information technology should review a representative telehealth claims sample and produce a payer exception log. Finance should identify revenue tied to provider-tax-funded supplemental payments, build clearly labeled scenarios and seek state clarification about the applicable requirements. Medicaid, pharmacy and finance should request the Oklahoma GENEROUS implementation documents before revising pharmacy assumptions. These are suggested functions and next steps, not statements that staff have been assigned or have completed the work. In parallel, leaders reviewing RHTP or behavioral-health partnerships should ask for the award terms, local operating commitments and a post-grant sustainability budget. For the next executive discussion, request a concise account of what the evidence establishes, what remains unknown and which decision depends on the missing information. That format keeps the work focused on a management choice. It also gives affiliate boards a way to follow progress without treating an unverified estimate or a funding announcement as a completed result.",
+      "deadlines": "The thirty-day watch contains two suggested internal checkpoints. October thirty-first is the proposed target for a first-pass RHC telehealth reconciliation and a payer exception log. November seventh is the proposed target for reviewing the Medicaid financing scenario and the status of written state outreach. Neither date is presented as a federal statutory deadline. Each organization should confirm its own review schedule, retain the distinction between an internal checkpoint and an official requirement, and adjust its planning process when verified guidance changes.",
+      "closing": "This has been The Rural Update for October twenty-fourth, two thousand twenty-six. The immediate priorities are to test billing execution, clarify Medicaid assumptions and examine the continuing costs attached to temporary funding. Use the cited public sources and applicable state documents to support local decisions. Bring confirmed findings, open questions and clearly labeled recommendations to the next leadership discussion.",
+      "opening": "Five verified developments affect Oklahoma rural hospitals this week: Medicare finalized distant-site telehealth billing for RHCs/FQHCs with Oct 1 dates of service and systems activity Oct 5, creating immediate revenue-cycle reconciliation needs; CMS proposed rule CMS-2452-P could reduce state-funded supplemental payments; GENEROUS national participation is announced but Oklahoma execution is required; Oklahoma RHTP moves into subawards; HRSA RCORP awards expand addiction-treatment capacity. The Rural Update, edition October twenty fourth, two thousand twenty six.",
+      "bluf": "Five verified developments matter to Oklahoma rural hospitals this week: Medicare finalized distant-site telehealth billing for RHCs/FQHCs for dates of service on or after 2026-10-01 with systems implementation activity on 2026-10-05, creating an immediate revenue-cycle reconciliation need to detect clearinghouse edits, payer denials and cash-flow impacts; CMS proposed rule CMS-2452-P would change the indirect hold-harmless threshold used to review health-care-related taxes and could reduce state-funded supplemental payments if finalized, posing medium-term budget risk; CMS announced broad state participation in the GENEROUS Medicaid drug-payment model, but Oklahoma execution terms and covered-product/passthrough details are required before any pharmacy or 340B financial effects can be assumed; Oklahoma’s RHTP program has posted NOFOs, microgrants and an awardee list and is moving into state subaward activity, raising post-grant sustainability questions that subaward budgets must address; and HRSA’s RCORP awards (nationwide) expand rural addiction-treatment capacity, offering referral and medication-access opportunities if local awardees establish operational agreements with hospital pharmacies and Medicaid/MCOs."
+    }
+  },
+  "audit": {
+    "approved": true,
+    "issues": []
+  },
+  "retrieved_urls": [
+    "https://www.cms.gov/fqhc-rhc-news-announcements",
+    "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+    "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+    "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+    "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html"
+  ],
+  "model": "gpt-5-mini",
+  "audit_candidate_sha256": "6fe86caeae109770269eea00e5cdcb2870b8f115dfe6ae74db62e1cac8a506cd",
+  "source_retrieval": [
+    {
+      "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "final_url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 185508,
+      "sha256": "7b45205a56c9489a84e4c202ddd1e5fe2fe7576e42c21a43c8355225a86bbe24",
+      "text_sha256": "7466d6c7a6d8670e65178f1290a4202742fab64e9b7e29f90250ec6c75a3f371",
+      "retrieved_at": "2026-10-24T15:55:12.542402+00:00",
+      "method": "direct_https",
+      "source_id": "cms-r13776otn"
+    },
+    {
+      "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "final_url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 187441,
+      "sha256": "bed347b1bd53cc73d399c36c2192001556b89216db6ce31ec7c56dcccf951a87",
+      "text_sha256": "39d989b340fcf8d4b4de7deb45cddb1ce165a1e558239a8f553e9071d1678634",
+      "retrieved_at": "2026-10-24T15:55:12.729803+00:00",
+      "method": "direct_https",
+      "source_id": "cms-fqhc-rhc-news"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56010,
+      "sha256": "8f26b872496ac68ee7b53fcbabf1ce2e25da448edf61cb7e10b5406dc1afe40a",
+      "text_sha256": "fb0414ea7b7b9fa937af50fa0d260d650e359b80000c212e6e843de0b52930bc",
+      "retrieved_at": "2026-10-24T15:55:12.844932+00:00",
+      "method": "direct_https",
+      "source_id": "cms-2452-p-fact-sheet"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 53743,
+      "sha256": "f7305ea75930bda3408120e0bb652c8c1cd0fc58ec4f922a22c70b45d83b39d2",
+      "text_sha256": "6b0144416efbe3e90cbfae1af332f9dbcfeec89d02f1980df34cd2ad55d20a67",
+      "retrieved_at": "2026-10-24T15:55:12.975481+00:00",
+      "method": "direct_https",
+      "source_id": "cms-generous-press"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 66347,
+      "sha256": "6c22acd2f65a4380100eba6c4b875e986f520cbaf6dd597776c0e85e1314fead",
+      "text_sha256": "1562e45f15b2dde8c655f6892e686f9518d4c1bba4a16d3fddc410ce0471ab06",
+      "retrieved_at": "2026-10-24T15:55:13.099788+00:00",
+      "method": "direct_https",
+      "source_id": "cms-rhtp-awards"
+    },
+    {
+      "url": "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "final_url": "https://www.oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 72783,
+      "sha256": "970a37c27a27165fcc52ab43bd58e46e27941c797e630b00b20f68465516d5c1",
+      "text_sha256": "0eebcaf82250d0f096bdea3776b82f4cc5eefd8a5affdae4b7068a13ac4cd21b",
+      "retrieved_at": "2026-10-24T15:55:13.206202+00:00",
+      "method": "direct_https",
+      "source_id": "oklahoma-rhtp-program"
+    },
+    {
+      "url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+      "final_url": "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 57918,
+      "sha256": "f8979fb8d88efa000b02b7c5cba4cf44b463d2fbcb13dc34b720443b514f1002",
+      "text_sha256": "b7563fd00ea0b4e978ee5ee7995fcbf91fce1339e5f260ef6010c5055e1f9139",
+      "retrieved_at": "2026-10-24T15:55:13.680004+00:00",
+      "method": "direct_https",
+      "source_id": "hrsa-rcorp-press"
+    }
+  ],
+  "research_at": "2026-10-24T15:55:21.246606+00:00",
+  "usage": {
+    "research": null,
+    "audit": [
+      {
+        "input_tokens": 22666,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 4480
+        },
+        "output_tokens": 707,
+        "output_tokens_details": {
+          "reasoning_tokens": 640
+        },
+        "total_tokens": 23373
+      }
+    ]
+  },
+  "structured_review": {
+    "schema_version": 1,
+    "edition_date": "2026-10-24",
+    "stage": "structured-review",
+    "candidate_sha256": "6fe86caeae109770269eea00e5cdcb2870b8f115dfe6ae74db62e1cac8a506cd",
+    "review_complete": true,
+    "blocking_count": 0,
+    "advisory_count": 0,
+    "findings": [],
+    "correction_calls": 0,
+    "correction_method": "automated",
+    "publication_authorized": false
+  }
+}
