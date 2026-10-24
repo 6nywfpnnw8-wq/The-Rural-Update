@@ -187,7 +187,9 @@ Earlier public intelligence is context only, NOT independently verified evidence
             assert any(x.get('type')=='web_search_call' for x in response.get('output',[])),'Research did not use web search'
             edition=json.loads(output_text(response))
         except Exception as exc:
-            raise diagnostics.fail('research-response',exc) from None
+            from release_diagnostics import error_details
+            stage = 'narration-section' if error_details(exc).get('rule') == 'narration_section' else 'research-response'
+            raise diagnostics.fail(stage,exc) from None
         provenance=retrieved_urls(response)
         diagnostics.capture('generated',edition,provenance)
         try:

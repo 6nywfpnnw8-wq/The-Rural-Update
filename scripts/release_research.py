@@ -401,6 +401,14 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
         raise RuntimeError('Invalid corrective-generation authorization')
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
+    if plan.get('maximum_narration_structural_resumes') == 1:
+        from release_prose import reserve_structural_resume
+        def validate_retained(values):
+            urls=observed_html_urls(values['discovery'])
+            catalog=validate_source_catalog(values['sources']['sources'],urls)
+            Draft202012Validator(reporting_schema(catalog)).validate(values['reporting']['edition'])
+            validate_reference_bindings(values['reporting']['edition'],catalog)
+        return reserve_structural_resume(cache,expected,plan,ENGINE,_cached,validate_retained)
     marker=Path(cache)/'corrective-generation-used.json'
     if marker.exists():
         if _resume_output_limit(cache,plan):return True
