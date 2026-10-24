@@ -92,7 +92,7 @@ class StructuralFollowupTests(unittest.TestCase):
     def test_wrong_latest_run_fails_closed(self):
         d=json.loads((self.cache/'api-responses.json').read_text());d['responses'][-1]['run_id']='40086530563'
         (self.cache/'api-responses.json').write_text(json.dumps(d))
-        self.assertFalse(self.reserve())
+        with self.assertRaises(RuntimeError):self.reserve()
         self.assertFalse((self.cache/'narration-structural-followup-used.json').exists())
     def test_changed_retained_reporting_fails_closed(self):
         p=self.folder/'reporting.json';d=json.loads(p.read_text());d['value']['edition']['bluf']='changed';p.write_text(json.dumps(d))
