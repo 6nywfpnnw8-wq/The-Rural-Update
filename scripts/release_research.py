@@ -401,6 +401,14 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
         raise RuntimeError('Invalid corrective-generation authorization')
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
+    if plan.get('maximum_retained_bluf_recoveries') == 1:
+        from release_retained_bluf import reserve
+        def validate_retained(values):
+            urls=observed_html_urls(values['discovery'])
+            catalog=validate_source_catalog(values['sources']['sources'],urls)
+            Draft202012Validator(reporting_schema(catalog,expected)).validate(values['reporting']['edition'])
+            validate_reference_bindings(values['reporting']['edition'],catalog)
+        return reserve(cache,expected,plan,policy_root,ENGINE,_cached,validate_retained)
     if plan.get('maximum_narration_structural_resumes') == 2:
         if plan.get('maximum_narration_structural_followups') != 1:return False
         from release_prose import reserve_structural_followup
@@ -438,3 +446,4 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     except FileExistsError:
         return False
     return True
+

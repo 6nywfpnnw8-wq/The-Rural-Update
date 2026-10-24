@@ -192,6 +192,11 @@ Earlier public intelligence is context only, NOT independently verified evidence
             stage = ('narration-section' if details.get('rule') == 'narration_section'
                      or details.get('api_stage') == 'narration_section' else 'research-response')
             raise diagnostics.fail(stage,exc) from None
+        try:
+            from release_retained_bluf import apply as apply_retained_bluf
+            edition=apply_retained_bluf(edition,cache,ROOT/'repair-authorizations')
+        except Exception as exc:
+            raise diagnostics.fail('retained-bluf-recovery',exc,edition) from None
         provenance=retrieved_urls(response)
         diagnostics.capture('generated',edition,provenance)
         try:
@@ -396,3 +401,4 @@ if __name__=='__main__':
         (ROOT/'.release-cache').mkdir(exist_ok=True)
         write_json(ROOT/'.release-cache/failure.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
         print('::error::'+str(exc),file=sys.stderr); sys.exit(1)
+
