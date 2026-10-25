@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "harness_revision": 2,
+  "harness_revision": 3,
   "request_id": "2026-10-25-integration-acceptance-1",
   "edition_date": "2026-10-25",
   "live": true,
@@ -10,5 +10,10 @@
   "production_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
   "source_count": 8,
   "publication_authorized": false,
-  "reason": "The user authorized building and running an isolated nonpublishing integration workflow and acceptance report. Use the retained eight-source catalog, the production compiler and validators, a separate bounded development request ledger, complete screened response retention, and an interruption/resume exercise. This request grants no production publication attempt or production ledger reset."
+  "development_continuation": {
+    "method": "coverage-plan-development-continuation-v1",
+    "previous_plan_sha256": "ea4ee3f1fce78439a133cefcc35118d6b819a3aae34e7c649876522aee18678a",
+    "previous_ledger_sha256": "2a81e9532d9909f9aade03573a6fb9ba35d2dd030334a611df2b0876116fc6c9"
+  },
+  "reason": "The user instructed proceeding with the correction that checks evidence coverage before report generation. Continue the existing isolated nonpublishing test from its exact retained development cache and spent request ledger. Add at most one reporting-plan HTTP submission within the unchanged combined response ceiling of 32; preserve the reporting ceiling of two, including the one reporting submission already spent. Use the same eight retained sources and production compiler, validators and evidence safeguards. Preserve every response and complete the normal interruption/resume and later acceptance checks when earlier gates pass. This authorizes no production publication attempt, production continuation or ledger reset."
 }

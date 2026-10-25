@@ -109,7 +109,7 @@ def word_count(candidate) -> int | None:
 def error_details(error: Exception, candidate=None) -> dict:
     result = _error_details(error, candidate)
     stage = getattr(error, 'research_stage', None)
-    if stage in {'sources', 'reporting', 'narration'}:
+    if stage in {'sources', 'reporting_plan', 'reporting', 'narration'}:
         result['api_stage'] = stage
         snapshot = getattr(error, 'stage_response_snapshot', None) or getattr(error, 'source_selection_snapshot', None)
         if isinstance(snapshot, dict):
@@ -119,6 +119,10 @@ def error_details(error: Exception, candidate=None) -> dict:
 
 def _error_details(error: Exception, candidate=None) -> dict:
     # str(ValidationError) contains the rejected instance. Never use it in a log.
+    coverage = getattr(error, 'coverage_findings', None)
+    if isinstance(coverage, list):
+        return {'rule': 'evidence_coverage', 'message': 'Source material does not support a complete coverage plan',
+                'path': '/', 'findings': coverage[:MAX_FINDINGS]}
     api = getattr(error, 'api_response', None)
     if isinstance(api, dict):
         status = api.get('status')
@@ -136,7 +140,7 @@ def _error_details(error: Exception, candidate=None) -> dict:
             safe[key]=value if type(value) is int and value>=0 else None
         result={'rule':'api_response','message':'Model response did not complete',
                 'path':'/','response':safe}
-        if api.get('stage') in {'discovery','sources','reporting','narration','editorial_audit',
+        if api.get('stage') in {'discovery','sources','reporting_plan','reporting','narration','editorial_audit',
                                 'rural_update_narration','narration_section','other'}:
             result['api_stage']=api['stage']
         return result
@@ -173,6 +177,7 @@ def _error_details(error: Exception, candidate=None) -> dict:
         'Duplicate source catalog URL': ('source_url_duplicate', '/sources'),
         'Duplicate source selection field': ('source_selection_duplicate_key', '/sources'),
         'Duplicate reporting response field': ('reporting_duplicate_key', '/'),
+        'Duplicate coverage plan field': ('coverage_duplicate_key', '/'),
         'Fewer than five observed readable-source URLs': ('source_observation_count', '/sources'),
         'Fewer than five distinct observed source URLs': ('source_observation_count', '/sources'),
         'Source selection contains an unapproved URL': ('source_domain', '/sources'),
@@ -241,6 +246,8 @@ def summary(report: dict) -> str:
         return 'Narration section validation failed at ' + pointer_from_report(report.get('path', '/'))
     if rule == 'evidence_audit':
         return 'Editorial audit rejected candidate; publication remains blocked.'
+    if rule == 'evidence_coverage':
+        return 'Evidence coverage incomplete before report generation; inspect the retained coverage findings.'
     if rule in ('identifier','research_response','spoken_word_count','response_json','source_reference','reporting_duplicate_key',
                 'source_identifier_duplicate','source_url_duplicate','source_selection_duplicate_key',
                 'source_observation_count','source_selection_size'):

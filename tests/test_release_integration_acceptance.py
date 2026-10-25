@@ -16,7 +16,8 @@ import release_pipeline as publisher
 import release_research as research
 from run_integration_tests import write_result
 from release_core import digest, read_json, write_json
-from release_integration_budget import DevelopmentTransport, DevelopmentBudgetExceeded
+from release_integration_budget import (DevelopmentTransport, DevelopmentBudgetExceeded, CONTINUATION,
+    LEGACY_NAME_LIMITS, LEGACY_TOKEN_LIMITS, continue_reporting_plan)
 from test_release_staged_research import bounded_fixture, response, DATE
 
 
@@ -110,6 +111,42 @@ class DevelopmentTransportTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):self.transport(request())
         self.assertEqual(self.upstream.call_count, 1)
 
+    def legacy_ledger(self):
+        with self.transport(request()):pass
+        value = read_json(self.transport.ledger)
+        value.update(name_limits=LEGACY_NAME_LIMITS, token_limits=LEGACY_TOKEN_LIMITS)
+        write_json(self.transport.ledger, value)
+        return self.transport.ledger.read_bytes()
+
+    def test_checked_continuation_preserves_spent_reporting_and_limits_new_plan(self):
+        original = self.legacy_ledger();sha = digest(original)
+        continue_reporting_plan(self.state, sha)
+        self.assertEqual((self.state / 'development-requests-before-reporting-plan.json').read_bytes(), original)
+        with self.transport(request()):pass
+        with self.assertRaises(DevelopmentBudgetExceeded):self.transport(request())
+        with self.transport(request('reporting_plan')):pass
+        with self.assertRaises(DevelopmentBudgetExceeded):self.transport(request('reporting_plan'))
+        current = self.transport.ledger.read_bytes()
+        continue_reporting_plan(self.state, sha)
+        self.assertEqual(self.transport.ledger.read_bytes(), current)
+        self.assertEqual(len(read_json(self.transport.ledger)['requests']), 3)
+
+    def test_continuation_rejects_changed_or_missing_original_ledger(self):
+        original = self.legacy_ledger()
+        with self.assertRaisesRegex(RuntimeError, 'checksum'):
+            continue_reporting_plan(self.state, '0' * 64)
+        self.transport.ledger.unlink()
+        with self.assertRaisesRegex(RuntimeError, 'unavailable'):
+            continue_reporting_plan(self.state, digest(original))
+
+    def test_continuation_cannot_erase_the_spent_request_prefix(self):
+        original = self.legacy_ledger();sha = digest(original)
+        continue_reporting_plan(self.state, sha)
+        value = read_json(self.transport.ledger);value['requests'] = []
+        write_json(self.transport.ledger, value)
+        with self.assertRaisesRegex(RuntimeError, 'reset spent'):
+            continue_reporting_plan(self.state, sha)
+
 
 class IntegrationIsolationTests(unittest.TestCase):
     def setUp(self):
@@ -151,6 +188,27 @@ class IntegrationIsolationTests(unittest.TestCase):
         p = self.cache / research.ENGINE / 'sources.json';p.write_text(p.read_text() + '\n')
         with self.assertRaises(RuntimeError):self.prepare()
         self.assertFalse((self.state / 'workspace').exists())
+
+    def continuation_plan(self):
+        old_sha = digest(json.dumps(self.plan, sort_keys=True))
+        ledger = {'schema_version': 1, 'limits': acceptance.LIMITS,
+            'name_limits': LEGACY_NAME_LIMITS, 'token_limits': LEGACY_TOKEN_LIMITS,
+            'requests': [], 'publication_authorized': False}
+        write_json(self.state / 'development-requests.json', ledger)
+        self.plan['development_continuation'] = {'method': CONTINUATION,
+            'previous_plan_sha256': old_sha,
+            'previous_ledger_sha256': digest((self.state / 'development-requests.json').read_bytes())}
+
+    def test_development_continuation_requires_the_exact_prior_plan_binding(self):
+        self.prepare();self.continuation_plan()
+        before = (self.cache / 'attempts.json').read_bytes()
+        self.prepare();self.prepare()
+        self.assertEqual((self.cache / 'attempts.json').read_bytes(), before)
+        self.assertTrue((self.state / 'development-requests-before-reporting-plan.json').exists())
+
+    def test_lost_development_cache_does_not_create_a_fresh_continuation_budget(self):
+        self.continuation_plan()
+        with self.assertRaisesRegex(RuntimeError, 'retained test cache'):self.prepare()
 
     def test_changed_editorial_context_cannot_trigger_new_discovery(self):
         write_json(self.root / 'data/intelligence.json', {'issues': [{'id': 'changed'}]})

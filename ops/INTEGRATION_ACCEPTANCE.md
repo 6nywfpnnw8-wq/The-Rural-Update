@@ -20,6 +20,11 @@ collector, editorial audit, narration, speech validation and site builder used b
 production. A changed seed/context stops before discovery; discovery and source
 selection submissions are prohibited by the transport guard.
 
+Revision 3 continues the exact retained development state. Its request binds both
+the previous plan hash and original development-ledger bytes. A checked migration
+preserves that ledger as a separate artifact and retains every spent request.
+Lost or changed state blocks the continuation instead of creating a fresh budget.
+
 The job has `contents: read`, no Pages or repository-write permission, and no
 persisted Git credential. It references the existing credential environment with
 `deployment: false`. No publish command, commit/push step or incident writer runs.
@@ -47,6 +52,12 @@ match the production requests. Tool use, speech input and transcription byte siz
 are also bounded. These are request/token ceilings, not dollar-denominated billing
 limits.
 
+The coverage correction adds at most one `reporting_plan` HTTP submission with
+6,000 output tokens inside the existing combined ceiling of 32. The previous
+reporting submission remains spent, leaving at most one reporting submission.
+Retries count as submissions. A failed or ambiguous planning submission cannot
+silently obtain a fresh planning allowance.
+
 Each submission is reserved before transport. Known HTTP errors remain counted;
 an ambiguous submission cannot be automatically repeated. The ledger and retained
 responses survive failure and resume. An absent ledger after retained provider
@@ -72,6 +83,22 @@ The acceptance report distinguishes passed, failed and untested stages:
 8. An exact completed rebuild with zero additional provider requests.
 9. Rejection of a deliberately corrupted local artifact.
 10. Byte-identical production public files and attempt/recovery checkpoints.
+
+Before drafting new reporting, the compiler retrieves every selected source with
+the existing public HTTPS, redirect, MIME, byte-size and text-size checks. A
+separate coverage plan must identify five distinct story angles and four distinct
+signal angles. Each selected reference needs a verbatim passage found in that
+source's actual text. Stories retain their one-to-five source requirement; signals
+retain their two-to-four distinct-source requirement. Unsupported slots can be
+left empty with `insufficient_evidence`, which blocks drafting. Completed negative
+plans are retained and do not cause automatic provider retries.
+
+The compiler supplies planned story/signal IDs, titles, policy/change labels and
+citation sets to the finished report. The prose generation schema cannot replace
+those fields. A matching passage establishes presence, not semantic entailment or
+editorial approval. The final candidate's exact retrieval and independent evidence
+audit still run normally. Existing completed reporting checkpoints continue through
+their original validators and audit rather than spending requests to re-plan them.
 
 All stages must pass for integration acceptance. A failure stops progression and
 retains evidence; later stages are not represented as successful. An automatic

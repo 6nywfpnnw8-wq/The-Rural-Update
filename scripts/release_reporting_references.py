@@ -9,7 +9,7 @@ from release_diagnostics import error_details
 METHOD = 'fixed-reporting-references-v1'
 
 
-def generation_schema(schema, catalog):
+def generation_schema(schema, catalog, coverage=None):
     result = copy.deepcopy(schema)
     ids = [s['id'] for s in catalog]
     if not ids or len(ids) != len(set(ids)):
@@ -25,6 +25,19 @@ def generation_schema(schema, catalog):
             else:walk(value)
         if isinstance(node.get('items'), dict):walk(node['items'])
     walk(result)
+    if coverage is not None:
+        from release_coverage_plan import GROUPS, slots
+        for group in GROUPS:
+            properties = {}
+            for slot in slots(group):
+                item = copy.deepcopy(result['properties'][group]['items'])
+                fixed = ['id', 'title', 'source_ids']
+                if group == 'stories':fixed += ['change', 'policy_state']
+                for key in fixed:
+                    item['properties'].pop(key);item['required'].remove(key)
+                properties[slot] = item
+            result['properties'][group] = {'type': 'object', 'properties': properties,
+                                          'required': list(properties), 'additionalProperties': False}
     return result
 
 
@@ -51,27 +64,45 @@ def _compile_references(value, catalog):
     return value
 
 
-def compile_report(text, schema, catalog):
+def _bind_plan(value, catalog, coverage):
+    if coverage is None:return value
+    from release_coverage_plan import GROUPS, references, slots
+    for group in GROUPS:
+        rows = []
+        for slot in slots(group):
+            planned = coverage['plan'][group][slot]
+            row = value[group][slot]
+            row.update({key: planned[key] for key in ('id', 'title')})
+            row['source_ids'] = references(planned, catalog)
+            if group == 'stories':row.update({key: planned[key] for key in ('change', 'policy_state')})
+            rows.append(row)
+        value[group] = rows
+    return value
+
+
+def compile_report(text, schema, catalog, coverage=None):
     value = json.loads(text, object_pairs_hook=_unique_object)
-    Draft202012Validator(generation_schema(schema, catalog)).validate(value)
+    Draft202012Validator(generation_schema(schema, catalog, coverage)).validate(value)
     value = _compile_references(value, catalog)
+    value = _bind_plan(value, catalog, coverage)
     # In particular, signals must still have two to four DISTINCT sources.
     # Fixed keys prevent duplicates; they do not satisfy a minimum by themselves.
     Draft202012Validator(schema).validate(value)
     return value
 
 
-def replay_report(text, schema, catalog):
+def replay_report(text, schema, catalog, coverage=None):
     """List every structural rejection in retained output without changing it."""
     result = {'method': METHOD, 'response_text_sha256': digest(text),
               'api_calls_made': 0, 'publication_authorized': False, 'findings': []}
     try:value = json.loads(text, object_pairs_hook=_unique_object)
     except (ValueError, TypeError) as error:
         result['findings'].append(error_details(error));return result
-    errors = list(Draft202012Validator(generation_schema(schema, catalog)).iter_errors(value))
+    errors = list(Draft202012Validator(generation_schema(schema, catalog, coverage)).iter_errors(value))
     result['generation_schema_passed'] = not errors
     if not errors:
         value = _compile_references(value, catalog)
+        value = _bind_plan(value, catalog, coverage)
         errors = list(Draft202012Validator(schema).iter_errors(value))
     for error in errors[:30]:
         finding = error_details(error)

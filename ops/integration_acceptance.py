@@ -21,10 +21,11 @@ import release_research as research
 from release_core import (digest, read_json, write_json, safe_path, podcast_body,
                           validate_catalog, probe_audio, TZ)
 from release_diagnostics import error_details
-from release_integration_budget import DevelopmentTransport, DevelopmentBudgetExceeded, LIMITS, NAME_LIMITS, TOKEN_LIMITS
+from release_integration_budget import (DevelopmentTransport, DevelopmentBudgetExceeded, LIMITS, NAME_LIMITS,
+                                        TOKEN_LIMITS, CONTINUATION, continue_reporting_plan)
 from release_verify import validate_audio_quality
 
-STAGES = ('offline_controls', 'seed_integrity', 'reporting', 'interruption_and_resume',
+STAGES = ('offline_controls', 'seed_integrity', 'coverage_sources', 'coverage_plan', 'reporting', 'interruption_and_resume',
           'narration', 'content_validation', 'source_retrieval', 'independent_evidence_audit',
           'audio_completeness', 'site_assembly', 'local_artifact_verification', 'repeat_without_provider',
           'artifact_corruption_guard', 'production_unchanged')
@@ -75,7 +76,16 @@ def prepare_workspace(root, state, plan):
     binding = {'request_id': plan['request_id'], 'plan_sha256': digest(json.dumps(plan, sort_keys=True)),
                'identity': plan['identity'], 'publication_authorized': False}
     old = read_json(state / 'binding.json')
-    if old is not None and old != binding:raise RuntimeError('Development cache belongs to another test plan')
+    continuation = plan.get('development_continuation')
+    if continuation is not None:
+        if (continuation.get('method') != CONTINUATION
+                or any(not re.fullmatch(r'[a-f0-9]{64}', str(continuation.get(key, '')))
+                       for key in ('previous_plan_sha256', 'previous_ledger_sha256'))):
+            raise RuntimeError('Invalid development continuation binding')
+        previous = {**binding, 'plan_sha256': continuation['previous_plan_sha256']}
+        if old not in (binding, previous):raise RuntimeError('Development continuation requires its retained test cache')
+        continue_reporting_plan(state, continuation['previous_ledger_sha256'])
+    elif old is not None and old != binding:raise RuntimeError('Development cache belongs to another test plan')
     write_json(state / 'binding.json', binding)
     workspace = state / 'workspace'
     if not workspace.exists():
@@ -161,6 +171,13 @@ def write_report(output, report):
                        'Source retrieval, independent audit, narration and audio acceptance have not run.</p>')
     if report.get('diagnostic_replay_code_sha'):
         replay += '<p>Offline diagnostic commit: <code>' + esc(report['diagnostic_replay_code_sha']) + '</code></p>'
+    coverage_findings = error.get('findings', []) if error.get('rule') == 'evidence_coverage' else []
+    if coverage_findings:
+        replay += '<h2>Evidence coverage blockers</h2><table><tr><th>Field</th><th>Rule</th><th>Source</th><th>HTTP status</th><th>Selected / minimum</th></tr>'
+        replay += ''.join('<tr><td><code>' + esc(f.get('path', '/')) + '</code></td><td>' + esc(f['rule'])
+                          + '</td><td>' + esc(f.get('url', f.get('source_id', ''))) + '</td><td>'
+                          + esc(f.get('http_status', '')) + '</td><td>' + esc(f.get('actual_items', ''))
+                          + ' / ' + esc(f.get('required_minimum', '')) + '</td></tr>' for f in coverage_findings) + '</table>'
     page = ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" '
             'content="width=device-width,initial-scale=1"><title>Rural Update integration acceptance</title>'
             '<style>body{font:16px/1.5 system-ui,sans-serif;max-width:1050px;margin:40px auto;padding:0 24px;color:#17313a}'
@@ -198,12 +215,30 @@ def add_reporting_replay(report, workspace, state):
     sources = research._cached(cache / research.ENGINE / 'sources.json', binding['identity'])
     if sources is None:raise RuntimeError('Retained reporting source catalog is unavailable')
     from release_reporting_references import replay_report
+    from release_coverage_plan import load_plan
     schema = research.reporting_schema(sources['sources'], report['edition_date'])
-    report['reporting_replay'] = replay_report(saved['output_text'], schema, sources['sources'])
+    coverage = load_plan(cache, binding['identity'], sources['sources'])
+    report['reporting_replay'] = replay_report(saved['output_text'], schema, sources['sources'], coverage)
 
 
 def collect_stages(report, workspace, state):
     cache = workspace / '.release-cache' / report['edition_date'];folder = cache / research.ENGINE
+    evidence = read_json(cache / 'coverage-source-evidence.json', {})
+    if 'complete' in evidence:
+        report['stages']['coverage_sources'] = {'status': 'pass' if evidence['complete'] else 'fail',
+            'detail': str(len(evidence.get('sources', []))) + ' readable sources; '
+                      + str(len(evidence.get('failures', []))) + ' retrieval failures'}
+    from release_coverage_plan import load_plan, METHOD
+    if (folder / METHOD / 'plan.json').exists():
+        try:
+            binding = read_json(state / 'binding.json')
+            sources = research._cached(folder / 'sources.json', binding['identity'])
+            planned = load_plan(cache, binding['identity'], sources['sources'])
+            if planned is not None:
+                report['stages']['coverage_plan'] = {'status': 'pass', 'detail': 'Five story and four signal plans have exact source anchors; independent audit still required'}
+        except Exception as error:
+            report['stages']['coverage_plan'] = {'status': 'fail', 'detail': 'Retained coverage plan rejected'}
+            report['coverage_diagnostics'] = error_details(error)
     checks = {'reporting': folder / 'reporting.json', 'narration': folder / 'narration.json'}
     for name, path in checks.items():
         if path.exists():report['stages'][name] = {'status': 'pass', 'detail': 'Validated stage checkpoint: ' + digest(path.read_bytes())}
@@ -230,7 +265,7 @@ def collect_stages(report, workspace, state):
     failure = read_json(cache / 'validation-latest.json', {})
     if failure.get('passed') is False:
         report['failure'] = {k: v for k, v in failure.items() if k not in {'snapshot', 'stage_snapshot'}}
-        mapping = {'research-reporting': 'reporting', 'narration': 'narration', 'narration-section': 'narration',
+        mapping = {'research-coverage': 'coverage_plan', 'research-reporting': 'reporting', 'narration': 'narration', 'narration-section': 'narration',
                    'content': 'content_validation', 'exact-source-retrieval': 'source_retrieval',
                    'evidence-audit': 'independent_evidence_audit'}
         if failure.get('stage') in mapping:
@@ -318,6 +353,9 @@ def run(root, plan, *, live=False):
             finally:target.write_bytes(original)
     except Exception as exc:
         report['result'] = 'fail';report['error'] = error_details(exc)
+        if report['error'].get('api_stage') == 'reporting_plan':
+            active = 'coverage_sources' if any(f.get('rule') == 'source_retrieval' for f in report['error'].get('findings', [])) else 'coverage_plan'
+        elif report['error'].get('api_stage') == 'reporting':active = 'reporting'
         report['stages'][active] = {'status': 'fail', 'detail': report['error'].get('rule', 'stage_failure')}
         if isinstance(exc, DevelopmentBudgetExceeded):report['error']['rule'] = 'development_budget_exhausted'
     finally:

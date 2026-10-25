@@ -17,6 +17,8 @@ from test_release_staged_research import bounded_fixture, response, selection_re
 
 class DiscoveryContinuationTests(unittest.TestCase):
     def setUp(self):
+        gate=patch.object(sr,'ensure_reporting_plan',return_value=None)
+        gate.start();self.addCleanup(gate.stop)
         self.t = tempfile.TemporaryDirectory(); self.addCleanup(self.t.cleanup)
         self.root = Path(self.t.name); self.cache = self.root / DATE
         self.policy = self.root / 'authorizations'

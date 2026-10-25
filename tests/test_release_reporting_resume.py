@@ -1,7 +1,7 @@
 """A retained reporting step can resume once only after its exact token-limit failure."""
 import copy,json,sys,tempfile,unittest
 from pathlib import Path
-from unittest.mock import Mock
+from unittest.mock import Mock,patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from jsonschema import Draft202012Validator,ValidationError
 import release_research as sr
@@ -11,6 +11,8 @@ from test_release_staged_research import response,bounded_fixture,selection_resp
 
 class ReportingResumeTests(unittest.TestCase):
     def setUp(self):
+        gate=patch.object(sr,'ensure_reporting_plan',return_value=None)
+        gate.start();self.addCleanup(gate.stop)
         self.t=tempfile.TemporaryDirectory();self.addCleanup(self.t.cleanup)
         self.root=Path(self.t.name);self.policy=self.root/'policies';self.cache=self.root/'cache'
         self.plan={'schema_version':1,'edition_date':DATE,'engine':sr.ENGINE,

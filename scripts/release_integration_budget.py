@@ -2,6 +2,7 @@
 from __future__ import annotations
 import io
 import json
+import copy
 import urllib.error
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -10,14 +11,45 @@ from release_diagnostics import redact
 from release_research import response_metadata, _web_items
 
 LIMITS = {'responses': 32, 'speech': 64, 'transcription': 80}
-NAME_LIMITS = {'reporting': 2, 'narration': 2, 'narration_section': 20,
+LEGACY_NAME_LIMITS = {'reporting': 2, 'narration': 2, 'narration_section': 20,
                'rural_update_narration': 2, 'editorial_audit_structured': 4,
                'editorial_audit': 2, 'editorial_field_correction': 2,
                'editorial_bluf_budget': 1}
-TOKEN_LIMITS = {'reporting': 16000, 'narration': 8000, 'narration_section': 4000,
+LEGACY_TOKEN_LIMITS = {'reporting': 16000, 'narration': 8000, 'narration_section': 4000,
                 'rural_update_narration': 8000, 'editorial_audit_structured': 7000,
                 'editorial_audit': 5000, 'editorial_field_correction': 10000,
                 'editorial_bluf_budget': 2500}
+NAME_LIMITS = {**LEGACY_NAME_LIMITS, 'reporting_plan': 1}
+TOKEN_LIMITS = {**LEGACY_TOKEN_LIMITS, 'reporting_plan': 6000}
+CONTINUATION = 'coverage-plan-development-continuation-v1'
+
+
+def continue_reporting_plan(state, expected_sha256):
+    """Add one planning submission, retaining every spent count and overall cap."""
+    state = Path(state);ledger_path = state / 'development-requests.json'
+    backup = state / 'development-requests-before-reporting-plan.json'
+    if not ledger_path.is_file():raise RuntimeError('Retained development request ledger is unavailable')
+    original = (backup if backup.exists() else ledger_path).read_bytes()
+    if digest(original) != expected_sha256:raise RuntimeError('Development continuation ledger checksum differs')
+    old = json.loads(original)
+    if (old.get('limits') != LIMITS or old.get('name_limits') != LEGACY_NAME_LIMITS
+            or old.get('token_limits') != LEGACY_TOKEN_LIMITS or old.get('publication_authorized') is not False
+            or not isinstance(old.get('requests'), list)):
+        raise RuntimeError('Development continuation does not match the original budget')
+    continued = copy.deepcopy(old)
+    continued.update({'name_limits': NAME_LIMITS, 'token_limits': TOKEN_LIMITS,
+        'development_continuation': {'method': CONTINUATION, 'previous_ledger_sha256': expected_sha256,
+                                     'overall_limit_unchanged': True}})
+    current = read_json(ledger_path)
+    if current != old:
+        unchanged = {k: v for k, v in current.items() if k != 'requests'}
+        expected = {k: v for k, v in continued.items() if k != 'requests'}
+        if (unchanged != expected or current['requests'][:len(old['requests'])] != old['requests']
+                or len(current['requests']) < len(old['requests'])):
+            raise RuntimeError('Development continuation cannot replace or reset spent requests')
+    if not backup.exists():
+        with backup.open('xb') as f:f.write(original)
+    if current == old:write_json(ledger_path, continued)
 
 
 class DevelopmentBudgetExceeded(RuntimeError):pass
