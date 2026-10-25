@@ -127,8 +127,12 @@ def research(edition_date,previous,cache):
         diagnostics.validate(edition,validate_edition,'resumed-content',None)
         print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
     else:
+        from release_discovery_continuation import requires_bound_cache
+        from release_research import ENGINE, _cached, observed_html_urls
+        bound_continuation=requires_bound_cache(cache,edition_date,ROOT/'repair-authorizations',
+                                               ENGINE,_cached,observed_html_urls)
         ledger=read_json(cache/'attempts.json',{'attempts':0})
-        if ledger['attempts']>=2:
+        if bound_continuation or ledger['attempts']>=2:
             from release_research import reserve_corrective_attempt
             if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):
                 raise diagnostics.limit_reached()
