@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "harness_revision": 3,
+  "harness_revision": 4,
   "request_id": "2026-10-25-integration-acceptance-1",
   "edition_date": "2026-10-25",
   "live": true,
@@ -11,9 +11,9 @@
   "source_count": 8,
   "publication_authorized": false,
   "development_continuation": {
-    "method": "coverage-plan-development-continuation-v1",
-    "previous_plan_sha256": "ea4ee3f1fce78439a133cefcc35118d6b819a3aae34e7c649876522aee18678a",
-    "previous_ledger_sha256": "2a81e9532d9909f9aade03573a6fb9ba35d2dd030334a611df2b0876116fc6c9"
+    "method": "coverage-passage-development-continuation-v1",
+    "previous_plan_sha256": "0eb6c0fa2f6d8cb1b2277f25b2696d9831a5112e7bbf72f34837ef16c4b63236",
+    "previous_ledger_sha256": "1d62e4c0d1f5614ed8bc03fb9e22fab251c828cb72bd596a96a7240167d41225"
   },
-  "reason": "The user instructed proceeding with the correction that checks evidence coverage before report generation. Continue the existing isolated nonpublishing test from its exact retained development cache and spent request ledger. Add at most one reporting-plan HTTP submission within the unchanged combined response ceiling of 32; preserve the reporting ceiling of two, including the one reporting submission already spent. Use the same eight retained sources and production compiler, validators and evidence safeguards. Preserve every response and complete the normal interruption/resume and later acceptance checks when earlier gates pass. This authorizes no production publication attempt, production continuation or ledger reset."
+  "reason": "Continue the user's instructed evidence-coverage development and testing after the first live planning response exposed reordered and changed source quotes. Test the corrected code-bound passage selector with at most one additional planning HTTP submission, for a lifetime planning ceiling of two within the existing combined response ceiling of 32. Bind the exact current cache and ledger, preserving both spent requests and both earlier ledger versions. The reporting ceiling remains two, including its one spent submission. Keep the same eight sources, production validators, independent evidence audit and subsequent acceptance checks. This is an isolated development continuation, not a production publication attempt, production continuation or ledger reset."
 }

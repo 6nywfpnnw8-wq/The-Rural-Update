@@ -22,23 +22,27 @@ LEGACY_TOKEN_LIMITS = {'reporting': 16000, 'narration': 8000, 'narration_section
 NAME_LIMITS = {**LEGACY_NAME_LIMITS, 'reporting_plan': 1}
 TOKEN_LIMITS = {**LEGACY_TOKEN_LIMITS, 'reporting_plan': 6000}
 CONTINUATION = 'coverage-plan-development-continuation-v1'
+PASSAGE_CONTINUATION = 'coverage-passage-development-continuation-v1'
+PASSAGE_NAME_LIMITS = {**NAME_LIMITS, 'reporting_plan': 2}
 
 
-def continue_reporting_plan(state, expected_sha256):
+def continue_reporting_plan(state, expected_sha256, method=CONTINUATION):
     """Add one planning submission, retaining every spent count and overall cap."""
     state = Path(state);ledger_path = state / 'development-requests.json'
-    backup = state / 'development-requests-before-reporting-plan.json'
+    if method not in {CONTINUATION, PASSAGE_CONTINUATION}:raise RuntimeError('Unknown development continuation')
+    passage = method == PASSAGE_CONTINUATION
+    backup = state / ('development-requests-before-passage-plan.json' if passage else 'development-requests-before-reporting-plan.json')
     if not ledger_path.is_file():raise RuntimeError('Retained development request ledger is unavailable')
     original = (backup if backup.exists() else ledger_path).read_bytes()
     if digest(original) != expected_sha256:raise RuntimeError('Development continuation ledger checksum differs')
     old = json.loads(original)
-    if (old.get('limits') != LIMITS or old.get('name_limits') != LEGACY_NAME_LIMITS
-            or old.get('token_limits') != LEGACY_TOKEN_LIMITS or old.get('publication_authorized') is not False
+    if (old.get('limits') != LIMITS or old.get('name_limits') != (NAME_LIMITS if passage else LEGACY_NAME_LIMITS)
+            or old.get('token_limits') != (TOKEN_LIMITS if passage else LEGACY_TOKEN_LIMITS) or old.get('publication_authorized') is not False
             or not isinstance(old.get('requests'), list)):
         raise RuntimeError('Development continuation does not match the original budget')
     continued = copy.deepcopy(old)
-    continued.update({'name_limits': NAME_LIMITS, 'token_limits': TOKEN_LIMITS,
-        'development_continuation': {'method': CONTINUATION, 'previous_ledger_sha256': expected_sha256,
+    continued.update({'name_limits': PASSAGE_NAME_LIMITS if passage else NAME_LIMITS, 'token_limits': TOKEN_LIMITS,
+        'development_continuation': {'method': method, 'previous_ledger_sha256': expected_sha256,
                                      'overall_limit_unchanged': True}})
     current = read_json(ledger_path)
     if current != old:
@@ -77,7 +81,17 @@ class DevelopmentTransport:
         ledger = read_json(self.ledger, {'schema_version': 1, 'limits': LIMITS,
             'name_limits': NAME_LIMITS, 'token_limits': TOKEN_LIMITS,
             'requests': [], 'publication_authorized': False})
-        if (ledger.get('limits') != LIMITS or ledger.get('name_limits') != NAME_LIMITS
+        names = NAME_LIMITS
+        extension = ledger.get('development_continuation', {})
+        if extension.get('method') == PASSAGE_CONTINUATION:
+            backup = self.state / 'development-requests-before-passage-plan.json'
+            if not backup.is_file() or digest(backup.read_bytes()) != extension.get('previous_ledger_sha256'):
+                raise RuntimeError('Passage continuation requires the original spent ledger')
+            old = read_json(backup)
+            if ledger['requests'][:len(old['requests'])] != old['requests']:
+                raise RuntimeError('Passage continuation cannot reset spent requests')
+            names = PASSAGE_NAME_LIMITS
+        if (ledger.get('limits') != LIMITS or ledger.get('name_limits') != names
                 or ledger.get('token_limits') != TOKEN_LIMITS
                 or ledger.get('publication_authorized') is not False
                 or not isinstance(ledger.get('requests'), list)):
@@ -92,7 +106,7 @@ class DevelopmentTransport:
             raise RuntimeError('Ambiguous development request cannot be automatically resubmitted')
         if sum(r['kind'] == kind for r in rows) >= LIMITS[kind]:
             raise DevelopmentBudgetExceeded('Development endpoint request limit reached: ' + kind)
-        if name is not None and sum(r.get('name') == name for r in rows) >= NAME_LIMITS[name]:
+        if name is not None and sum(r.get('name') == name for r in rows) >= names[name]:
             raise DevelopmentBudgetExceeded('Development stage request limit reached: ' + name)
         row = {'number': len(rows) + 1, 'kind': kind, 'name': name,
                'requested_output_limit': output_limit, 'state': 'reserved'}

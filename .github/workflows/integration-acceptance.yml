@@ -103,6 +103,7 @@ jobs:
             .integration-state/binding.json
             .integration-state/development-requests.json
             .integration-state/development-requests-before-reporting-plan.json
+            .integration-state/development-requests-before-passage-plan.json
             .integration-state/resume-exercise.json
             .integration-state/provider-responses
             .integration-state/workspace/.release-cache
