@@ -190,7 +190,8 @@ Earlier public intelligence is context only, NOT independently verified evidence
             from release_diagnostics import error_details
             details=error_details(exc)
             stage = ('narration-section' if details.get('rule') == 'narration_section'
-                     or details.get('api_stage') == 'narration_section' else 'research-response')
+                     or details.get('api_stage') == 'narration_section' else
+                     'research-sources' if details.get('api_stage') == 'sources' else 'research-response')
             raise diagnostics.fail(stage,exc) from None
         try:
             from release_retained_bluf import apply as apply_retained_bluf

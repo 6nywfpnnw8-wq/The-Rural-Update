@@ -28,7 +28,7 @@ class SourceCatalogTests(unittest.TestCase):
         bad=copy.deepcopy(self.sources);bad[0]['url']=bad[1]['url']
         with self.assertRaises(ValueError):sr.validate_source_catalog(bad,self.urls)
     def test_duplicate_references_rejected_locally(self):
-        self.report['signals'][0]['source_ids']=['s1','s1']
+        self.report['signals'][0]['source_ids']=[self.sources[0]['id']]*2
         with self.assertRaises(ValueError):sr.validate_reference_bindings(self.report,self.sources)
     def test_catalog_schema_does_not_mutate_release_schema(self):
         original=json.dumps(SCHEMA,sort_keys=True)

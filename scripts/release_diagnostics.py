@@ -107,6 +107,16 @@ def word_count(candidate) -> int | None:
 
 
 def error_details(error: Exception, candidate=None) -> dict:
+    result = _error_details(error, candidate)
+    if getattr(error, 'research_stage', None) == 'sources':
+        result['api_stage'] = 'sources'
+        snapshot = getattr(error, 'source_selection_snapshot', None)
+        if isinstance(snapshot, dict):
+            result['stage_snapshot'] = snapshot
+    return result
+
+
+def _error_details(error: Exception, candidate=None) -> dict:
     # str(ValidationError) contains the rejected instance. Never use it in a log.
     api = getattr(error, 'api_response', None)
     if isinstance(api, dict):
@@ -133,7 +143,11 @@ def error_details(error: Exception, candidate=None) -> dict:
     if isinstance(keyword, str) and re.fullmatch(r'[a-zA-Z]{1,32}', keyword):
         return {'rule': 'schema', 'message': 'Candidate does not match the required schema',
                 'path': pointer(getattr(error, 'absolute_path', ())), 'keyword': keyword}
-    raw = str(error) if isinstance(error, (AssertionError, RuntimeError)) else ''
+    if isinstance(error, json.JSONDecodeError):
+        return {'rule': 'response_json', 'message': 'Model completion is not valid JSON',
+                'path': '/', 'line': error.lineno, 'column': error.colno,
+                'exception_category': 'JSONDecodeError'}
+    raw = str(error) if isinstance(error, (AssertionError, RuntimeError, ValueError)) else ''
     api_error = re.fullmatch(r'OpenAI (responses|audio/speech) HTTP ([0-9]{3}); credentials, model access or service request failed', raw)
     if api_error:
         return {'rule': 'api_request', 'message': 'External API request failed',
@@ -150,6 +164,14 @@ def error_details(error: Exception, candidate=None) -> dict:
         return {'rule': 'placeholder_text', 'message': 'Placeholder text',
                 'findings': placeholder_findings(candidate)}
     messages = {
+        'Duplicate source catalog identifier': ('source_identifier_duplicate', '/sources'),
+        'Duplicate source catalog URL': ('source_url_duplicate', '/sources'),
+        'Duplicate source selection field': ('source_selection_duplicate_key', '/sources'),
+        'Fewer than five observed readable-source URLs': ('source_observation_count', '/sources'),
+        'Fewer than five distinct observed source URLs': ('source_observation_count', '/sources'),
+        'Source selection contains an unapproved URL': ('source_domain', '/sources'),
+        'Source selection catalog exceeds safe size': ('source_selection_size', '/sources'),
+        'Source selection identifier collision': ('source_identifier_duplicate', '/sources'),
         'Edition date does not match requested date': ('edition_date', '/edition_date'),
         'Spoken body must contain 1700 to 2000 words': ('spoken_word_count', '/podcast'),
         'Use punctuation other than em dashes': ('punctuation', '/'),
@@ -213,7 +235,9 @@ def summary(report: dict) -> str:
         return 'Narration section validation failed at ' + pointer_from_report(report.get('path', '/'))
     if rule == 'evidence_audit':
         return 'Editorial audit rejected candidate; publication remains blocked.'
-    if rule in ('identifier','research_response','spoken_word_count'):
+    if rule in ('identifier','research_response','spoken_word_count','response_json',
+                'source_identifier_duplicate','source_url_duplicate','source_selection_duplicate_key',
+                'source_observation_count','source_selection_size'):
         return 'Validation rule '+rule+' failed at '+pointer_from_report(report.get('path','/'))
     stage = report.get('stage', 'validation')
     if not isinstance(stage, str) or not re.fullmatch(r'[a-z-]{1,40}', stage): stage = 'validation'

@@ -182,6 +182,8 @@ jobs:
             .release-cache/failure.json
             .release-cache/delivery-report.json
             .release-cache/*/api-responses.json
+            .release-cache/*/attempts.json
+            .release-cache/*/stage-responses/*.json
             .release-cache/*/audit.json
             .release-cache/*/audio-error.json
             .release-cache/*/validation-*.json
