@@ -10,7 +10,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import release_research as sr
 from release_core import validate_edition, write_json
 from release_prose import TOLERANCE
-from test_release_staged_research import bounded_fixture, response, selection_response, DATE
+from test_release_staged_research import bounded_fixture, response, selection_response, reporting_response, DATE
 
 
 class NarrationContinuationIntegrationTests(unittest.TestCase):
@@ -31,7 +31,7 @@ class NarrationContinuationIntegrationTests(unittest.TestCase):
     def prepare(self):
         incomplete=response('partial text',status='incomplete')
         incomplete['incomplete_details']={'reason':'max_output_tokens'}
-        first=[response('Observed evidence',web=True),selection_response(self.e['sources']),response(self.report),incomplete]
+        first=[response('Observed evidence',web=True),selection_response(self.e['sources']),reporting_response(self.report),incomplete]
         calls=[]
         def send(payload):
             calls.append(payload)
@@ -49,7 +49,7 @@ class NarrationContinuationIntegrationTests(unittest.TestCase):
 
     def test_known_output_limit_uses_bounded_sections_not_partial_text(self):
         incomplete=response('partial text',status='incomplete');incomplete['incomplete_details']={'reason':'max_output_tokens'}
-        first=[response('Observed evidence',web=True),selection_response(self.e['sources']),response(self.report),incomplete]
+        first=[response('Observed evidence',web=True),selection_response(self.e['sources']),reporting_response(self.report),incomplete]
         send=Mock(side_effect=lambda p:first.pop(0) if first else self.section(p))
         out=sr.staged_request(self.payload,send,self.root)
         e=json.loads(sr._text(out))
@@ -87,7 +87,7 @@ class NarrationContinuationIntegrationTests(unittest.TestCase):
         send.assert_not_called()
 
     def test_existing_valid_narration_reused_without_new_generation(self):
-        send=Mock(side_effect=[response('Observed evidence',web=True),selection_response(self.e['sources']),response(self.report),response(self.e['podcast'])])
+        send=Mock(side_effect=[response('Observed evidence',web=True),selection_response(self.e['sources']),reporting_response(self.report),response(self.e['podcast'])])
         first=sr.staged_request(self.payload,send,self.root)
         repeat=Mock(side_effect=AssertionError('No new calls'))
         self.assertEqual(sr.staged_request(self.payload,repeat,self.root),first)

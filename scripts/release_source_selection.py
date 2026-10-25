@@ -61,20 +61,26 @@ def _unique_object(pairs):
 
 
 def retain_selection(text: str, cache: Path, identity: str) -> dict:
+    return retain_stage_output(text, cache, identity, 'sources')
+
+
+def retain_stage_output(text: str, cache: Path, identity: str, stage: str) -> dict:
     """Retain visible completion only, excluding raw API envelopes and reasoning.
 
     Keep rejected output as well as passing output so an error can be replayed.
     Redacted snapshots cannot later serve as original recovery material.
     """
+    if stage not in {'sources', 'reporting', 'narration'}:
+        raise ValueError('Invalid retained response stage')
     raw = text.encode('utf-8')
     fingerprint = digest(raw)
     if len(raw) > MAX_SNAPSHOT_BYTES:
         return {'retained': False, 'reason': 'size_limit', 'sha256': fingerprint}
     cleaned = redact(text)
-    relative = 'stage-responses/sources-' + fingerprint[:16] + '.json'
+    relative = 'stage-responses/' + stage + '-' + fingerprint[:16] + '.json'
     write_json(Path(cache) / relative, {
-        'schema_version': 1, 'method': METHOD, 'identity': identity,
-        'stage': 'sources', 'publication_authorized': False,
+        'schema_version': 1, 'method': METHOD if stage == 'sources' else 'staged-visible-output-v1', 'identity': identity,
+        'stage': stage, 'publication_authorized': False,
         'sha256': fingerprint, 'redacted': cleaned != text, 'output_text': cleaned,
     })
     return {'retained': True, 'file': relative, 'redacted': cleaned != text,

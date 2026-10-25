@@ -328,6 +328,8 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     schema=reporting_schema(catalog,expected if re.fullmatch(r'\d{4}-\d{2}-\d{2}',expected) else None)
     reporting=_cached(folder/'reporting.json',identity)
     if reporting is None:
+        from release_reporting_references import generation_schema as reference_schema, compile_report
+        from release_source_selection import retain_stage_output
         req={**common,'max_output_tokens':16000,
              'instructions':(
                  'Keep the complete executive briefing concise, roughly 1000-1500 words excluding sources. '
@@ -336,7 +338,10 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'intended America/Chicago edition date. There are five ranked stories, one to '
                  'three recommended actions, four evidence-backed signals, and optional material '
                  'issue updates. Use stable lowercase hyphenated IDs, distinct source records, '
-                 'source_ids only from the supplied fixed catalog, and ISO dates or null. Do not treat a last-modified date '
+                 'For each source_ids object, set true only for the fixed IDs that support that item '
+                 'and false for all other IDs. Stories, actions and updates need at least one source; '
+                 'each signal needs two to four distinct supporting sources. Do not add irrelevant '
+                 'sources merely to reach a count. Use ISO dates or null. Do not treat a last-modified date '
                  'as a new award. Recommendations are not completed staff work. Keep the '
                  'executive BLUF under 180 words. Include only deadlines in the next 30 days; '
                  'label optional internal checkpoints explicitly. Omit out-of-window deadlines rather than changing their dates. '
@@ -347,11 +352,19 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'will compare all claims with the actual contents of the sources.'),
              'input':json.dumps({'editorial_request':context,'research_notes':discovery['notes'],
                                  'fixed_sources':catalog},ensure_ascii=False),
-             'text':{'format':{'type':'json_schema','name':'reporting','strict':True,'schema':schema}}}
-        raw=send(req)
-        value=json.loads(_text(raw))
-        Draft202012Validator(schema).validate(value)
-        validate_reference_bindings(value,catalog)
+             'text':{'format':{'type':'json_schema','name':'reporting','strict':True,
+                               'schema':reference_schema(schema,catalog)}}}
+        snapshot=None
+        try:
+            raw=send(req)
+            text=_text(raw)
+            snapshot=retain_stage_output(text,cache,identity,'reporting')
+            value=compile_report(text,schema,catalog)
+            validate_reference_bindings(value,catalog)
+        except Exception as exc:
+            exc.research_stage='reporting'
+            exc.stage_response_snapshot=snapshot
+            raise
         reporting={'edition':value,'usage':raw.get('usage')}
         _save(folder/'reporting.json',identity,reporting)
     Draft202012Validator(schema).validate(reporting['edition'])
@@ -386,7 +399,17 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                 narration=generate_sections(reporting['edition'],payload['model'],folder,
                     identity,send,_text,_cached,_save)
             else:
-                value=json.loads(_text(raw))
+                from release_source_selection import retain_stage_output
+                snapshot=None
+                try:
+                    text=_text(raw)
+                    snapshot=retain_stage_output(text,cache,identity,'narration')
+                    value=json.loads(text)
+                    Draft202012Validator(bounded_podcast_schema()).validate(value)
+                except Exception as exc:
+                    exc.research_stage='narration'
+                    exc.stage_response_snapshot=snapshot
+                    raise
                 narration={'podcast':value,'usage':raw.get('usage')}
         Draft202012Validator(bounded_podcast_schema()).validate(narration['podcast'])
         _save(folder/'narration.json',identity,narration)

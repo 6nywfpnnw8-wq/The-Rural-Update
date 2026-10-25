@@ -36,10 +36,10 @@ safeguard, not a guarantee that arbitrary sensitive material could be detected.
 GitHub Actions caches are not confidential storage.
 
 Normal report artifacts contain field paths, fixed marker terms, counts and
-checksums, plus the date-scoped attempt ledger and screened visible source-selection
-completions under `stage-responses/`. Those completions contain public-source metadata
-only and are retained before parsing or validation, so rejected source choices can
-be replayed. They exclude prompts, reasoning and raw API envelopes. A redacted
+checksums, plus the date-scoped attempt ledger and screened visible source-selection,
+reporting and narration completions under `stage-responses/`. These are unapproved
+public-source working metadata or prose, retained before parsing or validation so
+rejected output can be replayed. They exclude prompts, reasoning and raw API envelopes. A redacted
 completion is explicitly marked and cannot establish an unchanged original.
 The report upload uses explicit patterns and excludes `candidates/` and `approved.json`. Full candidates
 are not committed to main or copied into the Pages artifact. Existing artifact

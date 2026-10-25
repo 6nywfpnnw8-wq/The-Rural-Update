@@ -12,7 +12,7 @@ import release_discovery_continuation as dc
 import release_research as sr
 import release_pipeline as rp
 from release_core import digest, read_json, write_json
-from test_release_staged_research import bounded_fixture, response, selection_response, DATE
+from test_release_staged_research import bounded_fixture, response, selection_response, reporting_response, DATE
 
 
 class DiscoveryContinuationTests(unittest.TestCase):
@@ -58,7 +58,7 @@ class DiscoveryContinuationTests(unittest.TestCase):
     def test_successful_continuation_has_no_discovery_request(self):
         self.assertTrue(self.reserve())
         e = bounded_fixture(); report = copy.deepcopy(e); report.pop('podcast'); report.pop('sources')
-        send = Mock(side_effect=[selection_response(e['sources']), response(report), response(e['podcast'])])
+        send = Mock(side_effect=[selection_response(e['sources']), reporting_response(report), response(e['podcast'])])
         result = sr.staged_request(self.payload, send, self.cache)
         self.assertEqual(json.loads(sr._text(result)), e)
         self.assertEqual(send.call_count, 3)
