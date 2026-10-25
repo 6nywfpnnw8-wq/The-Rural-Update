@@ -70,7 +70,7 @@ def retain_stage_output(text: str, cache: Path, identity: str, stage: str) -> di
     Keep rejected output as well as passing output so an error can be replayed.
     Redacted snapshots cannot later serve as original recovery material.
     """
-    if stage not in {'sources', 'reporting', 'narration'}:
+    if stage not in {'sources', 'reporting_plan', 'reporting', 'narration'}:
         raise ValueError('Invalid retained response stage')
     raw = text.encode('utf-8')
     fingerprint = digest(raw)

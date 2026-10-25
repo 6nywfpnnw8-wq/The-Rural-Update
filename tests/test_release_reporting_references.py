@@ -21,6 +21,8 @@ from test_release_staged_research import (bounded_fixture, response, selection_r
 
 class ReportingReferenceTests(unittest.TestCase):
     def setUp(self):
+        gate=patch.object(sr,'ensure_reporting_plan',return_value=None)
+        gate.start();self.addCleanup(gate.stop)
         self.e=bounded_fixture(); self.catalog=self.e['sources']
         self.report=copy.deepcopy(self.e);self.report.pop('sources');self.report.pop('podcast')
         self.schema=sr.reporting_schema(self.catalog,DATE)

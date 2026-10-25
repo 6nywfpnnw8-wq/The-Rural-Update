@@ -54,6 +54,9 @@ def reporting_response(report):
 
 class StagedResearchTests(unittest.TestCase):
     def setUp(self):
+        # Isolate the legacy stage/resume contracts; coverage integration has its own suite.
+        gate=patch.object(sr,'ensure_reporting_plan',return_value=None)
+        gate.start();self.addCleanup(gate.stop)
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name)
         self.e=bounded_fixture();self.report=copy.deepcopy(self.e);self.report.pop('podcast');self.report.pop('sources')

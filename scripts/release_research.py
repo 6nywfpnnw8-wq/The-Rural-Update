@@ -15,9 +15,10 @@ from typing import Callable
 from jsonschema import Draft202012Validator
 from release_core import SCHEMA, TZ, digest, read_json, write_json, allowed_url, canonical_url
 from release_diagnostics import redact
+from release_coverage_plan import ensure_reporting_plan
 
 ENGINE = 'staged-research-v3'
-STAGES = {'discovery', 'sources', 'reporting', 'narration', 'editorial_audit',
+STAGES = {'discovery', 'sources', 'reporting_plan', 'reporting', 'narration', 'editorial_audit',
           'rural_update_narration', 'narration_section', 'other'}
 STATUS = {'completed','incomplete','failed','cancelled','queued','in_progress'}
 REASONS = {'max_output_tokens','max_messages','content_filter','steered'}
@@ -328,6 +329,7 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     schema=reporting_schema(catalog,expected if re.fullmatch(r'\d{4}-\d{2}-\d{2}',expected) else None)
     reporting=_cached(folder/'reporting.json',identity)
     if reporting is None:
+        coverage=ensure_reporting_plan(catalog,discovery,context,common,send,cache,identity)
         from release_reporting_references import generation_schema as reference_schema, compile_report
         from release_source_selection import retain_stage_output
         req={**common,'max_output_tokens':16000,
@@ -338,7 +340,7 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'intended America/Chicago edition date. There are five ranked stories, one to '
                  'three recommended actions, four evidence-backed signals, and optional material '
                  'issue updates. Use stable lowercase hyphenated IDs, distinct source records, '
-                 'For each source_ids object, set true only for the fixed IDs that support that item '
+                 'For each source_ids object in the remaining sections, set true only for the fixed IDs that support that item '
                  'and false for all other IDs. Stories, actions and updates need at least one source; '
                  'each signal needs two to four distinct supporting sources. Do not add irrelevant '
                  'sources merely to reach a count. Use ISO dates or null. Do not treat a last-modified date '
@@ -349,23 +351,30 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'Never invent a statutory or planning date just to match the date enum. No HTML or unfinished text. '
                  'Use no em dashes. Do not invent references or force news into every category. '
                  'The older intelligence is context, not evidence. A later independent audit '
-                 'will compare all claims with the actual contents of the sources.'),
-             'input':json.dumps({'editorial_request':context,'research_notes':discovery['notes'],
-                                 'fixed_sources':catalog},ensure_ascii=False),
+                 'will compare all claims with the actual contents of the sources. '
+                 'Stories and signals have fixed topic slots from the validated evidence coverage plan. '
+                 'Develop only each planned angle, using its supporting passages. Their IDs, titles, '
+                 'story policy/change labels and source references are supplied by the publisher. '
+                 'All briefing sections, including the BLUF and actions, must derive exclusively from the planned '
+                 'topics and their supporting source passages. Do not substitute topics, carry prior claims '
+                 'forward as evidence, or add facts unsupported by the planned sources.'),
+             'input':json.dumps({'editorial_request':context,
+                                 'fixed_sources':catalog,'evidence_coverage_plan':coverage},ensure_ascii=False),
              'text':{'format':{'type':'json_schema','name':'reporting','strict':True,
-                               'schema':reference_schema(schema,catalog)}}}
+                               'schema':reference_schema(schema,catalog,coverage)}}}
         snapshot=None
         try:
             raw=send(req)
             text=_text(raw)
             snapshot=retain_stage_output(text,cache,identity,'reporting')
-            value=compile_report(text,schema,catalog)
+            value=compile_report(text,schema,catalog,coverage)
             validate_reference_bindings(value,catalog)
         except Exception as exc:
             exc.research_stage='reporting'
             exc.stage_response_snapshot=snapshot
             raise
-        reporting={'edition':value,'usage':raw.get('usage')}
+        reporting={'edition':value,'usage':raw.get('usage'),
+                   'coverage_plan_identity':coverage['identity'] if coverage else None}
         _save(folder/'reporting.json',identity,reporting)
     Draft202012Validator(schema).validate(reporting['edition'])
     validate_reference_bindings(reporting['edition'],catalog)

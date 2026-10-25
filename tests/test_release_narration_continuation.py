@@ -5,7 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import Mock
+from unittest.mock import Mock,patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import release_research as sr
 from release_core import validate_edition, write_json
@@ -15,6 +15,8 @@ from test_release_staged_research import bounded_fixture, response, selection_re
 
 class NarrationContinuationIntegrationTests(unittest.TestCase):
     def setUp(self):
+        gate=patch.object(sr,'ensure_reporting_plan',return_value=None)
+        gate.start();self.addCleanup(gate.stop)
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name);self.e=bounded_fixture()
         self.report=copy.deepcopy(self.e);self.report.pop('podcast');self.report.pop('sources')

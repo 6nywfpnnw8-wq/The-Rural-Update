@@ -200,6 +200,7 @@ def research(edition_date,previous,cache):
             stage = ('narration-section' if details.get('rule') == 'narration_section'
                      or details.get('api_stage') == 'narration_section' else
                      'research-sources' if details.get('api_stage') == 'sources' else
+                     'research-coverage' if details.get('api_stage') == 'reporting_plan' else
                      'research-reporting' if details.get('api_stage') == 'reporting' else
                      'narration' if details.get('api_stage') == 'narration' else 'research-response')
             raise diagnostics.fail(stage,exc) from None
