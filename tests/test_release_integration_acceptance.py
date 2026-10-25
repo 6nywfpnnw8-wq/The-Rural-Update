@@ -206,6 +206,38 @@ class IntegrationIsolationTests(unittest.TestCase):
             result = acceptance.run(self.root, self.plan, live=True)
         network.assert_not_called();self.assertEqual(result['result'], 'fail')
 
+    def retained_reporting_case(self):
+        from release_source_selection import retain_stage_output
+        fixture = read_json(Path(__file__).parent / 'fixtures/reporting-rejection-2026-10-25.json')
+        workspace = self.state / 'workspace';cache = workspace / '.release-cache' / fixture['edition_date']
+        identity = 'a' * 64
+        write_json(self.state / 'binding.json', {'identity': identity})
+        research._save(cache / research.ENGINE / 'sources.json', identity, {'sources': fixture['source_catalog']})
+        reference = retain_stage_output(fixture['visible_text'], cache, identity, 'reporting')
+        write_json(self.state / 'development-requests.json', {'requests': [{'kind': 'responses', 'name': 'reporting'}]})
+        report = {'edition_date': fixture['edition_date'], 'result': 'fail', 'publication_authorized': False,
+                  'error': {'api_stage': 'reporting', 'stage_snapshot': reference}}
+        return report, workspace, cache / reference['file']
+
+    def test_offline_reporting_inspection_preserves_evidence_ledger_and_failure(self):
+        report, workspace, _ = self.retained_reporting_case()
+        before = {p: p.read_bytes() for p in self.state.rglob('*') if p.is_file()}
+        with patch.object(urllib.request, 'urlopen') as network:
+            acceptance.add_reporting_replay(report, workspace, self.state)
+        network.assert_not_called()
+        self.assertEqual(report['result'], 'fail');self.assertIs(report['publication_authorized'], False)
+        self.assertEqual(len(report['reporting_replay']['findings']), 3)
+        self.assertEqual(before, {p: p.read_bytes() for p in self.state.rglob('*') if p.is_file()})
+
+    def test_modified_response_snapshot_cannot_produce_offline_findings(self):
+        report, workspace, snapshot = self.retained_reporting_case()
+        saved = read_json(snapshot);saved['output_text'] += ' changed'
+        write_json(snapshot, saved)
+        with patch.object(urllib.request, 'urlopen') as network:
+            with self.assertRaisesRegex(RuntimeError, 'integrity differs'):
+                acceptance.add_reporting_replay(report, workspace, self.state)
+        network.assert_not_called();self.assertNotIn('reporting_replay', report)
+
     def test_workflow_has_no_publication_permissions_or_production_cache_save(self):
         root = Path(__file__).resolve().parents[1]
         text = (root / '.github/workflows/integration-acceptance.yml').read_text()
