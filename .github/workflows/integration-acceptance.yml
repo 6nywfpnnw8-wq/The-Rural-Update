@@ -58,15 +58,6 @@ jobs:
           path: .integration-state
           key: rural-integration-v1-${{ steps.plan.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: rural-integration-v1-${{ steps.plan.outputs.key }}-
-      - name: Install compiler dependencies and validate offline controls
-        shell: bash
-        run: |
-          mkdir -p .integration-output
-          python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-          python3 -m unittest discover -s tests -p 'test_release*.py' -v 2>&1 | tee .integration-output/offline-tests.log
-          node --check web/release-runtime.js
-          node --check sw.js
-          node tests/test_release_sw.cjs
       - name: Install local media validation tools
         if: steps.plan.outputs.live == 'true'
         run: |
@@ -74,6 +65,15 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y ffmpeg
           fi
+      - name: Install compiler dependencies and validate offline controls
+        shell: bash
+        run: |
+          mkdir -p .integration-output
+          python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+          python3 ops/run_integration_tests.py 2>&1 | tee .integration-output/offline-tests.log
+          node --check web/release-runtime.js
+          node --check sw.js
+          node tests/test_release_sw.cjs
       - name: Run the isolated acceptance test without publication credentials
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

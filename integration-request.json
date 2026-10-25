@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "harness_revision": 2,
   "request_id": "2026-10-25-integration-acceptance-1",
   "edition_date": "2026-10-25",
   "live": true,

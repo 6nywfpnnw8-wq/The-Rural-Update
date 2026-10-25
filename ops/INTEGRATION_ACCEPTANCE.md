@@ -79,6 +79,11 @@ evidence audit is not human editorial approval. A passing report does not prove
 public HTTP/range delivery, on-time scheduling, or future unattended reliability.
 The initial cohort does not establish broad normal-day and quiet-day coverage.
 
+The offline runner writes structured unittest results tied to the actual source
+commit. Successful suites with explicitly skipped tests are reported with their
+skip count; console-summary wording is not used as an acceptance parser. Failed
+suites, unexpected successes and mismatched commit identities still block the run.
+
 `acceptance.html`, `acceptance.json`, the offline test log, development request
 ledger and screened checkpoints are preserved as Actions artifacts. Failed and
 ambiguous submissions remain spent within this development budget. Another test
