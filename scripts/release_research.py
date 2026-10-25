@@ -254,6 +254,8 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     identity=digest(json.dumps({'engine':ENGINE,'model':payload['model'],'context':context},sort_keys=True))
     folder=Path(cache)/ENGINE
     folder.mkdir(parents=True,exist_ok=True)
+    from release_discovery_continuation import assert_bound
+    assert_bound(cache,ENGINE,identity,_cached,observed_html_urls)
     from release_sectioned_narration import assert_retained_stages, generate_sections, METHOD
     narration_resume=assert_retained_stages(cache,ENGINE,identity)
     common={'model':payload['model'],'store':False,'reasoning':{'effort':'low'}}
@@ -415,6 +417,9 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
         raise RuntimeError('Invalid corrective-generation authorization')
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
+    if 'continuation_method' in plan:
+        from release_discovery_continuation import reserve
+        return reserve(cache,expected,plan,ENGINE,_cached,observed_html_urls)
     if plan.get('maximum_retained_bluf_recoveries') == 1:
         from release_retained_bluf import reserve
         def validate_retained(values):

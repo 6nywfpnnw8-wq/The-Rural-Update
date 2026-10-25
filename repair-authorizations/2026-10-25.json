@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-25",
+  "engine": "staged-research-v3",
+  "continuation_method": "retained-discovery-continuation-v1",
+  "maximum_retained_discovery_continuations": 1,
+  "maximum_additional_generation_attempts": 1,
+  "publication_authorized": false,
+  "new_discovery_prohibited": true,
+  "research_counter_reset": false,
+  "validation_override": false,
+  "failure_run_id": "40185398122",
+  "identity": "19f11f869384d5fed2931faffbcf4e2bc6301e73e3d13d6b71d891d0256f5b49",
+  "discovery_file_sha256": "d9d403e3ca49b7e4846e108e0361c8210263021c27e432fafa9d1d339942f22b",
+  "discovery_value_sha256": "4bdca3c9e45d93d8fe588368cd0b5d1cb251cb08adcc1ecea5722514850ed8ca",
+  "attempt_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "reason": "The user explicitly authorized proceeding with one separately authorized continuation from the retained October 25 cache, followed by all normal evidence and delivery checks. Permit one remaining-stage generation attempt from this exact intact discovery only. Prohibit new discovery, preserve the original two-attempt ledger, and retain every source, editorial, narration, audio, deployment, and public-delivery gate. This authorization is not content or publication approval."
+}

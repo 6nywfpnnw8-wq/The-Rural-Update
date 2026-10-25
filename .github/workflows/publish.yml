@@ -183,6 +183,7 @@ jobs:
             .release-cache/delivery-report.json
             .release-cache/*/api-responses.json
             .release-cache/*/attempts.json
+            .release-cache/*/retained-discovery-continuation-used.json
             .release-cache/*/stage-responses/*.json
             .release-cache/*/audit.json
             .release-cache/*/audio-error.json
