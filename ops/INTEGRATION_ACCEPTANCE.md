@@ -116,6 +116,21 @@ anchors that rearranged or changed source text. Evidence coverage v2 replaces
 that copying contract with code-bound numbered passages. Revision 4 continues
 the isolated test with the bound, previously spent ledger described above.
 
+The passage-selector run 40233833745 retrieved all eight sources and produced
+valid passage selections. It stopped before reporting because the RHC telehealth
+and provider-tax signal plans each selected one source rather than two. Both
+planning submissions are now spent. The retained plan cannot be promoted by
+adding an unrelated citation, and its failure does not prove that every possible
+plan using these sources is impossible.
+
+Future normal discovery explicitly seeks corroborating primary HTML sources for
+four signal themes before source selection. That instruction preserves the same
+eight-tool-call, 10,000-output-token discovery contract and daily two-attempt
+allowance. It does not invalidate or replace retained discovery, extend this
+development allowance, or authorize production recovery. The next paid test needs
+a concrete evidence correction or different supported signal selection and an
+explicitly bounded continuation retaining all spent counts.
+
 All stages must pass for integration acceptance. A failure stops progression and
 retains evidence; later stages are not represented as successful. An automatic
 evidence audit is not human editorial approval. A passing report does not prove
