@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "request_id": "2026-10-25-integration-acceptance-1",
+  "edition_date": "2026-10-25",
+  "live": true,
+  "identity": "19f11f869384d5fed2931faffbcf4e2bc6301e73e3d13d6b71d891d0256f5b49",
+  "discovery_sha256": "d9d403e3ca49b7e4846e108e0361c8210263021c27e432fafa9d1d339942f22b",
+  "sources_sha256": "762d7e1120a4ae69231255b6f15188a1c70a9904696b51303a8d0e685b84cb03",
+  "production_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "source_count": 8,
+  "publication_authorized": false,
+  "reason": "The user authorized building and running an isolated nonpublishing integration workflow and acceptance report. Use the retained eight-source catalog, the production compiler and validators, a separate bounded development request ledger, complete screened response retention, and an interruption/resume exercise. This request grants no production publication attempt or production ledger reset."
+}

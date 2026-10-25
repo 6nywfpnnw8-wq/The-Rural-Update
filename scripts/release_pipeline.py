@@ -97,49 +97,8 @@ def migrate_legacy(root):
                 issue.setdefault('evidence_status','Legacy record; re-verification pending')
     return out
 
-def research(edition_date,previous,cache):
-    diagnostics=Diagnostics(cache,edition_date)
-    cached=cache/'approved.json'
-    if cached.exists():
-        record=read_json(cached)
-        diagnostics.validate(record['edition'],validate_edition,'cached-approved',set(record['retrieved_urls']))
-        assert record['audit']['approved'],'Cached research did not pass audit'
-        return record
-    structured=os.getenv('RURAL_UPDATE_STRUCTURED_REVIEW')=='true'
-    recovered=None
-    if structured:
-        from release_audit_loop import load_rejected_candidate
-        recovered=load_rejected_candidate(cache,edition_date)
-    if recovered is None:
-        from release_deadline_watch import take_deadline_recovery
-        recovered=take_deadline_recovery(cache,edition_date)
-    source_recovery=None
-    if recovered is None:
-        source_recovery=take_source_recovery(cache,edition_date,ROOT/'editorial-review')
-        recovered=source_recovery
-    if recovered is None:
-        recovered=take_reviewed_recovery(cache,edition_date)
-    if recovered is None:
-        recovered=take_style_recovery(cache,edition_date)
-    if recovered is not None:
-        edition,provenance=recovered
-        response={'usage':None}
-        diagnostics.validate(edition,validate_edition,'resumed-content',None)
-        print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
-    else:
-        from release_discovery_continuation import requires_bound_cache
-        from release_research import ENGINE, _cached, observed_html_urls
-        bound_continuation=requires_bound_cache(cache,edition_date,ROOT/'repair-authorizations',
-                                               ENGINE,_cached,observed_html_urls)
-        ledger=read_json(cache/'attempts.json',{'attempts':0})
-        if bound_continuation or ledger['attempts']>=2:
-            from release_research import reserve_corrective_attempt
-            if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):
-                raise diagnostics.limit_reached()
-            print('Using the date-specific staged-research repair allowance. Original ledger unchanged.',flush=True)
-        else:
-            ledger['attempts']+=1; write_json(cache/'attempts.json',ledger)
-        prompt=f"""Create the public-source Rural Update for {edition_date}, America/Chicago.
+def research_payload(edition_date,previous):
+    prompt=f"""Create the public-source Rural Update for {edition_date}, America/Chicago.
 Research as of now, not from memory. Target rural hospital executives in Oklahoma.
 Prioritize operational/financial consequences, CAHs, REHs, RHCs, Medicaid, Medicare,
 340B, rural funding, workforce, federal policy and AI/technology. Select the top five
@@ -182,10 +141,55 @@ and clearly framed questions based on the verified reporting.
 Earlier public intelligence is context only, NOT independently verified evidence:
 {json.dumps(previous,ensure_ascii=False)[:55000]}
 """
-        payload={'model':MODEL,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':18000,
-            'max_tool_calls':12,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
-            'include':['web_search_call.action.sources'],'input':prompt,
-            'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':generation_schema()}}}
+    payload={'model':MODEL,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':18000,
+        'max_tool_calls':12,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
+        'include':['web_search_call.action.sources'],'input':prompt,
+        'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':generation_schema()}}}
+    return payload
+
+def research(edition_date,previous,cache):
+    diagnostics=Diagnostics(cache,edition_date)
+    cached=cache/'approved.json'
+    if cached.exists():
+        record=read_json(cached)
+        diagnostics.validate(record['edition'],validate_edition,'cached-approved',set(record['retrieved_urls']))
+        assert record['audit']['approved'],'Cached research did not pass audit'
+        return record
+    structured=os.getenv('RURAL_UPDATE_STRUCTURED_REVIEW')=='true'
+    recovered=None
+    if structured:
+        from release_audit_loop import load_rejected_candidate
+        recovered=load_rejected_candidate(cache,edition_date)
+    if recovered is None:
+        from release_deadline_watch import take_deadline_recovery
+        recovered=take_deadline_recovery(cache,edition_date)
+    source_recovery=None
+    if recovered is None:
+        source_recovery=take_source_recovery(cache,edition_date,ROOT/'editorial-review')
+        recovered=source_recovery
+    if recovered is None:
+        recovered=take_reviewed_recovery(cache,edition_date)
+    if recovered is None:
+        recovered=take_style_recovery(cache,edition_date)
+    if recovered is not None:
+        edition,provenance=recovered
+        response={'usage':None}
+        diagnostics.validate(edition,validate_edition,'resumed-content',None)
+        print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
+    else:
+        from release_discovery_continuation import requires_bound_cache
+        from release_research import ENGINE, _cached, observed_html_urls
+        bound_continuation=requires_bound_cache(cache,edition_date,ROOT/'repair-authorizations',
+                                               ENGINE,_cached,observed_html_urls)
+        ledger=read_json(cache/'attempts.json',{'attempts':0})
+        if bound_continuation or ledger['attempts']>=2:
+            from release_research import reserve_corrective_attempt
+            if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):
+                raise diagnostics.limit_reached()
+            print('Using the date-specific staged-research repair allowance. Original ledger unchanged.',flush=True)
+        else:
+            ledger['attempts']+=1; write_json(cache/'attempts.json',ledger)
+        payload=research_payload(edition_date,previous)
         try:
             response=request_api(payload)
             assert any(x.get('type')=='web_search_call' for x in response.get('output',[])),'Research did not use web search'
@@ -265,11 +269,13 @@ def audio_for(edition,cache,output):
     from release_audio import build_audio
     return build_audio(edition,cache,output,request_api)
 
-def build(date_string):
+def build(date_string,code_sha=None):
     root=ROOT; cache=root/'.release-cache'/date_string; cache.mkdir(parents=True,exist_ok=True)
     current=read_json(root/'release.json',{})
     assert not current or current.get('edition_date','')<=date_string,'Refusing to replace a newer edition with an older one'
-    code_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
+    if code_sha is None:
+        code_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
+    assert isinstance(code_sha,str) and re.fullmatch(r'(?:[a-f0-9]{40}|[a-f0-9]{64})',code_sha),'Invalid source commit identity'
     if current.get('edition_date')==date_string and current.get('audio_status')=='complete':
         # A repeated run deploys/verifies the exact committed bundle without another paid call.
         site=assemble_site(root)
