@@ -25,7 +25,7 @@ def documents_for(catalog):
 
 
 def plan_for(report, catalog, documents):
-    text = {d['source_id']: d['text'][:120] for d in documents}
+    text = {d['source_id']: coverage.normalized(d['text']) for d in documents}
     value = {'status': 'ready', 'shortfall': ''}
     for group in coverage.GROUPS:
         value[group] = {}
@@ -51,6 +51,17 @@ def planned_report(report, plan, catalog):
     return value
 
 
+def plan_response(plan, documents):
+    value = copy.deepcopy(plan)
+    choices = {d['source_id']: coverage.passages(d['text']) for d in documents}
+    for group in coverage.GROUPS:
+        for item in value[group].values():
+            if item is None:continue
+            item['source_anchors'] = {key: choices[key].index(text) if text is not None else None
+                                      for key, text in item['source_anchors'].items()}
+    return response(value)
+
+
 class CoveragePlanTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
@@ -68,21 +79,20 @@ class CoveragePlanTests(unittest.TestCase):
             'Edition ' + DATE, {'model': 'gpt-5-mini'}, send, self.cache, 'a' * 64)
 
     def test_ready_plan_requires_exact_passages_but_does_not_approve_publication(self):
-        result = self.ensure(Mock(return_value=response(self.plan)))
+        result = self.ensure(Mock(return_value=plan_response(self.plan, self.documents)))
         self.assertEqual(result['plan'], self.plan)
         self.assertFalse((self.cache / 'approved.json').exists())
         self.assertFalse((self.cache / 'source-evidence.json').exists())
         self.assertEqual(self.fetcher.call_count, len(self.catalog))
 
-    def test_nonexistent_anchor_is_rejected_before_reporting(self):
+    def test_model_cannot_inject_a_fabricated_or_reordered_source_passage(self):
         self.plan['signals']['signal_1']['source_anchors'][self.catalog[0]['id']] = 'This fabricated passage does not appear in the actual source text.'
-        with self.assertRaises(coverage.CoverageError) as caught:self.ensure(Mock(return_value=response(self.plan)))
-        self.assertIn('missing_source_anchor', [f['rule'] for f in caught.exception.coverage_findings])
+        with self.assertRaises(ValidationError):self.ensure(Mock(return_value=response(self.plan)))
         self.assertFalse((self.cache / research.ENGINE / 'reporting.json').exists())
 
     def test_complete_negative_plan_is_retained_and_not_automatically_retried(self):
         self.plan['status'] = 'insufficient_evidence';self.plan['stories']['story_5'] = None
-        with self.assertRaises(coverage.CoverageError):self.ensure(Mock(return_value=response(self.plan)))
+        with self.assertRaises(coverage.CoverageError):self.ensure(Mock(return_value=plan_response(self.plan, self.documents)))
         self.fetcher.reset_mock();again = Mock(side_effect=AssertionError('No further provider request'))
         with self.assertRaises(coverage.CoverageError):self.ensure(again)
         again.assert_not_called();self.fetcher.assert_not_called()
@@ -100,6 +110,30 @@ class CoveragePlanTests(unittest.TestCase):
     def test_duplicate_json_plan_fields_are_rejected(self):
         with self.assertRaisesRegex(ValueError, 'Duplicate coverage plan field'):
             self.ensure(Mock(return_value=response('{"status":"ready","status":"insufficient_evidence"}')))
+
+    def test_passage_index_zero_copies_actual_text_in_source_order(self):
+        generated = json.loads(research._text(plan_response(self.plan, self.documents)))
+        selected = next(k for k, v in generated['stories']['story_1']['source_anchors'].items() if v is not None)
+        self.assertEqual(generated['stories']['story_1']['source_anchors'][selected], 0)
+        compiled = coverage.compile_plan(json.dumps(generated), self.catalog, self.documents)
+        document = next(d for d in self.documents if d['source_id'] == selected)
+        self.assertEqual(compiled['stories']['story_1']['source_anchors'][selected], coverage.normalized(document['text']))
+
+    def test_missing_indexes_boolean_values_and_free_text_are_not_passages(self):
+        for invalid in (-1, 100000, True, 'A paraphrased source passage'):
+            generated = json.loads(research._text(plan_response(self.plan, self.documents)))
+            generated['stories']['story_1']['source_anchors'][self.catalog[0]['id']] = invalid
+            with self.assertRaises(ValidationError):
+                coverage.compile_plan(json.dumps(generated), self.catalog, self.documents)
+
+    def test_passage_slicing_preserves_normalized_text_and_bounded_context(self):
+        text = 'Implementation date follows subject in the original source. ' * 35
+        pieces = coverage.passages(text)
+        self.assertGreater(len(pieces), 1)
+        self.assertEqual(' '.join(pieces), coverage.normalized(text))
+        self.assertTrue(all(40 <= len(p) <= 800 for p in pieces))
+        token = 'a' * 1500
+        self.assertEqual(''.join(coverage.passages(token)), token)
 
     def test_incomplete_plan_response_is_not_parsed_or_used(self):
         with self.assertRaises(research.ResponseStateError):
@@ -122,7 +156,7 @@ class CoveragePlanTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):coverage.validate_documents(bad, self.catalog)
 
     def test_source_text_tampering_is_rejected_without_another_request(self):
-        self.ensure(Mock(return_value=response(self.plan)))
+        self.ensure(Mock(return_value=plan_response(self.plan, self.documents)))
         p = self.cache / research.ENGINE / coverage.METHOD / 'sources.json'
         saved = read_json(p);saved['value']['documents'][0]['text'] += ' modified';write_json(p, saved)
         send = Mock()
@@ -130,7 +164,7 @@ class CoveragePlanTests(unittest.TestCase):
         send.assert_not_called()
 
     def test_plan_compiler_fixes_titles_ids_policy_labels_and_citation_sets(self):
-        result = self.ensure(Mock(return_value=response(self.plan)))
+        result = self.ensure(Mock(return_value=plan_response(self.plan, self.documents)))
         before = copy.deepcopy(SCHEMA)
         schema = references.generation_schema(self.schema, self.catalog, result)
         Draft202012Validator.check_schema(schema)
@@ -140,7 +174,7 @@ class CoveragePlanTests(unittest.TestCase):
         self.assertNotIn('source_ids', schema['properties']['signals']['properties']['signal_1']['properties'])
 
     def test_generated_output_cannot_replace_a_topic_or_its_citations(self):
-        result = self.ensure(Mock(return_value=response(self.plan)))
+        result = self.ensure(Mock(return_value=plan_response(self.plan, self.documents)))
         generated = planned_report(self.report, self.plan, self.catalog)
         generated['stories']['story_5']['source_ids'] = []
         with self.assertRaises(ValidationError):
@@ -148,7 +182,7 @@ class CoveragePlanTests(unittest.TestCase):
 
     def test_full_staged_generation_plans_before_reporting_and_narration(self):
         send = Mock(side_effect=[response('Unapproved notes.', web=True), selection_response(self.catalog),
-            response(self.plan), response(planned_report(self.report, self.plan, self.catalog)), response(self.edition['podcast'])])
+            plan_response(self.plan, self.documents), response(planned_report(self.report, self.plan, self.catalog)), response(self.edition['podcast'])])
         actual = research.staged_request(self.payload, send, self.cache)
         self.assertEqual(json.loads(research._text(actual)), self.edition)
         self.assertEqual(send.call_count, 5)
@@ -161,7 +195,7 @@ class CoveragePlanTests(unittest.TestCase):
 
     def test_report_resume_reuses_validated_plan_and_original_attempt_ledger(self):
         write_json(self.cache / 'attempts.json', {'attempts': 2});before = (self.cache / 'attempts.json').read_bytes()
-        send = Mock(side_effect=[response('Notes.', web=True), selection_response(self.catalog), response(self.plan),
+        send = Mock(side_effect=[response('Notes.', web=True), selection_response(self.catalog), plan_response(self.plan, self.documents),
                                 response('incomplete report', status='incomplete')])
         with self.assertRaises(research.ResponseStateError):research.staged_request(self.payload, send, self.cache)
         again = Mock(side_effect=[response(planned_report(self.report, self.plan, self.catalog)), response(self.edition['podcast'])])

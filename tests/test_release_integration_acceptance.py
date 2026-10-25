@@ -17,7 +17,7 @@ import release_research as research
 from run_integration_tests import write_result
 from release_core import digest, read_json, write_json
 from release_integration_budget import (DevelopmentTransport, DevelopmentBudgetExceeded, CONTINUATION,
-    LEGACY_NAME_LIMITS, LEGACY_TOKEN_LIMITS, continue_reporting_plan)
+    PASSAGE_CONTINUATION, LEGACY_NAME_LIMITS, LEGACY_TOKEN_LIMITS, continue_reporting_plan)
 from test_release_staged_research import bounded_fixture, response, DATE
 
 
@@ -146,6 +146,31 @@ class DevelopmentTransportTests(unittest.TestCase):
         write_json(self.transport.ledger, value)
         with self.assertRaisesRegex(RuntimeError, 'reset spent'):
             continue_reporting_plan(self.state, sha)
+
+    def passage_continuation(self):
+        original = self.legacy_ledger();continue_reporting_plan(self.state, digest(original))
+        with self.transport(request('reporting_plan')):pass
+        old = self.transport.ledger.read_bytes()
+        continue_reporting_plan(self.state, digest(old), PASSAGE_CONTINUATION)
+        return old
+
+    def test_passage_continuation_counts_both_old_requests_and_one_more_plan(self):
+        old = self.passage_continuation()
+        self.assertEqual((self.state / 'development-requests-before-passage-plan.json').read_bytes(), old)
+        self.assertEqual(len(read_json(self.transport.ledger)['requests']), 2)
+        with self.transport(request('reporting_plan')):pass
+        with self.assertRaises(DevelopmentBudgetExceeded):self.transport(request('reporting_plan'))
+        with self.transport(request()):pass
+        with self.assertRaises(DevelopmentBudgetExceeded):self.transport(request())
+        self.assertEqual(read_json(self.transport.ledger)['limits']['responses'], 32)
+
+    def test_passage_continuation_requires_its_backup_and_spent_request_prefix(self):
+        self.passage_continuation()
+        value = read_json(self.transport.ledger);value['requests'] = value['requests'][:1]
+        write_json(self.transport.ledger, value)
+        with self.assertRaisesRegex(RuntimeError, 'reset spent'):self.transport(request('reporting_plan'))
+        (self.state / 'development-requests-before-passage-plan.json').unlink()
+        with self.assertRaisesRegex(RuntimeError, 'original spent ledger'):self.transport(request('reporting_plan'))
 
 
 class IntegrationIsolationTests(unittest.TestCase):

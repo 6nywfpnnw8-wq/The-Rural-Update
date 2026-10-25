@@ -22,7 +22,7 @@ from release_core import (digest, read_json, write_json, safe_path, podcast_body
                           validate_catalog, probe_audio, TZ)
 from release_diagnostics import error_details
 from release_integration_budget import (DevelopmentTransport, DevelopmentBudgetExceeded, LIMITS, NAME_LIMITS,
-                                        TOKEN_LIMITS, CONTINUATION, continue_reporting_plan)
+                                        TOKEN_LIMITS, CONTINUATION, PASSAGE_CONTINUATION, continue_reporting_plan)
 from release_verify import validate_audio_quality
 
 STAGES = ('offline_controls', 'seed_integrity', 'coverage_sources', 'coverage_plan', 'reporting', 'interruption_and_resume',
@@ -78,13 +78,13 @@ def prepare_workspace(root, state, plan):
     old = read_json(state / 'binding.json')
     continuation = plan.get('development_continuation')
     if continuation is not None:
-        if (continuation.get('method') != CONTINUATION
+        if (continuation.get('method') not in {CONTINUATION, PASSAGE_CONTINUATION}
                 or any(not re.fullmatch(r'[a-f0-9]{64}', str(continuation.get(key, '')))
                        for key in ('previous_plan_sha256', 'previous_ledger_sha256'))):
             raise RuntimeError('Invalid development continuation binding')
         previous = {**binding, 'plan_sha256': continuation['previous_plan_sha256']}
         if old not in (binding, previous):raise RuntimeError('Development continuation requires its retained test cache')
-        continue_reporting_plan(state, continuation['previous_ledger_sha256'])
+        continue_reporting_plan(state, continuation['previous_ledger_sha256'], continuation['method'])
     elif old is not None and old != binding:raise RuntimeError('Development cache belongs to another test plan')
     write_json(state / 'binding.json', binding)
     workspace = state / 'workspace'
@@ -369,6 +369,7 @@ def run(root, plan, *, live=False):
         report['stages']['production_unchanged'] = {'status': 'pass' if unchanged else 'fail',
             'detail': 'Production files and attempt/recovery checkpoints are byte-identical' if unchanged else 'Production inventory differs'}
         ledger = read_json(state / 'development-requests.json', {})
+        report['name_limits'] = ledger.get('name_limits', NAME_LIMITS)
         rows = ledger.get('requests', [])
         report['request_counts'] = {kind: sum(r['kind'] == kind for r in rows) for kind in LIMITS}
         report['stage_request_counts'] = {name: sum(r.get('name') == name for r in rows) for name in NAME_LIMITS}

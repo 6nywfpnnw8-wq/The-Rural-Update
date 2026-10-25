@@ -58,6 +58,13 @@ reporting submission remains spent, leaving at most one reporting submission.
 Retries count as submissions. A failed or ambiguous planning submission cannot
 silently obtain a fresh planning allowance.
 
+Revision 4 binds the exact two-request ledger left by that first live planning
+test. It adds at most one further planning submission to validate the corrected
+passage selector, for a lifetime planning ceiling of two inside the same combined
+32-response ceiling. Both earlier ledger versions and every spent row are retained.
+The reporting ceiling remains two. A lost, changed or ambiguous ledger cannot
+obtain a fresh budget.
+
 Each submission is reserved before transport. Known HTTP errors remain counted;
 an ambiguous submission cannot be automatically repeated. The ledger and retained
 responses survive failure and resume. An absent ledger after retained provider
@@ -88,7 +95,10 @@ Before drafting new reporting, the compiler retrieves every selected source with
 the existing public HTTPS, redirect, MIME, byte-size and text-size checks. A
 separate coverage plan must identify five distinct story angles and four distinct
 signal angles. Each selected reference needs a verbatim passage found in that
-source's actual text. Stories retain their one-to-five source requirement; signals
+source's actual text. The publisher splits normalized source text into numbered,
+bounded passages. The model selects an integer passage index or null for each
+source; code inserts the exact text. Free-text quotes, nonexistent indexes and
+boolean values cannot substitute for passage selections. Stories retain their one-to-five source requirement; signals
 retain their two-to-four distinct-source requirement. Unsupported slots can be
 left empty with `insufficient_evidence`, which blocks drafting. Completed negative
 plans are retained and do not cause automatic provider retries.
@@ -99,6 +109,12 @@ those fields. A matching passage establishes presence, not semantic entailment o
 editorial approval. The final candidate's exact retrieval and independent evidence
 audit still run normally. Existing completed reporting checkpoints continue through
 their original validators and audit rather than spending requests to re-plan them.
+
+The first coverage-provider test (run 40232788745, commit e54d78e) retrieved all
+eight retained pages but rejected a single-source RHC signal and five free-text
+anchors that rearranged or changed source text. Evidence coverage v2 replaces
+that copying contract with code-bound numbered passages. Revision 4 continues
+the isolated test with the bound, previously spent ledger described above.
 
 All stages must pass for integration acceptance. A failure stops progression and
 retains evidence; later stages are not represented as successful. An automatic
