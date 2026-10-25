@@ -89,6 +89,27 @@ ledger and screened checkpoints are preserved as Actions artifacts. Failed and
 ambiguous submissions remain spent within this development budget. Another test
 plan or a production publication request requires its own explicit scope.
 
+Retained reporting failures can be inspected without another provider request:
+
+```bash
+python3 ops/integration_acceptance.py --replay-artifact /path/to/extracted-artifact
+```
+
+This reads the preserved acceptance report, response snapshot, source checkpoint
+and development ledger. It verifies the response hash, lists all structural
+rejections, checks that the ledger is unchanged, and writes an enriched local
+report. The original live-test commit and outcome stay recorded; the diagnostic
+replay commit is recorded separately. The command cannot be combined with
+`--live` and grants no publication approval. A successful replay command means
+diagnostics completed, not that the rejected report passed acceptance.
+
+The retained October 25 provider response is a test-only regression fixture.
+It verifies rejection of an uncited fifth story and two signals selecting only
+one source each. All three citation failures must be corrected with relevant
+supporting material before later stages can be exercised. Citation counts alone
+do not establish evidence support; exact retrieval and independent audit remain
+required.
+
 References:
 - https://developers.openai.com/api/docs/guides/evaluation-best-practices
 - https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments

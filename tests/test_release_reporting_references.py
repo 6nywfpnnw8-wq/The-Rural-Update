@@ -5,6 +5,7 @@ import os
 import sys
 import tempfile
 import unittest
+import urllib.request
 from pathlib import Path
 from unittest.mock import Mock, patch
 from jsonschema import Draft202012Validator, ValidationError
@@ -12,7 +13,7 @@ from jsonschema import Draft202012Validator, ValidationError
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 import release_research as sr
 import release_reporting_references as rr
-from release_core import read_json, write_json
+from release_core import digest, read_json, write_json
 from release_diagnostics import error_details
 from test_release_staged_research import (bounded_fixture, response, selection_response,
                                         reporting_response, DATE)
@@ -24,6 +25,36 @@ class ReportingReferenceTests(unittest.TestCase):
         self.report=copy.deepcopy(self.e);self.report.pop('sources');self.report.pop('podcast')
         self.schema=sr.reporting_schema(self.catalog,DATE)
         self.text=sr._text(reporting_response(self.report))
+
+    def retained_rejection(self):
+        return read_json(Path(__file__).parent/'fixtures/reporting-rejection-2026-10-25.json')
+
+    def test_real_provider_rejection_replays_all_missing_citations_without_api(self):
+        fixture=self.retained_rejection();text=fixture['visible_text']
+        self.assertTrue(fixture['test_only']);self.assertIs(fixture['publication_authorized'],False)
+        self.assertEqual(digest(text),fixture['response_text_sha256'])
+        schema=sr.reporting_schema(fixture['source_catalog'],fixture['edition_date'])
+        with patch.object(urllib.request,'urlopen') as network:
+            replay=rr.replay_report(text,schema,fixture['source_catalog'])
+        network.assert_not_called()
+        self.assertEqual(replay['api_calls_made'],0)
+        self.assertIs(replay['publication_authorized'],False)
+        self.assertTrue(replay['generation_schema_passed'])
+        self.assertFalse(replay['publication_schema_passed'])
+        keys=('path','keyword','actual_items','required_minimum')
+        self.assertEqual([{k:f[k] for k in keys} for f in replay['findings']],fixture['expected_findings'])
+        self.assertEqual(digest(text),fixture['response_text_sha256'])
+
+    def test_real_rejected_output_cannot_be_promoted_by_compiler(self):
+        fixture=self.retained_rejection();text=fixture['visible_text']
+        schema=sr.reporting_schema(fixture['source_catalog'],fixture['edition_date'])
+        with self.assertRaises(ValidationError):rr.compile_report(text,schema,fixture['source_catalog'])
+        self.assertEqual(digest(text),fixture['response_text_sha256'])
+
+    def test_reporting_replay_identifies_duplicate_json_without_overwriting_it(self):
+        replay=rr.replay_report('{"title":"first","title":"second"}',self.schema,self.catalog)
+        self.assertEqual(replay['findings'][0]['rule'],'reporting_duplicate_key')
+        self.assertEqual(replay['api_calls_made'],0)
 
     def test_fixed_keys_compile_to_the_same_publication_references(self):
         self.assertEqual(rr.compile_report(self.text,self.schema,self.catalog),self.report)

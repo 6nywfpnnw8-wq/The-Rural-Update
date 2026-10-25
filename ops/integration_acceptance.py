@@ -143,6 +143,24 @@ def write_report(output, report):
     rows = ''.join('<tr><td>' + esc(name.replace('_', ' ')) + '</td><td class="' + esc(item['status']) + '">'
                    + esc(item['status'].upper()) + '</td><td>' + esc(item.get('detail', '')) + '</td></tr>'
                    for name, item in report['stages'].items())
+    error = report.get('error', {})
+    failure = ('<p><b>Blocking result:</b> ' + esc(error.get('rule', '')) + ' at <code>'
+               + esc(error.get('path', '/')) + '</code> ' + esc(error.get('keyword', '')) + '</p>') if error else ''
+    findings = report.get('reporting_replay', {}).get('findings', [])
+    replay = ''
+    if findings:
+        replay = '<h2>Retained reporting response: offline replay</h2><p>The original response was replayed without new provider calls or changes to its content.</p><table><tr><th>Field</th><th>Rule</th><th>Selected items</th><th>Required minimum</th></tr>'
+        replay += ''.join('<tr><td><code>' + esc(f.get('path', '/')) + '</code></td><td>'
+                          + esc(f.get('keyword', f.get('rule', ''))) + '</td><td>'
+                          + esc(f.get('actual_items', '')) + '</td><td>' + esc(f.get('required_minimum', ''))
+                          + '</td></tr>' for f in findings) + '</table>'
+        replay += '<p>Response SHA256: <code>' + esc(report['reporting_replay']['response_text_sha256']) + '</code></p>'
+        if all(f.get('keyword') == 'minItems' for f in findings):
+            replay += ('<p>Next development step: select source-supported topics and give every signal at least two '
+                       'distinct, relevant sources. Citation counts alone do not establish evidence support. '
+                       'Source retrieval, independent audit, narration and audio acceptance have not run.</p>')
+    if report.get('diagnostic_replay_code_sha'):
+        replay += '<p>Offline diagnostic commit: <code>' + esc(report['diagnostic_replay_code_sha']) + '</code></p>'
     page = ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" '
             'content="width=device-width,initial-scale=1"><title>Rural Update integration acceptance</title>'
             '<style>body{font:16px/1.5 system-ui,sans-serif;max-width:1050px;margin:40px auto;padding:0 24px;color:#17313a}'
@@ -150,16 +168,38 @@ def write_report(output, report):
             'border-bottom:1px solid #ccd7db;padding:10px}.pass{color:#17653c}.fail{color:#a52525}.not_run{color:#6a7377}'
             'code{overflow-wrap:anywhere}p{max-width:85ch}</style><h1>The Rural Update: integration acceptance</h1>'
             '<p><b>Result: ' + esc(report['result'].upper()) + '</b><br>Test cohort: ' + esc(report['edition_date'])
-            + '<br>Checked: ' + esc(report['checked_at']) + '<br>Source commit: <code>' + esc(report['code_sha'])
+            + '<br>Checked: ' + esc(report['checked_at']) + '<br>Live test source commit: <code>' + esc(report['code_sha'])
             + '</code></p><p>This is a nonpublishing development run. Generated working material is not a published '
             'edition. Production attempt limits and recovery reservations remain separate and unchanged.</p>'
+            + failure +
             '<table><thead><tr><th>Stage</th><th>Outcome</th><th>Evidence or limitation</th></tr></thead><tbody>'
-            + rows + '</tbody></table><h2>Request use</h2><pre>' + esc(json.dumps(report.get('request_counts', {}), indent=2))
+            + rows + '</tbody></table>' + replay + '<h2>Request use</h2><pre>' + esc(json.dumps(report.get('request_counts', {}), indent=2))
             + '</pre><p>Ceilings count actual provider HTTP submissions, including retries. They are not dollar-denominated '
             'billing limits. Passing local artifact checks does not establish public HTTP delivery or unattended scheduling.</p>'
             '<p>Public deployment: disabled. Render publication clock: unchanged. Human editorial approval, '
             'public HTTP delivery and unattended scheduling are not established by this test.</p></html>')
     (output / 'acceptance.html').write_text(page)
+
+
+def add_reporting_replay(report, workspace, state):
+    if report.get('error', {}).get('api_stage') != 'reporting':return
+    reference = report['error'].get('stage_snapshot', {})
+    relative = reference.get('file', '')
+    if (not reference.get('retained') or reference.get('redacted') is not False
+            or not re.fullmatch(r'stage-responses/reporting-[a-f0-9]{16}\.json', relative)):
+        return
+    cache = workspace / '.release-cache' / report['edition_date']
+    saved = read_json(cache / relative)
+    if (saved.get('publication_authorized') is not False or saved.get('redacted') is not False
+            or digest(saved['output_text']) != saved.get('sha256')
+            or saved['sha256'] != reference.get('sha256')):
+        raise RuntimeError('Retained reporting response integrity differs')
+    binding = read_json(state / 'binding.json')
+    sources = research._cached(cache / research.ENGINE / 'sources.json', binding['identity'])
+    if sources is None:raise RuntimeError('Retained reporting source catalog is unavailable')
+    from release_reporting_references import replay_report
+    schema = research.reporting_schema(sources['sources'], report['edition_date'])
+    report['reporting_replay'] = replay_report(saved['output_text'], schema, sources['sources'])
 
 
 def collect_stages(report, workspace, state):
@@ -281,7 +321,11 @@ def run(root, plan, *, live=False):
         report['stages'][active] = {'status': 'fail', 'detail': report['error'].get('rule', 'stage_failure')}
         if isinstance(exc, DevelopmentBudgetExceeded):report['error']['rule'] = 'development_budget_exhausted'
     finally:
-        if workspace is not None:collect_stages(report, workspace, state)
+        try:
+            if workspace is not None:collect_stages(report, workspace, state)
+            if workspace is not None:add_reporting_replay(report, workspace, state)
+        except Exception as checkpoint_error:
+            report['result'] = 'fail';report['checkpoint_inspection_error'] = error_details(checkpoint_error)
         after = production_inventory(root, edition)
         unchanged = before == after
         report['stages']['production_unchanged'] = {'status': 'pass' if unchanged else 'fail',
@@ -302,7 +346,21 @@ def run(root, plan, *, live=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--live', action='store_true');args = parser.parse_args()
+    parser.add_argument('--live', action='store_true')
+    parser.add_argument('--replay-artifact', type=Path)
+    args = parser.parse_args()
+    if args.replay_artifact is not None:
+        if args.live:raise ValueError('Offline replay cannot enable provider calls')
+        evidence = args.replay_artifact.resolve();state = evidence / '.integration-state'
+        report = read_json(evidence / '.integration-output/acceptance.json')
+        before = (state / 'development-requests.json').read_bytes()
+        add_reporting_replay(report, state / 'workspace', state)
+        assert (state / 'development-requests.json').read_bytes() == before
+        report['diagnostic_replay_code_sha'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+        write_report(ROOT / '.integration-output', report)
+        print(json.dumps({'operation': 'offline-reporting-replay', 'result': report['result'],
+                          'api_calls_made': 0, 'reporting_replay': report.get('reporting_replay')}))
+        return 0
     plan = read_json(ROOT / 'integration-request.json')
     result = run(ROOT, plan, live=args.live)
     print(json.dumps({'result': result['result'], 'publication_attempted': False,
