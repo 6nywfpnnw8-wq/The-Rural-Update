@@ -1,5 +1,7 @@
 # Generated work is not source and must never be accidentally committed.
 .release-cache/
 .site/
+.integration-state/
+.integration-output/
 __pycache__/
 *.py[cod]
