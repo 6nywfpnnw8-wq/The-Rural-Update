@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator,ValidationError
 import release_research as sr
 from release_core import SCHEMA,write_json
 from test_release import fixture,DATE
-from test_release_staged_research import response,bounded_fixture
+from test_release_staged_research import response,bounded_fixture,selection_response
 
 class ReportingResumeTests(unittest.TestCase):
     def setUp(self):
@@ -21,7 +21,7 @@ class ReportingResumeTests(unittest.TestCase):
         self.assertTrue(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
         self.payload={'model':'gpt-5-mini','input':'Edition '+DATE,'tools':[{'type':'web_search'}]}
         raw=response('partial report',status='incomplete');raw['incomplete_details']={'reason':'max_output_tokens'}
-        send=Mock(side_effect=[response('Retained source notes',web=True),response({'sources':fixture()['sources']}),raw])
+        send=Mock(side_effect=[response('Retained source notes',web=True),selection_response(fixture()['sources']),raw])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.cache)
         sr.record_response(self.cache,{'max_output_tokens':10000,'text':{'format':{'name':'reporting'}}},raw,10)
     def test_resumes_once_without_discovery_or_counter_reset(self):

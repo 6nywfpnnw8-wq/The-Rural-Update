@@ -36,8 +36,12 @@ safeguard, not a guarantee that arbitrary sensitive material could be detected.
 GitHub Actions caches are not confidential storage.
 
 Normal report artifacts contain field paths, fixed marker terms, counts and
-checksums, not draft paragraphs or full candidate files. The report upload uses
-explicit patterns and excludes `candidates/` and `approved.json`. Full candidates
+checksums, plus the date-scoped attempt ledger and screened visible source-selection
+completions under `stage-responses/`. Those completions contain public-source metadata
+only and are retained before parsing or validation, so rejected source choices can
+be replayed. They exclude prompts, reasoning and raw API envelopes. A redacted
+completion is explicitly marked and cannot establish an unchanged original.
+The report upload uses explicit patterns and excludes `candidates/` and `approved.json`. Full candidates
 are not committed to main or copied into the Pages artifact. Existing artifact
 retention is 14 days; cache retention is controlled by GitHub and is not guaranteed.
 

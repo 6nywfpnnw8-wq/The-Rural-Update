@@ -9,9 +9,18 @@ from release_core import SCHEMA,validate_edition,write_json
 from release_diagnostics import error_details,summary
 from test_release import fixture,DATE
 from release_narration import bounded_podcast_schema
+from release_source_selection import source_choices
+from release_core import canonical_url
 
 def bounded_fixture():
     e=fixture()
+    choices=source_choices([s['url'] for s in e['sources']])
+    ids={canonical_url(url):key for key,url in choices.items()}
+    old_ids={s['id']:ids[canonical_url(s['url'])] for s in e['sources']}
+    for s in e['sources']:s['id']=old_ids[s['id']]
+    e['sources'].sort(key=lambda s:list(choices).index(s['id']))
+    for group in ('stories','actions','deadlines','signals','issue_updates'):
+        for item in e[group]:item['source_ids']=[old_ids[key] for key in item['source_ids']]
     words={'opening':60,'bluf':165,'developments':310,'oklahoma':235,
            'signals':170,'actions':160,'deadlines':80,'closing':55}
     for k,n in words.items():
@@ -25,6 +34,14 @@ def response(value,status='completed',web=False):
     output.append({'type':'message','content':[{'type':'output_text','text':value if isinstance(value,str) else json.dumps(value)}]})
     return {'status':status,'output':output,'usage':{'input_tokens':50,'output_tokens':80,'output_tokens_details':{'reasoning_tokens':10}}}
 
+
+def selection_response(catalog):
+    choices=source_choices([s['url'] for s in catalog])
+    by_url={canonical_url(s['url']):s for s in catalog}
+    return response({'sources':{key:{k:by_url[canonical_url(url)][k]
+                                      for k in ('title','published_date')}
+                                for key,url in choices.items()}})
+
 class StagedResearchTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
@@ -32,7 +49,7 @@ class StagedResearchTests(unittest.TestCase):
         self.e=bounded_fixture();self.report=copy.deepcopy(self.e);self.report.pop('podcast');self.report.pop('sources')
         self.payload={'model':'gpt-5-mini','input':'Edition '+DATE,'tools':[{'type':'web_search','filters':{'allowed_domains':['cms.gov']}}]}
     def fake(self):
-        return Mock(side_effect=[response('Verified public evidence notes.',web=True),response({'sources':self.e['sources']}),response(self.report),response(self.e['podcast'])])
+        return Mock(side_effect=[response('Verified public evidence notes.',web=True),selection_response(self.e['sources']),response(self.report),response(self.e['podcast'])])
     def test_four_stages_only_first_has_tools(self):
         send=self.fake();out=sr.staged_request(self.payload,send,self.root)
         self.assertEqual(json.loads(rp.output_text(out)),self.e)
@@ -52,14 +69,14 @@ class StagedResearchTests(unittest.TestCase):
         self.assertEqual(send.call_count,1)
         self.assertFalse((self.root/sr.ENGINE/'discovery.json').exists())
     def test_incomplete_reporting_keeps_discovery_for_retry(self):
-        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response('half output',status='incomplete')])
+        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response('half output',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
         resumed=Mock(side_effect=[response(self.report),response(self.e['podcast'])])
         sr.staged_request(self.payload,resumed,self.root)
         self.assertEqual(resumed.call_count,2)
         self.assertNotIn('tools',resumed.call_args_list[0].args[0])
     def test_incomplete_narration_cannot_publish(self):
-        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response(self.report),response('half',status='incomplete')])
+        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response(self.report),response('half',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
         self.assertFalse((self.root/'approved.json').exists())
         self.assertFalse((self.root/sr.ENGINE/'narration.json').exists())
@@ -82,7 +99,7 @@ class StagedResearchTests(unittest.TestCase):
         sr.staged_request(changed,send,self.root);self.assertEqual(send.call_count,4)
     def test_partial_schema_rejected_before_narration(self):
         bad=copy.deepcopy(self.report);bad.pop('title')
-        send=Mock(side_effect=[response('notes',web=True),response({'sources':self.e['sources']}),response(bad)])
+        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response(bad)])
         with self.assertRaises(Exception):sr.staged_request(self.payload,send,self.root)
         self.assertEqual(send.call_count,3)
     def test_secrets_never_retained(self):
