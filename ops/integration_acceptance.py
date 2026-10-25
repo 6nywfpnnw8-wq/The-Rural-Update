@@ -213,9 +213,16 @@ def run(root, plan, *, live=False):
     try:
         offline = output / 'offline-tests.log'
         log = offline.read_text() if offline.exists() else ''
-        match = re.search(r'Ran (\d+) tests in [^\n]+\n\s*OK\s*$', log)
-        if not match:raise RuntimeError('Integration requires a successful offline control-test log')
-        report['stages']['offline_controls'] = {'status': 'pass', 'detail': match[1] + ' tests; log SHA256 ' + digest(log)}
+        controls = read_json(output / 'offline-controls.json', {})
+        if (controls.get('schema_version') != 1 or controls.get('code_sha') != code
+                or controls.get('successful') is not True or controls.get('failures') != 0
+                or controls.get('errors') != 0 or controls.get('unexpected_successes') != 0
+                or type(controls.get('tests_run')) is not int or controls['tests_run'] < 1
+                or not log):
+            raise RuntimeError('Integration requires successful structured offline controls for the tested commit')
+        report['offline_controls'] = controls
+        report['stages']['offline_controls'] = {'status': 'pass',
+            'detail': str(controls['tests_run']) + ' tests; ' + str(controls.get('skipped', 0)) + ' skipped; log SHA256 ' + digest(log)}
         active = 'seed_integrity'
         workspace, payload = prepare_workspace(root, state, plan)
         report['stages']['seed_integrity'] = {'status': 'pass', 'detail': str(plan['source_count']) + ' retained sources; original context and file hashes match'}

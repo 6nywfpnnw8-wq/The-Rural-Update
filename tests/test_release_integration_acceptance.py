@@ -14,6 +14,7 @@ sys.path[:0] = [str(Path(__file__).resolve().parents[1] / name) for name in ('sc
 import integration_acceptance as acceptance
 import release_pipeline as publisher
 import release_research as research
+from run_integration_tests import write_result
 from release_core import digest, read_json, write_json
 from release_integration_budget import DevelopmentTransport, DevelopmentBudgetExceeded
 from test_release_staged_research import bounded_fixture, response, DATE
@@ -177,6 +178,9 @@ class IntegrationIsolationTests(unittest.TestCase):
     def test_dry_run_makes_no_provider_calls_and_writes_acceptance_report(self):
         log = self.root / '.integration-output/offline-tests.log';log.parent.mkdir()
         log.write_text('Ran 20 tests in 1.0s\n\nOK\n')
+        write_json(log.parent / 'offline-controls.json', {'schema_version': 1, 'code_sha': 'a' * 40,
+            'successful': True, 'tests_run': 20, 'skipped': 1, 'failures': 0, 'errors': 0,
+            'unexpected_successes': 0})
         with patch.object(acceptance.subprocess, 'check_output', return_value='a' * 40 + '\n'), \
              patch.object(publisher, 'MODEL', 'gpt-5-mini'), patch.object(urllib.request, 'urlopen') as network:
             result = acceptance.run(self.root, self.plan, live=False)
@@ -184,6 +188,17 @@ class IntegrationIsolationTests(unittest.TestCase):
         self.assertEqual(result['result'], 'not_run')
         self.assertEqual(result['stages']['production_unchanged']['status'], 'pass')
         self.assertTrue((self.root / '.integration-output/acceptance.html').exists())
+        self.assertEqual(result['offline_controls']['skipped'], 1)
+
+    def test_structured_runner_reports_skips_without_confusing_them_with_failure(self):
+        class Example(unittest.TestCase):
+            def test_ok(self):pass
+            @unittest.skip('Synthetic optional capability')
+            def test_skip(self):pass
+        result = unittest.TextTestRunner(stream=io.StringIO()).run(unittest.defaultTestLoader.loadTestsFromTestCase(Example))
+        report = write_result(result, self.root / 'control.json', 'a' * 40)
+        self.assertTrue(report['successful']);self.assertEqual(report['skipped'], 1)
+        self.assertEqual(report['failures'], 0);self.assertEqual(report['tests_run'], 2)
 
     def test_failed_offline_controls_cannot_access_provider(self):
         with patch.object(acceptance.subprocess, 'check_output', return_value='a' * 40 + '\n'), \
