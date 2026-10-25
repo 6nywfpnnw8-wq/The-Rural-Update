@@ -7,7 +7,7 @@ from jsonschema import Draft202012Validator,ValidationError
 import release_research as sr
 from release_core import SCHEMA,write_json
 from test_release import fixture,DATE
-from test_release_staged_research import response,bounded_fixture,selection_response
+from test_release_staged_research import response,bounded_fixture,selection_response,reporting_response
 
 class ReportingResumeTests(unittest.TestCase):
     def setUp(self):
@@ -29,7 +29,7 @@ class ReportingResumeTests(unittest.TestCase):
         self.assertTrue(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
         self.assertFalse(sr.reserve_corrective_attempt(self.cache,DATE,self.policy))
         e=bounded_fixture();brief=copy.deepcopy(e);brief.pop('podcast');brief.pop('sources')
-        send=Mock(side_effect=[response(brief),response(e['podcast'])])
+        send=Mock(side_effect=[reporting_response(brief),response(e['podcast'])])
         sr.staged_request(self.payload,send,self.cache)
         self.assertEqual(send.call_count,2)
         self.assertNotIn('tools',send.call_args_list[0].args[0])

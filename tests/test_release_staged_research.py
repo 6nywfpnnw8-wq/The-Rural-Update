@@ -20,7 +20,8 @@ def bounded_fixture():
     for s in e['sources']:s['id']=old_ids[s['id']]
     e['sources'].sort(key=lambda s:list(choices).index(s['id']))
     for group in ('stories','actions','deadlines','signals','issue_updates'):
-        for item in e[group]:item['source_ids']=[old_ids[key] for key in item['source_ids']]
+        for item in e[group]:
+            item['source_ids']=sorted([old_ids[key] for key in item['source_ids']],key=list(choices).index)
     words={'opening':60,'bluf':165,'developments':310,'oklahoma':235,
            'signals':170,'actions':160,'deadlines':80,'closing':55}
     for k,n in words.items():
@@ -42,6 +43,15 @@ def selection_response(catalog):
                                       for k in ('title','published_date')}
                                 for key,url in choices.items()}})
 
+
+def reporting_response(report):
+    value=copy.deepcopy(report)
+    ids=[s['id'] for s in bounded_fixture()['sources']]
+    for group in ('stories','actions','deadlines','signals','issue_updates'):
+        for item in value.get(group,[]):
+            item['source_ids']={identifier:identifier in item['source_ids'] for identifier in ids}
+    return response(value)
+
 class StagedResearchTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
@@ -49,7 +59,7 @@ class StagedResearchTests(unittest.TestCase):
         self.e=bounded_fixture();self.report=copy.deepcopy(self.e);self.report.pop('podcast');self.report.pop('sources')
         self.payload={'model':'gpt-5-mini','input':'Edition '+DATE,'tools':[{'type':'web_search','filters':{'allowed_domains':['cms.gov']}}]}
     def fake(self):
-        return Mock(side_effect=[response('Verified public evidence notes.',web=True),selection_response(self.e['sources']),response(self.report),response(self.e['podcast'])])
+        return Mock(side_effect=[response('Verified public evidence notes.',web=True),selection_response(self.e['sources']),reporting_response(self.report),response(self.e['podcast'])])
     def test_four_stages_only_first_has_tools(self):
         send=self.fake();out=sr.staged_request(self.payload,send,self.root)
         self.assertEqual(json.loads(rp.output_text(out)),self.e)
@@ -71,12 +81,12 @@ class StagedResearchTests(unittest.TestCase):
     def test_incomplete_reporting_keeps_discovery_for_retry(self):
         send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response('half output',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
-        resumed=Mock(side_effect=[response(self.report),response(self.e['podcast'])])
+        resumed=Mock(side_effect=[reporting_response(self.report),response(self.e['podcast'])])
         sr.staged_request(self.payload,resumed,self.root)
         self.assertEqual(resumed.call_count,2)
         self.assertNotIn('tools',resumed.call_args_list[0].args[0])
     def test_incomplete_narration_cannot_publish(self):
-        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response(self.report),response('half',status='incomplete')])
+        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),reporting_response(self.report),response('half',status='incomplete')])
         with self.assertRaises(sr.ResponseStateError):sr.staged_request(self.payload,send,self.root)
         self.assertFalse((self.root/'approved.json').exists())
         self.assertFalse((self.root/sr.ENGINE/'narration.json').exists())
@@ -99,7 +109,7 @@ class StagedResearchTests(unittest.TestCase):
         sr.staged_request(changed,send,self.root);self.assertEqual(send.call_count,4)
     def test_partial_schema_rejected_before_narration(self):
         bad=copy.deepcopy(self.report);bad.pop('title')
-        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),response(bad)])
+        send=Mock(side_effect=[response('notes',web=True),selection_response(self.e['sources']),reporting_response(bad)])
         with self.assertRaises(Exception):sr.staged_request(self.payload,send,self.root)
         self.assertEqual(send.call_count,3)
     def test_secrets_never_retained(self):
