@@ -38,6 +38,7 @@ jobs:
       MODE: ${{ inputs.mode || 'publish' }}
       REQUESTED_DATE: ${{ inputs.edition_date }}
       RURAL_UPDATE_MODEL: ${{ vars.RURAL_UPDATE_MODEL || 'gpt-5-mini' }}
+      PAGES_ARTIFACT_NAME: rural-update-pages-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -123,10 +124,13 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .site
+          name: ${{ env.PAGES_ARTIFACT_NAME }}
       - name: Deploy validated snapshot
         id: deploy
         if: steps.prepare.outcome == 'success'
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
       - name: Verify exact public release and playable episode
         id: verify
         if: steps.deploy.outcome == 'success' || env.MODE == 'verify'
