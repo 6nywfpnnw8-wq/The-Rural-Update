@@ -562,12 +562,12 @@
     },
     {
       "id": "action-validate-oct-telehealth-claims",
-      "title": "run and reconcile an october telehealth production-claims sample for rhc services",
+      "title": "Reconcile RHC/FQHC distant-site telehealth production claims for dates of service Oct 1 onward",
       "status": "Open",
       "owner": "revenue-cycle / rhc operations / it",
       "owner_is_suggested": true,
-      "due": "2026-10-21",
-      "next": "extract a representative sample of october 1 onward rhc telehealth claims, confirm cpt/hcpcs codes and telehealth modifiers, reconcile remittances and log payer-specific rejections for corrective edits.",
+      "due": "2026-10-27",
+      "next": "Extract a representative sample of RHC telehealth claims (DOS 2026-10-01 onward), confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and log payer-specific denials for corrective edits.",
       "source": "rhc-telehealth-billing-change"
     },
     {
@@ -669,6 +669,26 @@
       "due": "Ongoing",
       "next": "Contact OHCA in writing to confirm whether Oklahoma has executed GENEROUS participation, request the list of covered drugs, MCO passthrough guidance and implementation schedule before changing pharmacy or 340B forecasts.",
       "source": "generous-participation-national"
+    },
+    {
+      "id": "action-request-ohca-generous-confirmation",
+      "title": "Request written OHCA confirmation of GENEROUS participation and obtain state implementation terms",
+      "status": "Open",
+      "owner": "pharmacy/finance",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Contact OHCA in writing to confirm whether Oklahoma executed GENEROUS participation, request the list of covered products, MCO passthrough guidance and implementation schedule before changing pharmacy or 340B forecasts.",
+      "source": "generous-model-national-announcement"
+    },
+    {
+      "id": "action-require-post-grant-sustainability",
+      "title": "Require post-grant operating and replacement-capital budgets for any RHTP subaward participation",
+      "status": "Open",
+      "owner": "strategy/finance",
+      "owner_is_suggested": true,
+      "due": "2026-11-25",
+      "next": "Before accepting subaward tasks or hosting new services, insist on a post-grant sustainability section in subaward budgets that documents recurring expenses, staffing, replacement capital and fallback funding.",
+      "source": "oklahoma-rhtp-state-implementation"
     }
   ],
   "changes": {
@@ -691,5 +711,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-24"
+  "reviewed": "2026-10-26"
 }
