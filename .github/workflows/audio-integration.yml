@@ -1,0 +1,104 @@
+name: Retained audio integration acceptance
+on:
+  workflow_dispatch:
+    inputs:
+      live:
+        description: Run the bounded audio-only provider test
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths: ['audio-integration-request.json']
+permissions:
+  contents: read
+concurrency:
+  group: rural-update-single-publisher
+  cancel-in-progress: false
+jobs:
+  acceptance:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      deployment: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Resolve the bound audio test
+        id: plan
+        env:
+          DISPATCH_LIVE: ${{ inputs.live }}
+        run: |
+          python3 - <<'PY'
+          import json,os,re
+          from pathlib import Path
+          p=json.loads(Path('audio-integration-request.json').read_text())
+          assert re.fullmatch(r'\d{4}-\d{2}-\d{2}',p['edition_date'])
+          assert re.fullmatch(r'[A-Za-z0-9-]{1,100}',p['request_id'])
+          assert p['publication_authorized'] is False and p['new_research_prohibited'] is True
+          live=p['live'] is True if os.environ['GITHUB_EVENT_NAME']=='push' else os.environ.get('DISPATCH_LIVE')=='true'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('date='+p['edition_date']+'\nkey='+p['request_id']+'\nlive='+str(live).lower()+'\n')
+          PY
+      - name: Restore production speech only as a read-only seed
+        uses: actions/cache/restore@v4
+        with:
+          path: .release-cache
+          key: audio-test-read-only-${{ github.run_id }}
+          restore-keys: rural-release-v1-${{ steps.plan.outputs.date }}-
+      - name: Restore only the separate audio development workspace
+        uses: actions/cache/restore@v4
+        with:
+          path: .audio-integration-state
+          key: rural-audio-integration-v1-${{ steps.plan.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: rural-audio-integration-v1-${{ steps.plan.outputs.key }}-
+      - name: Install media tools and compiler dependencies
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
+      - name: Run offline controls before provider access
+        shell: bash
+        run: |
+          mkdir -p .integration-output
+          python3 ops/run_integration_tests.py 2>&1 | tee .integration-output/offline-tests.log
+          node --check web/release-runtime.js
+          node --check sw.js
+          node tests/test_release_sw.cjs
+      - name: Test audio and local delivery with publication disabled
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LIVE: ${{ steps.plan.outputs.live }}
+        run: |
+          if [ "$LIVE" = true ]; then
+            python3 ops/audio_acceptance.py --live
+          else
+            python3 ops/audio_acceptance.py
+          fi
+      - name: Preserve only development cache after success or failure
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .audio-integration-state
+          key: rural-audio-integration-v1-${{ steps.plan.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Preserve acceptance evidence and prepared audio
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retained-audio-acceptance-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          include-hidden-files: true
+          path: |
+            .audio-integration-output
+            .integration-output
+            .audio-integration-state/binding.json
+            .audio-integration-state/seed-audio-inventory.json
+            .audio-integration-state/acceptance.json
+            .audio-integration-state/development-requests.json
+            .audio-integration-state/provider-responses
+            .audio-integration-state/workspace/.release-cache

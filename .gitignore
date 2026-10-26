@@ -3,5 +3,7 @@
 .site/
 .integration-state/
 .integration-output/
+.audio-integration-state/
+.audio-integration-output/
 __pycache__/
 *.py[cod]

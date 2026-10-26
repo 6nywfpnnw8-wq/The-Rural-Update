@@ -9,13 +9,16 @@ from release_core import digest,read_json,write_json,podcast_body,probe_audio
 
 NUMBERS=set(('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety hundred thousand million billion first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth thirtieth').split())
 
-NORMALIZATION_VERSION = 3
+NORMALIZATION_VERSION = 4
 
 def tokens(text):
     # Documented orthographic equivalents, not fuzzy semantic substitutions.
     text=text.lower().replace('\u2019', "'").replace('\u2018', "'")
     text=re.sub(r'\bpassthrough\b', 'pass through', text)
     text=re.sub(r'\bsubaward(s?)\b', r'sub award\1', text)
+    # Same spoken forms observed in retained, independently transcribed audio.
+    text=re.sub(r'\btradeoff(s?)\b', r'trade off\1', text)
+    text=re.sub(r'\bforego\b', 'forgo', text)
     out=[]
     for t in re.findall(r'[a-z]+|[0-9]+',text.lower().replace("'",'')):
         t='num' if t in NUMBERS or t.isdigit() else t
