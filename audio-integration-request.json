@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "retained_audio",
+  "request_id": "2026-10-26-retained-audio-1",
+  "edition_date": "2026-10-26",
+  "live": true,
+  "publication_authorized": false,
+  "new_research_prohibited": true,
+  "release_sha256": "b4364b3a26e5e4900eae2d976fa33e9695b058359166b57a10e55b2f29971399",
+  "edition_file_sha256": "95f8e3f41dad03f83dad4e41beb8e4e6f37d4bf63c4e1d6ebc6b249cecebbf5a",
+  "candidate_sha256": "b0571a4932bee1c2624c5737ba8965cda118b31ead450c21f858a70b78235611",
+  "script_sha256": "0a5bcda64ca2079df0c7654aa69d38d3442882cde8974088126f8e3edeab40d0",
+  "research_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "source_evidence_sha256": "a600b9938676ddda0122e59e7694ad5572a79f0fc07d827d8f91d02d0a04ad59",
+  "minimum_retained_speech_requests": 19,
+  "maximum_new_speech_requests": 45,
+  "maximum_new_transcription_requests": 48,
+  "failed_audio_sha256": [
+    "a7d6871ef58f568a436e0ad31525f2cc03ed23d2ac333779c8442ab44f0b6dd8",
+    "0b0964a1704ba74d584bb2741868cef82388089230f63f9aa456db7fb748587d"
+  ],
+  "reason": "The user instructed proceeding with the next development step. October 26 now provides a real approved research cohort; test its remaining audio and local delivery stages using the retained speech cache and corrected orthographic comparison. Preserve the original two research attempts and every speech attempt ledger. Permit no new research, reporting, narration or audit-model requests. Enforce the original total speech ceiling of 64 and two attempts per passage, with at most 45 new speech HTTP submissions and 48 new transcription submissions for this isolated test. This authorizes no production publication or public delivery claim."
+}

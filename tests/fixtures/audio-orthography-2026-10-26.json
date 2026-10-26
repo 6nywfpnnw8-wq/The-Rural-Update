@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "test_only": true,
+  "publication_authorized": false,
+  "edition_date": "2026-10-26",
+  "inspection_run_id": 40413729251,
+  "expected_sha256": "3cd64cfc93841555316a482cf2b4f7915bab3837b9daeeaea57f0fcba88b5c28",
+  "expected": "The decision tradeoffs are clear: accept a subaward to seed rapid access improvements and bear potential future operating obligations, or require explicit post-grant funding and possibly forgo near-term project benefits.",
+  "recognized": "The decision trade-offs are clear: accept a sub-award to seed rapid access improvements and bear potential future operating obligations, or require explicit post-grant funding and possibly forego near-term project benefits.",
+  "audio_sha256": [
+    "a7d6871ef58f568a436e0ad31525f2cc03ed23d2ac333779c8442ab44f0b6dd8",
+    "0b0964a1704ba74d584bb2741868cef82388089230f63f9aa456db7fb748587d"
+  ],
+  "previous_normalization_version": 3,
+  "previous_comparison": {
+    "coverage": 0.9394,
+    "opening": 0.9167,
+    "ending": 0.9375,
+    "final_words": 0.8333,
+    "passed": false
+  }
+}
