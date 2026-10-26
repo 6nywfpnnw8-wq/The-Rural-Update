@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "edition_date": "2026-10-26",
-  "revision": 1,
-  "code_sha": "f06a34767a79bd21844172f150351025cc988dc6",
-  "built_at": "2026-10-26T05:55:06.969932-05:00",
+  "revision": 2,
+  "code_sha": "d3fe7ba798ada661c12f304f1bac395839d87b0e",
+  "built_at": "2026-10-26T07:32:24.411900-05:00",
   "audio_status": "unavailable",
   "files": {
     "archive/2026-10-24.html": {
