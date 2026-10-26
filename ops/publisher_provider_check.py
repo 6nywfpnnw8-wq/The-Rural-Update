@@ -13,6 +13,7 @@ from pathlib import Path
 from check_openai_access import Client, CheckFailure, MODELS, run_check
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 REPORT = "credential-check-report.json"
 STAGES = {"configuration", "research_and_web_search", "speech", "transcription"}
 
@@ -51,6 +52,20 @@ def preflight(root: Path, edition: str, check=run_check, client_factory=Client) 
         report = {**common, "passed": None, "skipped": True, "checks": [],
                   "reason": "complete_committed_release_requires_no_generation"}
     else:
+        from release_prepared_audio import cache_ready
+        try:prepared = cache_ready(root, edition)
+        except Exception:
+            report = {**common, "passed": False, "skipped": False,
+                      "checks": [{"stage": "configuration", "passed": False, "reason": "prepared_audio_cache_invalid"}]}
+            report["completed_at"] = datetime.now(timezone.utc).isoformat()
+            report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+            return report
+        if prepared:
+            report = {**common, "passed": None, "skipped": True, "checks": [],
+                      "reason": "validated_prepared_audio_requires_no_generation",
+                      "completed_at": datetime.now(timezone.utc).isoformat()}
+            report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+            return report
         try:
             report = check(client_factory(os.getenv("OPENAI_API_KEY", "")),
                            os.getenv("RURAL_UPDATE_MODEL", MODELS["research"]))

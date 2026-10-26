@@ -133,7 +133,7 @@ class ProviderWorkflowOrderTests(unittest.TestCase):
     def test_readiness_precedes_generation_and_uses_same_secret(self):
         source=(ROOT/'.github/workflows/publish.yml').read_text()
         readiness=source.index('id: provider_access')
-        preparation=source.index('id: prepare')
+        preparation=source.index('id: prepare\n')
         self.assertLess(readiness,preparation)
         self.assertIn('OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}',source[readiness:preparation])
         self.assertNotIn('continue-on-error: true',source[readiness:source.index('Inspect cached diagnostics')])

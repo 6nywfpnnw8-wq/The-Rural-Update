@@ -267,6 +267,9 @@ Candidate: """+json.dumps(edition,ensure_ascii=False)+evidence_prompt(documents)
     return record
 
 def audio_for(edition,cache,output):
+    from release_prepared_audio import reuse
+    prepared=reuse(ROOT,edition,cache,output)
+    if prepared is not None:return prepared
     from release_audio import build_audio
     return build_audio(edition,cache,output,request_api)
 
@@ -401,7 +404,8 @@ def main():
         print(json.dumps(diagnose_cache(ROOT/'.release-cache'/d,d)))
         return 0
     assert d==datetime.now(TZ).date().isoformat(),'Only today can be generated; historical releases are never fabricated'
-    manifest=build(d)
+    from release_prepared_audio import guarded_build
+    manifest=guarded_build(ROOT,d,lambda:build(d))
     if args.commit: commit_outputs(d)
     print(json.dumps({'edition_date':d,'audio_status':manifest['audio_status'],'revision':manifest['revision']}))
     output=os.getenv('GITHUB_OUTPUT')

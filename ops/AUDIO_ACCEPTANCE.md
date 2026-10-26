@@ -24,3 +24,33 @@ additional provider submissions. Production public files and cache must remain
 byte-identical. Successful output includes the private MP3 and a resumable cache
 archive. A passing local test does not establish public delivery or authorize
 promoting its material into the production cache.
+
+## Prepared publication handoff
+
+Run 40416506833 completed the full isolated test: 25 accepted narration parts,
+872.256 seconds, ten new speech requests and eleven new ASR requests. No research,
+report, narration or audit response was requested. The original 19 speech
+attempts plus ten new attempts remain spent, 29 of the unchanged limit of 64.
+
+`audio-recovery-proposals/2026-10-26.json` is inactive. Only a separately approved
+plan in `audio-recovery-authorizations/2026-10-26.json`, with
+`publication_authorized: true`, enables the handoff. Activation also changes
+`release-request.json` once, using `requested_operation: publish-prepared-audio`,
+the matching edition date and request ID. No new schedule or Render trigger is
+introduced. A push for this operation must resolve to the same current Central
+date; historical editions cannot be generated or replace a newer edition.
+
+The publisher restores the exact named development cache. Before promotion it
+checks the approved edition, script, research ledger, source evidence, complete
+acceptance report, original speech inventory, all counters, MP3 and quality hashes.
+It exclusively records one consumed continuation, adds only the accepted speech
+files, and preserves every original paid-work file and counter. A partial or
+failed handoff cannot silently start a new continuation. A completed, exact
+committed bundle may retry deployment without another promotion or generation.
+
+The staged path skips paid readiness probes with an explicit skipped report. The
+normal compiler then copies the exact prepared MP3, validates its normal narration
+evidence and fully decodes it. Its network guard rejects all new OpenAI requests.
+An audio failure blocks this prepared publication rather than deploying text only.
+All normal manifest, archive, RSS, Pages deployment and actual public HTTP checks
+remain required. Local success does not establish public delivery.
