@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-26",
+  "request_id": "2026-10-26-prepared-audio-1",
+  "publication_authorized": false,
+  "maximum_publication_continuations": 1,
+  "new_model_requests_permitted": 0,
+  "prepared_cache_key": "rural-audio-integration-v1-2026-10-26-retained-audio-1-40416506833-1",
+  "source_release_sha256": "b4364b3a26e5e4900eae2d976fa33e9695b058359166b57a10e55b2f29971399",
+  "edition_file_sha256": "95f8e3f41dad03f83dad4e41beb8e4e6f37d4bf63c4e1d6ebc6b249cecebbf5a",
+  "candidate_sha256": "b0571a4932bee1c2624c5737ba8965cda118b31ead450c21f858a70b78235611",
+  "script_sha256": "0a5bcda64ca2079df0c7654aa69d38d3442882cde8974088126f8e3edeab40d0",
+  "research_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "source_evidence_sha256": "a600b9938676ddda0122e59e7694ad5572a79f0fc07d827d8f91d02d0a04ad59",
+  "prepared_audio_sha256": "600ad362da049a9b2c5deec95febb62b984fbf8c225b4b7126375140f105e493",
+  "prepared_quality_sha256": "af223aeb6d886c4fa8227a52283653bbc71a6e411a40cee5915bcabb646583d0",
+  "acceptance_sha256": "fca3015992e578202ee2b721e81fc44539cdc4585c18231caed0a83349f7e489",
+  "seed_inventory_sha256": "c093d6a2a4b395b2ac06a5d790cc362e8d27726254c18f6801dd028e12836eea",
+  "acceptance_run_id": 40416506833,
+  "acceptance_artifact_id": 12696032786,
+  "reason": "Inactive proposal only. Requires the user's separately authorized, one-time October 26 cache publication. Activation copies this exact plan to audio-recovery-authorizations/2026-10-26.json with publication_authorized true and changes release-request.json once. All normal source, editorial, audio, manifest, archive, RSS, deployment and public-delivery checks remain mandatory. No new model requests, no reset of research or speech counters, and no Render schedule change."
+}

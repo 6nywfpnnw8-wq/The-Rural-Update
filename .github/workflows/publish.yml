@@ -48,9 +48,14 @@ jobs:
         id: edition
         run: |
           python3 - <<'PY'
-          import datetime, os, re
+          import datetime, os, re, json
+          from pathlib import Path
           from zoneinfo import ZoneInfo
           d=os.environ.get('REQUESTED_DATE') or datetime.datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
+          if os.environ.get('GITHUB_EVENT_NAME')=='push':
+              request=json.loads(Path('release-request.json').read_text())
+              if request.get('requested_operation')=='publish-prepared-audio':
+                  if request.get('edition_date')!=d:raise SystemExit('Prepared audio request is not for the current Central date')
           if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', d): raise SystemExit('Invalid edition date')
           datetime.date.fromisoformat(d)
           with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write('date='+d+'\n')
@@ -70,6 +75,20 @@ jobs:
           node --check web/release-runtime.js
           node --check sw.js
           node tests/test_release_sw.cjs
+      - name: Resolve an explicitly authorized prepared-audio continuation
+        id: prepared_audio
+        if: env.MODE == 'publish' || env.MODE == 'recover'
+        run: python3 scripts/release_prepared_audio.py resolve --date '${{ steps.edition.outputs.date }}'
+      - name: Restore only the explicitly authorized prepared-audio workspace
+        if: steps.prepared_audio.outputs.enabled == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: .audio-integration-state
+          key: ${{ steps.prepared_audio.outputs.cache_key }}
+          fail-on-cache-miss: true
+      - name: Stage hash-verified audio without resetting any counters
+        if: steps.prepared_audio.outputs.enabled == 'true'
+        run: python3 scripts/release_prepared_audio.py stage --date '${{ steps.edition.outputs.date }}'
       - name: Check provider readiness before reserving an editorial attempt
         id: provider_access
         if: env.MODE == 'publish' || env.MODE == 'recover'
@@ -188,6 +207,7 @@ jobs:
             .release-cache/*/api-responses.json
             .release-cache/*/attempts.json
             .release-cache/*/retained-discovery-continuation-used.json
+            .release-cache/*/prepared-audio-promotion-used.json
             .release-cache/*/stage-responses/*.json
             .release-cache/*/audit.json
             .release-cache/*/audio-error.json
