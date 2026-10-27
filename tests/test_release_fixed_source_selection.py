@@ -71,6 +71,37 @@ class FixedSourceSelectionTests(unittest.TestCase):
         catalog = ss.compile_selection(json.dumps(value), urls)
         with self.assertRaises(ValidationError):sr.validate_source_catalog(catalog, urls)
 
+    def test_excess_correction_cannot_introduce_new_source(self):
+        urls = ['https://www.cms.gov/test-' + str(n) for n in range(15)]
+        choices = ss.source_choices(urls)
+        selected = set(list(choices)[:13])
+        schema = ss.excess_selection_schema(urls, selected)
+        Draft202012Validator.check_schema(schema)
+        value = {'sources': {key: ({'title': 'Known', 'published_date': None}
+                                 if key in selected else None) for key in choices}}
+        Draft202012Validator(schema).validate(value)
+        new_key = next(key for key in choices if key not in selected)
+        value['sources'][new_key] = {'title': 'Invented', 'published_date': None}
+        with self.assertRaises(ValidationError):
+            Draft202012Validator(schema).validate(value)
+
+    def test_corrected_source_count_and_metadata_still_enforced(self):
+        urls = ['https://www.cms.gov/test-' + str(n) for n in range(15)]
+        choices = ss.source_choices(urls)
+        initial = {'sources': {key: {'title': 'Known', 'published_date': None}
+                               for key in choices}}
+        original = ss.compile_selection(json.dumps(initial), urls)
+        with self.assertRaises(ValidationError):
+            sr.validate_source_catalog(original, urls)
+        keys = list(choices)
+        corrected = {'sources': {key: (initial['sources'][key] if key in keys[:12]
+                                      else None) for key in keys}}
+        subset = ss.compile_selection(json.dumps(corrected), urls)
+        self.assertEqual(len(sr.validate_source_catalog(subset, urls)), 12)
+        corrected['sources'][keys[0]]['title'] = 'Changed metadata'
+        self.assertNotEqual(ss.compile_selection(json.dumps(corrected), urls)[0],
+                            original[0])
+
     def test_legacy_successful_catalog_is_not_rekeyed(self):
         legacy = copy.deepcopy(self.e['sources'])
         for i, row in enumerate(legacy):row['id'] = 'legacy-' + str(i)

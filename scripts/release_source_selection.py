@@ -51,6 +51,23 @@ def selection_schema(urls: list[str]) -> dict:
     }}, 'required': ['sources'], 'additionalProperties': False}
 
 
+
+def excess_selection_schema(urls: list[str], selected_ids: set[str]) -> dict:
+    """One correction may only exclude previously selected observed sources.
+
+    Full keyset remains required, preventing new identities or missing fields.
+    This is a generation constraint, not permission to publish unsupported work.
+    """
+    schema = selection_schema(urls)
+    known = set(schema['properties']['sources']['properties'])
+    if not selected_ids or not selected_ids <= known:
+        raise ValueError('Invalid source correction identity')
+    for key, item in schema['properties']['sources']['properties'].items():
+        if key not in selected_ids:
+            schema['properties']['sources']['properties'][key] = {'type': 'null'}
+    return schema
+
+
 def _unique_object(pairs):
     result = {}
     for key, value in pairs:
