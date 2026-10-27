@@ -347,7 +347,7 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                     'input':json.dumps({'research_notes': discovery['notes'],
                         'selected_sources':catalog,'fixed_sources':repair},ensure_ascii=False),
                     'text':{'format':{'type':'json_schema','name':'sources',
-                        'strict':True,'schema':excess_selection_schema(repair)}}}
+                        'strict':True,'schema':excess_selection_schema(urls, selected_ids)}}}
                 corrected_raw=send(correction)
                 corrected_text=_text(corrected_raw)
                 # Retain both outputs, including failures, without publishing.
