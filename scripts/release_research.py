@@ -321,7 +321,45 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
             raw=send(req)
             text=_text(raw)
             snapshot=retain_selection(text,cache,identity)
-            catalog=validate_source_catalog(compile_selection(text,urls),urls)
+            catalog=compile_selection(text,urls)
+            try:
+                validate_source_catalog(catalog,urls)
+            except Exception as validation_error:
+                # A single bounded correction is permitted only when the source
+                # list exceeds its maximum. Every proposed URL remains bound
+                # to the originally observed set; no additional discovery.
+                from jsonschema import ValidationError
+                if not (isinstance(validation_error, ValidationError)
+                        and validation_error.validator == 'maxItems'
+                        and len(catalog) > 12):
+                    raise
+                from release_source_selection import excess_selection_schema
+                selected_ids = {row['id'] for row in catalog}
+                repair = {key: choices[key] for key in choices if key in selected_ids}
+                correction = {**common, 'max_output_tokens':4000,
+                    'instructions': (
+                        'The previous selection contained more than 12 sources. '
+                        'Select only the 5 to 12 strongest relevant sources from '
+                        'the fixed choices. Preserve each source title and date '
+                        'exactly; use null to exclude a source. No new sources, '
+                        'URLs, claims, or research. If evidence is inadequate, '
+                        'the subsequent independent coverage gate must reject it.'),
+                    'input':json.dumps({'research_notes': discovery['notes'],
+                        'selected_sources':catalog,'fixed_sources':repair},ensure_ascii=False),
+                    'text':{'format':{'type':'json_schema','name':'sources',
+                        'strict':True,'schema':excess_selection_schema(repair)}}}
+                corrected_raw=send(correction)
+                corrected_text=_text(corrected_raw)
+                # Retain both outputs, including failures, without publishing.
+                snapshot=retain_selection(corrected_text,cache,identity)
+                catalog=validate_source_catalog(
+                    compile_selection(corrected_text,urls),urls)
+                originals={row['id']:row for row in
+                           compile_selection(text,urls)}
+                if any(row['id'] not in originals or row != originals[row['id']]
+                       for row in catalog):
+                    raise ValueError('Source correction altered original metadata')
+                raw=corrected_raw
         except Exception as exc:
             # Preserve the actual gate and a screened replayable completion. The
             # publisher will still stop, with no hidden retry or budget extension.
