@@ -2,6 +2,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
     <item>
+      <title>Rural Update - Oklahoma edition</title>
+      <description>This edition focuses on four near-term operational risks for Oklahoma rural hospitals: (1) Medicare finalization of distant-site telehealth billing for RHCs/FQHCs (CPT/HCPCS plus telehealth modifiers) creates immediate revenue-cycle risk and requires focused claims reconciliation for October dates of service; (2) CMS proposed rule CMS-2452-P would alter indirect hold-harmless thresholds for health-care-related taxes and creates state-level downside risk for provider-tax-funded supplemental payments; (3) CMS’s GENEROUS drug-payment announcement shows national participation but Oklahoma impacts remain conditional until OHCA executes and publishes state terms; (4) Oklahoma’s RHTP is moving from award design into active subawards and county-collaborative meetings, offering time-limited implementation funds that require explicit post-grant sustainability planning. Recommended near-term actions: reconcile October RHC telehealth claims, request written OHCA confirmation of GENEROUS execution/</description>
+      <pubDate>Wed, 28 Oct 2026 10:28:53 -0500</pubDate>
+      <guid isPermaLink="false">the-rural-update-2026-10-28</guid>
+      <enclosure url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/audio/2026-10-28.mp3?v=61c30605bddf6afc" length="13334829" type="audio/mpeg" />
+      <itunes:duration>13:53</itunes:duration>
+      <podcast:transcript url="https://6nywfpnnw8-wq.github.io/The-Rural-Update/transcript/2026-10-28.html" type="text/html" />
+    </item>
+    <item>
       <title>The Rural Update: Oklahoma edition</title>
       <description>Five verified developments matter to Oklahoma rural hospitals this week: Medicare finalized distant-site telehealth billing for RHCs/FQHCs for dates of service on or after 2026-10-01 with systems implementation activity on 2026-10-05, creating an immediate revenue-cycle reconciliation need to detect clearinghouse edits, payer denials and cash-flow impacts; CMS proposed rule CMS-2452-P would change the indirect hold-harmless threshold used to review health-care-related taxes and could reduce state-funded supplemental payments if finalized, posing medium-term budget risk; CMS announced broad state participation in the GENEROUS Medicaid drug-payment model, but Oklahoma execution terms and covered-product/passthrough details are required before any pharmacy or 340B financial effects can be assumed; Oklahoma’s RHTP program has posted NOFOs, microgrants and an awardee list and is moving into state subaward activity, raising post-grant sustainability questions that subaward budgets must address; and HRSA’s RCORP awards (nationwide) expand rural addiction-treatment capacity, offering referral and medication-access opportunities if local awardees establish operational agreements with hospital pharmacies and Medicaid/MCOs.</description>
       <pubDate>Sat, 24 Oct 2026 11:07:40 -0500</pubDate>
@@ -60,7 +69,7 @@
     <description>A concise daily executive briefing on rural healthcare policy, operations, finance, Oklahoma developments, federal policy, and emerging technology.</description>
     <language>en-us</language>
     <copyright>The Rural Update</copyright>
-    <lastBuildDate>Sat, 24 Oct 2026 11:07:42 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 10:28:55 -0500</lastBuildDate>
     <atom:link href="https://6nywfpnnw8-wq.github.io/The-Rural-Update/podcast.xml" rel="self" type="application/rss+xml" />
     <itunes:author>The Rural Update</itunes:author>
     <itunes:summary>Daily rural healthcare executive intelligence in under 15 minutes.</itunes:summary>
