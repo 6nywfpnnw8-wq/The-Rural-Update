@@ -9,12 +9,12 @@ from release_core import digest,read_json,write_json,podcast_body,probe_audio
 
 NUMBERS=set(('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety hundred thousand million billion first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth thirteenth fourteenth fifteenth sixteenth seventeenth eighteenth nineteenth twentieth thirtieth').split())
 
-NORMALIZATION_VERSION = 4
+NORMALIZATION_VERSION = 5
 
 def tokens(text):
     # Documented orthographic equivalents, not fuzzy semantic substitutions.
     text=text.lower().replace('\u2019', "'").replace('\u2018', "'")
-    text=re.sub(r'\bpassthrough\b', 'pass through', text)
+    text=re.sub(r'\bpassthrough(s?)\b', r'pass through\1', text)
     text=re.sub(r'\bsubaward(s?)\b', r'sub award\1', text)
     # Same spoken forms observed in retained, independently transcribed audio.
     text=re.sub(r'\btradeoff(s?)\b', r'trade off\1', text)
@@ -202,4 +202,5 @@ def build_audio(edition,cache,output,request):
     report={'schema_version':2,'normalization_version':NORMALIZATION_VERSION,'edition_date':edition['edition_date'],'audio_sha256':digest(output.read_bytes()),'script_sha256':digest(body),'duration_seconds':seconds,'expected_parts':len(accepted),'accepted_parts':len(accepted),'original_parts':source_parts,'parts':report_parts,'ending_check':tail['result'],'timing_adjustment':timing,'complete':True,'method':'Independent audio-only ASR of each segment and assembled tail; numeric formats normalized. Not a word-for-word accuracy guarantee.'}
     write_json(cache/'audio-quality.json',report)
     return seconds
+
 
