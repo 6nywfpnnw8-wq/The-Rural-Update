@@ -9,8 +9,9 @@ import json
 import re
 import urllib.error
 from pathlib import Path
+from datetime import datetime
 from jsonschema import Draft202012Validator
-from release_core import digest, read_json, write_json
+from release_core import TZ, digest, read_json, write_json
 from release_evidence import fetch_source, MAX_TOTAL_CHARS
 
 METHOD = 'evidence-coverage-v2'
@@ -213,7 +214,7 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                 # Reserve before the only permitted repair request. Failed repairs
                 # remain consumed and cannot loop or reset the research ledger.
                 with used.open('x', encoding='utf-8') as stream:
-                    json.dump({**expected_authorization, 'reserved_at': __import__('datetime').datetime.now().astimezone().isoformat()}, stream, indent=2)
+                    json.dump({**expected_authorization, 'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
                 saved = None
         if saved is None:
             request = {**common, 'max_output_tokens': 6000,
