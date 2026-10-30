@@ -1,0 +1,13 @@
+{
+  "edition_date": "2026-10-30",
+  "failure_run_id": 41096646421,
+  "maximum_total_audit_requests": 2,
+  "use_existing_slot": "final",
+  "additional_research_generation_calls": 0,
+  "additional_narration_generation_calls": 0,
+  "publication_authorized": false,
+  "candidate_sha256": "569ce37cdca1162159316b97a5dcdd93c68bb135e9947034e2b2b3f34ff552d2",
+  "initial_review_sha256": "1dea54887701703410b73d4cc8929023aecf8def8a0ef2829af3798d16d0b712",
+  "initial_request_sha256": "4b70a5cd449d17c88356f7a6451cb5b5baec0ee8945773e4c59cd48e32a6c291",
+  "initial_review_state": "incomplete"
+}

@@ -58,6 +58,51 @@ class AuditProtocolTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'candidate differs'):self.reserve()
         self.assertFalse((self.folder/'final-reserved.json').exists())
 
+    def test_october_30_incomplete_review_allows_only_bound_final_slot(self):
+        cache=Path(self.cache.parent)/'2026-10-30';folder=cache/'editorial-loop-v1'
+        folder.mkdir(parents=True)
+        candidate={'edition_date':'2026-10-30','bluf':'Supported statement.','sources':[{'id':'a'}]}
+        review={'review_complete':False,'findings':[]}
+        request_sha='b'*64
+        (folder/'initial-result.json').write_text(json.dumps({'value':review,
+            'value_sha256':fingerprint(review),'payload_sha256':request_sha}))
+        (folder/'initial-reserved.json').write_text(json.dumps({'payload_sha256':request_sha,
+            'publication_authorized':False,'run_id':'41096646421'}))
+        (cache/'attempts.json').write_text('{"attempts":2}')
+        policy={'edition_date':'2026-10-30','failure_run_id':41096646421,
+            'maximum_total_audit_requests':2,'use_existing_slot':'final',
+            'additional_research_generation_calls':0,'additional_narration_generation_calls':0,
+            'publication_authorized':False,'candidate_sha256':fingerprint(candidate),
+            'initial_review_sha256':fingerprint(review),'initial_request_sha256':request_sha,
+            'initial_review_state':'incomplete'}
+        (self.policy_root/'2026-10-30.json').write_text(json.dumps(policy))
+        self.assertTrue(protocol.use_final_review(candidate,cache,self.policy_root,loop.validate_review))
+        self.assertEqual(json.loads((cache/'attempts.json').read_text()),{'attempts':2})
+        marker=json.loads((cache/'audit-protocol-recovery-used.json').read_text())
+        self.assertEqual(marker['existing_final_slot_only'],True)
+        self.assertFalse((cache/'approved.json').exists())
+
+    def test_october_30_complete_review_cannot_use_continuation(self):
+        cache=Path(self.cache.parent)/'2026-10-30';folder=cache/'editorial-loop-v1'
+        folder.mkdir(parents=True)
+        candidate={'edition_date':'2026-10-30','bluf':'Supported statement.','sources':[{'id':'a'}]}
+        review={'review_complete':True,'findings':[]};request_sha='c'*64
+        (folder/'initial-result.json').write_text(json.dumps({'value':review,
+            'value_sha256':fingerprint(review),'payload_sha256':request_sha}))
+        (folder/'initial-reserved.json').write_text(json.dumps({'payload_sha256':request_sha,
+            'publication_authorized':False,'run_id':'41096646421'}))
+        (cache/'attempts.json').write_text('{"attempts":2}')
+        policy={'edition_date':'2026-10-30','failure_run_id':41096646421,
+            'maximum_total_audit_requests':2,'use_existing_slot':'final',
+            'additional_research_generation_calls':0,'additional_narration_generation_calls':0,
+            'publication_authorized':False,'candidate_sha256':fingerprint(candidate),
+            'initial_review_sha256':fingerprint(review),'initial_request_sha256':request_sha,
+            'initial_review_state':'incomplete'}
+        (self.policy_root/'2026-10-30.json').write_text(json.dumps(policy))
+        with self.assertRaisesRegex(ValueError,'incomplete initial review'):
+            protocol.use_final_review(candidate,cache,self.policy_root,loop.validate_review)
+        self.assertFalse((cache/'audit-protocol-recovery-used.json').exists())
+
     def test_one_final_submission_is_reused_without_another_api_call(self):
         self.assertTrue(self.reserve())
         value={'review_complete':True,'findings':[]}

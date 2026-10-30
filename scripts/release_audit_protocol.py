@@ -27,16 +27,22 @@ evidence is insufficient to finish; do not infer approval from an earlier review
 
 def use_final_review(candidate, cache, policy_root, validate_review):
     cache=Path(cache)
-    if candidate.get('edition_date')!='2026-10-24' or cache.name!='2026-10-24':return False
-    path=Path(policy_root)/'2026-10-24.json'
+    date=candidate.get('edition_date')
+    if date not in {'2026-10-24','2026-10-30'} or cache.name!=date:return False
+    path=Path(policy_root)/(date+'.json')
     if not path.exists():return False
     policy=_read(path)
-    required={'edition_date':'2026-10-24','failure_run_id':40108030234,
+    expected_runs={'2026-10-24':40108030234,'2026-10-30':41096646421}
+    expected_state={'2026-10-24':'malformed','2026-10-30':'incomplete'}
+    state=expected_state[date]
+    required={'edition_date':date,'failure_run_id':expected_runs[date],
               'maximum_total_audit_requests':2,'use_existing_slot':'final',
               'additional_research_generation_calls':0,'additional_narration_generation_calls':0,
               'publication_authorized':False}
     if any(policy.get(k)!=v for k,v in required.items()):
         raise ValueError('Invalid audit-protocol continuation policy')
+    if date=='2026-10-30' and policy.get('initial_review_state')!='incomplete':
+        raise ValueError('October 30 continuation requires an incomplete initial review')
     if fingerprint(candidate)!=policy.get('candidate_sha256'):
         raise ValueError('Audit-protocol continuation candidate differs')
     folder=cache/'editorial-loop-v1'
@@ -51,15 +57,24 @@ def use_final_review(candidate, cache, policy_root, validate_review):
     if any((folder/(slot+'-reserved.json')).exists() for slot in
            ('correction','reference-correction','reference-corrected-final')):
         raise ValueError('Audit-protocol continuation cannot expand spent review slots')
-    try:validate_review(saved['value'],candidate)
-    except (ValueError,RuntimeError):pass
-    else:raise ValueError('Audit-protocol continuation requires a malformed initial review')
+    if state=='incomplete':
+        if saved.get('value',{}).get('review_complete') is not False:
+            raise ValueError('October 30 continuation requires an incomplete initial review')
+        try:validate_review(saved['value'],candidate)
+        except RuntimeError as exc:
+            if str(exc)!='Structured evidence review is incomplete':raise
+        else:raise ValueError('October 30 continuation requires an incomplete initial review')
+    else:
+        try:validate_review(saved['value'],candidate)
+        except (ValueError,RuntimeError):pass
+        else:raise ValueError('Audit-protocol continuation requires a malformed initial review')
     if _read(cache/'attempts.json')!={'attempts':2}:
         raise ValueError('Audit-protocol continuation cannot reset research attempts')
     marker=cache/'audit-protocol-recovery-used.json'
     record={**required,'candidate_sha256':policy['candidate_sha256'],
             'initial_review_sha256':policy['initial_review_sha256'],
-            'raw_review_unchanged':True,'existing_final_slot_only':True}
+            'initial_review_state':state,'raw_review_unchanged':True,
+            'existing_final_slot_only':True}
     if marker.exists():
         if _read(marker)!=record:raise ValueError('Audit-protocol continuation marker differs')
     else:
