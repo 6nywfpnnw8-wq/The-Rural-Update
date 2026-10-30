@@ -70,6 +70,22 @@ jobs:
               p=folder/(n+'.json');d=read(p)
               report['stages'][n]={'exists':p.exists(),'metadata':safe(d,['engine','identity','sha256','publication_authorized']),'file_sha256':hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None}
           report['audit_files_present']=[n for n in ['audit.json','audit-bound.json','approved.json'] if (root/n).exists()]
+          report['editorial_review_slots']={}
+          editorial=root/'editorial-loop-v1'
+          for slot in ('initial','final'):
+              result_path=editorial/(slot+'-result.json')
+              reserved_path=editorial/(slot+'-reserved.json')
+              result=read(result_path) or {};reserved=read(reserved_path) or {}
+              value=result.get('value') if isinstance(result,dict) else None
+              report['editorial_review_slots'][slot]={
+                  'reserved':reserved_path.exists(),
+                  'run_id':reserved.get('run_id'),
+                  'publication_authorized':reserved.get('publication_authorized'),
+                  'result_present':result_path.exists(),
+                  'review_complete':value.get('review_complete') if isinstance(value,dict) else None,
+                  'finding_count':len(value.get('findings',[])) if isinstance(value,dict) and isinstance(value.get('findings'),list) else None,
+                  'result_file_sha256':hashlib.sha256(result_path.read_bytes()).hexdigest() if result_path.exists() else None,
+                  'saved_value_sha256':result.get('value_sha256')}
           report['section_ledgers']=[]
           labels=[f'{n}-{i}' for n,i in [('opening',None),('bluf',None),('developments',0),('developments',1),('developments',2),('oklahoma',None),('signals',None),('actions',None),('deadlines',None),('closing',None)]]
           for p in (folder/'sectioned-narration-v1').glob('*/attempts.json'):
