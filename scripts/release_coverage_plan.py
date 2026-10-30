@@ -206,17 +206,24 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                 repair_findings = coverage_error.coverage_findings
                 authorization = read_json(Path(cache) / 'coverage-plan-repair-authorized.json')
                 used = Path(cache) / 'coverage-plan-repair-used.json'
+                maximum_repairs = authorization.get('maximum_coverage_plan_repairs') if authorization else None
                 expected_authorization = {
                     'schema_version': 1, 'edition_date': Path(cache).name,
                     'identity': identity, 'coverage_plan_identity': plan_identity,
-                    'maximum_coverage_plan_repairs': 1, 'publication_authorized': False}
-                if (authorization is None or used.exists()
+                    'maximum_coverage_plan_repairs': maximum_repairs, 'publication_authorized': False}
+                used_markers = [Path(cache) / 'coverage-plan-repair-used.json',
+                                Path(cache) / 'coverage-plan-repair-used-2.json']
+                used_count = sum(marker.exists() for marker in used_markers)
+                if (type(maximum_repairs) is not int or maximum_repairs not in (1, 2)
+                        or used_count >= maximum_repairs
                         or any(authorization.get(k) != v for k, v in expected_authorization.items())):
                     raise
-                # Reserve before the only permitted repair request. Failed repairs
-                # remain consumed and cannot loop or reset the research ledger.
+                # Consume the next separately authorized repair before requesting it.
+                # Failed repairs remain consumed and cannot loop or reset the research ledger.
+                used = used_markers[used_count]
                 with used.open('x', encoding='utf-8') as stream:
-                    json.dump({**expected_authorization, 'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
+                    json.dump({**expected_authorization, 'repair_number': used_count + 1,
+                               'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
                 saved = None
         if saved is None:
             request = {**common, 'max_output_tokens': 6000,
