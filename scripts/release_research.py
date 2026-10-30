@@ -441,6 +441,61 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     return result
 
 
+
+def _reserve_coverage_plan_repair(cache: Path, expected: str, plan: dict) -> bool:
+    """Authorize one coverage-plan regeneration from intact same-date evidence only."""
+    cache = Path(cache)
+    folder = cache / ENGINE
+    discovery_saved = read_json(folder / 'discovery.json', {})
+    identity = discovery_saved.get('identity')
+    if not isinstance(identity, str):
+        return False
+    discovery = _cached(folder / 'discovery.json', identity)
+    selected = _cached(folder / 'sources.json', identity)
+    if not discovery or not selected or not discovery.get('web_search_items'):
+        return False
+    urls = observed_html_urls(discovery)
+    catalog = validate_source_catalog(selected.get('sources'), urls)
+    from release_coverage_plan import (
+        METHOD as COVERAGE_METHOD, evidence_identity, validate_documents,
+        validate_plan, CoverageError)
+    coverage_folder = folder / COVERAGE_METHOD
+    bound = evidence_identity(identity, catalog)
+    evidence = _cached(coverage_folder / 'sources.json', bound)
+    if not evidence or not isinstance(evidence.get('documents'), list):
+        return False
+    documents = evidence['documents']
+    validate_documents(documents, catalog)
+    plan_identity = digest(bound + digest(json.dumps(documents, sort_keys=True, ensure_ascii=False)))
+    cached_plan = _cached(coverage_folder / 'plan.json', plan_identity)
+    if not cached_plan or not isinstance(cached_plan.get('plan'), dict):
+        return False
+    try:
+        validate_plan(cached_plan['plan'], catalog, documents)
+    except CoverageError:
+        pass
+    else:
+        return False
+    # A coverage repair is only valid before a report or independent audit exists.
+    if (folder / 'reporting.json').exists() or (cache / 'audit.json').exists():
+        return False
+    authorization = {
+        'schema_version': 1, 'edition_date': expected, 'identity': identity,
+        'coverage_plan_identity': plan_identity,
+        'maximum_coverage_plan_repairs': 1, 'publication_authorized': False,
+        'original_attempt_ledger_unchanged': True,
+        'new_discovery_prohibited': True, 'new_source_selection_prohibited': True}
+    marker = cache / 'coverage-plan-repair-authorized.json'
+    marker.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with marker.open('x', encoding='utf-8') as stream:
+            json.dump({**authorization, 'reason': plan.get('reason', '').strip(),
+                       'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
+    except FileExistsError:
+        return False
+    return True
+
+
 def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) -> bool:
     """One explicitly reviewed migration attempt, without resetting the old ledger.
 
@@ -455,6 +510,9 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
         raise RuntimeError('Invalid corrective-generation authorization')
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
+    if 'maximum_coverage_plan_repairs' in plan:
+        if plan.get('maximum_coverage_plan_repairs') != 1:return False
+        return _reserve_coverage_plan_repair(cache,expected,plan)
     if 'continuation_method' in plan:
         from release_discovery_continuation import reserve
         return reserve(cache,expected,plan,ENGINE,_cached,observed_html_urls)
