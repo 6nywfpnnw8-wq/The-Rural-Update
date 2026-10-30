@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-30",
+  "engine": "staged-research-v3",
+  "maximum_additional_generation_attempts": 1,
+  "maximum_coverage_plan_repairs": 1,
+  "publication_authorized": false,
+  "reason": "One coverage-plan regeneration for the October 30 edition using only its integrity-checked cached source evidence. No new discovery, source selection, attempt-ledger reset, or bypass of evidence, editorial, audio, or public-delivery validation."
+}
