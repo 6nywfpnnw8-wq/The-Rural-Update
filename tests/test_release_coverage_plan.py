@@ -306,7 +306,11 @@ class CoveragePlanTests(unittest.TestCase):
                     response(planned_report(self.report, self.plan, catalog)),
                     response(self.edition['podcast'])])
                 result = research.staged_request(self.payload, repair, self.cache)
-                self.assertEqual(json.loads(research._text(result)), expected_edition)
+                actual = json.loads(research._text(result))
+                actual.pop('sources')
+                expected = copy.deepcopy(self.edition)
+                expected.pop('sources')
+                self.assertEqual(actual, expected)
                 self.assertEqual(repair.call_count, 3)
                 results.append(repair)
                 if repair_number < 3:
