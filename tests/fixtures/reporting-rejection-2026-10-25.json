@@ -59,19 +59,19 @@
   ],
   "expected_findings": [
     {
-      "path": "/stories/4/source_ids",
+      "path": "/stories/story_5/source_ids",
       "keyword": "minItems",
       "actual_items": 0,
       "required_minimum": 1
     },
     {
-      "path": "/signals/0/source_ids",
+      "path": "/signals/signal_1/source_ids",
       "keyword": "minItems",
       "actual_items": 1,
       "required_minimum": 2
     },
     {
-      "path": "/signals/1/source_ids",
+      "path": "/signals/signal_2/source_ids",
       "keyword": "minItems",
       "actual_items": 1,
       "required_minimum": 2
