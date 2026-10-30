@@ -479,20 +479,38 @@ def _reserve_coverage_plan_repair(cache: Path, expected: str, plan: dict) -> boo
     # A coverage repair is only valid before a report or independent audit exists.
     if (folder / 'reporting.json').exists() or (cache / 'audit.json').exists():
         return False
+    maximum_repairs = plan.get('maximum_coverage_plan_repairs')
+    if type(maximum_repairs) is not int or maximum_repairs not in (1, 2):
+        return False
     authorization = {
         'schema_version': 1, 'edition_date': expected, 'identity': identity,
         'coverage_plan_identity': plan_identity,
-        'maximum_coverage_plan_repairs': 1, 'publication_authorized': False,
+        'maximum_coverage_plan_repairs': maximum_repairs, 'publication_authorized': False,
         'original_attempt_ledger_unchanged': True,
         'new_discovery_prohibited': True, 'new_source_selection_prohibited': True}
     marker = cache / 'coverage-plan-repair-authorized.json'
     marker.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        with marker.open('x', encoding='utf-8') as stream:
-            json.dump({**authorization, 'reason': plan.get('reason', '').strip(),
-                       'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
-    except FileExistsError:
-        return False
+    existing = read_json(marker)
+    if existing is not None:
+        immutable = {k: v for k, v in authorization.items()
+                     if k != 'maximum_coverage_plan_repairs'}
+        if any(existing.get(k) != v for k, v in immutable.items()):
+            return False
+        old_maximum = existing.get('maximum_coverage_plan_repairs')
+        if type(old_maximum) is not int or maximum_repairs < old_maximum:
+            return False
+        used = sum((cache / name).exists() for name in
+                   ('coverage-plan-repair-used.json', 'coverage-plan-repair-used-2.json'))
+        if used >= maximum_repairs:
+            return False
+        if maximum_repairs > old_maximum:
+            write_json(marker, {**existing, **authorization,
+                'reason': plan.get('reason', '').strip(),
+                'updated_at': datetime.now(TZ).isoformat()})
+        return True
+    with marker.open('x', encoding='utf-8') as stream:
+        json.dump({**authorization, 'reason': plan.get('reason', '').strip(),
+                   'reserved_at': datetime.now(TZ).isoformat()}, stream, indent=2)
     return True
 
 
@@ -504,15 +522,21 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     """
     plan=read_json(Path(policy_root)/(expected+'.json'))
     if plan is None: return False
+    maximum_additional = plan.get('maximum_additional_generation_attempts')
+    coverage_maximum = plan.get('maximum_coverage_plan_repairs')
     required={'schema_version':1,'edition_date':expected,'engine':ENGINE,
-              'maximum_additional_generation_attempts':1,'publication_authorized':False}
+              'publication_authorized':False}
     if any(plan.get(k)!=v for k,v in required.items()):
         raise RuntimeError('Invalid corrective-generation authorization')
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
     if 'maximum_coverage_plan_repairs' in plan:
-        if plan.get('maximum_coverage_plan_repairs') != 1:return False
+        if (type(coverage_maximum) is not int or coverage_maximum not in (1, 2)
+                or maximum_additional != coverage_maximum):
+            return False
         return _reserve_coverage_plan_repair(cache,expected,plan)
+    if maximum_additional != 1:
+        raise RuntimeError('Invalid corrective-generation authorization')
     if 'continuation_method' in plan:
         from release_discovery_continuation import reserve
         return reserve(cache,expected,plan,ENGINE,_cached,observed_html_urls)
