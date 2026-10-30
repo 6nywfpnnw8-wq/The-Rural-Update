@@ -216,6 +216,9 @@ jobs:
             .release-cache/*/diagnostic-summary.json
             .release-cache/*/typography-check.json
             .release-cache/*/source-evidence.json
+            .release-cache/*/coverage-source-evidence.json
+            .release-cache/*/coverage-plan-repair-authorized.json
+            .release-cache/*/coverage-plan-repair-used.json
             .release-cache/*/audit-bound.json
             .release-cache/*/audio-quality*.json
             .release-cache/*/legacy-audio-inspection.json
