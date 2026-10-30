@@ -2,8 +2,8 @@
   "schema_version": 1,
   "edition_date": "2026-10-30",
   "engine": "staged-research-v3",
-  "maximum_additional_generation_attempts": 1,
-  "maximum_coverage_plan_repairs": 1,
+  "maximum_additional_generation_attempts": 2,
+  "maximum_coverage_plan_repairs": 2,
   "publication_authorized": false,
-  "reason": "One coverage-plan regeneration for the October 30 edition using only its integrity-checked cached source evidence. No new discovery, source selection, attempt-ledger reset, or bypass of evidence, editorial, audio, or public-delivery validation."
+  "reason": "The user separately authorized one additional October 30 coverage-plan correction after the first authorized correction failed. Use only the same integrity-checked cached discovery, source catalog, and verified source text. No new discovery or source selection, no attempt-ledger reset, no validation override, and publication remains unauthorized until all existing evidence, editorial, audio, archive, RSS, Pages, and public-delivery checks pass."
 }
