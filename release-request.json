@@ -1,11 +1,12 @@
 {
-  "request_id": "2026-10-25-cache-bound-continuation-1",
-  "edition_date": "2026-10-25",
+  "request_id": "2026-10-30-authorized-coverage-plan-repair-1",
+  "edition_date": "2026-10-30",
   "requested_operation": "publish-current-edition-through-existing-workflow",
-  "reason": "The user explicitly authorized one continuation from the exact retained October 25 discovery cache after the source-selection correction. Request one run through the existing single publisher. The allowance is bound to the original discovery identity and checksums and original two-attempt ledger. Missing or altered cache stops without replacement discovery. All normal source, editorial, narration, audio, archive, RSS, deployment, and public-delivery checks remain mandatory. This manual recovery is not on-time unattended delivery.",
-  "authorization_path": "repair-authorizations/2026-10-25.json",
-  "failure_run_id": 40185398122,
+  "reason": "The user authorized one recovery attempt for the October 30 edition using the integrity-checked retained cache. The staged repair is limited to one reporting-plan regeneration from the same cached discovery, source catalog, and verified source text. New discovery and source selection are prohibited. Preserve the existing attempt ledger. All normal evidence, editorial, narration, audio, archive, RSS, deployment, and public-delivery checks remain mandatory. This authorization does not approve publication.",
+  "authorization_path": "repair-authorizations/2026-10-30.json",
+  "failure_run_id": 41041852030,
   "maximum_additional_generation_attempts": 1,
+  "maximum_coverage_plan_repairs": 1,
   "new_discovery_prohibited": true,
   "research_counter_reset": false,
   "validation_override": false
