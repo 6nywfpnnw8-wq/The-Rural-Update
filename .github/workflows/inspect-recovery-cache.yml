@@ -1,6 +1,11 @@
 name: Inspect retained recovery state
 on:
   workflow_dispatch:
+    inputs:
+      edition_date:
+        description: Edition date to inspect (YYYY-MM-DD)
+        required: false
+        type: string
   push:
     branches: [main]
     paths: ['.github/workflows/inspect-recovery-cache.yml']
@@ -17,13 +22,22 @@ jobs:
           persist-credentials: false
       - name: Resolve current Central date
         id: date
+        env:
+          REQUESTED_EDITION: ${{ inputs.edition_date || '' }}
         run: |
           python3 - <<'PY'
-          from datetime import datetime
+          from datetime import date, datetime
           from zoneinfo import ZoneInfo
           import os
+          requested=os.environ.get('REQUESTED_EDITION','').strip()
+          if requested:
+              try: value=date.fromisoformat(requested)
+              except ValueError: raise SystemExit('Invalid edition_date; use YYYY-MM-DD')
+              if value.isoformat()!=requested: raise SystemExit('Invalid edition_date; use YYYY-MM-DD')
+          else:
+              value=datetime.now(ZoneInfo('America/Chicago')).date()
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
-              f.write('value='+datetime.now(ZoneInfo('America/Chicago')).date().isoformat()+'\n')
+              f.write('value='+value.isoformat()+'\n')
           PY
       - uses: actions/cache/restore@v4
         with:
