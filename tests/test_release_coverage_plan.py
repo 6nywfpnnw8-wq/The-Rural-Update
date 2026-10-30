@@ -204,4 +204,49 @@ class CoveragePlanTests(unittest.TestCase):
         self.assertEqual((self.cache / 'attempts.json').read_bytes(), before)
 
 
+    def test_one_authorized_plan_repair_reuses_evidence_without_new_discovery(self):
+        if len(self.catalog) < 6:
+            self.skipTest('fixture needs six sources to exercise the story maximum')
+        invalid = copy.deepcopy(self.plan)
+        passages = {d['source_id']: coverage.normalized(d['text']) for d in self.documents}
+        all_anchors = {source['id']: passages[source['id']] for source in self.catalog}
+        invalid['stories']['story_2']['source_anchors'] = copy.deepcopy(all_anchors)
+        invalid['signals']['signal_2']['source_anchors'] = copy.deepcopy(all_anchors)
+        first_signal_source = next(iter(all_anchors))
+        invalid['signals']['signal_3']['source_anchors'] = {
+            key: (passages[key] if key == first_signal_source else None) for key in all_anchors}
+        first = Mock(side_effect=[response('Unapproved notes.', web=True),
+            selection_response(self.catalog), plan_response(invalid, self.documents)])
+        with self.assertRaises(coverage.CoverageError):
+            research.staged_request(self.payload, first, self.cache)
+        self.assertEqual(first.call_count, 3)
+
+        attempts = self.cache / 'attempts.json'
+        write_json(attempts, {'attempts': 2})
+        ledger_before = attempts.read_bytes()
+        policy_root = self.cache / 'repair-authorizations'
+        policy_root.mkdir()
+        write_json(policy_root / (DATE + '.json'), {
+            'schema_version': 1, 'edition_date': DATE, 'engine': research.ENGINE,
+            'maximum_additional_generation_attempts': 1,
+            'maximum_coverage_plan_repairs': 1,
+            'publication_authorized': False,
+            'reason': 'One coverage-only repair using the retained evidence.'})
+        self.assertTrue(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
+        self.assertFalse(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
+
+        second = Mock(side_effect=[plan_response(self.plan, self.documents),
+            response(planned_report(self.report, self.plan, self.catalog)),
+            response(self.edition['podcast'])])
+        fetch_calls = self.fetcher.call_count
+        actual = research.staged_request(self.payload, second, self.cache)
+        self.assertEqual(json.loads(research._text(actual)), self.edition)
+        self.assertEqual(second.call_count, 3)
+        self.assertEqual(self.fetcher.call_count, fetch_calls)
+        self.assertEqual(attempts.read_bytes(), ledger_before)
+        self.assertTrue((self.cache / 'coverage-plan-repair-used.json').exists())
+        self.assertFalse((self.cache / 'approved.json').exists())
+
+
+
 if __name__ == '__main__':unittest.main()
