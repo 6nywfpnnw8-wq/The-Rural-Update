@@ -242,6 +242,13 @@ class CoveragePlanTests(unittest.TestCase):
         actual = research.staged_request(self.payload, second, self.cache)
         self.assertEqual(json.loads(research._text(actual)), self.edition)
         self.assertEqual(second.call_count, 3)
+        repair_request = second.call_args_list[0].args[0]
+        self.assertIn('mandatory corrections', repair_request['instructions'])
+        repair_input = json.loads(repair_request['input'])
+        findings = repair_input['prior_coverage_findings']
+        self.assertEqual({finding['path'] for finding in findings},
+            {'/stories/1/source_ids', '/signals/1/source_ids', '/signals/2/source_ids'})
+        self.assertEqual([finding['actual_items'] for finding in findings], [len(self.catalog), len(self.catalog), 1])
         self.assertEqual(self.fetcher.call_count, fetch_calls)
         self.assertEqual(attempts.read_bytes(), ledger_before)
         self.assertTrue((self.cache / 'coverage-plan-repair-used.json').exists())
