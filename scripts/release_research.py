@@ -480,7 +480,7 @@ def _reserve_coverage_plan_repair(cache: Path, expected: str, plan: dict) -> boo
     if (folder / 'reporting.json').exists() or (cache / 'audit.json').exists():
         return False
     maximum_repairs = plan.get('maximum_coverage_plan_repairs')
-    if type(maximum_repairs) is not int or maximum_repairs not in (1, 2):
+    if type(maximum_repairs) is not int or maximum_repairs not in (1, 2, 3):
         return False
     authorization = {
         'schema_version': 1, 'edition_date': expected, 'identity': identity,
@@ -500,7 +500,7 @@ def _reserve_coverage_plan_repair(cache: Path, expected: str, plan: dict) -> boo
         if type(old_maximum) is not int or maximum_repairs < old_maximum:
             return False
         used = sum((cache / name).exists() for name in
-                   ('coverage-plan-repair-used.json', 'coverage-plan-repair-used-2.json'))
+                   ('coverage-plan-repair-used.json', 'coverage-plan-repair-used-2.json', 'coverage-plan-repair-used-3.json'))
         if used >= maximum_repairs:
             return False
         if maximum_repairs > old_maximum:
@@ -531,7 +531,7 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     if not isinstance(plan.get('reason'),str) or not plan['reason'].strip():
         raise RuntimeError('Corrective-generation authorization has no reason')
     if 'maximum_coverage_plan_repairs' in plan:
-        if (type(coverage_maximum) is not int or coverage_maximum not in (1, 2)
+        if (type(coverage_maximum) is not int or coverage_maximum not in (1, 2, 3)
                 or maximum_additional != coverage_maximum):
             return False
         return _reserve_coverage_plan_repair(cache,expected,plan)

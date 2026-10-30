@@ -16,6 +16,7 @@ from release_evidence import fetch_source, MAX_TOTAL_CHARS
 
 METHOD = 'evidence-coverage-v2'
 GROUPS = {'stories': (5, 1, 5), 'signals': (4, 2, 4)}
+MAX_AUTHORIZED_REPAIRS = 3
 
 
 def slots(group):
@@ -114,7 +115,7 @@ def validate_plan(plan, catalog, documents):
         seen_ids, seen_angles = set(), set()
         for index, slot in enumerate(slots(group)):
             item = plan[group][slot]
-            path = '/' + group + '/' + str(index)
+            path = '/' + group + '/' + slot
             if item is None:
                 findings.append({'rule': 'missing_topic', 'path': path});continue
             refs = references(item, catalog)
@@ -212,9 +213,10 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                     'identity': identity, 'coverage_plan_identity': plan_identity,
                     'maximum_coverage_plan_repairs': maximum_repairs, 'publication_authorized': False}
                 used_markers = [Path(cache) / 'coverage-plan-repair-used.json',
-                                Path(cache) / 'coverage-plan-repair-used-2.json']
+                                Path(cache) / 'coverage-plan-repair-used-2.json',
+                                Path(cache) / 'coverage-plan-repair-used-3.json']
                 used_count = sum(marker.exists() for marker in used_markers)
-                if (type(maximum_repairs) is not int or maximum_repairs not in (1, 2)
+                if (type(maximum_repairs) is not int or maximum_repairs not in range(1, MAX_AUTHORIZED_REPAIRS + 1)
                         or used_count >= maximum_repairs
                         or any(authorization.get(k) != v for k, v in expected_authorization.items())):
                     raise
