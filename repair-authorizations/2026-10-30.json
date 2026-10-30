@@ -2,8 +2,8 @@
   "schema_version": 1,
   "edition_date": "2026-10-30",
   "engine": "staged-research-v3",
-  "maximum_additional_generation_attempts": 2,
-  "maximum_coverage_plan_repairs": 2,
+  "maximum_additional_generation_attempts": 3,
+  "maximum_coverage_plan_repairs": 3,
   "publication_authorized": false,
-  "reason": "The user separately authorized one additional October 30 coverage-plan correction after the first authorized correction failed. Use only the same integrity-checked cached discovery, source catalog, and verified source text. No new discovery or source selection, no attempt-ledger reset, no validation override, and publication remains unauthorized until all existing evidence, editorial, audio, archive, RSS, Pages, and public-delivery checks pass."
+  "reason": "The user authorized one final October 30 coverage-plan correction after two prior corrections. Reuse only the same integrity-checked cached discovery, source catalog, and verified source text. The validator now reports actual keyed story/signal slots. No new discovery or source selection, no research-attempt ledger reset, no validation override, and publication remains conditional on all existing evidence, editorial, audio, archive, RSS, Pages, and public-delivery checks."
 }
