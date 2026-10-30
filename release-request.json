@@ -1,12 +1,12 @@
 {
-  "request_id": "2026-10-30-authorized-coverage-plan-repair-1",
+  "request_id": "2026-10-30-authorized-coverage-plan-repair-2",
   "edition_date": "2026-10-30",
   "requested_operation": "publish-current-edition-through-existing-workflow",
-  "reason": "The user authorized one recovery attempt for the October 30 edition using the integrity-checked retained cache. The staged repair is limited to one reporting-plan regeneration from the same cached discovery, source catalog, and verified source text. New discovery and source selection are prohibited. Preserve the existing attempt ledger. All normal evidence, editorial, narration, audio, archive, RSS, deployment, and public-delivery checks remain mandatory. This authorization does not approve publication.",
+  "reason": "The user separately authorized one additional October 30 evidence-bound coverage-plan correction after the first correction failed. Reuse only the integrity-checked retained discovery, source catalog, and verified source text. Do not perform new discovery or source selection, do not reset the research-attempt ledger, and retain all existing evidence, editorial, audio, archive, RSS, deployment, and public-delivery gates. Publication is not pre-approved.",
   "authorization_path": "repair-authorizations/2026-10-30.json",
   "failure_run_id": 41041852030,
-  "maximum_additional_generation_attempts": 1,
-  "maximum_coverage_plan_repairs": 1,
+  "maximum_additional_generation_attempts": 2,
+  "maximum_coverage_plan_repairs": 2,
   "new_discovery_prohibited": true,
   "research_counter_reset": false,
   "validation_override": false
