@@ -10,7 +10,7 @@ import re
 import urllib.error
 from pathlib import Path
 from jsonschema import Draft202012Validator
-from release_core import digest, write_json
+from release_core import digest, read_json, write_json
 from release_evidence import fetch_source, MAX_TOTAL_CHARS
 
 METHOD = 'evidence-coverage-v2'
