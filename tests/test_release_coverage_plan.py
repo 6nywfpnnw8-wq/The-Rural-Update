@@ -146,8 +146,13 @@ class CoveragePlanTests(unittest.TestCase):
         plan = plan_for(json.loads(fixture['visible_text']), catalog, documents)
         with self.assertRaises(coverage.CoverageError) as caught:coverage.validate_plan(plan, catalog, documents)
         counts = [f for f in caught.exception.coverage_findings if f['rule'] == 'source_count']
-        self.assertEqual([(f['path'], f['actual_items'], f['required_minimum']) for f in counts],
-            [(f['path'], f['actual_items'], f['required_minimum']) for f in fixture['expected_findings']])
+        expected = []
+        for finding in fixture['expected_findings']:
+            group, index = finding['path'].split('/')[1:3]
+            prefix = 'story' if group == 'stories' else 'signal'
+            path = f'/{group}/{prefix}_{int(index) + 1}/source_ids'
+            expected.append((path, finding['actual_items'], finding['required_minimum']))
+        self.assertEqual([(f['path'], f['actual_items'], f['required_minimum']) for f in counts], expected)
 
     def test_plan_rejects_duplicate_angles_and_source_substitution(self):
         self.plan['stories']['story_2']['angle'] = self.plan['stories']['story_1']['angle']
@@ -257,74 +262,65 @@ class CoveragePlanTests(unittest.TestCase):
 
 
     def test_third_authorized_plan_repair_uses_next_slot_without_resetting_research(self):
-        if len(self.catalog) < 6:
-            self.skipTest('fixture needs six sources to exercise the story maximum')
+        catalog = copy.deepcopy(self.catalog)
+        catalog.append({'id': 'src-extra-coverage', 'url': 'https://www.cms.gov/coverage-repair-test',
+                        'title': 'Additional CMS coverage source', 'published_date': None})
+        documents = documents_for(catalog)
+        self.catalog = catalog
+        self.documents = documents
+        self.plan = plan_for(self.report, catalog, documents)
         invalid = copy.deepcopy(self.plan)
-        passages = {d['source_id']: coverage.normalized(d['text']) for d in self.documents}
-        all_anchors = {source['id']: passages[source['id']] for source in self.catalog}
+        passages = {d['source_id']: coverage.normalized(d['text']) for d in documents}
+        all_anchors = {source['id']: passages[source['id']] for source in catalog}
         invalid['stories']['story_2']['source_anchors'] = copy.deepcopy(all_anchors)
         invalid['signals']['signal_2']['source_anchors'] = copy.deepcopy(all_anchors)
         first_signal_source = next(iter(all_anchors))
         invalid['signals']['signal_3']['source_anchors'] = {
             key: (passages[key] if key == first_signal_source else None) for key in all_anchors}
-        first = Mock(side_effect=[response('Notes.', web=True), selection_response(self.catalog),
-                                  plan_response(invalid, self.documents)])
-        with self.assertRaises(coverage.CoverageError):
-            research.staged_request(self.payload, first, self.cache)
+        observed = [source['url'] for source in catalog]
+        with patch.object(research, 'observed_html_urls', return_value=observed):
+            first = Mock(side_effect=[response('Notes.', web=True), selection_response(catalog),
+                                      plan_response(invalid, documents)])
+            with self.assertRaises(coverage.CoverageError):
+                research.staged_request(self.payload, first, self.cache)
 
-        attempts = self.cache / 'attempts.json'
-        write_json(attempts, {'attempts': 2})
-        ledger_before = attempts.read_bytes()
-        policy_root = self.cache / 'repair-authorizations'
-        policy_root.mkdir()
-        write_json(policy_root / (DATE + '.json'), {
-            'schema_version': 1, 'edition_date': DATE, 'engine': research.ENGINE,
-            'maximum_additional_generation_attempts': 3,
-            'maximum_coverage_plan_repairs': 3,
-            'publication_authorized': False,
-            'reason': 'Three separately authorized coverage-only corrections using retained evidence.'})
-        self.assertTrue(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
-
-        repair = Mock(side_effect=[plan_response(self.plan, self.documents),
-            response(planned_report(self.report, self.plan, self.catalog)),
-            response(self.edition['podcast'])])
-        result = research.staged_request(self.payload, repair, self.cache)
-        self.assertEqual(json.loads(research._text(result)), self.edition)
-        self.assertTrue((self.cache / 'coverage-plan-repair-used.json').exists())
-
-        # Simulate the same integrity-bound plan being rejected again, then use
-        # the newly authorized second slot. Source evidence remains byte-for-byte cached.
-        plan_path = self.cache / research.ENGINE / coverage.METHOD / 'plan.json'
-        saved = read_json(plan_path)
-        value = saved['value']
-        value['plan'] = invalid
-        research._save(plan_path, saved['identity'], value)
-        self.assertTrue(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
-        second = Mock(side_effect=[plan_response(self.plan, self.documents),
-            response(planned_report(self.report, self.plan, self.catalog)),
-            response(self.edition['podcast'])])
-        result = research.staged_request(self.payload, second, self.cache)
-        self.assertEqual(json.loads(research._text(result)), self.edition)
-        self.assertTrue((self.cache / 'coverage-plan-repair-used-2.json').exists())
-        saved = read_json(plan_path)
-        value = saved['value']
-        value['plan'] = invalid
-        research._save(plan_path, saved['identity'], value)
-        self.assertTrue(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
-        third = Mock(side_effect=[plan_response(self.plan, self.documents),
-            response(planned_report(self.report, self.plan, self.catalog)),
-            response(self.edition['podcast'])])
-        result = research.staged_request(self.payload, third, self.cache)
-        self.assertEqual(json.loads(research._text(result)), self.edition)
-        self.assertTrue((self.cache / 'coverage-plan-repair-used-3.json').exists())
-        self.assertFalse(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
-        self.assertEqual(attempts.read_bytes(), ledger_before)
-        self.assertEqual(third.call_count, 3)
-        self.assertEqual(self.fetcher.call_count, len(self.catalog))
-        authorization = read_json(self.cache / 'coverage-plan-repair-authorized.json')
-        self.assertEqual(authorization['maximum_coverage_plan_repairs'], 3)
-        self.assertEqual(read_json(self.cache / 'coverage-plan-repair-used-3.json')['repair_number'], 3)
-        self.assertFalse((self.cache / 'approved.json').exists())
+            attempts = self.cache / 'attempts.json'
+            write_json(attempts, {'attempts': 2})
+            ledger_before = attempts.read_bytes()
+            policy_root = self.cache / 'repair-authorizations'
+            policy_root.mkdir()
+            write_json(policy_root / (DATE + '.json'), {
+                'schema_version': 1, 'edition_date': DATE, 'engine': research.ENGINE,
+                'maximum_additional_generation_attempts': 3,
+                'maximum_coverage_plan_repairs': 3,
+                'publication_authorized': False,
+                'reason': 'Three separately authorized coverage-only corrections using retained evidence.'})
+            plan_path = self.cache / research.ENGINE / coverage.METHOD / 'plan.json'
+            results = []
+            for repair_number in range(1, 4):
+                self.assertTrue(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
+                repair = Mock(side_effect=[plan_response(self.plan, documents),
+                    response(planned_report(self.report, self.plan, catalog)),
+                    response(self.edition['podcast'])])
+                result = research.staged_request(self.payload, repair, self.cache)
+                self.assertEqual(json.loads(research._text(result)), self.edition)
+                self.assertEqual(repair.call_count, 3)
+                results.append(repair)
+                if repair_number < 3:
+                    saved = read_json(plan_path)
+                    value = saved['value']
+                    value['plan'] = invalid
+                    research._save(plan_path, saved['identity'], value)
+            self.assertFalse(research.reserve_corrective_attempt(self.cache, DATE, policy_root))
+            self.assertEqual(attempts.read_bytes(), ledger_before)
+            self.assertEqual(self.fetcher.call_count, len(catalog))
+            for number in range(1, 4):
+                marker = self.cache / f'coverage-plan-repair-used-{number}.json' if number > 1 else self.cache / 'coverage-plan-repair-used.json'
+                self.assertTrue(marker.exists())
+                self.assertEqual(read_json(marker)['repair_number'], number)
+            authorization = read_json(self.cache / 'coverage-plan-repair-authorized.json')
+            self.assertEqual(authorization['maximum_coverage_plan_repairs'], 3)
+            self.assertFalse((self.cache / 'approved.json').exists())
 
 
 if __name__ == '__main__':unittest.main()
