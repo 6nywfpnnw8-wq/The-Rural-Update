@@ -263,7 +263,8 @@ class CoveragePlanTests(unittest.TestCase):
 
     def test_third_authorized_plan_repair_uses_next_slot_without_resetting_research(self):
         catalog = copy.deepcopy(self.catalog)
-        catalog.append({'id': 'src-extra-coverage', 'url': 'https://www.cms.gov/coverage-repair-test',
+        extra_url = 'https://www.cms.gov/coverage-repair-test'
+        catalog.append({'id': 'src-' + digest(extra_url)[:16], 'url': extra_url,
                         'title': 'Additional CMS coverage source', 'published_date': None})
         documents = documents_for(catalog)
         self.catalog = catalog
