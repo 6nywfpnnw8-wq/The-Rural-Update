@@ -1,12 +1,12 @@
 {
-  "request_id": "2026-10-30-authorized-coverage-plan-repair-3",
+  "request_id": "2026-10-30-authorized-retained-audit-recovery",
   "edition_date": "2026-10-30",
   "requested_operation": "publish-current-edition-through-existing-workflow",
-  "reason": "The user authorized one final October 30 evidence-bound coverage-plan correction after the prior two corrections left one keyed story-slot source-count finding. Reuse only integrity-checked retained discovery, source catalog, and verified source text. Do not perform new discovery or source selection, reset the research-attempt ledger, or override validation. Keep publication conditional on all normal evidence, editorial, narration, audio, archive, RSS, Pages, and public-delivery checks.",
-  "authorization_path": "repair-authorizations/2026-10-30.json",
-  "failure_run_id": 41041852030,
-  "maximum_additional_generation_attempts": 3,
-  "maximum_coverage_plan_repairs": 3,
+  "reason": "The user authorized recovery of the retained October 30 candidate after the three bounded coverage-plan repairs corrected coverage. Reuse only the integrity-checked candidate, source evidence, and cached material from failed run 41096646421. Use the single date-scoped unused final structured evidence-audit slot in audit-protocol-recovery/2026-10-30.json. Do not generate research or narration, start discovery, reset counters, or override validation. Publication remains conditional on all normal evidence, editorial, narration, audio, archive, RSS, Pages, and public-delivery checks.",
+  "authorization_path": "audit-protocol-recovery/2026-10-30.json",
+  "failure_run_id": 41096646421,
+  "maximum_additional_generation_attempts": 0,
+  "maximum_coverage_plan_repairs": 0,
   "new_discovery_prohibited": true,
   "research_counter_reset": false,
   "validation_override": false
