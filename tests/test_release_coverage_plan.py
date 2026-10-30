@@ -279,6 +279,8 @@ class CoveragePlanTests(unittest.TestCase):
         invalid['signals']['signal_3']['source_anchors'] = {
             key: (passages[key] if key == first_signal_source else None) for key in all_anchors}
         observed = [source['url'] for source in catalog]
+        expected_edition = copy.deepcopy(self.edition)
+        expected_edition['sources'] = catalog
         with patch.object(research, 'observed_html_urls', return_value=observed):
             first = Mock(side_effect=[response('Notes.', web=True), selection_response(catalog),
                                       plan_response(invalid, documents)])
@@ -304,7 +306,7 @@ class CoveragePlanTests(unittest.TestCase):
                     response(planned_report(self.report, self.plan, catalog)),
                     response(self.edition['podcast'])])
                 result = research.staged_request(self.payload, repair, self.cache)
-                self.assertEqual(json.loads(research._text(result)), self.edition)
+                self.assertEqual(json.loads(research._text(result)), expected_edition)
                 self.assertEqual(repair.call_count, 3)
                 results.append(repair)
                 if repair_number < 3:
