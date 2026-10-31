@@ -8,7 +8,7 @@ on:
         type: string
   push:
     branches: [main]
-    paths: ['.github/workflows/inspect-recovery-cache.yml']
+    paths: ['.github/workflows/inspect-recovery-cache.yml', 'recovery-inspection-request.json']
 permissions:
   contents: read
 jobs:
@@ -20,22 +20,34 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Resolve current Central date
+      - name: Resolve requested retained edition
         id: date
         env:
           REQUESTED_EDITION: ${{ inputs.edition_date || '' }}
         run: |
           python3 - <<'PY'
           from datetime import date, datetime
+          from pathlib import Path
           from zoneinfo import ZoneInfo
-          import os
+          import json, os
           requested=os.environ.get('REQUESTED_EDITION','').strip()
+          request_path=Path('recovery-inspection-request.json')
+          if os.environ.get('GITHUB_EVENT_NAME')=='push' and request_path.exists():
+              if request_path.is_symlink() or request_path.stat().st_size>4096:
+                  raise SystemExit('Unsafe inspection request')
+              request=json.loads(request_path.read_text())
+              if request.get('operation')!='inspect-retained-recovery' or request.get('publication_authorized') is not False:
+                  raise SystemExit('Inspection request cannot authorize publication')
+              requested=request.get('edition_date','')
+              if not isinstance(requested,str):raise SystemExit('Invalid edition_date')
+          today=datetime.now(ZoneInfo('America/Chicago')).date()
           if requested:
               try: value=date.fromisoformat(requested)
               except ValueError: raise SystemExit('Invalid edition_date; use YYYY-MM-DD')
               if value.isoformat()!=requested: raise SystemExit('Invalid edition_date; use YYYY-MM-DD')
           else:
-              value=datetime.now(ZoneInfo('America/Chicago')).date()
+              value=today
+          if value>today:raise SystemExit('Cannot inspect a future edition')
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
               f.write('value='+value.isoformat()+'\n')
           PY
@@ -138,6 +150,10 @@ jobs:
           files=[root/n for n in ('attempts.json','api-responses.json',
               'narration-structural-resume-used.json','narration-structural-followup-used.json')]
           files.extend(folder/(n+'.json') for n in ('discovery','sources','reporting'))
+          files.extend((folder/'evidence-coverage-v2').glob('*.json'))
+          files.append(root/'coverage-source-evidence.json')
+          files.append(root/'coverage-plan-repair-authorized.json')
+          files.extend(root.glob('coverage-plan-repair-used*.json'))
           files.extend(root.glob('validation-*.json'))
           files.append(root/'editorial-recovery-attempt.json')
           files.append(root/'retained-bluf-recovery-used.json')
@@ -172,3 +188,4 @@ jobs:
             recovery-inspection.json
             retained-recovery-state.zip
           retention-days: 7
+
