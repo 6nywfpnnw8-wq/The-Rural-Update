@@ -164,7 +164,7 @@ def reporting_schema(catalog: list[dict] | None = None, expected: str | None = N
     return schema
 
 
-def observed_html_urls(discovery: dict) -> list[str]:
+def observed_source_urls(discovery: dict, *, include_pdf=True) -> list[str]:
     # Only actual tool events count; a URL typed into model prose is insufficient.
     found=set()
     for item in discovery.get('web_search_items',[]):
@@ -175,11 +175,16 @@ def observed_html_urls(discovery: dict) -> list[str]:
         for url in urls:
             if not isinstance(url,str):continue
             try:
-                if allowed_url(url) and not re.search(r'\.pdf(?:[?#]|$)',url,re.I):
+                if allowed_url(url) and (include_pdf or not re.search(r'\.pdf(?:[?#]|$)',url,re.I)):
                     found.add(url)
             except ValueError:continue
     if len(found)<5:raise ValueError('Fewer than five observed readable-source URLs')
     return sorted(found)
+
+
+def observed_html_urls(discovery: dict) -> list[str]:
+    """Historical cache contracts retain their original HTML-only source list."""
+    return observed_source_urls(discovery,include_pdf=False)
 
 
 def source_catalog_schema(urls: list[str]) -> dict:
@@ -258,8 +263,20 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     identity=digest(json.dumps({'engine':ENGINE,'model':payload['model'],'context':context},sort_keys=True))
     folder=Path(cache)/ENGINE
     folder.mkdir(parents=True,exist_ok=True)
+    authorization=read_json(Path(cache)/'coverage-plan-repair-authorized.json')
+    if authorization is not None:
+        if (authorization.get('identity')!=identity
+                or authorization.get('edition_date')!=expected
+                or authorization.get('publication_authorized') is not False
+                or authorization.get('new_discovery_prohibited') is not True
+                or authorization.get('new_source_selection_prohibited') is not True):
+            raise RuntimeError('Coverage repair request identity differs; new discovery is prohibited')
+        if (_cached(folder/'discovery.json',identity) is None
+                or _cached(folder/'sources.json',identity) is None):
+            raise RuntimeError('Coverage repair requires intact retained discovery and sources; no request sent')
     from release_discovery_continuation import assert_bound
-    assert_bound(cache,ENGINE,identity,_cached,observed_html_urls)
+    observe_sources=observed_source_urls if app else observed_html_urls
+    assert_bound(cache,ENGINE,identity,_cached,observe_sources)
     from release_sectioned_narration import assert_retained_stages, generate_sections, METHOD
     narration_resume=False if app else assert_retained_stages(cache,ENGINE,identity)
     common={'model':payload['model'],'store':False,'reasoning':{'effort':'low'}}
@@ -289,6 +306,10 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'priorities and the edition date, but its long-form output instructions apply '
                  'only to subsequent stages.'),
              'input':context,'text':{'format':{'type':'text'}}}
+        if app:
+            req['instructions']=req['instructions'].replace('substantive HTML primary-source pages',
+                'substantive HTML or machine-readable PDF primary-source documents').replace(
+                'distinct, substantive primary HTML sources','distinct, substantive readable primary sources')
         raw=send(req)
         notes=_text(raw)
         web=_web_items(raw)
@@ -298,7 +319,7 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
         _save(folder/'discovery.json',identity,discovery)
     if not discovery.get('web_search_items'):
         raise AssertionError('Research did not use web search')
-    urls=observed_html_urls(discovery)
+    urls=observed_source_urls(discovery) if app else observed_html_urls(discovery)
     selected=_cached(folder/'sources.json',identity)
     if selected is None:
         from release_source_selection import (source_choices, selection_schema,
@@ -466,7 +487,7 @@ def _reserve_coverage_plan_repair(cache: Path, expected: str, plan: dict) -> boo
     selected = _cached(folder / 'sources.json', identity)
     if not discovery or not selected or not discovery.get('web_search_items'):
         return False
-    urls = observed_html_urls(discovery)
+    urls = observed_source_urls(discovery) if app_only(expected) else observed_html_urls(discovery)
     catalog = validate_source_catalog(selected.get('sources'), urls)
     from release_coverage_plan import (
         METHOD as COVERAGE_METHOD, evidence_identity, validate_documents,
