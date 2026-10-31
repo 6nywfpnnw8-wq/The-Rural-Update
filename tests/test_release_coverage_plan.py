@@ -251,6 +251,7 @@ class CoveragePlanTests(unittest.TestCase):
         self.assertIn('mandatory corrections', repair_request['instructions'])
         repair_input = json.loads(repair_request['input'])
         findings = repair_input['prior_coverage_findings']
+        self.assertEqual(repair_input['prior_coverage_plan'],invalid)
         self.assertEqual({finding['path'] for finding in findings},
             {'/stories/story_2/source_ids', '/signals/signal_2/source_ids', '/signals/signal_3/source_ids'})
         self.assertEqual([finding['actual_items'] for finding in findings], [len(self.catalog), len(self.catalog), 1])
@@ -318,3 +319,4 @@ class CoveragePlanTests(unittest.TestCase):
 
 
 if __name__ == '__main__':unittest.main()
+

@@ -151,6 +151,8 @@ jobs:
               'narration-structural-resume-used.json','narration-structural-followup-used.json')]
           files.extend(folder/(n+'.json') for n in ('discovery','sources','reporting'))
           files.extend((folder/'evidence-coverage-v2').glob('*.json'))
+          files.append(root/'app-pdf-evidence-recovery-v1-used.json')
+          files.extend((root/'app-pdf-evidence-recovery-v1').glob('**/*.json'))
           files.append(root/'coverage-source-evidence.json')
           files.append(root/'coverage-plan-repair-authorized.json')
           files.extend(root.glob('coverage-plan-repair-used*.json'))
