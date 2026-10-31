@@ -48,19 +48,14 @@ jobs:
         id: edition
         run: |
           python3 - <<'PY'
-          import datetime, os, re, json
-          from pathlib import Path
+          import datetime, os, re
           from zoneinfo import ZoneInfo
           d=os.environ.get('REQUESTED_DATE') or datetime.datetime.now(ZoneInfo('America/Chicago')).date().isoformat()
-          if os.environ.get('GITHUB_EVENT_NAME')=='push':
-              request=json.loads(Path('release-request.json').read_text())
-              if request.get('requested_operation')=='publish-prepared-audio':
-                  if request.get('edition_date')!=d:raise SystemExit('Prepared audio request is not for the current Central date')
           if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', d): raise SystemExit('Invalid edition date')
           datetime.date.fromisoformat(d)
           with open(os.environ['GITHUB_OUTPUT'],'a') as f: f.write('date='+d+'\n')
           PY
-      - name: Restore resumable research and speech work
+      - name: Restore resumable source and reporting work
         if: env.MODE == 'publish' || env.MODE == 'recover' || env.MODE == 'diagnose'
         uses: actions/cache/restore@v4
         with:
@@ -75,20 +70,6 @@ jobs:
           node --check web/release-runtime.js
           node --check sw.js
           node tests/test_release_sw.cjs
-      - name: Resolve an explicitly authorized prepared-audio continuation
-        id: prepared_audio
-        if: env.MODE == 'publish' || env.MODE == 'recover'
-        run: python3 scripts/release_prepared_audio.py resolve --date '${{ steps.edition.outputs.date }}'
-      - name: Restore only the explicitly authorized prepared-audio workspace
-        if: steps.prepared_audio.outputs.enabled == 'true'
-        uses: actions/cache/restore@v4
-        with:
-          path: .audio-integration-state
-          key: ${{ steps.prepared_audio.outputs.cache_key }}
-          fail-on-cache-miss: true
-      - name: Stage hash-verified audio without resetting any counters
-        if: steps.prepared_audio.outputs.enabled == 'true'
-        run: python3 scripts/release_prepared_audio.py stage --date '${{ steps.edition.outputs.date }}'
       - name: Check provider readiness before reserving an editorial attempt
         id: provider_access
         if: env.MODE == 'publish' || env.MODE == 'recover'
@@ -98,38 +79,11 @@ jobs:
       - name: Inspect cached diagnostics without generation or publication
         if: env.MODE == 'diagnose'
         run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --diagnose-cached
-      - name: Install audio validation tool only if missing
-        if: env.MODE != 'diagnose'
-        run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y ffmpeg
-          fi
-      - name: Inspect the reported October 14 cutoff without changing its audio
-        if: steps.edition.outputs.date == '2026-10-16' && (env.MODE == 'publish' || env.MODE == 'recover')
-        continue-on-error: true
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          python3 - <<'PY'
-          import sys,json,pathlib
-          sys.path.insert(0,'scripts')
-          from release_audio import inspect_ending
-          from generate_podcast_audio import spoken_body
-          audio=pathlib.Path('audio/2026-10-14.mp3')
-          text=spoken_body(pathlib.Path('podcast-script/2026-10-14.txt').read_text())
-          cache=pathlib.Path('.release-cache/2026-10-16')
-          report=inspect_ending(audio,text,cache/'legacy-audio')
-          (cache/'legacy-audio-inspection.json').write_text(json.dumps(report,indent=2))
-          print('October 14 ending present:',report['result']['passed'])
-          PY
       - name: Prepare and atomically save validated release
         id: prepare
         if: (env.MODE == 'publish' || env.MODE == 'recover') && steps.provider_access.outcome == 'success'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_TTS_MODEL: gpt-4o-mini-tts
-          OPENAI_TTS_VOICE: cedar
           RURAL_UPDATE_STRUCTURED_REVIEW: 'true'
         run: python3 scripts/release_pipeline.py --date '${{ steps.edition.outputs.date }}' --commit
       - name: Diagnose blocked recovery without generation
@@ -150,7 +104,7 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
-      - name: Verify exact public release and playable episode
+      - name: Verify exact public app release
         id: verify
         if: steps.deploy.outcome == 'success' || env.MODE == 'verify'
         env:
@@ -207,12 +161,9 @@ jobs:
             .release-cache/*/api-responses.json
             .release-cache/*/attempts.json
             .release-cache/*/retained-discovery-continuation-used.json
-            .release-cache/*/prepared-audio-promotion-used.json
             .release-cache/*/stage-responses/*.json
             .release-cache/*/audit.json
-            .release-cache/*/audio-error.json
             .release-cache/*/validation-*.json
-            .release-cache/*/narration-check.json
             .release-cache/*/diagnostic-summary.json
             .release-cache/*/typography-check.json
             .release-cache/*/source-evidence.json
@@ -220,5 +171,5 @@ jobs:
             .release-cache/*/coverage-plan-repair-authorized.json
             .release-cache/*/coverage-plan-repair-used*.json
             .release-cache/*/audit-bound.json
-            .release-cache/*/audio-quality*.json
-            .release-cache/*/legacy-audio-inspection.json
+            .release-cache/*/editorial-loop-v1/*.json
+

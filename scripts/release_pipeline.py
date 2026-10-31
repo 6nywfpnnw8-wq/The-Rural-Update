@@ -14,6 +14,7 @@ import urllib.request
 from datetime import datetime, date
 from pathlib import Path
 from release_core import *
+from release_publication import app_only, complete_app_manifest
 from release_narration import ensure_narration_length, generation_schema
 from release_diagnostics import Diagnostics, diagnose_cache
 from release_resume import take_style_recovery
@@ -141,10 +142,20 @@ and clearly framed questions based on the verified reporting.
 Earlier public intelligence is context only, NOT independently verified evidence:
 {json.dumps(previous,ensure_ascii=False)[:55000]}
 """
+    if app_only(edition_date):
+        start=prompt.index('Podcast:')
+        end=prompt.index('Earlier public intelligence')
+        prompt=prompt[:start]+'''Create only the app briefing: Executive BLUF, five ranked stories,
+recommended actions, four supported signals, deadlines and material issue updates.
+Keep it concise, roughly 1000-1500 words excluding sources. Use 6-10 substantive
+HTML primary sources where possible. All source URLs must have been retrieved by
+web search. Publication dates must be verified ISO dates or null when unknown;
+do not substitute modification dates. Finish every field and sentence.
+'''+prompt[end:]
     payload={'model':MODEL,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':18000,
         'max_tool_calls':12,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
         'include':['web_search_call.action.sources'],'input':prompt,
-        'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':generation_schema()}}}
+        'text':{'format':{'type':'json_schema','name':'rural_update_edition','strict':True,'schema':generation_schema(edition_date)}}}
     return payload
 
 def research(edition_date,previous,cache):
@@ -212,7 +223,16 @@ def research(edition_date,previous,cache):
         provenance=retrieved_urls(response)
         diagnostics.capture('generated',edition,provenance)
         try:
-            edition=ensure_narration_length(edition,cache,MODEL,request_api,output_text)
+            if app_only(edition_date):
+                from release_typography import normalize_edition_typography, normalize_source_identifiers
+                edition,changes=normalize_edition_typography(edition)
+                edition,source_changes=normalize_source_identifiers(edition)
+                write_json(cache/'typography-check.json',{'edition_date':edition_date,
+                    'changed_fields':changes,'publication_authorized':False})
+                write_json(cache/'validation-source-identifiers.json',{'edition_date':edition_date,
+                    'changed_fields':source_changes,'source_urls_unchanged':True,'publication_authorized':False})
+            else:
+                edition=ensure_narration_length(edition,cache,MODEL,request_api,output_text)
         except Exception as exc:
             raise diagnostics.fail('narration',exc,edition) from None
         from release_deadline_watch import select_upcoming_deadlines
@@ -280,14 +300,16 @@ def build(date_string,code_sha=None):
     if code_sha is None:
         code_sha=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
     assert isinstance(code_sha,str) and re.fullmatch(r'(?:[a-f0-9]{40}|[a-f0-9]{64})',code_sha),'Invalid source commit identity'
-    if current.get('edition_date')==date_string and current.get('audio_status')=='complete':
+    app=app_only(date_string)
+    complete=complete_app_manifest(current,date_string) if app else current.get('audio_status')=='complete'
+    if current.get('edition_date')==date_string and complete:
         # A repeated run deploys/verifies the exact committed bundle without another paid call.
         site=assemble_site(root)
         changed=[p for p,info in current['files'].items() if not safe_path(site,p).exists() or digest(safe_path(site,p).read_bytes())!=info['sha256']]
         assert all(p.startswith('web/') or p in ('sw.js','manifest.webmanifest') for p in changed), 'Committed content changed; deliberate revision required'
         if changed:
-            updated=create_manifest(site,date_string,code_sha,'complete',current['revision']+1,current['files'])
-            updated['audio_published_at']=current['audio_published_at']
+            updated=create_manifest(site,date_string,code_sha,None if app else 'complete',current['revision']+1,current['files'])
+            if not app:updated['audio_published_at']=current['audio_published_at']
             write_json(root/'release.json',updated); write_json(site/'release.json',updated)
             write_json(root/f'releases/{date_string}.json',updated)
             return updated
@@ -318,39 +340,41 @@ def build(date_string,code_sha=None):
     if not any(x['date']==date_string for x in catalog['editions']):
         catalog['editions'].append({'date':date_string,'title':e['title'],'path':f'archive/{date_string}.html','format':'html','status':'available'})
     catalog['editions'].sort(key=lambda x:x['date'],reverse=True); catalog['updated']=date_string
-    body=podcast_body(e)
-    script=root/f'podcast-script/{date_string}.txt'; script.parent.mkdir(exist_ok=True)
-    script.write_text(f'Episode title: {e["title"]}\nEdition date: {date_string}\nGenerated time CT: {record["research_at"]}\nSpoken word count: {len(body.split())}\nEstimated run time: {len(body.split())/150:.1f} minutes\n\n'+body+'\n',encoding='utf-8')
-    transcript=root/f'transcript/{date_string}.html'; transcript.parent.mkdir(exist_ok=True)
-    transcript.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(e['title'])+' Transcript</title></head><body><a href="'+BASE+'">The Rural Update</a><h1>'+esc(e['title'])+'</h1><p>AI-generated narration. Source references are in the app.</p>'+''.join('<p>'+esc(p)+'</p>' for p in body.split('\n\n'))+'</body></html>',encoding='utf-8')
-    audio=root/f'audio/{date_string}.mp3'; audio_status='unavailable'
-    feed_path=root/'podcast.xml'
-    previous_feed=feed_path.read_bytes() if feed_path.exists() else None
-    try:
-        audio_for(e,cache,audio)
-        quality=read_json(cache/'audio-quality.json',{})
-        assert quality.get('complete') is True and quality.get('audio_sha256')==digest(audio.read_bytes()),'Audio completion evidence missing or mismatched'
-        assert quality.get('script_sha256')==digest(body),'Audio completion evidence refers to another script'
-        write_json(root/f'data/audio-quality-{date_string}.json',quality)
-        if not (root/'podcast-art.png').exists():
-            subprocess.run(['ffmpeg','-y','-v','error','-i',str(root/'icons/icon-512.png'),'-vf','scale=1400:1400',str(root/'podcast-art.png')],check=True,timeout=30)
-        stamp=(current.get('audio_published_at') if current.get('edition_date')==date_string else None) or datetime.now(TZ).isoformat()
-        update_feed(root,e,stamp)
-        # Completion includes feed and artwork, not merely a synthesized MP3.
-        audio_status='complete'
-    except Exception as exc:
-        audio_status='unavailable'
-        # A partial RSS write must not break delivery of the valid text edition
-        # or destroy the feed for previously published episodes.
-        if previous_feed is None:
-            feed_path.unlink(missing_ok=True)
-        else:
-            feed_path.write_bytes(previous_feed)
-        write_json(cache/'audio-error.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
-        (root/f'data/audio-quality-{date_string}.json').unlink(missing_ok=True)
-        if audio.exists(): audio.unlink()
-        audio.with_suffix('.tmp.mp3').unlink(missing_ok=True)
-        # Keep all earlier valid RSS episodes and deploy valid text + transcript.
+    audio_status=None
+    if not app:
+        body=podcast_body(e)
+        script=root/f'podcast-script/{date_string}.txt'; script.parent.mkdir(exist_ok=True)
+        script.write_text(f'Episode title: {e["title"]}\nEdition date: {date_string}\nGenerated time CT: {record["research_at"]}\nSpoken word count: {len(body.split())}\nEstimated run time: {len(body.split())/150:.1f} minutes\n\n'+body+'\n',encoding='utf-8')
+        transcript=root/f'transcript/{date_string}.html'; transcript.parent.mkdir(exist_ok=True)
+        transcript.write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(e['title'])+' Transcript</title></head><body><a href="'+BASE+'">The Rural Update</a><h1>'+esc(e['title'])+'</h1><p>AI-generated narration. Source references are in the app.</p>'+''.join('<p>'+esc(p)+'</p>' for p in body.split('\n\n'))+'</body></html>',encoding='utf-8')
+        audio=root/f'audio/{date_string}.mp3'; audio_status='unavailable'
+        feed_path=root/'podcast.xml'
+        previous_feed=feed_path.read_bytes() if feed_path.exists() else None
+        try:
+            audio_for(e,cache,audio)
+            quality=read_json(cache/'audio-quality.json',{})
+            assert quality.get('complete') is True and quality.get('audio_sha256')==digest(audio.read_bytes()),'Audio completion evidence missing or mismatched'
+            assert quality.get('script_sha256')==digest(body),'Audio completion evidence refers to another script'
+            write_json(root/f'data/audio-quality-{date_string}.json',quality)
+            if not (root/'podcast-art.png').exists():
+                subprocess.run(['ffmpeg','-y','-v','error','-i',str(root/'icons/icon-512.png'),'-vf','scale=1400:1400',str(root/'podcast-art.png')],check=True,timeout=30)
+            stamp=(current.get('audio_published_at') if current.get('edition_date')==date_string else None) or datetime.now(TZ).isoformat()
+            update_feed(root,e,stamp)
+            # Completion includes feed and artwork, not merely a synthesized MP3.
+            audio_status='complete'
+        except Exception as exc:
+            audio_status='unavailable'
+            # A partial RSS write must not break delivery of the valid text edition
+            # or destroy the feed for previously published episodes.
+            if previous_feed is None:
+                feed_path.unlink(missing_ok=True)
+            else:
+                feed_path.write_bytes(previous_feed)
+            write_json(cache/'audio-error.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
+            (root/f'data/audio-quality-{date_string}.json').unlink(missing_ok=True)
+            if audio.exists(): audio.unlink()
+            audio.with_suffix('.tmp.mp3').unlink(missing_ok=True)
+            # Keep all earlier valid RSS episodes and deploy valid text + transcript.
     html_text=render(root,e,state,list(signals.values()),catalog,record['research_at'])
     (root/'index.html').write_text(html_text,encoding='utf-8')
     snapshot=root/f'archive/{date_string}.html'
@@ -359,11 +383,12 @@ def build(date_string,code_sha=None):
     write_json(root/'archive/catalog.json',catalog); write_json(edition_path,record)
     validate_catalog(root,catalog)
     site=assemble_site(root)
-    paths=['index.html','archive/catalog.json',f'archive/{date_string}.html',f'transcript/{date_string}.html',
-           f'podcast-script/{date_string}.txt','data/intelligence.json','data/signals.json','web/release-runtime.js','web/release.css','sw.js','manifest.webmanifest']
+    paths=['index.html','archive/catalog.json',f'archive/{date_string}.html',
+           'data/intelligence.json','data/signals.json','web/release-runtime.js','web/release.css','sw.js','manifest.webmanifest']
+    if not app:paths.extend([f'transcript/{date_string}.html',f'podcast-script/{date_string}.txt'])
     previous_dates=[x['date'] for x in catalog['editions'] if x['date']<date_string]
     if previous_dates: paths.append(f'archive/{max(previous_dates)}.html')
-    if (root/'podcast.xml').exists():
+    if not app and (root/'podcast.xml').exists():
         ET.parse(root/'podcast.xml')
         paths.append('podcast.xml')
     if audio_status=='complete': paths.extend([f'audio/{date_string}.mp3','podcast-art.png',f'data/audio-quality-{date_string}.json'])
@@ -405,12 +430,17 @@ def main():
         return 0
     assert d==datetime.now(TZ).date().isoformat(),'Only today can be generated; historical releases are never fabricated'
     from release_prepared_audio import guarded_build
-    manifest=guarded_build(ROOT,d,lambda:build(d))
+    manifest=build(d) if app_only(d) else guarded_build(ROOT,d,lambda:build(d))
     if args.commit: commit_outputs(d)
-    print(json.dumps({'edition_date':d,'audio_status':manifest['audio_status'],'revision':manifest['revision']}))
+    result={'edition_date':d,'publication_mode':manifest.get('publication_mode','app_with_podcast'),
+            'revision':manifest['revision']}
+    if 'audio_status' in manifest:result['audio_status']=manifest['audio_status']
+    print(json.dumps(result))
     output=os.getenv('GITHUB_OUTPUT')
     if output:
-        with open(output,'a') as f: f.write(f'edition_date={d}\naudio_status={manifest["audio_status"]}\n')
+        with open(output,'a') as f:
+            f.write(f'edition_date={d}\npublication_mode={result["publication_mode"]}\n')
+            if 'audio_status' in manifest:f.write(f'audio_status={manifest["audio_status"]}\n')
     return 0
 
 if __name__=='__main__':
@@ -419,4 +449,5 @@ if __name__=='__main__':
         (ROOT/'.release-cache').mkdir(exist_ok=True)
         write_json(ROOT/'.release-cache/failure.json',{'error':str(exc),'time':datetime.now(TZ).isoformat()})
         print('::error::'+str(exc),file=sys.stderr); sys.exit(1)
+
 

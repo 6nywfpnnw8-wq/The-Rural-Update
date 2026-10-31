@@ -50,13 +50,8 @@ jobs:
         with:
           ref: main
       - run: python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-      - name: Install audio verifier dependencies only if missing
-        run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y ffmpeg
-          fi
       - name: Verify public artifacts and request at most one recovery per edition
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/release_verify.py watch --recover
+

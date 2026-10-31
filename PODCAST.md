@@ -1,3 +1,8 @@
+# Podcast production retired
+
+New editions are app updates only from October 31, 2026. This document describes
+historical media behavior. See [PUBLISHING.md](PUBLISHING.md) for the active process.
+
 # The Rural Update private podcast feed
 
 The Rural Update publishes a private RSS feed for direct subscription in podcast apps.
@@ -37,3 +42,4 @@ The feed is intentionally marked with `<itunes:block>Yes</itunes:block>` so it i
 - Source scripts: `podcast-script/YYYY-MM-DD.txt`
 
 Episode GUIDs are date-based and stable so later metadata changes do not create duplicate episodes.
+

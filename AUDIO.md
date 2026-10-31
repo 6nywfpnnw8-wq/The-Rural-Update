@@ -1,3 +1,8 @@
+# Podcast production retired
+
+New editions are app updates only from October 31, 2026. This document describes
+historical media behavior. See [PUBLISHING.md](PUBLISHING.md) for the active process.
+
 # Podcast audio generation
 
 The Rural Update can generate an MP3 from each dated script in `podcast-script/`.
@@ -30,3 +35,4 @@ The default narration instruction calls for a calm, concise executive-news deliv
 ## Current scope
 
 This phase generates and publishes MP3 files only. RSS feed generation and Apple Podcasts subscription are intentionally deferred to the next phase.
+

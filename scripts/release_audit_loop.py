@@ -20,6 +20,7 @@ from release_editorial import fingerprint
 from release_resume import _read_snapshot
 from release_evidence import collect_source_evidence, evidence_urls
 from release_diagnostics import Diagnostics, redact
+from release_publication import app_only
 
 def evidence_prompt(documents):
     # Timestamp-only differences must not invalidate an otherwise identical retry.
@@ -262,6 +263,10 @@ review complete if source metadata prevents reliable verification. No em dashes.
     if date>='2026-10-24':policy+=DEFECT_ONLY_POLICY
     from release_source_dates import DATE_POLICY, take_source_date_review
     policy += DATE_POLICY
+    if app_only(date):
+        policy=policy.replace('briefing, including every podcast section.', 'app briefing.')
+        policy=policy.replace('including narration.', 'across the briefing.')
+        policy=policy.replace('every field and every podcast section', 'every app briefing field')
     date_recovery=take_source_date_review(edition,cache,model,request,output_text,
         provenance,generation_usage,policy,audit_schema,validate_review,_call)
     if date_recovery is not None:return date_recovery
@@ -345,6 +350,9 @@ Preserve 1700-2000 total spoken words and complete useful sections, without fill
 Use no em dashes, URLs or HTML in prose. Every patch must identify the blocking finding
 IDs it addresses. A separate independent full-source audit will review the result.
 '''
+        if app_only(date):
+            instruction=instruction.replace('(especially narration)', '(throughout the app briefing)')
+            instruction=instruction.replace('Preserve 1700-2000 total spoken words and complete useful sections, without filler.\n','')
         patch_payload={'model':model,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':10000,
             'input':instruction+'\nFINDINGS:\n'+json.dumps(blocking,ensure_ascii=False)+
                     '\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents),
@@ -362,4 +370,5 @@ IDs it addresses. A separate independent full-source audit will review the resul
             'changed_paths':[p['path'] for p in plan['replacements']],
             'correction_calls':1,'old_attempt_ledgers_preserved':True,'publication_authorized':False})
     raise RuntimeError('Editorial review did not reach a terminal result')
+
 

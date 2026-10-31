@@ -1,3 +1,7 @@
+> From October 31, 2026, the daily publisher delivers app updates only.
+> Narration, transcript, RSS, and audio requirements below apply to historical
+> editions. The active process is documented in [PUBLISHING.md](../PUBLISHING.md).
+
 # Daily Rural Update operations
 
 ## Status and approval boundary
@@ -138,3 +142,4 @@ during its Central morning window. Confirm GitHub records a `workflow_dispatch` 
 Pages. The normal scheduled command remains `--execute` with the default `publish` mode.
 A dispatch acceptance is not publication proof. For a real edition, require successful
 source/evidence checks, complete audio, Pages deployment, and exact public verification.
+

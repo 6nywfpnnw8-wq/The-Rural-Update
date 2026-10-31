@@ -99,7 +99,7 @@ def multipart(audio):
     return b"".join(pieces), "multipart/form-data; boundary=" + boundary
 
 
-def run_check(client, model):
+def run_check(client, model, include_audio=True):
     report = {
         "schema_version": 1,
         "checked_at": datetime.now(timezone.utc).isoformat(),
@@ -134,34 +134,35 @@ def run_check(client, model):
                    for c in item.get("content", [])):
             raise CheckFailure("research_text_missing")
         report["checks"].append({"stage": stage, "passed": True})
-        stage = "speech"
-        audio = client.post("audio/speech", {
-            "model": MODELS["speech"], "voice": "cedar", "input": PHRASE,
-            "instructions": "Read every word in calm American English.",
-            "response_format": "wav", "speed": 1.0,
-        })
-        with wave.open(io.BytesIO(audio), "rb") as wav:
-            frames = wav.readframes(wav.getnframes())
-            denominator = wav.getframerate() * wav.getsampwidth() * wav.getnchannels()
-            duration = len(frames) / denominator
-            if not frames:
-                raise CheckFailure("empty_speech")
-        if not 0.5 <= duration <= 30:
-            raise CheckFailure("unexpected_speech_duration")
-        report["checks"].append({"stage": stage, "passed": True,
-                                 "duration_seconds": round(duration, 3)})
-        stage = "transcription"
-        data, content_type = multipart(audio)
-        recognized = json.loads(client.post("audio/transcriptions", data, content_type))
-        words = re.findall(r"[a-z]+", recognized.get("text", "").lower())
-        expected = re.findall(r"[a-z]+", PHRASE.lower())
-        # Do not pass the expected phrase to the transcription endpoint.
-        import difflib
-        score = difflib.SequenceMatcher(None, expected, words, autojunk=False).ratio()
-        if score < 0.85 or not words or words[-1] != expected[-1]:
-            raise CheckFailure("test_speech_transcription_mismatch")
-        report["checks"].append({"stage": stage, "passed": True,
-                                 "phrase_match": round(score, 3)})
+        if include_audio:
+            stage = "speech"
+            audio = client.post("audio/speech", {
+                "model": MODELS["speech"], "voice": "cedar", "input": PHRASE,
+                "instructions": "Read every word in calm American English.",
+                "response_format": "wav", "speed": 1.0,
+            })
+            with wave.open(io.BytesIO(audio), "rb") as wav:
+                frames = wav.readframes(wav.getnframes())
+                denominator = wav.getframerate() * wav.getsampwidth() * wav.getnchannels()
+                duration = len(frames) / denominator
+                if not frames:
+                    raise CheckFailure("empty_speech")
+            if not 0.5 <= duration <= 30:
+                raise CheckFailure("unexpected_speech_duration")
+            report["checks"].append({"stage": stage, "passed": True,
+                                     "duration_seconds": round(duration, 3)})
+            stage = "transcription"
+            data, content_type = multipart(audio)
+            recognized = json.loads(client.post("audio/transcriptions", data, content_type))
+            words = re.findall(r"[a-z]+", recognized.get("text", "").lower())
+            expected = re.findall(r"[a-z]+", PHRASE.lower())
+            # Do not pass the expected phrase to the transcription endpoint.
+            import difflib
+            score = difflib.SequenceMatcher(None, expected, words, autojunk=False).ratio()
+            if score < 0.85 or not words or words[-1] != expected[-1]:
+                raise CheckFailure("test_speech_transcription_mismatch")
+            report["checks"].append({"stage": stage, "passed": True,
+                                     "phrase_match": round(score, 3)})
         report["passed"] = True
     except CheckFailure as error:
         report["checks"].append({"stage": stage, "passed": False,
@@ -179,7 +180,7 @@ def run_check(client, model):
 def main():
     model = os.getenv("RURAL_UPDATE_MODEL", MODELS["research"])
     try:
-        report = run_check(Client(os.getenv("OPENAI_API_KEY", "")), model)
+        report = run_check(Client(os.getenv("OPENAI_API_KEY", "")), model, include_audio=False)
     except CheckFailure as error:
         report = {"schema_version": 1, "passed": False,
                   "publication_attempted": False, "research_budget_modified": False,
@@ -193,3 +194,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

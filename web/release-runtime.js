@@ -72,7 +72,7 @@
     else if (date < localDate()) label.textContent = 'Latest available: ' + date + ' · New edition delayed';
     else label.textContent = 'Edition ' + date;
   }
-  var audio = document.getElementById('daily-audio');
+  var audio = document.documentElement.dataset.publicationMode === 'app' ? null : document.getElementById('daily-audio');
   var checkingAudio = false, attempts = 0;
   function checkAudio() {
     if (!date || !audio || checkingAudio || attempts >= 5) return;
@@ -134,3 +134,4 @@
       .then(function(registration) { return registration.update(); }).catch(function() {});
   }
 })();
+
