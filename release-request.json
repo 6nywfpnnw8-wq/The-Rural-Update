@@ -1,13 +1,15 @@
 {
-  "request_id": "2026-10-30-authorized-retained-audit-recovery",
-  "edition_date": "2026-10-30",
+  "request_id": "2026-10-31-reviewed-pdf-app-evidence-continuation",
+  "edition_date": "2026-10-31",
   "requested_operation": "publish-current-edition-through-existing-workflow",
-  "reason": "The user authorized recovery of the retained October 30 candidate after the three bounded coverage-plan repairs corrected coverage. Reuse only the integrity-checked candidate, source evidence, and cached material from failed run 41096646421. Use the single date-scoped unused final structured evidence-audit slot in audit-protocol-recovery/2026-10-30.json. Do not generate research or narration, start discovery, reset counters, or override validation. Publication remains conditional on all normal evidence, editorial, narration, audio, archive, RSS, Pages, and public-delivery checks.",
-  "authorization_path": "audit-protocol-recovery/2026-10-30.json",
-  "failure_run_id": 41096646421,
+  "reason": "Continue the retained October 31 coverage failure through the existing single publisher after PRs #137 and #138. Reuse only the hash-bound original discovery and eight source records, adding the two previously observed and exact-hash-verified government PDFs in the reviewed policy. Permit one coverage-plan request and one app-reporting request, followed by the normal independent evidence audit and existing bounded correction path. Do not start discovery, model source selection, podcast production, reset the two-attempt research ledger, or override validation. Publication remains conditional on all normal app evidence, editorial, archive, Pages, and actual public-delivery checks.",
+  "authorization_path": "app-evidence-recovery/2026-10-31.json",
+  "failure_run_id": 41193371423,
   "maximum_additional_generation_attempts": 0,
-  "maximum_coverage_plan_repairs": 0,
+  "maximum_coverage_plan_repairs": 1,
+  "maximum_reporting_requests": 1,
   "new_discovery_prohibited": true,
   "research_counter_reset": false,
+  "podcast_generation_permitted": false,
   "validation_override": false
 }
