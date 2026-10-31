@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from release_diagnostics import current_failure_summary
+from release_publication import app_only, complete_app_manifest
 import hashlib
 BASE='https://6nywfpnnw8-wq.github.io/The-Rural-Update/'
 TZ=ZoneInfo('America/Chicago')
@@ -80,8 +81,13 @@ def verify(expected_date,expected=None):
     assert manifest.get('files'),'No public artifact inventory'
     if expected is not None:
         assert manifest==expected,'Public deployment does not match the validated release'
-    required=['index.html','archive/catalog.json',f'archive/{expected_date}.html',f'transcript/{expected_date}.html']
-    assert all(p in manifest['files'] for p in required),'Incomplete artifact inventory'
+    app=app_only(expected_date)
+    if app:
+        assert complete_app_manifest(manifest,expected_date),'Incomplete app release inventory'
+    else:
+        assert manifest.get('publication_mode')!='app','App delivery mode is invalid for this historical edition'
+        required=['index.html','archive/catalog.json',f'archive/{expected_date}.html',f'transcript/{expected_date}.html']
+        assert all(p in manifest['files'] for p in required),'Incomplete artifact inventory'
     if manifest.get('audio_status')=='complete':
         assert f'audio/{expected_date}.mp3' in manifest['files'] and 'podcast.xml' in manifest['files'],'Missing audio/feed inventory'
     checked=[]
@@ -106,6 +112,13 @@ def verify(expected_date,expected=None):
         status,headers,data=public_get(path)
         assert status==200,'Public artifact unavailable: '+path
         assert len(data)==info['bytes'] and digest(data)==info['sha256'],'Public hash/size mismatch: '+path
+        if app and path=='index.html':
+            from bs4 import BeautifulSoup
+            document=BeautifulSoup(data,'html.parser')
+            meta=document.select_one('meta[name="edition-date"]')
+            assert meta and meta.get('content')==expected_date,'Public app content date mismatch'
+            assert document.html and document.html.get('data-publication-mode')=='app','Public app mode mismatch'
+            assert not document.select('#daily-audio, .listen-card'),'App release contains a podcast player'
         if path.endswith('.mp3'):
             media_type=next((v for k,v in headers.items() if k.lower()=='content-type'),'')
             assert 'audio/' in media_type or 'octet-stream' in media_type,'Audio URL returned non-audio content'
@@ -124,8 +137,11 @@ def verify(expected_date,expected=None):
             assert enclosure is not None and f'audio/{expected_date}.mp3' in enclosure.get('url',''),'RSS audio mismatch'
             assert transcript is not None and f'transcript/{expected_date}.html' in transcript.get('url',''),'RSS transcript missing'
         checked.append(path)
-    return {'edition_date':expected_date,'revision':manifest['revision'],'checked_at':datetime.now(TZ).isoformat(),
-            'public_text_verified':True,'complete':manifest.get('audio_status')=='complete','checked_files':checked,'narration_completion_verified':bool(quality)}
+    report={'edition_date':expected_date,'revision':manifest['revision'],'checked_at':datetime.now(TZ).isoformat(),
+            'public_text_verified':True,'complete':app or manifest.get('audio_status')=='complete','checked_files':checked}
+    if app:report['publication_mode']='app'
+    else:report['narration_completion_verified']=bool(quality)
+    return report
 
 def github(path,method='GET',body=None):
     token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
@@ -182,7 +198,8 @@ def main():
         write_json(ROOT/'.release-cache/delivery-report.json',report)
         if os.getenv('GH_TOKEN') or os.getenv('GITHUB_TOKEN'): incident(d,'',healthy=True)
         print(json.dumps(report)); return 0
-    message=error or 'Web edition and transcript verified, but this edition has no validated audio yet.'
+    message=error or ('App delivery verification did not complete.' if app_only(d) else
+                     'Web edition and transcript verified, but this edition has no validated audio yet.')
     write_json(ROOT/'.release-cache/delivery-report.json',{'edition_date':d,'complete':False,'error':message,'partial':report})
     if args.command=='watch': incident(d,message,recover=args.recover)
     print('::error::'+message,file=sys.stderr); return 1
@@ -191,3 +208,4 @@ if __name__=='__main__':
     try: sys.exit(main())
     except Exception as exc:
         print('::error::Delivery check/alert failed: '+str(exc),file=sys.stderr); sys.exit(1)
+

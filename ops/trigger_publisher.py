@@ -13,6 +13,9 @@ import urllib.error
 import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+from release_publication import app_only, complete_app_manifest
 
 REPO = '6nywfpnnw8-wq/The-Rural-Update'
 API = 'https://api.github.com/repos/' + REPO + '/actions/workflows/publish.yml'
@@ -39,7 +42,9 @@ def decide(now: datetime, release: dict | None, runs: list[dict], mode: str = 'p
         # A read-only dispatch can validate the Render-to-GitHub path without
         # consuming the editorial attempt allowance or touching the public site.
         return {**base,'action':'dispatch','reason':'read_only_diagnostic_requested'}
-    if release and release.get('edition_date') == day and release.get('audio_status') == 'complete':
+    complete=(complete_app_manifest(release,day) if release and app_only(day) else
+              bool(release and release.get('audio_status')=='complete'))
+    if release and release.get('edition_date') == day and complete:
         # The publisher's full verifier, not this metadata test, establishes delivery.
         return {**base,'action':'skip','reason':'current_complete_manifest_present'}
     if release and release.get('edition_date','') > day:
@@ -154,3 +159,4 @@ def main():
     return 1
 
 if __name__=='__main__':sys.exit(main())
+

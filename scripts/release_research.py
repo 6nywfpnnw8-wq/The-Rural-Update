@@ -13,7 +13,8 @@ from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Callable
 from jsonschema import Draft202012Validator
-from release_core import SCHEMA, TZ, digest, read_json, write_json, allowed_url, canonical_url
+from release_core import SCHEMA, edition_schema, TZ, digest, read_json, write_json, allowed_url, canonical_url
+from release_publication import app_only
 from release_diagnostics import redact
 from release_coverage_plan import ensure_reporting_plan
 
@@ -252,13 +253,15 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     neither changes counters nor approves content. Successful stages are reused.
     """
     context=payload['input']
+    expected=Path(cache).name
+    app=(bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}',expected)) and app_only(expected))
     identity=digest(json.dumps({'engine':ENGINE,'model':payload['model'],'context':context},sort_keys=True))
     folder=Path(cache)/ENGINE
     folder.mkdir(parents=True,exist_ok=True)
     from release_discovery_continuation import assert_bound
     assert_bound(cache,ENGINE,identity,_cached,observed_html_urls)
     from release_sectioned_narration import assert_retained_stages, generate_sections, METHOD
-    narration_resume=assert_retained_stages(cache,ENGINE,identity)
+    narration_resume=False if app else assert_retained_stages(cache,ENGINE,identity)
     common={'model':payload['model'],'store':False,'reasoning':{'effort':'low'}}
     discovery=_cached(folder/'discovery.json',identity)
     if discovery is None:
@@ -384,6 +387,15 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
         _save(folder/'reporting.json',identity,reporting)
     Draft202012Validator(schema).validate(reporting['edition'])
     validate_reference_bindings(reporting['edition'],catalog)
+    if app:
+        edition=copy.deepcopy(reporting['edition'])
+        edition['sources']=copy.deepcopy(catalog)
+        Draft202012Validator(edition_schema(expected)).validate(edition)
+        return {'status':'completed','output':copy.deepcopy(discovery['web_search_items'])+[
+            {'type':'message','content':[{'type':'output_text','text':json.dumps(edition,ensure_ascii=False)}]}],
+            'usage':{'stages':{n:x.get('usage') for n,x in
+                [('discovery',discovery),('sources',selected),('reporting',reporting)]}},
+            'generation_engine':ENGINE}
     from release_narration import bounded_podcast_schema
     narration=_cached(folder/'narration.json',identity)
     if narration is None:
@@ -585,4 +597,5 @@ def reserve_corrective_attempt(cache: Path, expected: str, policy_root: Path) ->
     except FileExistsError:
         return False
     return True
+
 

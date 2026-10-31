@@ -15,6 +15,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 from jsonschema import Draft202012Validator
+from release_publication import app_only, complete_app_manifest
 
 TZ = ZoneInfo('America/Chicago')
 BASE = 'https://6nywfpnnw8-wq.github.io/The-Rural-Update/'
@@ -48,6 +49,13 @@ SCHEMA = obj(edition_date=S,title=S,bluf=S,stories=arr(STORY,5,5),actions=arr(AC
              signals=arr(SIGNAL,4,4),issue_updates=arr(ISSUE,0,8),sources=arr(SOURCE,5,20),
              podcast=obj(opening=S,bluf=S,developments=arr(S,3,3),oklahoma=S,signals=S,actions=S,deadlines=S,closing=S))
 
+def edition_schema(expected):
+    schema=copy.deepcopy(SCHEMA)
+    if app_only(expected):
+        schema['properties'].pop('podcast')
+        schema['required'].remove('podcast')
+    return schema
+
 def canonical_url(url):
     u=urlsplit(url)
     return urlunsplit((u.scheme.lower(),u.netloc.lower(),u.path.rstrip('/'),
@@ -73,14 +81,16 @@ def podcast_body(edition):
     return '\n\n'.join([p['opening'],p['bluf'],*p['developments'],p['oklahoma'],p['signals'],p['actions'],p['deadlines'],p['closing']])
 
 def validate_edition(e, expected, retrieved=None):
-    Draft202012Validator(SCHEMA).validate(e)
+    Draft202012Validator(edition_schema(expected)).validate(e)
     assert e['edition_date']==expected, 'Edition date does not match requested date'
     date.fromisoformat(expected)
-    assert 1700<=len(podcast_body(e).split())<=2000, 'Spoken body must contain 1700 to 2000 words'
+    if not app_only(expected):
+        assert 1700<=len(podcast_body(e).split())<=2000, 'Spoken body must contain 1700 to 2000 words'
     text=json.dumps(e,ensure_ascii=False)
     assert not re.search(r'draft pending|\bTODO\b|\bTBD\b|lorem ipsum|placeholder',text,re.I), 'Placeholder text'
     assert '\u2014' not in text, 'Use punctuation other than em dashes'
-    assert not re.search(r'https?://|<[^>]+>',podcast_body(e)), 'Spoken body contains URLs or markup'
+    if not app_only(expected):
+        assert not re.search(r'https?://|<[^>]+>',podcast_body(e)), 'Spoken body contains URLs or markup'
     for field in ['stories','actions','signals','issue_updates','sources']:
         ids=[x['id'] for x in e[field]]
         assert len(ids)==len(set(ids)), f'Duplicate {field} IDs'
@@ -203,6 +213,9 @@ def render(root,e,state,signals,catalog,generated_at):
     fresh.clear(); fresh.append(BeautifulSoup(f'<span id="freshness">Edition {esc(e["edition_date"])}</span><span>Prepared {esc(generated_at)}</span>','html.parser'))
     status='<div class="statusbar">'+''.join(f'<div class="status"><strong>{n}</strong><span>{label}</span></div>' for n,label in [(5,'Priorities'),(sum('oklahoma' in (s['category']+' '+s['title']).lower() for s in e['stories']),'Oklahoma'),(len(e['deadlines']),'Deadlines'),(len(e['actions']),'Actions')])+'</div>'
     listen=card('Listen to this edition','<p class="meta">AI-generated narration. Public-source briefing.</p><p id="listen-state" role="status">Checking audio availability...</p><audio id="daily-audio" controls preload="none" hidden></audio><p id="listen-meta"></p><a id="listen-link" hidden>Open audio file</a> <a id="transcript-link" hidden>Read transcript</a>','listen-card')
+    if app_only(e['edition_date']):
+        listen=''
+        soup.html['data-publication-mode']='app'
     action=''.join(f'<div class="action-item"><div class="action-date">{esc(a["due_date"] or "Ongoing")}</div><div><b>{esc(a["title"])}</b><p>{esc(a["next_step"])}</p>{cite(a["source_ids"])}</div></div>' for a in e['actions'])
     changes=''.join(f'<details><summary><b>{len(v)}</b> {esc(k)}</summary><ul>'+''.join('<li>'+esc(x)+'</li>' for x in v)+'</ul></details>' for k,v in state['changes'].items())
     stories=''.join(f'<article class="story"><div class="story-head"><span class="rank">{n}</span><h3>{esc(s["title"])}</h3></div><span class="tag">{esc(s["category"])}</span><span class="tag">{esc(s["policy_state"])}</span><p>{esc(s["what_changed"])}</p><div class="lens"><b>Why it matters:</b> {esc(s["why_it_matters"])}<br><b>Executive question:</b> {esc(s["executive_question"])}</div>{cite(s["source_ids"])}</article>' for n,s in enumerate(e['stories'],1))
@@ -212,7 +225,8 @@ def render(root,e,state,signals,catalog,generated_at):
     soup.select_one('#page-today').append(BeautifulSoup(body,'html.parser'))
     soup.select_one('#page-signals').append(BeautifulSoup(signal_html(signals),'html.parser'))
     soup.select_one('#page-archive').append(BeautifulSoup(archive_html(catalog),'html.parser'))
-    assert len(soup.select('#page-today'))==1 and len(soup.select('#daily-audio'))==1
+    assert len(soup.select('#page-today'))==1
+    assert len(soup.select('#daily-audio'))==(0 if app_only(e['edition_date']) else 1)
     return str(soup)
 
 def historical_page(content):
@@ -274,7 +288,13 @@ def create_manifest(site,edition,code_sha,audio_status,revision,paths):
         assert p.is_file() and p.stat().st_size, 'Release artifact missing: '+name
         files[name]={'sha256':digest(p.read_bytes()),'bytes':p.stat().st_size}
     manifest={'schema_version':1,'edition_date':edition,'revision':revision,'code_sha':code_sha,
-              'built_at':datetime.now(TZ).isoformat(),'audio_status':audio_status,'files':files}
+              'built_at':datetime.now(TZ).isoformat(),'files':files}
+    if app_only(edition):
+        assert audio_status is None, 'App releases cannot request audio'
+        manifest['publication_mode']='app'
+        assert complete_app_manifest(manifest,edition), 'Incomplete app release inventory'
+    else:
+        manifest['audio_status']=audio_status
     write_json(site/'release.json',manifest)
     return manifest
 
@@ -308,3 +328,4 @@ def probe_audio(path):
     seconds=float(raw.strip()); assert seconds>0,'Empty audio'
     subprocess.run(['ffmpeg','-v','error','-i',str(path),'-f','null','-'],check=True,timeout=90,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
     return seconds
+

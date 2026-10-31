@@ -327,9 +327,11 @@ class IntegrationIsolationTests(unittest.TestCase):
         for forbidden in ('contents: write', 'pages: write', 'issues: write', 'id-token: write', 'schedule:', '--commit'):
             self.assertNotIn(forbidden, text)
         self.assertIn('persist-credentials: false', text)
-        self.assertIn('deployment: false', text)
-        self.assertIn('path: .integration-state', text)
+        self.assertNotIn('secrets.OPENAI_API_KEY', text)
+        self.assertNotIn('ops/integration_acceptance.py --live', text)
+        self.assertIn('test_release_app_only.py', text)
         self.assertIn('group: rural-update-single-publisher', text)
 
 
 if __name__ == '__main__':unittest.main()
+

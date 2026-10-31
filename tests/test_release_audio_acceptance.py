@@ -131,9 +131,11 @@ class AudioAcceptanceTests(unittest.TestCase):
         text = (root / '.github/workflows/audio-integration.yml').read_text()
         for forbidden in ('contents: write', 'pages: write', 'id-token: write', 'schedule:', '--commit'):
             self.assertNotIn(forbidden, text)
-        self.assertIn('persist-credentials: false', text)
-        self.assertIn('deployment: false', text)
-        self.assertIn('path: .audio-integration-state', text)
+        self.assertIn('retired', text.lower())
+        self.assertNotIn('secrets.OPENAI_API_KEY', text)
+        self.assertNotIn('ops/audio_acceptance.py', text)
+        self.assertNotIn('  push:', text)
 
 
 if __name__ == '__main__':unittest.main()
+

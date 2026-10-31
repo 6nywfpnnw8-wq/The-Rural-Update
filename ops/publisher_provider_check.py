@@ -14,6 +14,7 @@ from check_openai_access import Client, CheckFailure, MODELS, run_check
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+from release_publication import app_only, app_required_paths, complete_app_manifest
 REPORT = "credential-check-report.json"
 STAGES = {"configuration", "research_and_web_search", "speech", "transcription"}
 
@@ -28,6 +29,9 @@ def already_complete(root: Path, edition: str) -> bool:
             f"podcast-script/{edition}.txt", f"transcript/{edition}.html",
             f"data/audio-quality-{edition}.json",
         }
+        if app_only(edition):
+            return (complete_app_manifest(manifest,edition)
+                    and all((root / p).is_file() for p in app_required_paths(edition)))
         return (manifest.get("schema_version") == 1
                 and manifest.get("edition_date") == edition
                 and manifest.get("audio_status") == "complete"
@@ -53,7 +57,7 @@ def preflight(root: Path, edition: str, check=run_check, client_factory=Client) 
                   "reason": "complete_committed_release_requires_no_generation"}
     else:
         from release_prepared_audio import cache_ready
-        try:prepared = cache_ready(root, edition)
+        try:prepared = False if app_only(edition) else cache_ready(root, edition)
         except Exception:
             report = {**common, "passed": False, "skipped": False,
                       "checks": [{"stage": "configuration", "passed": False, "reason": "prepared_audio_cache_invalid"}]}
@@ -68,7 +72,8 @@ def preflight(root: Path, edition: str, check=run_check, client_factory=Client) 
             return report
         try:
             report = check(client_factory(os.getenv("OPENAI_API_KEY", "")),
-                           os.getenv("RURAL_UPDATE_MODEL", MODELS["research"]))
+                           os.getenv("RURAL_UPDATE_MODEL", MODELS["research"]),
+                           **({'include_audio':False} if app_only(edition) else {}))
         except CheckFailure as error:
             report = {
                 "passed": False,
@@ -127,3 +132,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

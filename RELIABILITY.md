@@ -1,3 +1,7 @@
+> From October 31, 2026, the daily publisher delivers app updates only.
+> Narration, transcript, RSS, and audio requirements below apply to historical
+> editions. The active process is documented in [PUBLISHING.md](PUBLISHING.md).
+
 # The Rural Update: coordinated publication
 
 ## Review and cutover
@@ -114,3 +118,4 @@ Require successful repository CI, a complete authorized live research/speech run
 public delivery verification, actual iPhone and podcast-client checks, confirmed
 receipt of a test notification, and seven scheduled mornings without manual repair.
 Until those gates pass, distinguish code/test readiness from production reliability.
+

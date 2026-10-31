@@ -5,7 +5,8 @@ import json
 from pathlib import Path
 from typing import Callable
 from jsonschema import Draft202012Validator
-from release_core import SCHEMA, podcast_body, write_json
+from release_core import SCHEMA, edition_schema, podcast_body, write_json
+from release_publication import app_only
 from release_typography import normalize_edition_typography, normalize_source_identifiers
 
 MIN_WORDS=1700
@@ -27,9 +28,10 @@ def bounded_podcast_schema():
         field['pattern']=r'^(\S+\s+){'+str(low-1)+','+str(high-1)+r'}\S+$'
     return schema
 
-def generation_schema():
-    schema=copy.deepcopy(SCHEMA)
-    schema['properties']['podcast']=bounded_podcast_schema()
+def generation_schema(expected=None):
+    schema=edition_schema(expected) if expected else copy.deepcopy(SCHEMA)
+    if expected is None or not app_only(expected):
+        schema['properties']['podcast']=bounded_podcast_schema()
     for group in ('stories','actions','signals','issue_updates','sources'):
         schema['properties'][group]['items']['properties']['id']={
             'type':'string','pattern':r'^[a-z0-9][a-z0-9-]{0,79}$'}
@@ -88,3 +90,4 @@ sentence. The complete result will still undergo source verification and evidenc
         Draft202012Validator(PODCAST_SCHEMA).validate(narration)
         candidate['podcast']=narration
     raise RuntimeError('Narration revision terminated unexpectedly')
+

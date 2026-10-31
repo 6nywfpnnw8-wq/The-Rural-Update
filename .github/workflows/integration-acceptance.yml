@@ -1,12 +1,7 @@
 name: Rural Update integration acceptance
-run-name: "Nonpublishing integration acceptance / ${{ github.run_id }}"
+run-name: App integration acceptance
 on:
   workflow_dispatch:
-    inputs:
-      live:
-        description: Run the explicitly authorized bounded provider test
-        type: boolean
-        default: false
   push:
     branches: [main]
     paths: ['integration-request.json']
@@ -19,91 +14,15 @@ jobs:
   acceptance:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 40
-    environment:
-      name: github-pages
-      deployment: false
-    env:
-      RURAL_UPDATE_MODEL: ${{ vars.RURAL_UPDATE_MODEL || 'gpt-5-mini' }}
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
           persist-credentials: false
-      - name: Resolve the fixed integration seed and development cache
-        id: plan
-        env:
-          DISPATCH_LIVE: ${{ inputs.live }}
+      - name: Verify app generation, editorial gates, and delivery offline
         run: |
-          python3 - <<'PY'
-          import json,os,re
-          from pathlib import Path
-          p=json.loads(Path('integration-request.json').read_text())
-          assert re.fullmatch(r'\d{4}-\d{2}-\d{2}',p['edition_date'])
-          assert re.fullmatch(r'[a-zA-Z0-9-]{1,100}',p['request_id'])
-          assert p['publication_authorized'] is False
-          live=(p['live'] is True if os.environ['GITHUB_EVENT_NAME']=='push' else os.environ.get('DISPATCH_LIVE')=='true')
-          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
-              f.write('date='+p['edition_date']+'\nkey='+p['request_id']+'\nlive='+str(live).lower()+'\n')
-          PY
-      - name: Restore production seed for read-only copying
-        uses: actions/cache/restore@v4
-        with:
-          path: .release-cache
-          key: integration-read-only-seed-${{ github.run_id }}
-          restore-keys: rural-release-v1-${{ steps.plan.outputs.date }}-
-      - name: Restore only the separate development workspace and request ledger
-        uses: actions/cache/restore@v4
-        with:
-          path: .integration-state
-          key: rural-integration-v1-${{ steps.plan.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: rural-integration-v1-${{ steps.plan.outputs.key }}-
-      - name: Install local media validation tools
-        if: steps.plan.outputs.live == 'true'
-        run: |
-          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y ffmpeg
-          fi
-      - name: Install compiler dependencies and validate offline controls
-        shell: bash
-        run: |
-          mkdir -p .integration-output
           python3 -m pip install --disable-pip-version-check -r requirements-publisher.txt
-          python3 ops/run_integration_tests.py 2>&1 | tee .integration-output/offline-tests.log
+          python3 -m unittest discover -s tests -p 'test_release_app_only.py' -v
           node --check web/release-runtime.js
           node --check sw.js
           node tests/test_release_sw.cjs
-      - name: Run the isolated acceptance test without publication credentials
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          LIVE: ${{ steps.plan.outputs.live }}
-        run: |
-          if [ "$LIVE" = true ]; then
-            python3 ops/integration_acceptance.py --live
-          else
-            python3 ops/integration_acceptance.py
-          fi
-      - name: Save development work and request counts after success or failure
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: .integration-state
-          key: rural-integration-v1-${{ steps.plan.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Preserve acceptance report and unapproved development evidence
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: integration-acceptance-${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 14
-          include-hidden-files: true
-          if-no-files-found: warn
-          path: |
-            .integration-output
-            .integration-state/binding.json
-            .integration-state/development-requests.json
-            .integration-state/development-requests-before-reporting-plan.json
-            .integration-state/development-requests-before-passage-plan.json
-            .integration-state/resume-exercise.json
-            .integration-state/provider-responses
-            .integration-state/workspace/.release-cache
