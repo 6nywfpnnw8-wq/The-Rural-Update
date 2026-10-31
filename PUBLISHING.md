@@ -8,6 +8,12 @@ The versioned format boundary is in `scripts/release_publication.py`. App editio
 have no `podcast` field. Their release manifest records `publication_mode: app`
 and has no audio status or new media inventory.
 
+Source selection can use observed HTML and machine-readable government PDFs.
+PDF evidence retains the original byte hash, extracted text hash, page count,
+page text hashes, and parser version. Encrypted or unreadable documents fail
+retrieval. Text extraction does not verify images or table layout; the independent
+review must reject claims that require evidence absent from the extracted text.
+
 ## Daily publication
 
 1. Render remains the sole automatic publication clock. It dispatches the existing

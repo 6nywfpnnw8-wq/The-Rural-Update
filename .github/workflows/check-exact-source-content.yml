@@ -31,11 +31,32 @@ jobs:
           urls=evidence_urls(e,documents)
           print(json.dumps({'exact_sources_retrieved':len(urls),'publication_authorized':False,'model_calls':0}))
           PY
+      - name: Verify the retained CMS and Federal Register PDF references
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from release_evidence import fetch_source
+          sources=[
+              ('cms-mln-mm14468','https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf'),
+              ('provider-tax-nprm','https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf')]
+          documents=[]
+          for source_id,url in sources:
+              document=fetch_source(url);document['source_id']=source_id
+              assert document['content_type']=='application/pdf'
+              assert document['extraction']['page_count']>0
+              documents.append(document)
+          output=pathlib.Path('.release-cache/source-preflight/pdf-evidence.json')
+          output.parent.mkdir(parents=True,exist_ok=True)
+          output.write_text(json.dumps({'documents':documents,'model_calls':0,'publication_authorized':False},indent=2)+'\n')
+          print(json.dumps({'verified_pdf_sources':len(documents),'model_calls':0,'publication_authorized':False}))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: exact-source-preflight
-          path: .release-cache/source-preflight/source-evidence.json
+          path: .release-cache/source-preflight/*.json
           include-hidden-files: true
           retention-days: 1
           if-no-files-found: ignore
+

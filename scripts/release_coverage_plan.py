@@ -257,6 +257,7 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                 'input': json.dumps({'editorial_request': context, 'research_notes': discovery['notes'],
                     'prior_coverage_findings': repair_findings,
                     'sources': catalog, 'documents': [{'source_id': d['source_id'],
+                        **({'extraction':d['extraction']} if d.get('extraction') else {}),
                         'passages': [{'index': i, 'text': text} for i, text in enumerate(passages(d['text']))]}
                                                      for d in documents]}, ensure_ascii=False),
                 'text': {'format': {'type': 'json_schema', 'name': 'reporting_plan', 'strict': True,
@@ -274,3 +275,4 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
     except Exception as error:
         error.research_stage = 'reporting_plan';error.stage_response_snapshot = snapshot
         raise
+

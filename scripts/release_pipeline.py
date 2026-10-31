@@ -148,10 +148,11 @@ Earlier public intelligence is context only, NOT independently verified evidence
         prompt=prompt[:start]+'''Create only the app briefing: Executive BLUF, five ranked stories,
 recommended actions, four supported signals, deadlines and material issue updates.
 Keep it concise, roughly 1000-1500 words excluding sources. Use 6-10 substantive
-HTML primary sources where possible. All source URLs must have been retrieved by
+HTML or machine-readable PDF primary sources where possible. All source URLs must have been retrieved by
 web search. Publication dates must be verified ISO dates or null when unknown;
 do not substitute modification dates. Finish every field and sentence.
 '''+prompt[end:]
+        prompt=prompt.replace('in both the app and spoken narration','in the app')
     payload={'model':MODEL,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':18000,
         'max_tool_calls':12,'tools':[{'type':'web_search','filters':{'allowed_domains':DOMAINS}}],
         'include':['web_search_call.action.sources'],'input':prompt,
@@ -189,9 +190,10 @@ def research(edition_date,previous,cache):
         print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
     else:
         from release_discovery_continuation import requires_bound_cache
-        from release_research import ENGINE, _cached, observed_html_urls
+        from release_research import ENGINE, _cached, observed_html_urls, observed_source_urls
+        observe_sources=observed_source_urls if app_only(edition_date) else observed_html_urls
         bound_continuation=requires_bound_cache(cache,edition_date,ROOT/'repair-authorizations',
-                                               ENGINE,_cached,observed_html_urls)
+                                               ENGINE,_cached,observe_sources)
         ledger=read_json(cache/'attempts.json',{'attempts':0})
         if bound_continuation or ledger['attempts']>=2:
             from release_research import reserve_corrective_attempt

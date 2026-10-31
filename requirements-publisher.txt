@@ -1,2 +1,4 @@
 beautifulsoup4==4.14.3
 jsonschema==4.26.0
+pypdf==6.21.4
+
