@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-31",
+  "revision": 1,
+  "code_sha": "63cce79688101c4c293e8e3d85fca7d9ca3b9c0d",
+  "built_at": "2026-10-31T11:02:48.757585-05:00",
+  "files": {
+    "archive/2026-10-28.html": {
+      "sha256": "8a7980e367532cc4622d398ec78e8326db9a958ec1da95e61dd26d4f2dfbdb2c",
+      "bytes": 86207
+    },
+    "archive/2026-10-31.html": {
+      "sha256": "399e7310405e721d135a32ae22dfb6a78a104d4e01d9775fdb74f95a28a3e58f",
+      "bytes": 90816
+    },
+    "archive/catalog.json": {
+      "sha256": "e433223f8018159758e6a23199ef348805f6de6c09d07cd3a324fc22229d526b",
+      "bytes": 8652
+    },
+    "data/intelligence.json": {
+      "sha256": "de595714d477e2a0d98a1bffecaf8731e308bc064aac3eb219b3b0636c08deb7",
+      "bytes": 36372
+    },
+    "data/signals.json": {
+      "sha256": "3caf96ce7a2bcc4459db7c0d21a82321ee89df39375e98a3f4a63296fc16d5c8",
+      "bytes": 25228
+    },
+    "index.html": {
+      "sha256": "b9414b1cee8675d6d83716e1d490239c464fd2d8bac62c40d364e810d45512f6",
+      "bytes": 90496
+    },
+    "manifest.webmanifest": {
+      "sha256": "15af18a450aa1895cf8b5bd4fa157bb6a785960c634fea11f1cf31dd832ac82f",
+      "bytes": 616
+    },
+    "sw.js": {
+      "sha256": "07a236516bc2d3710ed9717dcf194468628bed39ec63b4fcadb6c558ff406153",
+      "bytes": 1819
+    },
+    "web/release-runtime.js": {
+      "sha256": "f7327e694d11a44eaac16256b8296b64acfd628081a9c3eb0b91218c975f1ac2",
+      "bytes": 7227
+    },
+    "web/release.css": {
+      "sha256": "eb405646c38446f8c41fe49517dd64b84a5491ae6a099030870f31c5a4878ff9",
+      "bytes": 2038
+    }
+  },
+  "publication_mode": "app"
+}

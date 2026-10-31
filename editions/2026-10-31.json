@@ -1,0 +1,711 @@
+{
+  "edition": {
+    "edition_date": "2026-10-31",
+    "title": "Rural Update - Oklahoma edition",
+    "bluf": "Five developments matter for Oklahoma rural hospitals this week: (1) Medicare requires RHC/FQHC distant-site telehealth billing by individual CPT/HCPCS codes plus telehealth modifiers for dates of service on/after 2026-10-01; immediate claims reconciliation is needed to quantify denials and cash impact. (2) CMS proposed rule CMS-2452-P would change indirect hold-harmless thresholds for health-care-related taxes, creating state-level planning risk for provider-tax-funded supplemental payments - do not rebase budgets without OHCA confirmation. (3) Oklahoma’s RHTP hub has published NOFOs, recipient lists, microgrant guidance and collaborative events signaling active subaward planning; require post-grant sustainability in any subaward budgets. (4) CMS announced national participants in the GENEROUS Medicaid drug-payment model; Oklahoma-specific executed terms must be obtained from OHCA before modeling pharmacy or 340B impacts. (5) CMS posted the national RHTP award list with Oklahoma’s FY1",
+    "stories": [
+      {
+        "what_changed": "CMS finalized RHC/FQHC distant-site telehealth billing policy in Transmittal R13776OTN and MLN MM14468: for Medicare dates of service on/after 2026-10-01, RHCs and FQHCs must bill distant-site telehealth using the individual CPT/HCPCS codes that describe the service plus applicable telehealth modifiers; CMS lists a systems implementation date of 2026-10-05.",
+        "why_it_matters": "Operational revenue-cycle risk is immediate: clearinghouse edits, payer modifier logic and adjudication behavior will determine actual payment and denial patterns. Rural clinics and CAH-affiliated RHCs must reconcile early October claims to quantify cash-flow and contract exposure.",
+        "executive_question": "Have we reconciled RHC/FQHC telehealth production claims (DOS 2026-10-01 onward) across Medicare and major commercial payers to identify denials, modifier edits and remittance differences?",
+        "category": "payments-and-revenue",
+        "id": "rhc-telehealth-billing",
+        "title": "RHC/FQHC distant-site telehealth billing now mandatory for Medicare FFS; reconcile Oct 1 production claims",
+        "source_ids": [
+          "src-c0ef19ff38df1747",
+          "src-9315ed0d2cc3ed6e"
+        ],
+        "change": "New",
+        "policy_state": "Final"
+      },
+      {
+        "what_changed": "CMS published NPRM CMS-2452-P (fact sheet and Federal Register notice) proposing to amend the indirect hold-harmless threshold for health-care-related taxes under section 71115 of Public Law 119-21 and describing proposed calculation, reporting and interim rules; the statute identifies an October 1, 2026 statutory effective date for some provisions while CMS proposes implementing details for states and providers.",
+        "why_it_matters": "Hospitals that rely on provider-tax-funded supplemental payments face planning and liquidity risk if CMS finalizes thresholds or reporting that reduce state ability to fund supplemental payments. State-by-state execution and timing determine facility-level exposure; premature forecast changes could misstate risk.",
+        "executive_question": "What revenue and cash-flow are tied to state supplemental payments funded through provider-tax constructs in our Oklahoma contracts, and has OHCA confirmed exposure under the CMS proposal?",
+        "category": "medicaid-finance",
+        "id": "medicaid-provider-tax-nprm",
+        "title": "CMS proposed rule CMS-2452-P could change state provider-tax hold-harmless thresholds",
+        "source_ids": [
+          "src-299e421cf61e682c",
+          "src-f99f0b6e98fff5e6"
+        ],
+        "change": "New",
+        "policy_state": "Proposed"
+      },
+      {
+        "what_changed": "Oklahoma’s RHTP hub published program resources: NOFOs, recipient lists, microgrant guidance, technology-cooperative enrollment deadlines and county-collaborative events, plus state pages noting BP1 drawdown and spend windows.",
+        "why_it_matters": "RHTP subawards create time-limited project funding that can seed telehealth, workforce and transport solutions; absent enforceable post-grant operating budgets, subawards can create unfunded recurring expenses that strain rural hospital operations.",
+        "executive_question": "For any planned participation or partnership, do subaward budgets include explicit post-grant operating, staffing and replacement-capital plans before we commit local resources?",
+        "category": "grants-and-investments",
+        "id": "oklahoma-rhtp-implementation",
+        "title": "Oklahoma RHTP is active: NOFOs, recipient lists, microgrants and county-collaboratives",
+        "source_ids": [
+          "src-90945e8746da757b",
+          "src-06256ef361f5d4ae",
+          "src-dd9d4f7688485958",
+          "src-4f1464923f786235"
+        ],
+        "change": "Continuing",
+        "policy_state": "Monitoring"
+      },
+      {
+        "what_changed": "CMS published a press release listing participants in the GENEROUS Medicaid drug-payment model (national participation and application status); the announcement does not publish state-executed implementation terms for pharmacy reimbursement, rebate passthrough, formulary or 340B interaction.",
+        "why_it_matters": "A national participation announcement alone does not change pharmacy economics for Oklahoma hospitals. Hospitals and pharmacies need written OHCA confirmation of executed GENEROUS terms and lists of covered products before modeling revenue, rebates or 340B impacts.",
+        "executive_question": "Has OHCA executed GENEROUS participation terms and issued implementation guidance that affect covered products, MCO passthrough or 340B operations?",
+        "category": "pharmacy-and-340b",
+        "id": "generous-model-national",
+        "title": "CMS announces GENEROUS Medicaid drug-payment model participants; state execution required to assess local pharmacy/340B effects",
+        "source_ids": [
+          "src-cc7888b1e0b22d4c"
+        ],
+        "change": "New",
+        "policy_state": "Announcement"
+      },
+      {
+        "what_changed": "CMS posted the Rural Health Transformation Program state award list showing first-year award amounts including Oklahoma’s FY1 award figure in the CMS state award table.",
+        "why_it_matters": "Federal RHTP awards flow to states and are being operationalized through state NOFOs and subawards; local hospitals should treat awarded funds as time limited and require post-grant sustainability before accepting ongoing responsibilities.",
+        "executive_question": "Which published Oklahoma RHTP awards and NOFOs are relevant to our service area, and do any subaward terms require financial commitments beyond the grant period?",
+        "category": "grants-and-investments",
+        "id": "cms-rhtp-awards-and-oklahoma-award",
+        "title": "CMS RHTP awards to all 50 states; Oklahoma award posted",
+        "source_ids": [
+          "src-4f1464923f786235"
+        ],
+        "change": "New",
+        "policy_state": "Announcement"
+      }
+    ],
+    "actions": [
+      {
+        "id": "action-reconcile-rhc-telehealth",
+        "title": "Reconcile RHC/FQHC distant-site telehealth production claims (DOS 2026-10-01 onward)",
+        "due_date": "2026-11-07",
+        "next_step": "Extract representative sample of RHC telehealth claims (DOS 2026-10-01 onward), confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and log payer-specific denials for corrective coding and clearinghouse edits.",
+        "suggested_function": "Revenue Cycle",
+        "issue_id": "rhc-telehealth-billing",
+        "source_ids": [
+          "src-9315ed0d2cc3ed6e",
+          "src-3236e8cccb97f0d6"
+        ]
+      },
+      {
+        "id": "action-model-medicaid-downside",
+        "title": "Model state-level Medicaid downside isolating provider-tax and supplemental-payment exposure",
+        "due_date": null,
+        "next_step": "Inventory revenue tied to provider-tax-funded supplemental payments and produce conditional cash-stress scenarios; request OHCA confirmation of state exposure before rebasing operating forecasts.",
+        "suggested_function": "Finance",
+        "issue_id": "medicaid-provider-tax-nprm",
+        "source_ids": [
+          "src-299e421cf61e682c",
+          "src-f99f0b6e98fff5e6"
+        ]
+      },
+      {
+        "id": "action-require-post-grant-sustainability",
+        "title": "Require enforceable post-grant sustainability budgets for any RHTP subaward participation",
+        "due_date": "2026-11-30",
+        "next_step": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, replacement capital and fallback funding in the subaward budget.",
+        "suggested_function": "Strategy / Finance",
+        "issue_id": "oklahoma-rhtp-implementation",
+        "source_ids": [
+          "src-90945e8746da757b",
+          "src-06256ef361f5d4ae",
+          "src-dd9d4f7688485958",
+          "src-4f1464923f786235"
+        ]
+      }
+    ],
+    "deadlines": [
+      {
+        "date": "2026-11-07",
+        "title": "Suggested internal checkpoint: complete initial telehealth claims reconciliation",
+        "description": "Internal editorial checkpoint to reconcile RHC distant-site telehealth production claims (DOS 2026-10-01 onward) and log payer-specific denials for corrective edits.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "src-9315ed0d2cc3ed6e",
+          "src-3236e8cccb97f0d6"
+        ]
+      },
+      {
+        "date": "2026-11-14",
+        "title": "Suggested internal checkpoint: request OHCA confirmation of GENEROUS execution",
+        "description": "Internal editorial checkpoint to request written OHCA confirmation of whether Oklahoma executed GENEROUS participation and to obtain covered-product lists and passthrough guidance before changing pharmacy forecasts.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "src-cc7888b1e0b22d4c"
+        ]
+      },
+      {
+        "date": "2026-11-30",
+        "title": "Suggested internal checkpoint: require post-grant sustainability documentation for RHTP subawards",
+        "description": "Internal editorial checkpoint to ensure any RHTP subaward participation includes enforceable post-grant operating and replacement-capital budgets before accepting ongoing local commitments.",
+        "kind": "Editorial checkpoint",
+        "source_ids": [
+          "src-90945e8746da757b",
+          "src-06256ef361f5d4ae",
+          "src-dd9d4f7688485958",
+          "src-4f1464923f786235"
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "0-3 months",
+        "executiveRisk": "High",
+        "summary": "Implementation watch: CMS Transmittal R13776OTN and MLN MM14468 require RHCs/FQHCs to bill distant-site telehealth with individual CPT/HCPCS codes plus telehealth modifiers for DOS on/after 2026-10-01; transmittal lists an implementation systems date of 2026-10-05. Early reconciliation is required to quantify operational revenue risk.",
+        "why": "Policy is final for Medicare FFS, but payer acceptance and EDI edits determine real payment outcomes; a focused claims sample for early October will show denials, edits and cash impact across payers.",
+        "id": "rhc-telehealth",
+        "title": "rhc telehealth payment execution",
+        "source_ids": [
+          "src-9315ed0d2cc3ed6e",
+          "src-3236e8cccb97f0d6"
+        ]
+      },
+      {
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "12-48 months",
+        "executiveRisk": "High",
+        "summary": "Planning risk: CMS-2452-P (NPRM) would change the indirect hold-harmless threshold for health-care-related taxes and describes proposed reporting and calculation rules; facility exposure depends on how CMS finalizes thresholds and how states respond.",
+        "why": "Until CMS issues a final rule and states publish implementation choices, hospitals should isolate provider-tax-funded supplemental payments in downside models and obtain OHCA confirmation before adjusting forecasts.",
+        "id": "medicaid-financing",
+        "title": "medicaid financing pressure from provider-tax proposal",
+        "source_ids": [
+          "src-299e421cf61e682c",
+          "src-f99f0b6e98fff5e6"
+        ]
+      },
+      {
+        "direction": "Active planning",
+        "confidence": "High",
+        "horizon": "1-5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "RHTP regionalization: Oklahoma’s RHTP pages, NOFOs, microgrant guidance and recipient lists show active subaward planning and county-collaborative events, indicating near-term project activity across telehealth, workforce and technology co-op efforts.",
+        "why": "Subawards can seed access and technology projects but require enforceable post-grant sustainability budgeting to avoid creating unfunded recurring obligations for hospitals and clinics.",
+        "id": "regionalization",
+        "title": "rhtp regionalization",
+        "source_ids": [
+          "src-90945e8746da757b",
+          "src-06256ef361f5d4ae",
+          "src-dd9d4f7688485958",
+          "src-4f1464923f786235"
+        ]
+      },
+      {
+        "direction": "Conditional implementation",
+        "confidence": "Medium",
+        "horizon": "3-12 months",
+        "executiveRisk": "Moderate",
+        "summary": "CMS announced national participants in the GENEROUS Medicaid drug-payment model; the national announcement does not establish Oklahoma-executed terms. Hospitals need written OHCA implementation documents to assess pharmacy, rebate passthrough and 340B interactions.",
+        "why": "A CMS press release lists participating states and timelines, but state-executed agreements and operational guidance determine local pharmacy economics and any 340B implications.",
+        "id": "oklahoma-rhtp-implementation",
+        "title": "oklahoma RHTP moving into state subawards and county collaboratives",
+        "source_ids": [
+          "src-90945e8746da757b",
+          "src-06256ef361f5d4ae",
+          "src-dd9d4f7688485958",
+          "src-4f1464923f786235"
+        ]
+      }
+    ],
+    "issue_updates": [],
+    "sources": [
+      {
+        "id": "src-90945e8746da757b",
+        "url": "https://oklahoma.gov/rhtp.html",
+        "title": "Oklahoma.gov - Rural Health Transformation Program",
+        "published_date": null
+      },
+      {
+        "id": "src-06256ef361f5d4ae",
+        "url": "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+        "title": "Oklahoma RHTP - Funding Recipients",
+        "published_date": null
+      },
+      {
+        "id": "src-dd9d4f7688485958",
+        "url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+        "title": "Oklahoma RHTP - Funding",
+        "published_date": null
+      },
+      {
+        "id": "src-c0ef19ff38df1747",
+        "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+        "title": "CMS FQHC & RHC News and Announcements",
+        "published_date": null
+      },
+      {
+        "id": "src-9315ed0d2cc3ed6e",
+        "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+        "title": "CMS Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs and FQHCs",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "src-299e421cf61e682c",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+        "title": "CMS Fact Sheet: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (Proposed Rule CMS-2452-P)",
+        "published_date": "2026-07-21"
+      },
+      {
+        "id": "src-4f1464923f786235",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+        "title": "CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States",
+        "published_date": "2025-12-29"
+      },
+      {
+        "id": "src-cc7888b1e0b22d4c",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+        "title": "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS)",
+        "published_date": null
+      },
+      {
+        "id": "src-3236e8cccb97f0d6",
+        "title": "CMS MLN Matters MM14468: RHC and FQHC Billing Distant Site Telehealth Services",
+        "url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "src-f99f0b6e98fff5e6",
+        "title": "Medicaid Program: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P)",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf",
+        "published_date": "2026-07-23"
+      }
+    ]
+  },
+  "audit": {
+    "approved": true,
+    "issues": []
+  },
+  "retrieved_urls": [
+    "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+    "https://oklahoma.gov/rhtp.html",
+    "https://oklahoma.gov/rhtp/about-us.html",
+    "https://oklahoma.gov/rhtp/rhtp-faqs.html",
+    "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+    "https://oklahoma.gov/rhtp/rhtp-funding.html",
+    "https://www.cms.gov/files/document/mln006398-information-rural-health-clinics.pdf",
+    "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+    "https://www.cms.gov/files/document/r13776otn.pdf",
+    "https://www.cms.gov/fqhc-rhc-news-announcements",
+    "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+    "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+    "https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program",
+    "https://www.congress.gov/119/bills/s2169/BILLS-119s2169rs.pdf",
+    "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf",
+    "https://www.oklahoma.gov/hwtc/rural-health-transformation-program.html"
+  ],
+  "model": "gpt-5-mini",
+  "audit_candidate_sha256": "4e07dec737a9be5609914dbc7e224f9d566aa20c14bbf36fc11cb2e0a4c7e34f",
+  "source_retrieval": [
+    {
+      "url": "https://oklahoma.gov/rhtp.html",
+      "final_url": "https://oklahoma.gov/rhtp.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 170402,
+      "sha256": "f8377a36421e82da0d7cefefc88d7b5a365b26235d0fc16a95118e0a7afbaba5",
+      "text_sha256": "5f4bb5d2732b0a371d995eaca359925d7e70a6e7f6ee5a63aa4c5192c52e62b8",
+      "retrieved_at": "2026-10-31T16:02:27.461221+00:00",
+      "method": "direct_https",
+      "source_id": "src-90945e8746da757b"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 72783,
+      "sha256": "16c0ddd634669ccf993c1a5d952248db4d2dd80edf19a86219b8fa7541400fc9",
+      "text_sha256": "0eebcaf82250d0f096bdea3776b82f4cc5eefd8a5affdae4b7068a13ac4cd21b",
+      "retrieved_at": "2026-10-31T16:02:27.966183+00:00",
+      "method": "direct_https",
+      "source_id": "src-06256ef361f5d4ae"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 384936,
+      "sha256": "f81f2f31c95366e17d0240a167c95749316ac0e1e0bae43a336e681039e032ad",
+      "text_sha256": "de4bac8a3b5202bf071faf5ad5632ca7aced3495840305dbdb3d081a7286f2c3",
+      "retrieved_at": "2026-10-31T16:02:29.426246+00:00",
+      "method": "direct_https",
+      "source_id": "src-dd9d4f7688485958"
+    },
+    {
+      "url": "https://www.cms.gov/fqhc-rhc-news-announcements",
+      "final_url": "https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/information-centers/federally-qualified-health-centers/news-announcements",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 201242,
+      "sha256": "b2dd7ab7dfa00f8ade06320ad2f7b800bf709342d34d4bcb5d74c1410e0d9d01",
+      "text_sha256": "6071c2d0d07d112a32dbc1be849ac5a5ba715dbc5271be2fc6b31d36e471c3aa",
+      "retrieved_at": "2026-10-31T16:02:30.083576+00:00",
+      "method": "direct_https",
+      "source_id": "src-c0ef19ff38df1747"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "final_url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 185508,
+      "sha256": "7a0ef2bf14c82f1f82925e24af6a6371abd60e435b5b4271a8dad78270928900",
+      "text_sha256": "7466d6c7a6d8670e65178f1290a4202742fab64e9b7e29f90250ec6c75a3f371",
+      "retrieved_at": "2026-10-31T16:02:30.476674+00:00",
+      "method": "direct_https",
+      "source_id": "src-9315ed0d2cc3ed6e"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56010,
+      "sha256": "43525c1eb6741d4c4359fec819181d8c85445cd966255c5b99d1a09064d9204b",
+      "text_sha256": "fb0414ea7b7b9fa937af50fa0d260d650e359b80000c212e6e843de0b52930bc",
+      "retrieved_at": "2026-10-31T16:02:30.820529+00:00",
+      "method": "direct_https",
+      "source_id": "src-299e421cf61e682c"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 66215,
+      "sha256": "4734a1ced2b9623ca55692feaac2b785def6b45ed3da27866d86b15408538989",
+      "text_sha256": "7e92cdf0d0c5924dc8e5ff892cb05a55c712342755f263b91f8be3245b678e08",
+      "retrieved_at": "2026-10-31T16:02:31.110579+00:00",
+      "method": "direct_https",
+      "source_id": "src-4f1464923f786235"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 53661,
+      "sha256": "a8e2cb7f5512829fe28161fe4a99db288aad7223b1a3adc8373597383d2f6ece",
+      "text_sha256": "4a0180918a3aaed6e56940b10e5ed761ef60c04d8909b4fa2c0abfc1e5c8469b",
+      "retrieved_at": "2026-10-31T16:02:31.243698+00:00",
+      "method": "direct_https",
+      "source_id": "src-cc7888b1e0b22d4c"
+    },
+    {
+      "url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+      "final_url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 156502,
+      "sha256": "f90e3b1f12e8a86cfd8ff1084b7ced237bcf6b35171cf64d9f74130858e6d35c",
+      "text_sha256": "a5af8a086e79d59f06ed02e0ccc977b548ffa0be7f05c54eb34be710748d015a",
+      "retrieved_at": "2026-10-31T16:02:31.349354+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 3,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "f1b5c4040489ca585e625938c3c0e5c1047d1b28190724fd7dd75e2668910686",
+            "characters": 1282
+          },
+          {
+            "page": 2,
+            "text_sha256": "de72960aaa695b773b25e5f5ebf32cc54c40d7090c8bc2a52748b627cf8a4985",
+            "characters": 2536
+          },
+          {
+            "page": 3,
+            "text_sha256": "bdae5ef789e790da8cf1a8f34ac7f2087c0850da1c01a8ffe5516811766b48c2",
+            "characters": 545
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-3236e8cccb97f0d6"
+    },
+    {
+      "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf",
+      "final_url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 497063,
+      "sha256": "945f1d2a0495dd4b32b355b836ff655939429f18c13dfa89d4f51b3a907deed4",
+      "text_sha256": "d85aa774154241e428ffd3fb5733787e127686f3ea8c250d68e2bf41b47bbf3e",
+      "retrieved_at": "2026-10-31T16:02:32.385862+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 38,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "5338be36166d49d4a4e60cb2cc70dcda6d50d2927b958132d295ad2d330c89c6",
+            "characters": 7476
+          },
+          {
+            "page": 2,
+            "text_sha256": "f80c07c341a5050250cfdcf4e97bbe38a9c8b97741744105f68a9892ff9fc960",
+            "characters": 8036
+          },
+          {
+            "page": 3,
+            "text_sha256": "199273dad7aae9f3490530609a0cf49f0688e7b39a832e6ff2dace036bf697ec",
+            "characters": 8045
+          },
+          {
+            "page": 4,
+            "text_sha256": "242125b7e93a129669b11e39b68ee311998026b8a3feece94ba6dd489e197087",
+            "characters": 8197
+          },
+          {
+            "page": 5,
+            "text_sha256": "ec11d6f3899335e3284e584645a9c885be7ba3e1ccc351a52181beb50ae67e86",
+            "characters": 8033
+          },
+          {
+            "page": 6,
+            "text_sha256": "5b0c229fc56a222eea7694ecabec59cff714e6819f91bb05ed47c1ee3c15be48",
+            "characters": 8022
+          },
+          {
+            "page": 7,
+            "text_sha256": "b9e87c693946d986b9a7c21e0ae8a40ebcad769a0cc2ec461ddc2e22185757e8",
+            "characters": 8130
+          },
+          {
+            "page": 8,
+            "text_sha256": "4bbb7991633dc31b46c8cf1f672a58111ebc171bbf7a7ada6a80442eae9a4543",
+            "characters": 7885
+          },
+          {
+            "page": 9,
+            "text_sha256": "f663c01af018b96d5af4952ef515a2dcab8f71fa9f8f33db5f9fa3fb7cde608e",
+            "characters": 8111
+          },
+          {
+            "page": 10,
+            "text_sha256": "71cd68f8a2fb05e59b7dbe5afedff94509163a86009d97244f6ae9385a9937a9",
+            "characters": 8106
+          },
+          {
+            "page": 11,
+            "text_sha256": "4a8fcdc78f19f23246b95dff872e1ef388dbad80525bd46446ba8192b66e5591",
+            "characters": 8101
+          },
+          {
+            "page": 12,
+            "text_sha256": "97ba2c47bd5c4c83cce6ace1e75a084201011e26da57a2829ed8fe4fc12821a9",
+            "characters": 8144
+          },
+          {
+            "page": 13,
+            "text_sha256": "7fcfa8fdf0dd1308dd016e3c7aa4af20d5fecaa5fe737a24d8d8dd9cd8271bb6",
+            "characters": 8215
+          },
+          {
+            "page": 14,
+            "text_sha256": "faaae4ac2c69a160bd19f092744301bf6554e423ee167856c4aa9f8057408d65",
+            "characters": 8002
+          },
+          {
+            "page": 15,
+            "text_sha256": "530bac510e1df4f8cea0145992ba7d043061190cbecef6e3cc6d8e503db319e8",
+            "characters": 8088
+          },
+          {
+            "page": 16,
+            "text_sha256": "88d72cb65ea4e71f4f8386cecc606eb69f3c2c10aa0ee90e960dc679d35d6eed",
+            "characters": 8090
+          },
+          {
+            "page": 17,
+            "text_sha256": "1632b09bdb4314b694ef0b504ce8f3c904f68e25ed0013a7c9835ae924e6d26c",
+            "characters": 3918
+          },
+          {
+            "page": 18,
+            "text_sha256": "6eb7935518dab086c0401b245463e2eb555b63e73e770fbb1ce6f50073931fd2",
+            "characters": 8009
+          },
+          {
+            "page": 19,
+            "text_sha256": "8275e1605fc2a7a943fa47ffb64fbd56b2b445c54d74bdcc7fca1786c837e5da",
+            "characters": 8159
+          },
+          {
+            "page": 20,
+            "text_sha256": "e28f0548f139e194d0b44b6019df67f05498c014b455ab96d2b52dbe0e847019",
+            "characters": 8052
+          },
+          {
+            "page": 21,
+            "text_sha256": "ac0e510cfa62b309fdf6f93dfd9ec17f07957f64d3f4abe7faf6bb8be9e27deb",
+            "characters": 8009
+          },
+          {
+            "page": 22,
+            "text_sha256": "9369f29dba3df26b9863d3ad6f3e39b53ea73b7e94f9d9cdc55a1d056ca13dd8",
+            "characters": 8052
+          },
+          {
+            "page": 23,
+            "text_sha256": "47c465a8acaf00220b169f41bb33e2397b3586eea102ac1ec86c835a01d82014",
+            "characters": 8179
+          },
+          {
+            "page": 24,
+            "text_sha256": "ece822ecf17743efad0ffbb77393c2eb3fa2bfb131525a8f3de110411e871376",
+            "characters": 8033
+          },
+          {
+            "page": 25,
+            "text_sha256": "934da550960c7708710a6be727cb5696f22e7554e5309760ff2fa61cc09e67de",
+            "characters": 6459
+          },
+          {
+            "page": 26,
+            "text_sha256": "3a9971f67aa442d797736ce849646c507912777f50c24aea56399001dd823cf8",
+            "characters": 7860
+          },
+          {
+            "page": 27,
+            "text_sha256": "dfd4144652d035a488f82d75817c681451cb603b3e2b4eed13994cbed54a18ac",
+            "characters": 6473
+          },
+          {
+            "page": 28,
+            "text_sha256": "6473afbe06892bc0afeb39946a814eca1ca9bd01b5fdb46dfcd0338c0d54b51e",
+            "characters": 5837
+          },
+          {
+            "page": 29,
+            "text_sha256": "f11c56d247615b38c213b1673465bd56f76701814edfa60bc1cc8d38c41a6ca6",
+            "characters": 6491
+          },
+          {
+            "page": 30,
+            "text_sha256": "b135edd0905dffaf50220f51f39436d249f5da067a2c14e0ce74dc07b72030a6",
+            "characters": 5154
+          },
+          {
+            "page": 31,
+            "text_sha256": "9796fd9117def8745b01dcc36470894672275af26ab590efe4f89f9c1cb6199b",
+            "characters": 6421
+          },
+          {
+            "page": 32,
+            "text_sha256": "5351563204428413910ba1975e5420bbc3e58fa195a3aa757ae2bd6c1a50f4eb",
+            "characters": 5446
+          },
+          {
+            "page": 33,
+            "text_sha256": "3bbd35baafff1406175113aedd5823e58ffe9a381b8f22ad62fa537f3dc40fcb",
+            "characters": 5621
+          },
+          {
+            "page": 34,
+            "text_sha256": "2db92e8891ce70c964a98d6f55d92f7a543123187e425890431105489e0253f9",
+            "characters": 8047
+          },
+          {
+            "page": 35,
+            "text_sha256": "ffd1ecebcc33c970032109d3131e2329b7876c77be8d6608df07568473f90c65",
+            "characters": 5048
+          },
+          {
+            "page": 36,
+            "text_sha256": "aa9b6cda960e625a723c0949cef493064ab5bf9ad85ce486cb87081dfe51dab2",
+            "characters": 7145
+          },
+          {
+            "page": 37,
+            "text_sha256": "5977ed41b14d2f4c86296b9817a8f6c6b2c8a455c5a22a7d343b730f239e6aea",
+            "characters": 7797
+          },
+          {
+            "page": 38,
+            "text_sha256": "31fbc8be7e9e643ad1dd78338d75df6c33e749ed31efc8aceb084779afbc7382",
+            "characters": 5875
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-f99f0b6e98fff5e6"
+    }
+  ],
+  "research_at": "2026-10-31T16:02:48.119999+00:00",
+  "usage": {
+    "research": {
+      "stages": {
+        "discovery": {
+          "input_tokens": 22208,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 3584
+          },
+          "output_tokens": 5695,
+          "output_tokens_details": {
+            "reasoning_tokens": 1024
+          },
+          "total_tokens": 27903
+        },
+        "sources": null,
+        "reporting": {
+          "input_tokens": 21620,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cached_tokens": 0
+          },
+          "output_tokens": 4136,
+          "output_tokens_details": {
+            "reasoning_tokens": 704
+          },
+          "total_tokens": 25756
+        }
+      }
+    },
+    "audit": [
+      {
+        "input_tokens": 110033,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 1092,
+        "output_tokens_details": {
+          "reasoning_tokens": 960
+        },
+        "total_tokens": 111125
+      }
+    ]
+  },
+  "structured_review": {
+    "schema_version": 1,
+    "edition_date": "2026-10-31",
+    "stage": "structured-review",
+    "candidate_sha256": "4e07dec737a9be5609914dbc7e224f9d566aa20c14bbf36fc11cb2e0a4c7e34f",
+    "review_complete": true,
+    "blocking_count": 0,
+    "advisory_count": 0,
+    "findings": [],
+    "correction_calls": 0,
+    "correction_method": "automated",
+    "publication_authorized": false
+  }
+}

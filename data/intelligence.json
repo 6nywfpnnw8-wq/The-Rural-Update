@@ -682,12 +682,12 @@
     },
     {
       "id": "action-require-post-grant-sustainability",
-      "title": "Require post-grant operating and replacement-capital budgets for any RHTP subaward participation",
+      "title": "Require enforceable post-grant sustainability budgets for any RHTP subaward participation",
       "status": "Open",
       "owner": "strategy/finance",
       "owner_is_suggested": true,
-      "due": "2026-11-25",
-      "next": "Before accepting subaward tasks or hosting new services, insist on a post-grant sustainability section in subaward budgets that documents recurring expenses, staffing, replacement capital and fallback funding.",
+      "due": "2026-11-30",
+      "next": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, replacement capital and fallback funding in the subaward budget.",
       "source": "oklahoma-rhtp-state-implementation"
     },
     {
@@ -719,6 +719,26 @@
       "due": "Ongoing",
       "next": "Quantify revenue tied to provider-tax-funded supplemental payments and run conditional downside cash-flow scenarios assuming CMS finalizes CMS-2452-P; request OHCA statements of intent and exposure data before rebasing budgets.",
       "source": "cms-2452p-provider-tax-risk"
+    },
+    {
+      "id": "action-reconcile-rhc-telehealth",
+      "title": "Reconcile RHC/FQHC distant-site telehealth production claims (DOS 2026-10-01 onward)",
+      "status": "Open",
+      "owner": "Revenue Cycle",
+      "owner_is_suggested": true,
+      "due": "2026-11-07",
+      "next": "Extract representative sample of RHC telehealth claims (DOS 2026-10-01 onward), confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and log payer-specific denials for corrective coding and clearinghouse edits.",
+      "source": "rhc-telehealth-billing"
+    },
+    {
+      "id": "action-model-medicaid-downside",
+      "title": "Model state-level Medicaid downside isolating provider-tax and supplemental-payment exposure",
+      "status": "Open",
+      "owner": "Finance",
+      "owner_is_suggested": true,
+      "due": "Ongoing",
+      "next": "Inventory revenue tied to provider-tax-funded supplemental payments and produce conditional cash-stress scenarios; request OHCA confirmation of state exposure before rebasing operating forecasts.",
+      "source": "medicaid-provider-tax-nprm"
     }
   ],
   "changes": {
@@ -741,5 +761,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-10-28"
+  "reviewed": "2026-10-31"
 }
