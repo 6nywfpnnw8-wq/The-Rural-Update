@@ -200,11 +200,13 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
         plan_identity = digest(bound + digest(json.dumps(documents, sort_keys=True, ensure_ascii=False)))
         saved = _cached(folder / 'plan.json', plan_identity)
         repair_findings = None
+        repair_plan = None
         if saved is not None:
             try:
                 validate_plan(saved['plan'], catalog, documents)
             except CoverageError as coverage_error:
                 repair_findings = coverage_error.coverage_findings
+                repair_plan = copy.deepcopy(saved['plan'])
                 authorization = read_json(Path(cache) / 'coverage-plan-repair-authorized.json')
                 used = Path(cache) / 'coverage-plan-repair-used.json'
                 maximum_repairs = authorization.get('maximum_coverage_plan_repairs') if authorization else None
@@ -256,6 +258,7 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                     'Do not draft the edition or narration. No web searches or new source selection are allowed.'),
                 'input': json.dumps({'editorial_request': context, 'research_notes': discovery['notes'],
                     'prior_coverage_findings': repair_findings,
+                    'prior_coverage_plan': repair_plan,
                     'sources': catalog, 'documents': [{'source_id': d['source_id'],
                         **({'extraction':d['extraction']} if d.get('extraction') else {}),
                         'passages': [{'index': i, 'text': text} for i, text in enumerate(passages(d['text']))]}

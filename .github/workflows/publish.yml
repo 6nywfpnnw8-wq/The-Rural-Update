@@ -172,4 +172,6 @@ jobs:
             .release-cache/*/coverage-plan-repair-used*.json
             .release-cache/*/audit-bound.json
             .release-cache/*/editorial-loop-v1/*.json
+            .release-cache/*/app-pdf-evidence-recovery-v1-used.json
+            .release-cache/*/app-pdf-evidence-recovery-v1/**/*.json
 

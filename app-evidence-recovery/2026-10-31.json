@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-10-31",
+  "method": "app-pdf-evidence-recovery-v1",
+  "maximum_recoveries": 1,
+  "maximum_reporting_plan_requests": 1,
+  "maximum_reporting_requests": 1,
+  "new_discovery_permitted": false,
+  "source_selection_model_requests": 0,
+  "research_counter_reset": false,
+  "independent_editorial_review_required": true,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "failure_run_id": 41193371423,
+  "failure_report_sha256": "70e149c0b2d1e48ecaab7fbef172f1eb336de7fb271b2cd5d76ed034bbd10131",
+  "original_identity": "5cc41481239fb8121b3e91a8af1f2ac08513642d0a126e370467df6ccd804ba9",
+  "discovery_sha256": "ab6da0f58a07aefcdc58fe67aa55c6449008ada0e74e445379ce2fbafd81e591",
+  "sources_sha256": "65d5aadde44516b186a816dfb3c1df489a9f994e00d2dd1b36a4772fc004e2e8",
+  "coverage_evidence_sha256": "99c15411803fe53e3301ee945be26c87fc19d8f2ad3897c937ba21f232b88eeb",
+  "coverage_plan_sha256": "feda7f2e37121461cf6252467e1c21699699f898f99cf06ca419876fe9443f29",
+  "added_sources": [
+    {
+      "id": "src-3236e8cccb97f0d6",
+      "url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+      "title": "CMS MLN Matters MM14468: RHC and FQHC Billing Distant Site Telehealth Services",
+      "published_date": "2026-05-27",
+      "sha256": "f90e3b1f12e8a86cfd8ff1084b7ced237bcf6b35171cf64d9f74130858e6d35c",
+      "text_sha256": "a5af8a086e79d59f06ed02e0ccc977b548ffa0be7f05c54eb34be710748d015a"
+    },
+    {
+      "id": "src-f99f0b6e98fff5e6",
+      "url": "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf",
+      "title": "Medicaid Program: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P)",
+      "published_date": "2026-07-23",
+      "sha256": "945f1d2a0495dd4b32b355b836ff655939429f18c13dfa89d4f51b3a907deed4",
+      "text_sha256": "d85aa774154241e428ffd3fb5733787e127686f3ea8c250d68e2bf41b47bbf3e"
+    }
+  ],
+  "editorial_notes": [
+    "The retained Medicaid financing signal has only the CMS fact sheet. The added Federal Register PDF is the actual CMS-2452-P proposal text. Distinguish enacted statutory dates from proposed implementation details and verify every claim from the retrieved passages.",
+    "The added CMS MLN MM14468 explicitly distinguishes the October 1, 2026 effective date from the October 5 systems implementation date. Verify dates of service in its Key Updates; do not invent a separate October 1-4 coding exception.",
+    "Retained story_5 on cybersecurity cites a provider-tax page footer, which does not support congressional legislation. No congressional bill text is in this reviewed catalog. Replace that story with a distinct material development supported by the retrieved documents, or return insufficient_evidence.",
+    "The retained GENEROUS signal uses an unrelated Oklahoma RHTP source as its second reference. That is not corroboration. Applications are not executed agreements. Keep a supported single-source development as a story if appropriate, and choose a genuinely supported cross-source signal instead of padding references.",
+    "National RHTP award announcements and general state funding pages do not establish recipient-specific contractual terms. Recommendations to verify terms must remain recommendations; do not invent Oklahoma execution or hospital financial effects.",
+    "All five stories and four signals must satisfy the existing evidence rules. The research notes and prior plan are unapproved working material. If the ten retrieved documents cannot support all required slots, return insufficient_evidence and stop."
+  ]
+}

@@ -189,22 +189,29 @@ def research(edition_date,previous,cache):
         diagnostics.validate(edition,validate_edition,'resumed-content',None)
         print('Retained draft resumed for full evidence audit; no new research generation.',flush=True)
     else:
+        payload=research_payload(edition_date,previous)
+        from release_retained_app import prepare_continuation
+        try:
+            app_continuation=prepare_continuation(cache,edition_date,payload,ROOT/'app-evidence-recovery')
+        except Exception as exc:
+            raise diagnostics.fail('app-evidence-resume',exc) from None
         from release_discovery_continuation import requires_bound_cache
         from release_research import ENGINE, _cached, observed_html_urls, observed_source_urls
         observe_sources=observed_source_urls if app_only(edition_date) else observed_html_urls
         bound_continuation=requires_bound_cache(cache,edition_date,ROOT/'repair-authorizations',
                                                ENGINE,_cached,observe_sources)
         ledger=read_json(cache/'attempts.json',{'attempts':0})
-        if bound_continuation or ledger['attempts']>=2:
+        if app_continuation is not None:
+            print('Using reviewed retained discovery and PDF evidence for app reporting; original ledger unchanged.',flush=True)
+        elif bound_continuation or ledger['attempts']>=2:
             from release_research import reserve_corrective_attempt
             if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):
                 raise diagnostics.limit_reached()
             print('Using the date-specific staged-research repair allowance. Original ledger unchanged.',flush=True)
         else:
             ledger['attempts']+=1; write_json(cache/'attempts.json',ledger)
-        payload=research_payload(edition_date,previous)
         try:
-            response=request_api(payload)
+            response=app_continuation(request_api) if app_continuation is not None else request_api(payload)
             assert any(x.get('type')=='web_search_call' for x in response.get('output',[])),'Research did not use web search'
             edition=json.loads(output_text(response))
         except Exception as exc:
