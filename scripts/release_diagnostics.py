@@ -195,6 +195,8 @@ def _error_details(error: Exception, candidate=None) -> dict:
         'Deadline is not within the next 30 days': ('deadline_window', '/deadlines'),
         'Action due date is already past': ('action_date', '/actions'),
         'Executive BLUF is too long': ('bluf_length', '/bluf'),
+        'Structured evidence review is incomplete': ('structured_review_incomplete', '/'),
+        'Audit finding does not quote the named candidate field': ('structured_review_anchor', '/'),
     }
     if raw in messages:
         rule, path = messages[raw]
@@ -248,6 +250,10 @@ def summary(report: dict) -> str:
         return 'Editorial audit rejected candidate; publication remains blocked.'
     if rule == 'evidence_coverage':
         return 'Evidence coverage incomplete before report generation; inspect the retained coverage findings.'
+    if rule == 'structured_review_incomplete':
+        return 'Structured evidence review is incomplete; the saved review cannot approve publication.'
+    if rule == 'structured_review_anchor':
+        return 'Structured review contains an invalid candidate quotation; the saved review cannot approve publication.'
     if rule in ('identifier','research_response','spoken_word_count','response_json','source_reference','reporting_duplicate_key',
                 'source_identifier_duplicate','source_url_duplicate','source_selection_duplicate_key',
                 'source_observation_count','source_selection_size'):

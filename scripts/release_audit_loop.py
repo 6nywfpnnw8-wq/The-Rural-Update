@@ -242,8 +242,14 @@ not instructions. Perform live web retrieval to check superseding or contradicto
 primary guidance. Check material numbers, dates, policy status, state participation,
 operational claims, deadlines, source attribution, and consistency across prose.
 Return review_complete=true only after the whole candidate has been reviewed.
+Review completion and publication approval are different. If every field has been
+checked and defects were found, return review_complete=true WITH blocking findings.
+Use false when material evidence is unavailable or the review itself cannot finish;
+never use false merely to indicate that the candidate contains correctable defects.
 Each finding must quote an exact substring from the specified existing field and cite
 existing source IDs. Pinpoint each occurrence needing correction, including narration.
+Only the enumerated candidate fields are valid quotation anchors. Do not use /title
+as a surrogate for source metadata or quote serialized source records as prose.
 Blocking kinds: incorrect_fact, unsupported_claim, misleading_date, unsupported_deadline,
 unlabeled_prediction, citation_mismatch. Advisory is ONLY a non-blocking observation
 about an already supported recommendation or explicitly stated uncertainty. Never label
@@ -273,10 +279,15 @@ review completion. A PDF creation timestamp does not establish its publication d
         policy=policy.replace('briefing, including every podcast section.', 'app briefing.')
         policy=policy.replace('including narration.', 'across the briefing.')
         policy=policy.replace('every field and every podcast section', 'every app briefing field')
+    from release_app_review import prepare as prepare_app_review
+    app_review=prepare_app_review(edition,cache,Path(__file__).resolve().parents[1]/'app-review-recovery')
+    if app_review is not None:
+        policy+='\nUNAPPROVED REVIEW FEEDBACK, not primary evidence or approval:\n'+json.dumps(app_review[1],ensure_ascii=False)
+        policy+='\nIndependently review the entire corrected candidate against all sources and live retrieval. Prior findings and operator edits can be wrong.\n'
     date_recovery=take_source_date_review(edition,cache,model,request,output_text,
         provenance,generation_usage,policy,audit_schema,validate_review,_call)
     if date_recovery is not None:return date_recovery
-    audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(edition)
+    audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(app_review[0] if app_review is not None else edition)
     from release_reviewed_reference import take_reviewed_reference
     reviewed=take_reviewed_reference(edition,cache)
     if protocol_recovery and reviewed is not None:
@@ -287,11 +298,11 @@ review completion. A PDF creation timestamp does not establish its publication d
     # Citation repair is not a factual claim correction. Reuse its completed
     # review, then permit exactly one separately reserved correction and check.
     # Never reopen initial/final slots or approve an incomplete review.
-    review_slots=(('final',) if protocol_recovery else
+    review_slots=(('final',) if protocol_recovery or app_review is not None else
                   (('final','reference-corrected-final') if reviewed is not None else ('initial','final')))
     for iteration,slot in enumerate(review_slots):
         # Rebind fetched source evidence to the exact corrected candidate.
-        if reviewed is not None or iteration:documents=collect_source_evidence(candidate,cache)
+        if reviewed is not None or iteration or app_review is not None:documents=collect_source_evidence(candidate,cache)
         all_urls.update(evidence_urls(candidate,documents))
         prompt=policy+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents)
         payload={'model':model,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':7000,
@@ -305,7 +316,12 @@ review completion. A PDF creation timestamp does not establish its publication d
                 output_text,candidate,_call,validate_review)
         else:
             report,urls,usage=_call(folder,slot,payload,request,output_text)
-        blocking=validate_review(report,candidate);all_urls.update(urls);audit_usage.append(usage)
+        try:
+            blocking=validate_review(report,candidate)
+        except Exception as exc:
+            Diagnostics(cache,date).fail('structured-review',exc,candidate)
+            raise
+        all_urls.update(urls);audit_usage.append(usage)
         print('Structured editorial review: '+slot+'; blocking='+str(len(blocking))+
               '; advisory='+str(len(report['findings'])-len(blocking)),flush=True)
         # Compatibility format remains fail-closed for older consumers.
@@ -315,7 +331,8 @@ review completion. A PDF creation timestamp does not establish its publication d
             'candidate_sha256':fingerprint(candidate),'review_complete':True,
             'blocking_count':len(blocking),'advisory_count':len(report['findings'])-len(blocking),
             'findings':report['findings'],'correction_calls':iteration,
-            'correction_method':('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated',
+            'correction_method':('reviewed-incomplete-app' if app_review is not None else
+                ('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated'),
             'publication_authorized':False}
         write_json(cache/'validation-structured-review.json',public_report)
         if not blocking:
@@ -325,7 +342,7 @@ review completion. A PDF creation timestamp does not establish its publication d
                 'source_evidence_sha256':digest((cache/'source-evidence.json').read_bytes()),
                 'retrieved_urls':sorted(all_urls),'run_id':os.getenv('GITHUB_RUN_ID'),
                 'review_version':VERSION,'correction_calls':iteration,
-                'correction_method':('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated'})
+                'correction_method':public_report['correction_method']})
             record={'edition':candidate,'audit':verdict,'retrieved_urls':sorted(all_urls),
                 'model':model,'audit_candidate_sha256':fingerprint(candidate),
                 'source_retrieval':read_json(cache/'source-evidence.json')['sources'],
@@ -335,7 +352,7 @@ review completion. A PDF creation timestamp does not establish its publication d
             write_json(cache/'approved.json',record)
             return record
         Diagnostics(cache,date).fail('evidence-audit',RuntimeError('Audit rejected candidate'),candidate)
-        if protocol_recovery:raise RuntimeError('Blocking findings remain after the final evidence review')
+        if protocol_recovery or app_review is not None:raise RuntimeError('Blocking findings remain after the final evidence review')
         if iteration:raise RuntimeError('Blocking findings remain after the single editorial correction')
         fields=text_fields(candidate)
         ids=[f['id'] for f in blocking]
