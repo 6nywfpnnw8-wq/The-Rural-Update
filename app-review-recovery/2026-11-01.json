@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-01",
+  "method": "reviewed-incomplete-app-v1",
+  "maximum_total_audit_requests": 2,
+  "use_existing_slot": "final",
+  "additional_research_generation_calls": 0,
+  "additional_reporting_generation_calls": 0,
+  "additional_correction_generation_calls": 0,
+  "research_counter_reset": false,
+  "podcast_generation_permitted": false,
+  "independent_full_source_review_required": true,
+  "publication_authorized": false,
+  "original_research_attempts": 1,
+  "failure_run_id": 41300332636,
+  "base_candidate_sha256": "53e9efba37a7eb3ed5bd806eea145b0d683ce0b3f0b529eb428c0f7bed2dd4f7",
+  "initial_review_sha256": "ea431fd6e24a9efb55188bf013788743672f495ed7980dca7e1fa014d3f63ca6",
+  "initial_request_sha256": "f2ab6f30ad1e2f04c38d4e6829854a9f67372944c91b67a4ce5e7611c3cc0ebf",
+  "coverage_evidence_file_sha256": "15a4f279a06802bc7e0245a88b2ab80225420102e683a3e72c3aa9668e1ca59f",
+  "coverage_evidence_identity": "06a61a979bc04ecd8068731356ed28c9428e39af1910913d2c1e81f3e3f8da11",
+  "candidate_sha256": "0c4d5e34f08533a9ef8b6dcc69e12cf22bac73af5c8da707099fecf851a5569b",
+  "replacements": [
+    {
+      "path": "/bluf",
+      "before": "Five developments matter now for Oklahoma rural hospitals: (1) Medicare finalized distant-site telehealth billing for RHCs/FQHCs (DOS Oct 1, 2026; systems implementation Oct 5), creating immediate revenue-cycle risk from clearinghouse edits and payer adjudication; reconcile October claims now. (2) CMS proposed rule CMS‑2452‑P would tighten provider-tax hold-harmless thresholds and can reduce state supplemental payments if finalized; isolate provider-tax funded revenue in downside models and seek OHCA confirmation before rebasing budgets. (3) Oklahoma’s RHTP is moving into active subawards and microgrants with documented first-year budgets; require enforceable post-grant sustainability budgets to avoid unfunded recurring costs. (4) CMS announced broad state participation in the GENEROUS Medicaid drug model nationally, but Oklahoma execution and pharmacy/340B effects remain conditional pending OHCA documents. (5) HRSA awarded $89.3M in FY2026 RCORP grants to expand rural SUD treatment, a",
+      "after": "Prioritize October RHC telehealth claims reconciliation and Medicaid financing exposure. CMS's non-behavioral distant-site billing change took effect October 1, 2026, with systems implementation October 5. Provider-tax statutory changes already have effective dates; CMS-2452-P proposes implementing rules, so do not treat all exposure as contingent on finalization. Oklahoma's published RHTP awards warrant project-level funding and sustainability review. Verify Oklahoma's GENEROUS execution and provider guidance before estimating pharmacy effects. HRSA's September RCORP awards and Oklahoma's behavioral health relocation program support review of referral capacity and recruitment opportunities; awards do not establish that services are already available."
+    },
+    {
+      "path": "/sources/3/published_date",
+      "before": "2026-10-09",
+      "after": null
+    },
+    {
+      "path": "/stories/0/title",
+      "before": "RHC/FQHC distant-site telehealth billing change is now final; Oct 1, 2026 DOS and Oct 5 systems implementation create immediate revenue-cycle risk",
+      "after": "RHC/FQHC non-behavioral telehealth: reconcile October claims under the new billing codes"
+    },
+    {
+      "path": "/stories/0/change",
+      "before": "Changed",
+      "after": "Continuing"
+    },
+    {
+      "path": "/stories/0/what_changed",
+      "before": "Medicare transmittal CR14468 (R13776OTN) and MLN MM14468 are final. For dates of service on or after 2026-10-01 RHCs/FQHCs must bill distant-site telehealth using the individual CPT/HCPCS codes plus telehealth modifiers rather than HCPCS G2025; CMS lists a systems implementation date of 2026-10-05. Operationally, clearinghouse edits, modifier logic and payer adjudication will determine actual remittance and denial patterns.",
+      "after": "Continuing watch: CMS MM14468 and CR14468 require individual CPT/HCPCS codes instead of G2025, with appropriate revenue codes and telehealth modifiers, for non-behavioral RHC/FQHC distant-site telehealth services for dates of service on or after October 1, 2026. CMS lists October 5 as the systems implementation date. Behavioral health telehealth payment remains distinct. Review October remittances and denials to establish the actual local effect."
+    },
+    {
+      "path": "/stories/0/why_it_matters",
+      "before": "Rural clinics and hospitals that bill RHC telehealth face immediate revenue-cycle risk. Denials, front-end rejections and clearinghouse edits can defer or reduce cash receipts; production-claims reconciliation for October is the only reliable way to quantify the financial effect.",
+      "after": "The coding change creates a reconciliation priority for non-behavioral RHC telehealth claims. Clearinghouse acceptance, remittances and denial logs should establish the local cash effect; the cited guidance does not establish any hospital-specific loss."
+    },
+    {
+      "path": "/stories/0/executive_question",
+      "before": "Have you reconciled a representative sample of RHC telehealth claims for dates of service Oct 1–Oct 31, confirmed CPT/HCPCS and telehealth modifiers, and logged payer-specific denials for corrective edits?",
+      "after": "Have you reconciled October non-behavioral RHC telehealth claims, checked CPT/HCPCS and modifiers, and separated behavioral health services under their applicable payment rules?"
+    },
+    {
+      "path": "/actions/0/title",
+      "before": "Reconcile RHC distant-site telehealth production claims (DOS Oct 1 onward)",
+      "after": "Reconcile October non-behavioral RHC distant-site telehealth claims"
+    },
+    {
+      "path": "/actions/0/next_step",
+      "before": "Extract a representative sample of RHC telehealth claims with dates of service from 2026-10-01 onward, confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and create a payer-specific denial and exception log for corrective coding and clearinghouse edits.",
+      "after": "Sample non-behavioral RHC distant-site telehealth claims with dates of service on or after October 1, verify CPT/HCPCS, revenue codes and modifiers, and reconcile actual remittances and denials. Review behavioral health telehealth separately under its applicable payment rules."
+    },
+    {
+      "path": "/deadlines/0/title",
+      "before": "Editorial checkpoint: initial RHC telehealth claims reconciliation complete",
+      "after": "Editorial checkpoint: reconcile October non-behavioral RHC telehealth claims"
+    },
+    {
+      "path": "/deadlines/0/description",
+      "before": "Suggested internal editorial checkpoint to complete the representative-sample reconciliation of RHC distant-site telehealth claims (DOS Oct 1 onward) and produce a payer exception log to guide clearinghouse and coding fixes.",
+      "after": "Suggested internal checkpoint to review a representative sample of non-behavioral RHC distant-site telehealth claims for October dates of service and create a payer exception log. This is a recommended management date, not a CMS filing deadline."
+    },
+    {
+      "path": "/signals/1/title",
+      "before": "RHC distant-site telehealth payment execution",
+      "after": "Non-behavioral RHC telehealth billing execution"
+    },
+    {
+      "path": "/signals/1/summary",
+      "before": "CR14468 / Transmittal R13776OTN and MLN MM14468 require RHCs/FQHCs to bill distant-site telehealth by individual CPT/HCPCS codes plus telehealth modifiers for DOS on/after 2026-10-01 with an implementation systems date of 2026-10-05; early claims reconciliation is needed to quantify denials and cash impact.",
+      "after": "CMS MM14468 and the Telehealth FAQ require individual CPT/HCPCS codes and appropriate telehealth modifiers for non-behavioral RHC/FQHC distant-site services beginning October 1, 2026. The separate systems implementation date is October 5. Behavioral health payment rules are distinct."
+    },
+    {
+      "path": "/signals/1/why",
+      "before": "Policy is final for Medicare FFS, but payer EDI edits and clearinghouse logic determine actual payment outcomes; only production claims reconciliation will quantify operational revenue risk.",
+      "after": "Reconcile actual October claims before estimating denial or cash effects. The billing guidance establishes the Medicare requirements; it does not establish local payer performance or financial losses."
+    },
+    {
+      "path": "/stories/1/what_changed",
+      "before": "CMS published NPRM CMS‑2452‑P to amend the indirect hold-harmless threshold for health-care-related taxes and related reporting. The proposal ties permissible tax thresholds to taxes imposed as of July 4, 2025 and phases down thresholds in certain states beginning FFY 2028.",
+      "after": "Section 71115 of Public Law 119-21 establishes statutory provider-tax limits effective October 1, 2026, and a phase-down for expansion states beginning federal fiscal year 2028. CMS-2452-P, published in July, proposes implementing definitions, calculations and reporting requirements. Distinguish these proposed regulations from the statutory changes they implement."
+    },
+    {
+      "path": "/stories/1/why_it_matters",
+      "before": "If finalized as proposed, state supplemental-payment constructs that depend on provider taxes could be reduced or restructured. Facility-level revenue tied to supplemental payments and provider-tax mechanisms is planning-risk exposure; hospitals should isolate these revenue streams in downside models and obtain written OHCA guidance before changing operating forecasts.",
+      "after": "Do not assume statutory exposure waits for final regulations. Identify revenue supported by provider-tax-funded supplemental payments and seek OHCA guidance on Oklahoma's applicable tax classes and transition provisions before estimating facility-level effects."
+    },
+    {
+      "path": "/signals/2/summary",
+      "before": "CMS proposed rule CMS‑2452‑P would amend the indirect hold-harmless threshold for health-care-related taxes and change reporting and calculation rules; facility exposure depends on the final rule and state responses.",
+      "after": "Statutory provider-tax changes have effective dates independent of CMS-2452-P, which proposes implementing definitions, calculations and reporting. CMS identifies October 1, 2026 for new statutory thresholds and a phase-down for expansion states beginning October 1, 2027, federal fiscal year 2028."
+    },
+    {
+      "path": "/signals/2/why",
+      "before": "Until CMS finalizes the rule and Oklahoma publishes implementation choices, hospitals should isolate provider-tax-funded supplemental payments in downside models and seek written OHCA guidance before rebasing budgets.",
+      "after": "Separate existing law from proposed implementation details in financial scenarios. Obtain Oklahoma-specific guidance before estimating hospital-level effects; the retained national sources do not establish a particular facility revenue reduction."
+    },
+    {
+      "path": "/stories/2/what_changed",
+      "before": "Oklahoma has published RHTP program materials, a quick reference guide, first-year progress materials and funding-recipient listings documenting active subaward and microgrant planning and initial budgets for Year 1 funding (state materials list program structure and recipients).",
+      "after": "Oklahoma's September 30 RHTP progress report describes microgrant and regional awards, including projects involving SWOSU and Weatherford Regional Hospital, and identifies October 31 as the start of budget year two. The retained report does not establish the current year-two award, executed terms or completed services for an individual hospital."
+    },
+    {
+      "path": "/signals/0/summary",
+      "before": "Oklahoma RHTP materials, quick-reference guide and state press materials show active subaward and microgrant planning across telehealth, workforce and regional collaboration; project activity is visible but post-grant sustainability remains the governance gap.",
+      "after": "Published RHTP budgets and state award announcements support regional project planning. The September progress report documents awards involving SWOSU and Weatherford Regional Hospital; these materials do not establish that every proposed service is operational or funded beyond its award period."
+    },
+    {
+      "path": "/signals/0/why",
+      "before": "State NOFOs, recipient lists and a first-year progress release document program design and funding recipients; to avoid unfunded operating obligations require enforceable post-grant budgets for subawards and microgrants.",
+      "after": "Review executed subawards, the current funding period, recurring expenses and future revenue before accepting new operating obligations. Requiring a sustainability budget is a governance recommendation, not a verified grant condition."
+    },
+    {
+      "path": "/stories/3/why_it_matters",
+      "before": "GENEROUS changes Medicaid drug pricing mechanics and uses supplemental-rebate structures; state-level executed terms determine whether pharmacy rebate passthroughs, formulary coverage and 340B interactions will alter pharmacy economics for Oklahoma providers. A national announcement alone does not prove Oklahoma execution or operational impact.",
+      "after": "CMS describes supplemental rebates under manufacturer and state agreements. The retained national announcement does not establish Oklahoma execution, MCO instructions or provider-level pharmacy and 340B effects. Obtain state-specific evidence before changing a forecast; do not assume a particular passthrough requirement."
+    },
+    {
+      "path": "/stories/4/change",
+      "before": "New",
+      "after": "Continuing"
+    },
+    {
+      "path": "/stories/4/what_changed",
+      "before": "HRSA announced $89.3 million in FY2026 RCORP awards on Sept 25, 2026 to expand substance-use prevention, treatment and recovery services in rural communities across 45 states and one territory.",
+      "after": "Continuing watch: HRSA announced $89.3 million in RCORP awards on September 25, 2026 to support rural substance-use prevention, treatment and recovery services across 45 states and one territory. This is an earlier funding announcement, not a newly announced November 1 award."
+    },
+    {
+      "path": "/stories/4/why_it_matters",
+      "before": "New RCORP investments expand local SUD treatment and recovery capacity and create near-term referral and care-coordination opportunities for rural hospitals, but hospitals must map referral pathways and integration to realize local capacity gains.",
+      "after": "The awards support service and workforce expansion, but an award does not establish that local capacity is already available. Verify nearby recipients, implementation timing and referral availability before changing ED transfer or outpatient referral pathways."
+    },
+    {
+      "path": "/signals/3/id",
+      "before": "generous-conditional",
+      "after": "rural-behavioral-health-access"
+    },
+    {
+      "path": "/signals/3/title",
+      "before": "GENEROUS model national participation (state-level execution conditional)",
+      "after": "Rural behavioral health recruitment and referral capacity"
+    },
+    {
+      "path": "/signals/3/direction",
+      "before": "Conditional implementation",
+      "after": "Funded expansion; local capacity unverified"
+    },
+    {
+      "path": "/signals/3/summary",
+      "before": "CMS announced broad national participation in the GENEROUS model; Oklahoma-level execution, covered-product lists, MCO passthroughs and 340B interactions require written OHCA implementation documents before projecting local pharmacy or 340B impacts.",
+      "after": "HRSA's September RCORP awards support rural substance-use services and workforce development. Oklahoma HWTC separately describes a rural behavioral health relocation incentive with a five-year service commitment. These are distinct programs; neither source establishes that a specific hospital has received funds or added clinicians."
+    },
+    {
+      "path": "/signals/3/why",
+      "before": "A national press release lists participating states and timelines but does not substitute for state-executed agreements and operational guidance needed to assess provider-level pharmacy economics.",
+      "after": "Assess the two programs separately for recruitment and referral planning. Verify eligibility, awards, service commitments and actual local availability; do not infer immediate staffing gains or guaranteed participation."
+    },
+    {
+      "path": "/signals/3/source_ids",
+      "before": [
+        "src-299e421cf61e682c",
+        "src-cc7888b1e0b22d4c"
+      ],
+      "after": [
+        "src-0f485a8b6532e177",
+        "src-86a66477b02cd1ef"
+      ]
+    }
+  ],
+  "coverage_plan": {
+    "status": "ready",
+    "shortfall": "",
+    "stories": {
+      "story_1": {
+        "id": "rhc-telehealth-billing-change",
+        "title": "RHC/FQHC non-behavioral telehealth: reconcile October claims under the new billing codes",
+        "angle": "Medicare transmittal CR14468 (R13776OTN) and MLN guidance require RHCs/FQHCs to bill individual CPT/HCPCS codes plus telehealth modifiers for distant-site telehealth for dates of service on/after 2026-10-01; transmittal lists implementation systems date 2026-10-05. Operational risk is immediate: clearinghouse edits, modifier logic and payer adjudication will determine real cash impact, so RHCs and",
+        "change": "Continuing",
+        "policy_state": "Final",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": "[PDF page 1 of 3] P age 1 of 3 MM14468 Rural Health Clinics & Federally Qualified Health Centers: Billing Distant Site Telehealth Services Related Change Request (CR) Information Number: 14468 Release Date: May 27, 2026 Effective Date: October 1, 2026 Implementation Date: October 5, 2026 Transmittal Number: R13776OTN Title: Billing of Distant Site Telehealth Services in Rural Health Clinics (RHCs) and Federally Qualified Health Centers (FQHCs) Affected Providers • Rural health clinics (RHCs) • Federally qualified health centers (FQHCs) Action Needed Make sure your billing staff knows that RHCs and FQHCs must bill the individual CPT",
+          "src-0a355f6c88371f14": "paid under the All Inclusive Rate (AIR) and Prospective Payment System (PPS), respectively. Through December 31, 2027, RHCs and FQHCs may continue to bill for non-behavioral health services furnished through [PDF page 2 of 7] telecommunications technology. Through September 30, 2026, RHCs and FQHCs may continue to bill for non-behavioral health services furnished through telecommunications technology by reporting HCPCS code G2025 on the claim. Beginning October 1, 2026, RHCs and FQHCs will bill for these services using the individual Current Procedural Terminology (CPT) or HCPCS codes that describe the distant site telehealth",
+          "src-9315ed0d2cc3ed6e": "R13776OTN Dynamic List Information Dynamic List Data Transmittal # R13776OTN Issue Date 2026-05-27 Subject Billing of Distant Site Telehealth Services in Rural Health Clinics (RHCs) and Federally Qualified Health Centers (FQHCs) Implementation Date 2026-10-05 CR # 14468 Provider Education MLN Matters Article MM14468 Provider Education Release Date 2026-05-27 Publication # 100-20 Transmittal Year 2026 Downloads R13776OTN MM14468 - Rural Health Clinics & Federally Qualified Health Centers: Billing Distant Site Telehealth Services",
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "story_2": {
+        "id": "medicaid-financing-cms-2452-p",
+        "title": "CMS proposed rule (CMS‑2452‑P) on provider taxes creates material state‑finance uncertainty",
+        "angle": "Statutory provider-tax changes have effective dates separate from the proposed CMS-2452-P implementing rule. Verify Oklahoma exposure rather than treating all changes as contingent on final regulations.",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": "Effective October 1, 2026, section 71115 establishes new indirect hold harmless thresholds for health care-related taxes (sometimes referred to as provider taxes) generally based on taxes that were enacted and imposed as of July 4, 2025. New indirect hold harmless thresholds for most permissible classes in States that expanded Medicaid to the adult group begin taking effect on October 1, 2027. This proposed rule would implement the new indirect hold harmless requirements and codify the statutory limits on new and increased health care-related t",
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": "Effective October 1, 2026, the WFTC legislation generally sets the threshold equal to the applicable percent of net patient revenue attributable to taxes imposed as of July 4, 2025. Effective October 1, 2027, the WFTC legislation also requires a phase down of the hold harmless threshold in expansion States. Apart from establishing the new threshold in regulation and proposing related changes and enhancements to existing processes, we propose to sunset a secondary prong to the indirect hold harmless determination to ensure the thresholds determi",
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "story_3": {
+        "id": "oklahoma-rhtp-subawards",
+        "title": "Oklahoma RHTP moves from award design to state subawards and microgrants; post‑grant sustainability is the operational risk",
+        "angle": "Oklahoma RHTP program pages, quick reference guide and a September 30, 2026 state press release document year‑one funding ($223.5M first budget period), program budgets and microgrant recipients; awards and NOFOs signal active subaward planning but require enforceable post‑grant sustainability budgets to avoid unfunded recurring operating costs.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": "Rural Health Transformation Program (RHTP), part of a historic $50 billion federal investment. The program focuses on helping people get the care they need where they live, leading to a healthier, thriving state. Quick-Reference Guide Talking Points to Share in Your Community The RHTP strengthens the entire local health system, so communities have more reliable access to care, emergency response services, and prevention services, without having to travel long distances. Why this matters: • Rural hospitals and clinics are more stable, so communities are less likely to lose essential services. • There is more coordination of care",
+          "src-800eafbf3fe418ed": "Oklahoma Highlights First-Year Progress in Rural Health Transformation Program Tweet PRINT Email Wednesday, September 30, 2026 OKLAHOMA CITY — Governor Kevin Stitt, Commissioner of Health Keith Reed, and SWOSU Rural Health Center Director Dr. Kalie Kerth held a media briefing on September 29, outlining Oklahoma’s progress under the Rural Health Transformation Program (RHTP) and the momentum building in rural communities as a result of the program’s first‑year efforts. The briefing noted Oklahoma’s fifth‑largest award from the Centers for Medicare & Medicaid Services (CMS) and the state’s continued progress to stay on track with CMS",
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": "Behavioral Health Relocation Incentive Expanding Access to Behavioral Health Services in Rural Oklahoma The Oklahoma Health Care Workforce Training Commission (HWTC) is proud to offer the Rural Health Transformation Behavioral Health Relocation Incentive to support licensed behavioral health providers who are willing to relocate and practice in eligible rural Oklahoma communities. This program is designed to strengthen Oklahoma’s behavioral health workforce and improve access to care in underserved rural communities across the state through a five-year service commitment . To meet program requirements, participants must complete"
+        }
+      },
+      "story_4": {
+        "id": "generous-medicaid-conditional",
+        "title": "CMS GENEROUS Medicaid drug‑payment model advanced nationally; Oklahoma execution remains conditional",
+        "angle": "CMS announced broad national participation in GENEROUS and reported 40 states plus Puerto Rico had signed agreements as of Sept 18, 2026; remaining states had a Sept 30, 2026 sign deadline. State-level executed agreements, covered-product lists, MCO passthrough instructions and 340B interactions must be confirmed by OHCA before projecting pharmacy or 340B financial impacts for Oklahoma.",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": "Press Releases Sep 18, 2026 CMS Announces Participants in Landmark Medicaid Drug Payment Model to Bring Down Drug Costs for Most Vulnerable Americans Administration Drug Prices Innovation models Share CMS Announces Participants in Landmark Medicaid Drug Payment Model to Bring Down Drug Costs for Most Vulnerable Americans The Centers for Medicare & Medicaid Services (CMS) is working to end skyrocketing drug costs as the agency announces today that all 50 states, plus the District of Columbia and Puerto Rico, have applied to participate in an initiative which provides most-favored-nation pricing for certain prescription drugs to",
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "story_5": {
+        "id": "rural-sud-rcorp-fy2026",
+        "title": "HRSA FY2026 RCORP awards expand rural SUD treatment capacity",
+        "angle": "Continuing watch on the September 25 HRSA RCORP awards, distinguishing funded expansion from verified local referral capacity.",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": "HRSA Awards Nearly $90 Million to Expand Addiction Treatment and Recovery Services in Rural Communities U.S. Department of Health and Human Services Health Resources and Services Administration For Immediate Release September 25, 2026 HRSA News Room newsroom.hrsa.gov Contact: HRSA PRESS OFFICE Phone: 301-443-7070 Media Inquiries: Submit via this form Investments during National Recovery Month advance President Trump’s Great American Recovery by expanding prevention, treatment, and recovery services in rural America The Health Resources and Services Administration (HRSA) today announced $89.3 million through the Rural Communities",
+          "src-86a66477b02cd1ef": null
+        }
+      }
+    },
+    "signals": {
+      "signal_1": {
+        "id": "regionalization",
+        "title": "rhtp regionalization",
+        "angle": "Active planning: Oklahoma RHTP NOFOs, quick reference and press materials show active subaward and microgrant planning across telehealth, workforce and regional collaboration; post-grant sustainability is the governance gap.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": "Rural Health Transformation Program (RHTP), part of a historic $50 billion federal investment. The program focuses on helping people get the care they need where they live, leading to a healthier, thriving state. Quick-Reference Guide Talking Points to Share in Your Community The RHTP strengthens the entire local health system, so communities have more reliable access to care, emergency response services, and prevention services, without having to travel long distances. Why this matters: • Rural hospitals and clinics are more stable, so communities are less likely to lose essential services. • There is more coordination of care",
+          "src-800eafbf3fe418ed": "Oklahoma Highlights First-Year Progress in Rural Health Transformation Program Tweet PRINT Email Wednesday, September 30, 2026 OKLAHOMA CITY — Governor Kevin Stitt, Commissioner of Health Keith Reed, and SWOSU Rural Health Center Director Dr. Kalie Kerth held a media briefing on September 29, outlining Oklahoma’s progress under the Rural Health Transformation Program (RHTP) and the momentum building in rural communities as a result of the program’s first‑year efforts. The briefing noted Oklahoma’s fifth‑largest award from the Centers for Medicare & Medicaid Services (CMS) and the state’s continued progress to stay on track with CMS",
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "signal_2": {
+        "id": "rhc-telehealth-payment-execution",
+        "title": "Non-behavioral RHC telehealth billing execution",
+        "angle": "Implementation watch: CR14468/Transmittal R13776OTN and MLN MM14468 make CPT/HCPCS + telehealth modifiers mandatory for RHC/FQHC distant-site telehealth DOS on/after 2026-10-01 with system implementation noted 2026-10-05; payer EDI handling will determine actual payment outcomes—reconcile early October claims.",
+        "change": "Changed",
+        "policy_state": "Final",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": "[PDF page 1 of 3] P age 1 of 3 MM14468 Rural Health Clinics & Federally Qualified Health Centers: Billing Distant Site Telehealth Services Related Change Request (CR) Information Number: 14468 Release Date: May 27, 2026 Effective Date: October 1, 2026 Implementation Date: October 5, 2026 Transmittal Number: R13776OTN Title: Billing of Distant Site Telehealth Services in Rural Health Clinics (RHCs) and Federally Qualified Health Centers (FQHCs) Affected Providers • Rural health clinics (RHCs) • Federally qualified health centers (FQHCs) Action Needed Make sure your billing staff knows that RHCs and FQHCs must bill the individual CPT",
+          "src-0a355f6c88371f14": "paid under the All Inclusive Rate (AIR) and Prospective Payment System (PPS), respectively. Through December 31, 2027, RHCs and FQHCs may continue to bill for non-behavioral health services furnished through [PDF page 2 of 7] telecommunications technology. Through September 30, 2026, RHCs and FQHCs may continue to bill for non-behavioral health services furnished through telecommunications technology by reporting HCPCS code G2025 on the claim. Beginning October 1, 2026, RHCs and FQHCs will bill for these services using the individual Current Procedural Terminology (CPT) or HCPCS codes that describe the distant site telehealth",
+          "src-9315ed0d2cc3ed6e": "R13776OTN Dynamic List Information Dynamic List Data Transmittal # R13776OTN Issue Date 2026-05-27 Subject Billing of Distant Site Telehealth Services in Rural Health Clinics (RHCs) and Federally Qualified Health Centers (FQHCs) Implementation Date 2026-10-05 CR # 14468 Provider Education MLN Matters Article MM14468 Provider Education Release Date 2026-05-27 Publication # 100-20 Transmittal Year 2026 Downloads R13776OTN MM14468 - Rural Health Clinics & Federally Qualified Health Centers: Billing Distant Site Telehealth Services",
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "signal_3": {
+        "id": "medicaid-financing",
+        "title": "medicaid financing pressure from provider-tax proposal",
+        "angle": "Provider-tax statutes and proposed implementing rules require separate analysis; no hospital-level effect is established by these national sources.",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": "Fact Sheets Jul 21, 2026 Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes Proposed Rule (CMS-2452-P) Medicaid & CHIP Share Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes Proposed Rule (CMS-2452-P) On July 21, 2026, the Centers for Medicare & Medicaid Services (CMS) published a Notice of Proposed Rulemaking (NPRM) to implement section 71115 of Public Law 119-21, which CMS refers to as the “Working Families Tax Cut (WFTC) legislation.” Effective October 1, 2026, section 71115 establishes new indirect hold harmless thresholds for health care-related taxes (sometimes referred to as",
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": "[PDF page 1 of 38] 46562 Federal Register / Vol. 91, No. 140 / Thursday, July 23, 2026 / Proposed Rules 1 The fiscal year 2027 FMAP rates were published in the Federal Register on November 28, 2025: https://www.federalregister.gov/documents/2025/ 11/28/2025-21332/federal-financial-participation- in-state-assistance-expenditures-federal-matching- shares-for . See the Medicaid and CHIP Payment and Access Commission’s (MACPAC) list of ‘‘Federal Match Rate Exceptions’’ for a comprehensive list of higher FMAPs at https:// www.macpac.gov/federal-match-rate-exceptions/. DEPARTMENT OF HEALTH AND HUMAN SERVICES Centers for Medicare &",
+          "src-0f485a8b6532e177": null,
+          "src-86a66477b02cd1ef": null
+        }
+      },
+      "signal_4": {
+        "id": "rural-behavioral-health-access",
+        "title": "Rural behavioral health recruitment and referral capacity",
+        "angle": "Separate federal RCORP investments and Oklahoma behavioral health recruitment incentives warrant verification of local referral and staffing opportunities; awards do not prove available capacity.",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-800eafbf3fe418ed": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-0a355f6c88371f14": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-f99f0b6e98fff5e6": null,
+          "src-0f485a8b6532e177": "$62.7 million for RCORP-Impact to expand access to integrated and coordinated substance use disorder treatment and recovery services. Award recipients will strengthen evidence-based services, build the rural substance use disorder workforce, coordinate health and supportive services, and develop community networks to support sustained recovery. $12.6 million for RCORP-Overdose Response to help rural communities address immediate substance use disorder needs, reduce the risk of overdose, and strengthen access to prevention, treatment, and recove",
+          "src-86a66477b02cd1ef": "Rural Health Transformation Behavioral Health Relocation Incentive to support licensed behavioral health providers who are willing to relocate and practice in eligible rural Oklahoma communities. This program is designed to strengthen Oklahoma’s behavioral health workforce and improve access to care in underserved rural communities across the state through a five-year service commitment . To meet program requirements, participants must complete their fifth and final year of service no later than August 31, 2032. Program Overview Eligible behavi"
+        }
+      }
+    }
+  },
+  "editorial_notes": [
+    "The initial provider response completed, but its review_complete flag was false. Its four findings are unapproved feedback, and two metadata findings quote serialized source records at /title rather than actual candidate prose. Do not accept those assertions as evidence.",
+    "The original BLUF was exactly 1000 characters and ended mid-sentence. The reviewed replacement is complete and within the existing limit. It still needs independent factual review.",
+    "The retained CMS Telehealth FAQ header says Updated 10/8/26, while its filename contains 10-09-2026. Neither establishes the initial publication date. The source published_date is null under the existing date-role contract. The Oklahoma guide and HWTC update timestamps likewise do not establish initial publication dates; retain null unless that initial date is independently verified.",
+    "Check the scope of non-behavioral RHC/FQHC distant-site billing against the CMS FAQ and MM14468. Do not merge behavioral health payment rules or October 1 dates of service with October 5 systems implementation.",
+    "Check statutory provider-tax effective dates separately from proposed CMS-2452-P implementation provisions. A pending regulation does not make an enacted statutory limit merely conditional.",
+    "The old GENEROUS signal padded corroboration with an unrelated provider-tax citation. The derived fourth signal instead compares separate HRSA RCORP and Oklahoma HWTC behavioral health capacity programs, with exact anchors for each retained source. GENEROUS remains a single-source continuing story with Oklahoma and provider effects unverified.",
+    "Older announcements are continuing watches, not new November 1 developments. Verify all policy and participation statements against current primary guidance, including superseding information. Earlier national announcements do not establish current Oklahoma execution or local financial effects.",
+    "The derived coverage plan passes the unchanged coverage validator. This verifies structure and exact passage occurrence, not semantic truth. Every claim, reference, number, date, recommendation premise and signal still requires the independent full-source audit. Any unresolved material finding must block publication."
+  ]
+}
