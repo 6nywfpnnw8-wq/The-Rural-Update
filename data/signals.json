@@ -2,52 +2,44 @@
   {
     "direction": "Active planning",
     "confidence": "High",
-    "horizon": "1-5 years",
+    "horizon": "1–5 years",
     "executiveRisk": "Opportunity",
-    "summary": "RHTP regionalization: Oklahoma’s RHTP pages, NOFOs, microgrant guidance and recipient lists show active subaward planning and county-collaborative events, indicating near-term project activity across telehealth, workforce and technology co-op efforts.",
-    "why": "Subawards can seed access and technology projects but require enforceable post-grant sustainability budgeting to avoid creating unfunded recurring obligations for hospitals and clinics.",
+    "summary": "Published RHTP budgets and state award announcements support regional project planning. The September progress report documents awards involving SWOSU and Weatherford Regional Hospital; these materials do not establish that every proposed service is operational or funded beyond its award period.",
+    "why": "Review executed subawards, the current funding period, recurring expenses and future revenue before accepting new operating obligations. Requiring a sustainability budget is a governance recommendation, not a verified grant condition.",
     "id": "regionalization",
     "title": "rhtp regionalization",
     "refs": [
       [
-        "Oklahoma.gov - Rural Health Transformation Program",
-        "https://oklahoma.gov/rhtp.html"
+        "RHTP Quick Reference Guide (Oklahoma)",
+        "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf"
       ],
       [
-        "Oklahoma RHTP - Funding Recipients",
-        "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html"
-      ],
-      [
-        "Oklahoma RHTP - Funding",
-        "https://oklahoma.gov/rhtp/rhtp-funding.html"
-      ],
-      [
-        "CMS Announces $50 Billion Awards to Strengthen Rural Health in All 50 States",
-        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
+        "Oklahoma Highlights First-Year Progress in Rural Health Transformation Program",
+        "https://oklahoma.gov/health/news---events/newsroom/2026/rural-health-progress.html"
       ]
     ],
-    "reviewed": "2026-10-31"
+    "reviewed": "2026-11-01"
   },
   {
     "direction": "Down",
     "confidence": "High",
-    "horizon": "12-48 months",
+    "horizon": "12–48 months",
     "executiveRisk": "High",
-    "summary": "Planning risk: CMS-2452-P (NPRM) would change the indirect hold-harmless threshold for health-care-related taxes and describes proposed reporting and calculation rules; facility exposure depends on how CMS finalizes thresholds and how states respond.",
-    "why": "Until CMS issues a final rule and states publish implementation choices, hospitals should isolate provider-tax-funded supplemental payments in downside models and obtain OHCA confirmation before adjusting forecasts.",
+    "summary": "Statutory provider-tax changes have effective dates independent of CMS-2452-P, which proposes implementing definitions, calculations and reporting. CMS identifies October 1, 2026 for new statutory thresholds and a phase-down for expansion states beginning October 1, 2027, federal fiscal year 2028.",
+    "why": "Separate existing law from proposed implementation details in financial scenarios. Obtain Oklahoma-specific guidance before estimating hospital-level effects; the retained national sources do not establish a particular facility revenue reduction.",
     "id": "medicaid-financing",
     "title": "medicaid financing pressure from provider-tax proposal",
     "refs": [
       [
-        "CMS Fact Sheet: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (Proposed Rule CMS-2452-P)",
+        "Fact Sheet: Amending Indirect Hold‑Harmless Threshold & Health‑Care‑Related Taxes (CMS‑2452‑P)",
         "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ],
       [
-        "Medicaid Program: Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P)",
+        "Medicaid Program; Amending Indirect Hold‑Harmless Threshold - Proposed Rule (Federal Register PDF, CMS‑2452‑P)",
         "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf"
       ]
     ],
-    "reviewed": "2026-10-31"
+    "reviewed": "2026-11-01"
   },
   {
     "id": "rhc-sustainability",
@@ -332,23 +324,27 @@
   {
     "direction": "Down",
     "confidence": "High",
-    "horizon": "0-3 months",
+    "horizon": "0–3 months",
     "executiveRisk": "High",
-    "summary": "Implementation watch: Transmittal R13776OTN and CMS FQHC/RHC guidance require RHCs/FQHCs to bill distant-site telehealth by CPT/HCPCS plus telehealth modifiers for DOS on/after 2026-10-01; the transmittal lists an implementation systems date of 2026-10-05. Immediate claims reconciliation is required to quantify denials and cash impact.",
-    "why": "Policy is final for Medicare FFS, but clearinghouse and payer edits determine actual payment outcomes. Operational reconciliation will show the real-dollar effects across payers and clearinghouses and guide necessary coding or EDI fixes.",
+    "summary": "CMS MM14468 and the Telehealth FAQ require individual CPT/HCPCS codes and appropriate telehealth modifiers for non-behavioral RHC/FQHC distant-site services beginning October 1, 2026. The separate systems implementation date is October 5. Behavioral health payment rules are distinct.",
+    "why": "Reconcile actual October claims before estimating denial or cash effects. The billing guidance establishes the Medicare requirements; it does not establish local payer performance or financial losses.",
     "id": "rhc-telehealth-payment-execution",
-    "title": "RHC distant-site telehealth payment execution",
+    "title": "Non-behavioral RHC telehealth billing execution",
     "refs": [
       [
-        "FQHC & RHC News and Announcements (telehealth guidance)",
-        "https://www.cms.gov/fqhc-rhc-news-announcements"
+        "MM14468: Rural Health Clinics & Federally Qualified Health Centers - Billing Distant Site Telehealth (MLN Matters)",
+        "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf"
       ],
       [
-        "Transmittal R13776OTN (Billing of Distant Site Telehealth Services in RHCs and FQHCs)",
+        "Telehealth Frequently Asked Questions (updated)",
+        "https://www.cms.gov/files/document/telehealth-faq-updated-10-09-2026.pdf"
+      ],
+      [
+        "Transmittal R13776OTN (Medicare) - Implementation of CR14468 (RHC/FQHC distant-site telehealth billing)",
         "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
       ]
     ],
-    "reviewed": "2026-10-28"
+    "reviewed": "2026-11-01"
   },
   {
     "direction": "Neutral",
@@ -449,5 +445,26 @@
       ]
     ],
     "reviewed": "2026-10-31"
+  },
+  {
+    "direction": "Funded expansion; local capacity unverified",
+    "confidence": "Medium",
+    "horizon": "3–12 months",
+    "executiveRisk": "Moderate",
+    "summary": "HRSA's September RCORP awards support rural substance-use services and workforce development. Oklahoma HWTC separately describes a rural behavioral health relocation incentive with a five-year service commitment. These are distinct programs; neither source establishes that a specific hospital has received funds or added clinicians.",
+    "why": "Assess the two programs separately for recruitment and referral planning. Verify eligibility, awards, service commitments and actual local availability; do not infer immediate staffing gains or guaranteed participation.",
+    "id": "rural-behavioral-health-access",
+    "title": "Rural behavioral health recruitment and referral capacity",
+    "refs": [
+      [
+        "HRSA Announces FY2026 RCORP Awards to Expand Addiction Treatment and Recovery in Rural Communities",
+        "https://www.hrsa.gov/about/news/press-releases/expand-addiction-treatment-and-recovery-rural-communities"
+      ],
+      [
+        "Oklahoma Rural Health Transformation Program (RHTP) - Main Page",
+        "https://www.oklahoma.gov/hwtc/rural-health-transformation-program.html"
+      ]
+    ],
+    "reviewed": "2026-11-01"
   }
 ]
