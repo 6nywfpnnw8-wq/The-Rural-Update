@@ -6,6 +6,7 @@ import unittest
 import urllib.error
 import wave
 from pathlib import Path
+from datetime import datetime, timezone
 from unittest.mock import Mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ops"))
@@ -131,6 +132,85 @@ class CredentialAccessTests(unittest.TestCase):
         with self.assertRaises(access.CheckFailure):
             access.Client("synthetic").post("https://example.invalid/", {})
 
+    def test_current_account_limit_codes_are_preserved_without_error_prose(self):
+        for code in ("credit_balance_exhausted", "organization_spend_limit_exceeded",
+                     "project_spend_limit_exceeded", "organization_usage_limit_exceeded"):
+            error = urllib.error.HTTPError("https://api.openai.com/v1/responses", 429,
+                "private error prose", {}, io.BytesIO(json.dumps({"error":{
+                    "code":code,"type":"insufficient_quota","message":"synthetic-private-key"}}).encode()))
+            with self.subTest(code=code):
+                parsed = access.safe_http_failure(error)
+                client = Mock();client.post.side_effect = parsed
+                report = access.run_check(client, "gpt-5-mini", include_audio=False)
+                check = report["checks"][0]
+                self.assertEqual(check["provider_code"], code)
+                self.assertEqual(check["provider_type"], "insufficient_quota")
+                self.assertFalse(check["retryable"])
+                self.assertEqual(client.post.call_count, 1)
+                self.assertNotIn("synthetic-private-key", json.dumps(report))
+
+    def test_rate_limit_retains_numeric_server_delay_without_retrying(self):
+        error = urllib.error.HTTPError("https://api.openai.com/v1/responses", 429,
+            "ignored", {"Retry-After":"56"}, io.BytesIO(
+                b'{"error":{"code":"slow_down","type":"rate_limit_error"}}'))
+        client = access.Client("synthetic")
+        client._opener = Mock();client._opener.open.side_effect = error
+        report = access.run_check(client, "gpt-5-mini", include_audio=False)
+        check = report["checks"][0]
+        self.assertEqual(check["provider_code"], "slow_down")
+        self.assertEqual(check["retry_after_seconds"], 56)
+        self.assertTrue(check["retryable"])
+        self.assertEqual(check["recovery_action"], "wait_and_reduce_request_rate")
+        self.assertEqual(client._opener.open.call_count, 1)
+
+    def test_retry_after_http_date_is_reported_as_seconds(self):
+        now = datetime(2026,11,1,16,0,tzinfo=timezone.utc)
+        self.assertEqual(access.retry_after_seconds("Sun, 01 Nov 2026 16:01:30 GMT", now),90)
+        self.assertEqual(access.retry_after_seconds("Sun, 01 Nov 2026 15:59:30 GMT", now),0)
+
+    def test_malformed_retry_headers_are_not_echoed(self):
+        for value in (None,"","-1","1.5","synthetic-private-key","9999999999999999"):
+            with self.subTest(value=value):self.assertIsNone(access.retry_after_seconds(value))
+
+    def test_unknown_429_is_not_assumed_to_be_a_temporary_rate_limit(self):
+        error = access.CheckFailure("provider_http_error",429)
+        detail = access.recovery_details(error)
+        self.assertIsNone(detail["retryable"])
+        self.assertIsNone(detail["provider_code"])
+        self.assertEqual(detail["recovery_action"],"inspect_provider_condition")
+
+    def test_quota_type_remains_actionable_when_code_is_unknown(self):
+        error = access.CheckFailure("provider_http_error",429,error_type="insufficient_quota")
+        detail = access.recovery_details(error)
+        self.assertFalse(detail["retryable"])
+        self.assertEqual(detail["recovery_action"],"review_api_credits_and_limits")
+
+    def test_quota_condition_does_not_become_retryable_from_a_header(self):
+        error = access.CheckFailure("provider_http_error",429,"credit_balance_exhausted",
+            error_type="insufficient_quota",retry_after_seconds=60)
+        self.assertFalse(access.recovery_details(error)["retryable"])
+
+    def test_unknown_error_types_and_headers_are_not_exposed(self):
+        error = urllib.error.HTTPError("https://api.openai.com/v1/responses",429,
+            "ignored",{"Retry-After":"synthetic-private-header"},io.BytesIO(
+                b'{"error":{"code":"synthetic-private-code","type":"synthetic-private-type"}}'))
+        detail = access.recovery_details(access.safe_http_failure(error))
+        self.assertNotIn("synthetic-private",json.dumps(detail))
+        self.assertNotIn("provider_type",detail)
+        self.assertNotIn("retry_after_seconds",detail)
+
+    def test_temporary_overload_is_distinct_from_account_limits(self):
+        error = access.CheckFailure("provider_http_error",503,"server_is_overloaded",
+            error_type="service_unavailable_error")
+        self.assertEqual(access.recovery_details(error)["recovery_action"],"wait_for_provider_capacity")
+        self.assertTrue(access.recovery_details(error)["retryable"])
+
+    def test_authentication_errors_remain_distinct_from_limits(self):
+        error = access.CheckFailure("provider_http_error",401,"invalid_api_key")
+        self.assertEqual(access.recovery_details(error)["recovery_action"],"check_api_credentials")
+        self.assertFalse(access.recovery_details(error)["retryable"])
+
 
 if __name__ == "__main__":
     unittest.main()
+
