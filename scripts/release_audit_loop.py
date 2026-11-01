@@ -67,9 +67,12 @@ def editable(path):
             and parts[2] in FIELDS[parts[0]])
 
 
-def audit_schema(edition):
+def audit_schema(edition, readonly_metadata=False):
     # The reviewer must name actual prose, rather than invent a field or a source.
-    paths = sorted(text_fields(edition))
+    if readonly_metadata:
+        from release_field_review import fields
+        paths=sorted(fields(edition))
+    else:paths = sorted(text_fields(edition))
     refs = [s['id'] for s in edition['sources']]
     finding = obj(id=S, kind={'type':'string','enum':KINDS},
                   path={'type':'string','enum':paths}, quote=S,
@@ -78,11 +81,15 @@ def audit_schema(edition):
     return obj(review_complete={'type':'boolean'}, findings=arr(finding,0,24))
 
 
-def validate_review(report, edition):
-    Draft202012Validator(audit_schema(edition)).validate(report)
+def validate_review(report, edition, readonly_metadata=False):
+    Draft202012Validator(audit_schema(edition,readonly_metadata)).validate(report)
     if report['review_complete'] is not True:
         raise RuntimeError('Structured evidence review is incomplete')
-    fields=text_fields(edition);ids=set()
+    if readonly_metadata:
+        from release_field_review import fields as review_fields
+        fields=review_fields(edition)
+    else:fields=text_fields(edition)
+    ids=set()
     for finding in report['findings']:
         # Internal opaque labels are used only as exact references, never paths.
         # Accept safe case and underscore variants without rewriting or merging IDs.
@@ -109,7 +116,7 @@ def validate_review(report, edition):
 
 
 def apply_replacements(edition, report, plan):
-    blocking=validate_review(report,edition);known={f['id'] for f in blocking}
+    blocking=validate_review(report,edition,readonly_metadata=True);known={f['id'] for f in blocking}
     fields=text_fields(edition)
     patch_schema=obj(replacements=arr(obj(path={'type':'string','enum':sorted(fields)},
         before=S, after=S, addresses=arr({'type':'string','enum':sorted(known)},1,24)),1,24))
@@ -282,6 +289,11 @@ review completion. A PDF creation timestamp does not establish its publication d
     from release_app_review import prepare as prepare_app_review
     app_review=prepare_app_review(edition,cache,Path(__file__).resolve().parents[1]/'app-review-recovery')
     if app_review is not None:
+        from release_field_review import take_protocol_recovery
+        repaired_review=take_protocol_recovery(edition,app_review[0],cache,
+            Path(__file__).resolve().parents[1]/'field-review-recovery',model,request,
+            output_text,provenance,generation_usage)
+        if repaired_review is not None:return repaired_review
         policy+='\nUNAPPROVED REVIEW FEEDBACK, not primary evidence or approval:\n'+json.dumps(app_review[1],ensure_ascii=False)
         policy+='\nIndependently review the entire corrected candidate against all sources and live retrieval. Prior findings and operator edits can be wrong.\n'
     date_recovery=take_source_date_review(edition,cache,model,request,output_text,
@@ -310,6 +322,11 @@ review completion. A PDF creation timestamp does not establish its publication d
             'tool_choice':'required','include':['web_search_call.action.sources'],'input':prompt,
             'text':{'format':{'type':'json_schema','name':'editorial_audit_structured','strict':True,
                             'schema':audit_schema(candidate)}}}
+        fixed_fields=(app_only(date) and date>='2026-11-02' and app_review is None
+                      and reviewed is None and not protocol_recovery)
+        if fixed_fields:
+            from release_field_review import make_payload
+            payload=make_payload(candidate,documents,model)
         if reviewed is not None and slot=='final':
             from release_rejected_review import call_with_rejected_feedback
             report,urls,usage=call_with_rejected_feedback(folder,slot,payload,request,
@@ -317,7 +334,11 @@ review completion. A PDF creation timestamp does not establish its publication d
         else:
             report,urls,usage=_call(folder,slot,payload,request,output_text)
         try:
-            blocking=validate_review(report,candidate)
+            if fixed_fields:
+                from release_field_review import compile_review
+                report=compile_review(report,candidate)
+            blocking=(validate_review(report,candidate,readonly_metadata=True)
+                      if fixed_fields else validate_review(report,candidate))
         except Exception as exc:
             Diagnostics(cache,date).fail('structured-review',exc,candidate)
             raise
@@ -354,6 +375,8 @@ review completion. A PDF creation timestamp does not establish its publication d
         Diagnostics(cache,date).fail('evidence-audit',RuntimeError('Audit rejected candidate'),candidate)
         if protocol_recovery or app_review is not None:raise RuntimeError('Blocking findings remain after the final evidence review')
         if iteration:raise RuntimeError('Blocking findings remain after the single editorial correction')
+        if any(not editable(f['path']) for f in blocking):
+            raise RuntimeError('Blocking source metadata requires an explicitly reviewed correction')
         fields=text_fields(candidate)
         ids=[f['id'] for f in blocking]
         patch_schema=obj(replacements=arr(obj(path={'type':'string','enum':sorted(fields)},

@@ -166,6 +166,7 @@ jobs:
           files.append(root/'source-text-cache.json')
           files.append(root/'audit-protocol-recovery-used.json')
           files.append(root/'reviewed-incomplete-app-v1-used.json')
+          files.extend((root/'fixed-field-review-v2').glob('*.json'))
           files.extend((root/'section-candidates').glob('*.json'))
           files.extend((folder/'sectioned-narration-v1').glob('*/*.json'))
           inventory=[];total=0

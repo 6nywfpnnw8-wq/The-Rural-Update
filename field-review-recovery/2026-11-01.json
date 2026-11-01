@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-01",
+  "method": "fixed-field-review-v2",
+  "maximum_total_audit_requests": 3,
+  "maximum_protocol_repair_requests": 1,
+  "additional_research_generation_calls": 0,
+  "additional_reporting_generation_calls": 0,
+  "additional_correction_generation_calls": 0,
+  "research_counter_reset": false,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "failure_run_id": 41321241049,
+  "base_candidate_sha256": "53e9efba37a7eb3ed5bd806eea145b0d683ce0b3f0b529eb428c0f7bed2dd4f7",
+  "candidate_sha256": "0c4d5e34f08533a9ef8b6dcc69e12cf22bac73af5c8da707099fecf851a5569b",
+  "malformed_review_sha256": "3e7e05320817e385617957ae759fabf69e3545a5e9704edf712e8b6c8a2dbcf6",
+  "malformed_request_sha256": "475c06b563c6d93101f6ac5ce30705844d694ca91d7db17c4ae1f5e7a022434b"
+}

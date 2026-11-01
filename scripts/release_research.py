@@ -19,7 +19,7 @@ from release_diagnostics import redact
 from release_coverage_plan import ensure_reporting_plan
 
 ENGINE = 'staged-research-v3'
-STAGES = {'discovery', 'sources', 'reporting_plan', 'reporting', 'narration', 'editorial_audit',
+STAGES = {'discovery', 'sources', 'reporting_plan', 'reporting', 'narration', 'editorial_audit','editorial_audit_fields',
           'rural_update_narration', 'narration_section', 'other'}
 STATUS = {'completed','incomplete','failed','cancelled','queued','in_progress'}
 REASONS = {'max_output_tokens','max_messages','content_filter','steered'}
