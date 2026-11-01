@@ -7,6 +7,7 @@ bodies are never retained in artifacts or logs.
 from __future__ import annotations
 import io
 import json
+import math
 import os
 import re
 import sys
@@ -15,6 +16,7 @@ import urllib.request
 import uuid
 import wave
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 BASE = "https://api.openai.com/v1/"
@@ -23,6 +25,20 @@ SAFE_CODES = {
     "invalid_api_key", "insufficient_quota", "rate_limit_exceeded",
     "model_not_found", "permission_denied", "account_deactivated",
     "billing_hard_limit_reached", "invalid_request_error",
+    "credit_balance_exhausted", "organization_spend_limit_exceeded",
+    "project_spend_limit_exceeded", "organization_usage_limit_exceeded",
+    "slow_down", "server_is_overloaded",
+}
+SAFE_TYPES = {"insufficient_quota", "rate_limit_error", "service_unavailable_error",
+              "server_error", "invalid_request_error", "authentication_error",
+              "permission_error"}
+ACCOUNT_ACTIONS = {
+    "credit_balance_exhausted": "restore_api_credits",
+    "organization_spend_limit_exceeded": "review_organization_spend_limit",
+    "project_spend_limit_exceeded": "review_project_spend_limit",
+    "organization_usage_limit_exceeded": "review_organization_usage_limit",
+    "insufficient_quota": "review_api_credits_and_limits",
+    "billing_hard_limit_reached": "review_api_credits_and_limits",
 }
 MODELS = {
     "research": "gpt-5-mini",
@@ -32,9 +48,59 @@ MODELS = {
 
 
 class CheckFailure(Exception):
-    def __init__(self, reason, status=None, code=None):
+    def __init__(self, reason, status=None, code=None, *, error_type=None, retry_after_seconds=None):
         super().__init__(reason)
         self.reason, self.status, self.code = reason, status, code
+        self.error_type, self.retry_after_seconds = error_type, retry_after_seconds
+
+
+def retry_after_seconds(value, now=None):
+    """Retain a numeric delay only; never echo an arbitrary response header."""
+    if not isinstance(value, str) or len(value) > 128:
+        return None
+    value = value.strip()
+    try:
+        if re.fullmatch(r"[0-9]{1,10}", value):
+            seconds = int(value)
+        else:
+            stamp = parsedate_to_datetime(value)
+            if stamp.tzinfo is None:
+                return None
+            seconds = max(0, math.ceil((stamp - (now or datetime.now(timezone.utc))).total_seconds()))
+        return seconds if 0 <= seconds <= 2147483647 else None
+    except (ValueError, TypeError, OverflowError):
+        return None
+
+
+def recovery_details(error):
+    """Differentiate known account limits and temporary errors without retrying."""
+    code = error.code if isinstance(error.code, str) and error.code in SAFE_CODES else None
+    kind = error.error_type if isinstance(error.error_type, str) and error.error_type in SAFE_TYPES else None
+    if code in ACCOUNT_ACTIONS:
+        action, retryable = ACCOUNT_ACTIONS[code], False
+    elif code == "invalid_api_key" or error.status == 401:
+        action, retryable = "check_api_credentials", False
+    elif code == "permission_denied" or error.status == 403:
+        action, retryable = "review_api_permissions", False
+    elif code == "model_not_found":
+        action, retryable = "review_model_access", False
+    elif code == "account_deactivated":
+        action, retryable = "review_account_status", False
+    elif error.status == 429 and kind == "insufficient_quota":
+        action, retryable = "review_api_credits_and_limits", False
+    elif error.status == 429 and (code in {"rate_limit_exceeded", "slow_down"} or kind == "rate_limit_error"):
+        action, retryable = "wait_and_reduce_request_rate", True
+    elif error.status == 503 and (code == "server_is_overloaded" or kind == "service_unavailable_error"):
+        action, retryable = "wait_for_provider_capacity", True
+    else:
+        action, retryable = "inspect_provider_condition", None
+    details = {"provider_code": code, "recovery_action": action, "retryable": retryable}
+    if kind is not None:
+        details["provider_type"] = kind
+    delay = error.retry_after_seconds
+    if type(delay) is int and 0 <= delay <= 2147483647:
+        details["retry_after_seconds"] = delay
+    return details
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -43,15 +109,20 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def safe_http_failure(error):
-    code = None
+    code = kind = None
     try:
         payload = json.loads(error.read(65536))
         supplied = (payload.get("error") or {}).get("code")
         if supplied in SAFE_CODES:
             code = supplied
+        supplied_type = (payload.get("error") or {}).get("type")
+        if supplied_type in SAFE_TYPES:
+            kind = supplied_type
     except Exception:
         pass
-    return CheckFailure("provider_http_error", int(error.code), code)
+    delay = retry_after_seconds(error.headers.get("Retry-After")) if error.headers else None
+    return CheckFailure("provider_http_error", int(error.code), code,
+                        error_type=kind, retry_after_seconds=delay)
 
 
 class Client:
@@ -168,7 +239,7 @@ def run_check(client, model, include_audio=True):
         report["checks"].append({"stage": stage, "passed": False,
                                  "reason": error.reason,
                                  "http_status": error.status,
-                                 "provider_code": error.code})
+                                 **recovery_details(error)})
     except Exception:
         # Never stringify arbitrary exceptions or response bodies.
         report["checks"].append({"stage": stage, "passed": False,

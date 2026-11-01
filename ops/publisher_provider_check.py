@@ -17,6 +17,20 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from release_publication import app_only, app_required_paths, complete_app_manifest
 REPORT = "credential-check-report.json"
 STAGES = {"configuration", "research_and_web_search", "speech", "transcription"}
+RECOVERY_MESSAGES = {
+    "check_api_credentials": "Check the publisher's configured API credentials and account before retrying.",
+    "review_api_permissions": "Review the configured API account's permissions before retrying.",
+    "review_model_access": "Review access to the publisher's configured model before retrying.",
+    "review_account_status": "Review the configured API account's activation status before retrying.",
+    "restore_api_credits": "Restore prepaid API credits before retrying.",
+    "review_organization_spend_limit": "Review the OpenAI organization's enforced spend limit before retrying.",
+    "review_project_spend_limit": "Review the OpenAI project's enforced spend limit before retrying.",
+    "review_organization_usage_limit": "Review the organization's approved API usage limit before retrying.",
+    "review_api_credits_and_limits": "Review the OpenAI API account's credits and limits before retrying.",
+    "wait_and_reduce_request_rate": "Reduce request volume and use bounded backoff before retrying.",
+    "wait_for_provider_capacity": "Wait for provider capacity before retrying.",
+    "inspect_provider_condition": "The provider did not identify a recognized recovery condition; inspect API account limits and provider status.",
+}
 
 
 def already_complete(root: Path, edition: str) -> bool:
@@ -108,10 +122,18 @@ def failure_message(root: Path, edition: str) -> str:
         detail = f" at {stage}"
         if type(status) is int and 400 <= status <= 599:
             detail += f" (HTTP {status})"
+        from check_openai_access import SAFE_CODES
+        code = failed.get("provider_code")
+        if isinstance(code, str) and code in SAFE_CODES:
+            detail += "; provider_code=" + code
+        action = failed.get("recovery_action")
+        recovery = RECOVERY_MESSAGES.get(action, "Correct the reported capability or provider condition before requesting recovery.") if isinstance(action, str) else "Correct the reported capability or provider condition before requesting recovery."
+        delay = failed.get("retry_after_seconds")
+        if failed.get("retryable") is True and type(delay) is int and 0 <= delay <= 2147483647:
+            recovery += f" The provider requires a wait of at least {delay} seconds."
         return ("Provider capability preflight failed" + detail
                 + ". No editorial generation attempt was reserved by this check. "
-                "See credential-check-report.json; correct the reported capability "
-                "or provider condition before requesting recovery.")
+                "See credential-check-report.json. " + recovery)
     except (OSError, ValueError, TypeError, AttributeError, StopIteration):
         return base
 

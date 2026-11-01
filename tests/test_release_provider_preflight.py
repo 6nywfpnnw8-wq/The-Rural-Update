@@ -128,6 +128,48 @@ class PublisherProviderPreflightTests(unittest.TestCase):
             pre.preflight(self.root, "not-a-date", checker, Mock())
         checker.assert_not_called()
 
+    def test_credit_failure_reports_the_specific_account_action(self):
+        result = {"passed":False,"checks":[{"stage":"research_and_web_search","passed":False,
+            "http_status":429,"provider_code":"credit_balance_exhausted",
+            "recovery_action":"restore_api_credits","retryable":False}]}
+        pre.preflight(self.root,DATE,Mock(return_value=result),Mock())
+        message = pre.failure_message(self.root,DATE)
+        self.assertIn("provider_code=credit_balance_exhausted",message)
+        self.assertIn("Restore prepaid API credits",message)
+        self.assertEqual(self.ledger.read_bytes(),self.original)
+
+    def test_temporary_limit_reports_required_wait(self):
+        result = {"passed":False,"checks":[{"stage":"research_and_web_search","passed":False,
+            "http_status":429,"provider_code":"rate_limit_exceeded",
+            "recovery_action":"wait_and_reduce_request_rate","retryable":True,"retry_after_seconds":56}]}
+        pre.preflight(self.root,DATE,Mock(return_value=result),Mock())
+        self.assertIn("at least 56 seconds",pre.failure_message(self.root,DATE))
+
+    def test_unrecognized_provider_details_are_not_in_alerts(self):
+        report = {"run_id":"test-123","edition_date":DATE,"passed":False,"checks":[{
+            "passed":False,"stage":"research_and_web_search","http_status":429,
+            "provider_code":"synthetic-private-code","recovery_action":"synthetic-private-action",
+            "retry_after_seconds":"synthetic-private-header","retryable":True}]}
+        (self.root/pre.REPORT).write_text(json.dumps(report))
+        self.assertNotIn("synthetic-private",pre.failure_message(self.root,DATE))
+
+    def test_app_provider_failure_cannot_consume_research_or_review_slots(self):
+        day="2026-11-01";cache=self.root/'.release-cache'/day
+        (cache/'editorial-loop-v1').mkdir(parents=True)
+        files={cache/'attempts.json':b'{"attempts":1}\n',
+            cache/'editorial-loop-v1/initial-reserved.json':b'{"original":"initial"}\n',
+            cache/'editorial-loop-v1/final-reserved.json':b'{"original":"final"}\n'}
+        for path,data in files.items():path.write_bytes(data)
+        result={"passed":False,"checks":[{"stage":"research_and_web_search","passed":False,
+            "http_status":429,"provider_code":"project_spend_limit_exceeded",
+            "recovery_action":"review_project_spend_limit","retryable":False}]}
+        checker=Mock(return_value=result)
+        report=pre.preflight(self.root,day,checker,Mock())
+        checker.assert_called_once();self.assertFalse(report['passed'])
+        self.assertFalse(report['publication_attempted']);self.assertFalse(report['research_budget_modified'])
+        for path,data in files.items():self.assertEqual(path.read_bytes(),data)
+        self.assertFalse((cache/'fixed-field-review-v2/protocol-review-reserved.json').exists())
+
 
 class ProviderWorkflowOrderTests(unittest.TestCase):
     def test_readiness_precedes_generation_and_uses_same_secret(self):
@@ -143,3 +185,4 @@ class ProviderWorkflowOrderTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
