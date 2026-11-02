@@ -4,42 +4,46 @@
     "confidence": "High",
     "horizon": "1–5 years",
     "executiveRisk": "Opportunity",
-    "summary": "Published RHTP budgets and state award announcements support regional project planning. The September progress report documents awards involving SWOSU and Weatherford Regional Hospital; these materials do not establish that every proposed service is operational or funded beyond its award period.",
-    "why": "Review executed subawards, the current funding period, recurring expenses and future revenue before accepting new operating obligations. Requiring a sustainability budget is a governance recommendation, not a verified grant condition.",
+    "summary": "Oklahoma RHTP program pages, QuickSummary and funding-recipient lists show active subaward planning and microgrant windows; funds are time-limited and BP1 drawdown deadlines are set.",
+    "why": "RHTP can seed projects that close access gaps, but require enforceable post-grant sustainability budgets to avoid creating unfunded recurring operating obligations.",
     "id": "regionalization",
-    "title": "rhtp regionalization",
+    "title": "Oklahoma RHTP moving into subawards and county collaboratives",
     "refs": [
       [
-        "RHTP Quick Reference Guide (Oklahoma)",
-        "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf"
+        "RHTP QuickSummary (Oklahoma)",
+        "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP_QuickSummary.pdf"
       ],
       [
-        "Oklahoma Highlights First-Year Progress in Rural Health Transformation Program",
-        "https://oklahoma.gov/health/news---events/newsroom/2026/rural-health-progress.html"
+        "Oklahoma RHTP Funding Recipients",
+        "https://oklahoma.gov/rhtp/rhtp-funding-recipients.html"
+      ],
+      [
+        "CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States (RHTP)",
+        "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states"
       ]
     ],
-    "reviewed": "2026-11-01"
+    "reviewed": "2026-11-02"
   },
   {
     "direction": "Down",
     "confidence": "High",
     "horizon": "12–48 months",
     "executiveRisk": "High",
-    "summary": "Statutory provider-tax changes have effective dates independent of CMS-2452-P, which proposes implementing definitions, calculations and reporting. CMS identifies October 1, 2026 for new statutory thresholds and a phase-down for expansion states beginning October 1, 2027, federal fiscal year 2028.",
-    "why": "Separate existing law from proposed implementation details in financial scenarios. Obtain Oklahoma-specific guidance before estimating hospital-level effects; the retained national sources do not establish a particular facility revenue reduction.",
+    "summary": "CMS-2452-P would change indirect hold-harmless threshold calculations for health-care-related taxes, creating material planning risk for provider-tax-funded supplemental payments and state budget mechanics.",
+    "why": "The NPRM ties new calculation/reporting rules to taxes enacted as of 2025-07-04; facility exposure depends on final rule language and state implementation choices, so run state-level downside scenarios and request OHCA guidance.",
     "id": "medicaid-financing",
-    "title": "medicaid financing pressure from provider-tax proposal",
+    "title": "Medicaid financing pressure from provider-tax proposal",
     "refs": [
       [
-        "Fact Sheet: Amending Indirect Hold‑Harmless Threshold & Health‑Care‑Related Taxes (CMS‑2452‑P)",
+        "CMS Fact Sheet: Amending Indirect Hold‑Harmless Threshold (CMS‑2452‑P)",
         "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
       ],
       [
-        "Medicaid Program; Amending Indirect Hold‑Harmless Threshold - Proposed Rule (Federal Register PDF, CMS‑2452‑P)",
+        "Federal Register: Medicaid Program; Amending Indirect Hold‑Harmless Threshold - Proposed Rule (CMS‑2452‑P)",
         "https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf"
       ]
     ],
-    "reviewed": "2026-11-01"
+    "reviewed": "2026-11-02"
   },
   {
     "id": "rhc-sustainability",
@@ -108,25 +112,25 @@
     "reviewed": "2026-10-14"
   },
   {
-    "id": "generous-implementation",
-    "title": "GENEROUS model national participation (state-level execution conditional)",
     "direction": "Conditional implementation",
     "confidence": "Medium",
-    "horizon": "3-12 months",
+    "horizon": "3–12 months",
     "executiveRisk": "Moderate",
-    "summary": "CMS announced broad state application and multiple signed agreements for GENEROUS nationally; this edition does not establish Oklahoma-specific executed terms that would change pharmacy or 340B economics.",
-    "why": "Hospitals need state-level documentation of executed terms and product lists before mapping operational or financial impact to pharmacy and 340B programs.",
+    "summary": "CMS announced national participation progress for the GENEROUS drug-payment model; Oklahoma-specific executed terms, rebate passthrough and 340B interactions remain conditional pending written OHCA confirmation.",
+    "why": "A national CMS announcement does not itself change state pharmacy or 340B economics. Hospitals should obtain state execution documents and product lists before altering forecasts or passthrough assumptions.",
+    "id": "generous-implementation",
+    "title": "GENEROUS model national participation (state-level execution conditional)",
     "refs": [
       [
-        "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS) - Press Release",
+        "CMS Announces Participants in Landmark Medicaid Drug Payment Model (GENEROUS)",
         "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most"
       ],
       [
-        "Amending the Indirect Hold Harmless Threshold of Health Care-Related Taxes (CMS-2452-P) - Fact Sheet",
-        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+        "CMS GENEROUS Model (Innovation Models)",
+        "https://www.cms.gov/priorities/innovation/innovation-models/generous"
       ]
     ],
-    "reviewed": "2026-10-22"
+    "reviewed": "2026-11-02"
   },
   {
     "id": "signal-regionalization",
@@ -326,25 +330,25 @@
     "confidence": "High",
     "horizon": "0–3 months",
     "executiveRisk": "High",
-    "summary": "CMS MM14468 and the Telehealth FAQ require individual CPT/HCPCS codes and appropriate telehealth modifiers for non-behavioral RHC/FQHC distant-site services beginning October 1, 2026. The separate systems implementation date is October 5. Behavioral health payment rules are distinct.",
-    "why": "Reconcile actual October claims before estimating denial or cash effects. The billing guidance establishes the Medicare requirements; it does not establish local payer performance or financial losses.",
+    "summary": "RHC distant-site telehealth billing is now a Medicare requirement for DOS on/after 2026-10-01 with a noted systems implementation date of 2026-10-05; early claims reconciliation will determine real-dollar impacts.",
+    "why": "Policy is final for Medicare FFS, but clearinghouse edits and payer adjudication determine actual payment outcomes; reconcile early-October claims to quantify denials and cash effects.",
     "id": "rhc-telehealth-payment-execution",
-    "title": "Non-behavioral RHC telehealth billing execution",
+    "title": "RHC telehealth payment execution",
     "refs": [
       [
-        "MM14468: Rural Health Clinics & Federally Qualified Health Centers - Billing Distant Site Telehealth (MLN Matters)",
+        "MM14468 - Rural Health Clinics & Federally Qualified Health Centers: Billing Distant Site Telehealth Services (PDF)",
         "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf"
       ],
       [
-        "Telehealth Frequently Asked Questions (updated)",
-        "https://www.cms.gov/files/document/telehealth-faq-updated-10-09-2026.pdf"
+        "Telehealth FAQ (CMS) - updated",
+        "https://www.cms.gov/files/document/telehealth-faq-calendar-year-2025-updated-04/11/2025.pdf"
       ],
       [
-        "Transmittal R13776OTN (Medicare) - Implementation of CR14468 (RHC/FQHC distant-site telehealth billing)",
+        "Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs/FQHCs",
         "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
       ]
     ],
-    "reviewed": "2026-11-01"
+    "reviewed": "2026-11-02"
   },
   {
     "direction": "Neutral",

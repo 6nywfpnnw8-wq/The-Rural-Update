@@ -622,22 +622,22 @@
     },
     {
       "id": "action-reconcile-oct-telehealth-claims",
-      "title": "Reconcile RHC distant-site telehealth production claims for dates of service Oct 1 onward",
+      "title": "Reconcile RHC distant-site telehealth production claims for DOS 2026-10-01 onward",
       "status": "Open",
       "owner": "Revenue Cycle / RHC Operations / IT",
       "owner_is_suggested": true,
-      "due": "Ongoing",
-      "next": "Extract a representative sample of RHC telehealth claims with dates of service from 2026-10-01 to 2026-10-21, confirm CPT/HCPCS codes and telehealth modifier usage, reconcile remittances and log payer-specific rejections for corrective edits.",
+      "due": "2026-11-07",
+      "next": "Extract representative sample of RHC telehealth claims with DOS on/after 2026-10-01, confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances and log payer-specific denials for corrective coding and clearinghouse edits.",
       "source": "rhc-distant-site-telehealth-billing-conversion"
     },
     {
       "id": "action-model-medicaid-provider-tax-downside",
-      "title": "Model state-level Medicaid downside that isolates provider-tax and supplemental-payment exposure",
+      "title": "Build a state-level Medicaid downside model isolating provider-tax and supplemental-payment exposure",
       "status": "Open",
       "owner": "Finance / CFO / Medicaid Managed Care",
       "owner_is_suggested": true,
       "due": "Ongoing",
-      "next": "Assemble finance, Medicaid managed-care and CFO teams to quantify revenue tied to provider-tax funded supplemental payments; produce cash-stress scenarios assuming CMS finalizes CMS-2452-P language.",
+      "next": "Inventory revenue tied to provider-tax-funded supplemental payments, quantify cash-flow sensitivity under CMS-2452-P proposed thresholds, and request OHCA statements of intent before rebasing operating forecasts.",
       "source": "medicaid-provider-tax-proposal-cms-2452-p"
     },
     {
@@ -759,6 +759,16 @@
       "due": "2026-11-30",
       "next": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, maintenance and replacement costs plus fallback funding; include post-grant budget review in contract terms.",
       "source": "oklahoma-rhtp-subawards"
+    },
+    {
+      "id": "action-verify-ohca-generous-status",
+      "title": "Request written OHCA confirmation of GENEROUS participation and obtain state implementation terms",
+      "status": "Open",
+      "owner": "Medicaid / Pharmacy / Finance",
+      "owner_is_suggested": true,
+      "due": "2026-11-10",
+      "next": "Contact OHCA in writing to confirm whether Oklahoma executed GENEROUS participation and request the list of covered products, MCO passthrough instructions and implementation schedule before changing pharmacy or 340B forecasts.",
+      "source": "generous-medicaid-model"
     }
   ],
   "changes": {
@@ -781,5 +791,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-11-01"
+  "reviewed": "2026-11-02"
 }
