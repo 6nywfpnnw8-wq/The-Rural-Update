@@ -45,7 +45,7 @@ Sources: issue #143, PR #141, run 41433972218 artifact 13136326275.
 
 ## Validation and remaining execution
 
-Local validation completed: 886 release tests passed with one existing skip;
+Local validation completed: 887 release tests passed with one existing skip;
 JavaScript syntax and six service-worker checks passed. The latest diagnostic
 artifact from run 41438021228 still has attempts=1 and only initial-reserved.json.
 
@@ -78,3 +78,6 @@ Remaining execution after external-write approval:
 The edition is recoverable from retained material in offline rehearsal, but real
 editorial acceptance and public delivery remain unverified. This change must not
 be described as proof that future daily publication cannot fail.
+
+The research entry point also refuses new research if this pinned recovery plan
+exists but its retained candidate is missing or structured review is disabled.

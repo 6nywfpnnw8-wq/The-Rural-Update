@@ -258,6 +258,14 @@ class IncompleteMetadataRecoveryTests(unittest.TestCase):
         self.plan['maximum_total_audit_requests']=2;self.save();self.e['bluf']='Changed candidate.'
         with self.assertRaises(ValueError):self.run_review(api)
         api.assert_not_called()
+    def test_missing_resume_cache_cannot_start_new_research(self):
+        api=Mock()
+        with patch.dict('os.environ',{'RURAL_UPDATE_STRUCTURED_REVIEW':'true'}),patch.object(pipeline,'request_api',api):
+            with self.assertRaisesRegex(RuntimeError,'no new research permitted'):
+                pipeline.research(DATE,{},self.root/'missing')
+        api.assert_not_called()
+        self.assertFalse((self.root/'missing/attempts.json').exists())
+
     def test_extra_incomplete_field_is_not_covered(self):
         self.raw['fields']['/bluf']['review_complete']=False
         record=read_json(self.prior/'initial-result.json');record['value']=self.raw

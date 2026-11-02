@@ -172,6 +172,9 @@ def research(edition_date,previous,cache):
     if structured:
         from release_audit_loop import load_rejected_candidate
         recovered=load_rejected_candidate(cache,edition_date)
+    from release_field_review import METADATA_ROOT
+    if (METADATA_ROOT/(edition_date+'.json')).exists() and (not structured or recovered is None):
+        raise RuntimeError('Reviewed metadata recovery requires the retained candidate; no new research permitted')
     if recovered is None:
         from release_deadline_watch import take_deadline_recovery
         recovered=take_deadline_recovery(cache,edition_date)
