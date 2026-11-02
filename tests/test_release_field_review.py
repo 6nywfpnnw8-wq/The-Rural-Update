@@ -42,6 +42,38 @@ class FixedFieldTests(unittest.TestCase):
     def test_one_incomplete_field_blocks_even_if_global_flag_is_true(self):
         self.raw['fields']['/bluf']['review_complete']=False
         with self.assertRaisesRegex(RuntimeError,'incomplete'):review.compile_review(self.raw,self.e)
+    def test_completion_semantics_are_explicit_for_future_requests_without_rebinding_november_2(self):
+        future=review.make_payload(self.e,[],'model')['text']['format']['schema']
+        self.assertIn('NOT approval',future['properties']['fields']['properties']['/bluf']['properties']['review_complete']['description'])
+        old=copy.deepcopy(self.e);old['edition_date']='2026-11-02'
+        old_schema=review.make_payload(old,[],'model')['text']['format']['schema']
+        self.assertNotIn('description',old_schema['properties']['fields']['properties']['/bluf']['properties']['review_complete'])
+
+    def test_november_2_incomplete_metadata_finding_is_retained_and_never_approved(self):
+        # The actual failure shape: global true, all fixed fields present,
+        # one false metadata field with a substantive blocking date finding.
+        self.e['sources'][0]['published_date']='2026-10-09'
+        raw=clean(self.e)
+        f=defect('2026-10-09');f['kind']='misleading_date'
+        path='/sources/0/published_date'
+        raw['fields'][path]={'review_complete':False,'findings':[f]}
+        api=Mock(return_value=response(raw))
+        with tempfile.TemporaryDirectory() as t,patch.object(evidence,'fetch_source',side_effect=fake_source):
+            cache=Path(t);docs=evidence.collect_source_evidence(self.e,cache)
+            for _ in range(2):
+                with self.assertRaises(review.IncompleteFieldReview) as raised:
+                    loop.audit_and_correct(self.e,cache,'model',api,pipeline.output_text,docs,set(),None)
+            details=read_json(cache/'validation-field-completion.json')
+            self.assertTrue(details['global_review_complete'])
+            self.assertEqual(details['incomplete_fields'],[path])
+            self.assertEqual(details['findings'],[{'id':'field-1','path':path,**f}])
+            self.assertEqual(details['reviewed_field_count'],len(review.fields(self.e)))
+            self.assertFalse(details['publication_authorized'])
+            self.assertFalse((cache/'approved.json').exists())
+            self.assertFalse((cache/'audit-bound.json').exists())
+            self.assertFalse((cache/'editorial-loop-v1/final-reserved.json').exists())
+        self.assertEqual(api.call_count,1)
+
     def test_path_and_id_are_assigned_by_code_and_findings_are_preserved(self):
         f=defect();self.raw['fields']['/bluf']['findings']=[f]
         out=review.compile_review(self.raw,self.e)
@@ -161,6 +193,78 @@ class FieldProtocolRecoveryTests(unittest.TestCase):
     def test_changed_candidate_is_rejected_before_a_request(self):
         self.c['bluf']='Another candidate.';api=Mock()
         with self.assertRaisesRegex(ValueError,'binding'):self.run_review(api)
+        api.assert_not_called()
+
+
+class IncompleteMetadataRecoveryTests(unittest.TestCase):
+    def setUp(self):
+        self.t=tempfile.TemporaryDirectory();self.addCleanup(self.t.cleanup)
+        self.root=Path(self.t.name);self.cache=self.root/DATE
+        self.prior=self.cache/'editorial-loop-v1';self.prior.mkdir(parents=True)
+        self.policy=self.root/'policy';self.policy.mkdir()
+        self.e=app_fixture();self.e['sources'][0]['published_date']='2026-10-09'
+        self.c=copy.deepcopy(self.e);self.c['sources'][0]['published_date']=None
+        self.raw=clean(self.e);f=defect('2026-10-09');f['kind']='misleading_date'
+        self.raw['fields']['/sources/0/published_date']={'review_complete':False,'findings':[f]}
+        sha='a'*64
+        write_json(self.prior/'initial-result.json',{'value':self.raw,'value_sha256':fingerprint(self.raw),'payload_sha256':sha})
+        write_json(self.prior/'initial-reserved.json',{'payload_sha256':sha,'run_id':'123'})
+        write_json(self.cache/'attempts.json',{'attempts':1})
+        self.plan={'schema_version':1,'edition_date':DATE,'maximum_total_audit_requests':2,
+            'additional_research_generation_calls':0,'additional_reporting_generation_calls':0,
+            'additional_correction_generation_calls':0,'research_counter_reset':False,
+            'podcast_generation_permitted':False,'publication_authorized':False,
+            'base_candidate_sha256':fingerprint(self.e),'candidate_sha256':fingerprint(self.c),
+            'incomplete_review_sha256':fingerprint(self.raw),'request_sha256':sha,'failure_run_id':123,
+            'source_update':{'path':'/sources/0/published_date','id':self.e['sources'][0]['id'],
+                'url':self.e['sources'][0]['url'],'before':'2026-10-09','after':None}}
+        self.save()
+        p=patch.object(review,'METADATA_ROOT',self.policy);p.start();self.addCleanup(p.stop)
+        p=patch.object(evidence,'fetch_source',side_effect=fake_source);p.start();self.addCleanup(p.stop)
+    def save(self):write_json(self.policy/(DATE+'.json'),self.plan)
+    def run_review(self,api):
+        docs=evidence.collect_source_evidence(self.e,self.cache)
+        return loop.audit_and_correct(self.e,self.cache,'model',api,pipeline.output_text,docs,set(),None)
+    def test_unused_final_slot_reviews_corrected_candidate_without_research_or_initial_replay(self):
+        before=(self.prior/'initial-result.json').read_bytes()
+        api=Mock(return_value=response(clean(self.c)))
+        out=self.run_review(api)
+        self.assertEqual(out['edition'],self.c);self.assertTrue(out['audit']['approved'])
+        self.assertEqual(out['structured_review']['correction_method'],'reviewed-incomplete-metadata')
+        self.assertEqual(api.call_count,1)
+        self.assertEqual(before,(self.prior/'initial-result.json').read_bytes())
+        self.assertEqual(read_json(self.cache/'attempts.json'),{'attempts':1})
+        self.assertTrue((self.prior/'final-reserved.json').exists())
+        self.assertFalse((self.prior/'correction-reserved.json').exists())
+    def test_incomplete_final_is_consumed_once_and_never_approves(self):
+        raw=clean(self.c);raw['fields']['/bluf']['review_complete']=False
+        api=Mock(return_value=response(raw))
+        for _ in range(2):
+            with self.assertRaisesRegex(RuntimeError,'incomplete'):self.run_review(api)
+        self.assertEqual(api.call_count,1);self.assertFalse((self.cache/'approved.json').exists())
+    def test_blocking_final_never_enters_automatic_correction(self):
+        raw=clean(self.c);raw['fields']['/bluf']['findings']=[defect()]
+        api=Mock(return_value=response(raw))
+        with self.assertRaisesRegex(RuntimeError,'Blocking findings remain'):self.run_review(api)
+        self.assertEqual(api.call_count,1);self.assertFalse((self.prior/'correction-reserved.json').exists())
+    def test_no_live_retrieval_cannot_approve(self):
+        with self.assertRaisesRegex(RuntimeError,'live web'):
+            self.run_review(Mock(return_value=response(clean(self.c),False)))
+        self.assertFalse((self.cache/'approved.json').exists())
+    def test_changed_candidate_or_budget_cannot_recover(self):
+        api=Mock();self.plan['maximum_total_audit_requests']=3;self.save()
+        with self.assertRaises(ValueError):self.run_review(api)
+        api.assert_not_called()
+        self.plan['maximum_total_audit_requests']=2;self.save();self.e['bluf']='Changed candidate.'
+        with self.assertRaises(ValueError):self.run_review(api)
+        api.assert_not_called()
+    def test_extra_incomplete_field_is_not_covered(self):
+        self.raw['fields']['/bluf']['review_complete']=False
+        record=read_json(self.prior/'initial-result.json');record['value']=self.raw
+        record['value_sha256']=fingerprint(self.raw);write_json(self.prior/'initial-result.json',record)
+        self.plan['incomplete_review_sha256']=fingerprint(self.raw);self.save()
+        api=Mock()
+        with self.assertRaisesRegex(ValueError,'other incomplete'):self.run_review(api)
         api.assert_not_called()
 
 
