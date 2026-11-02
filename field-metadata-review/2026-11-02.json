@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-02",
+  "maximum_total_audit_requests": 2,
+  "additional_research_generation_calls": 0,
+  "additional_reporting_generation_calls": 0,
+  "additional_correction_generation_calls": 0,
+  "research_counter_reset": false,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "base_candidate_sha256": "2675ff19d3522c0c7420e063bdaf5588ac98c64aa09838b719dfc9975ce48685",
+  "candidate_sha256": "be05cd3ad6922b17fa2a4fb1e1e8b8cd41421050383d5c9f3c8da6af1c462d66",
+  "incomplete_review_sha256": "083b69f973e6446ea4f7e6a599ccd4cf1158d1e0b0483a805dfe5c0b74000acc",
+  "request_sha256": "e8a3dea5223a3d17d91925171d8979befea4446c191d5d8fb0f3b9384147ef86",
+  "failure_run_id": 41433972218,
+  "source_update": {
+    "path": "/sources/3/published_date",
+    "id": "src-6f0f3b396deac723",
+    "url": "https://www.cms.gov/files/document/telehealth-faq-calendar-year-2025-updated-04/11/2025.pdf",
+    "before": "2026-10-09",
+    "after": null
+  },
+  "verified_pdf_sha256": "d94d56ad96583d541882ad68e410df1933020cd30d942cf17499dbd6998777b1"
+}

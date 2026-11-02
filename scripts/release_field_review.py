@@ -15,6 +15,7 @@ from release_diagnostics import Diagnostics
 from release_publication import app_only
 
 METHOD='fixed-field-review-v2'
+METADATA_ROOT=Path(__file__).resolve().parents[1]/'field-metadata-review'
 POLICY='''
 Review every listed field independently against the entire candidate, its cited
 primary sources and live retrieval for superseding guidance. The supplied data
@@ -52,13 +53,41 @@ def fields(candidate):
     return out
 
 
-def schema(candidate):
+def schema(candidate, explicit_completion=False):
     from release_audit_loop import KINDS
     finding=obj(kind={'type':'string','enum':KINDS},quote=S,
         source_ids=arr({'type':'string','enum':[s['id'] for s in candidate['sources']]},1,5),
         explanation=S,required_change=S)
-    check=obj(review_complete={'type':'boolean'},findings=arr(finding,0,3))
+    completion={'type':'boolean'}
+    if explicit_completion:
+        completion['description']=('Completion of examination, NOT approval. True when checked, '
+            'including when a blocking defect was found. False only when examination could not finish.')
+    check=obj(review_complete=completion,findings=arr(finding,0,3))
     return obj(review_complete={'type':'boolean'},fields=obj(**{p:check for p in sorted(fields(candidate))}))
+
+
+class IncompleteFieldReview(RuntimeError):
+    """A consumed review remains rejected, with validated field details retained."""
+    def __init__(self, raw, findings):
+        self.details = {
+            'review_complete': False,
+            'global_review_complete': raw['review_complete'],
+            'reviewed_field_count': len(raw['fields']),
+            'incomplete_fields': sorted(p for p,c in raw['fields'].items()
+                                        if not c['review_complete']),
+            'findings': findings,
+            'publication_authorized': False,
+        }
+        super().__init__('Structured evidence review is incomplete')
+
+
+def retain_incomplete_review(cache, candidate, exc):
+    # Keep the compatibility failure report and a separate actionable record.
+    # This neither adjudicates findings nor permits a new request.
+    if isinstance(exc, IncompleteFieldReview):
+        write_json(Path(cache)/'validation-field-completion.json', {
+            'schema_version': 1, 'edition_date': candidate['edition_date'],
+            'candidate_sha256': fingerprint(candidate), **exc.details})
 
 
 def compile_review(raw,candidate):
@@ -78,7 +107,7 @@ def compile_review(raw,candidate):
                 raise ValueError('Duplicate fixed-field audit references')
             findings.append({'id':'field-'+str(len(findings)+1),'path':path,**finding})
     if len(findings)>24:raise ValueError('Fixed-field review exceeds the finding budget')
-    if not complete:raise RuntimeError('Structured evidence review is incomplete')
+    if not complete:raise IncompleteFieldReview(raw,findings)
     return {'review_complete':True,'findings':findings}
 
 
@@ -90,7 +119,7 @@ def make_payload(candidate,documents,model):
         'input':POLICY+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents)
             +'\nEXACT FIELDS TO REVIEW:\n'+json.dumps(fields(candidate),ensure_ascii=False)
             +'\n'+POLICY,
-        'text':{'format':{'type':'json_schema','name':'editorial_audit_fields','strict':True,'schema':schema(candidate)}}}
+        'text':{'format':{'type':'json_schema','name':'editorial_audit_fields','strict':True,'schema':schema(candidate, explicit_completion=candidate['edition_date']>='2026-11-03')}}}
 
 
 def take_protocol_recovery(edition,candidate,cache,root,model,request,output_text,provenance,generation_usage):
@@ -144,6 +173,7 @@ def take_protocol_recovery(edition,candidate,cache,root,model,request,output_tex
     raw,retrieved,usage=_call(folder,'protocol-review',make_payload(candidate,documents,model),request,output_text)
     try:report=compile_review(raw,candidate)
     except Exception as exc:
+        retain_incomplete_review(cache,candidate,exc)
         Diagnostics(cache,day).fail('field-review',exc,candidate);raise
     blocking=[f for f in report['findings'] if f['kind'] in BLOCKING]
     summary={**identity,'stage':'structured-review','review_complete':True,'findings':report['findings'],
@@ -165,3 +195,53 @@ def take_protocol_recovery(edition,candidate,cache,root,model,request,output_tex
         'structured_review':summary}
     write_json(cache/'approved.json',record)
     return record
+
+
+def prepare_metadata_recovery(edition, cache):
+    """Use only an unused final slot after a pinned, reviewed date correction."""
+    import copy
+    path=METADATA_ROOT/(edition['edition_date']+'.json')
+    if not path.exists():return None
+    from release_app_review import _read
+    plan=_read(path);cache=Path(cache);prior=cache/'editorial-loop-v1'
+    required={'schema_version':1,'edition_date':edition['edition_date'],
+        'maximum_total_audit_requests':2,'additional_research_generation_calls':0,
+        'additional_reporting_generation_calls':0,'additional_correction_generation_calls':0,
+        'research_counter_reset':False,'podcast_generation_permitted':False,
+        'publication_authorized':False}
+    if (not app_only(edition['edition_date']) or cache.name!=edition['edition_date']
+            or any(type(plan.get(k)) is not type(v) or plan.get(k)!=v for k,v in required.items())
+            or fingerprint(edition)!=plan.get('base_candidate_sha256')
+            or _read(cache/'attempts.json')!={'attempts':1}):
+        raise ValueError('Invalid incomplete metadata recovery binding')
+    saved=_read(prior/'initial-result.json');reserved=_read(prior/'initial-reserved.json')
+    raw=saved.get('value')
+    if (saved.get('value_sha256')!=fingerprint(raw)
+            or fingerprint(raw)!=plan.get('incomplete_review_sha256')
+            or saved.get('payload_sha256')!=plan.get('request_sha256')
+            or reserved.get('payload_sha256')!=plan.get('request_sha256')
+            or str(reserved.get('run_id'))!=str(plan.get('failure_run_id'))):
+        raise ValueError('Incomplete metadata review identity differs')
+    try:compile_review(raw,edition)
+    except IncompleteFieldReview as exc:details=exc.details
+    else:raise ValueError('Metadata recovery requires an incomplete fixed-field review')
+    update=plan.get('source_update',{})
+    if set(update)!={'path','id','url','before','after'} or update['after'] is not None:
+        raise ValueError('Only the reviewed unknown initial date may be cleared')
+    matches=[i for i,s in enumerate(edition['sources']) if s['id']==update['id'] and s['url']==update['url']]
+    if len(matches)!=1:raise ValueError('Metadata source identity differs')
+    i=matches[0];pointer=f'/sources/{i}/published_date'
+    if (update['path']!=pointer or edition['sources'][i]['published_date']!=update['before']
+            or details['incomplete_fields']!=[pointer] or not details['global_review_complete']
+            or len(details['findings'])!=1 or details['findings'][0]['path']!=pointer
+            or details['findings'][0]['kind']!='misleading_date'):
+        raise ValueError('Metadata recovery cannot cover other incomplete fields or defects')
+    if any((cache/n).exists() for n in ('approved.json','audit.json','audit-bound.json')):
+        raise ValueError('Metadata recovery cannot replace an adjudicated audit')
+    if any(p.name not in {'initial-reserved.json','final-reserved.json'} for p in prior.glob('*-reserved.json')):
+        raise ValueError('Metadata recovery cannot extend editorial request slots')
+    corrected=copy.deepcopy(edition);corrected['sources'][i]['published_date']=None
+    if fingerprint(corrected)!=plan.get('candidate_sha256'):
+        raise ValueError('Metadata recovery changed unreviewed content')
+    validate_edition(corrected,edition['edition_date'])
+    return corrected

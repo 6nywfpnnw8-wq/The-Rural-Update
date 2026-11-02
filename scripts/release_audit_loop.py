@@ -299,6 +299,8 @@ review completion. A PDF creation timestamp does not establish its publication d
     date_recovery=take_source_date_review(edition,cache,model,request,output_text,
         provenance,generation_usage,policy,audit_schema,validate_review,_call)
     if date_recovery is not None:return date_recovery
+    from release_field_review import prepare_metadata_recovery
+    metadata_recovery=prepare_metadata_recovery(edition,cache)
     audit_usage=[];all_urls=set(provenance);candidate=copy.deepcopy(app_review[0] if app_review is not None else edition)
     from release_reviewed_reference import take_reviewed_reference
     reviewed=take_reviewed_reference(edition,cache)
@@ -307,14 +309,19 @@ review completion. A PDF creation timestamp does not establish its publication d
     if reviewed is not None:
         candidate=reviewed
         print('Reviewed citation correction retained; the unused final full-source audit is still required.',flush=True)
+    if metadata_recovery is not None:
+        if reviewed is not None or app_review is not None or protocol_recovery:
+            raise ValueError('Metadata recovery cannot combine editorial exceptions')
+        candidate=metadata_recovery
     # Citation repair is not a factual claim correction. Reuse its completed
     # review, then permit exactly one separately reserved correction and check.
     # Never reopen initial/final slots or approve an incomplete review.
     review_slots=(('final',) if protocol_recovery or app_review is not None else
-                  (('final','reference-corrected-final') if reviewed is not None else ('initial','final')))
+                  (('final',) if metadata_recovery is not None else
+                   ('final','reference-corrected-final') if reviewed is not None else ('initial','final')))
     for iteration,slot in enumerate(review_slots):
         # Rebind fetched source evidence to the exact corrected candidate.
-        if reviewed is not None or iteration or app_review is not None:documents=collect_source_evidence(candidate,cache)
+        if reviewed is not None or iteration or app_review is not None or metadata_recovery is not None:documents=collect_source_evidence(candidate,cache)
         all_urls.update(evidence_urls(candidate,documents))
         prompt=policy+'\nCANDIDATE:\n'+json.dumps(candidate,ensure_ascii=False)+evidence_prompt(documents)
         payload={'model':model,'store':False,'reasoning':{'effort':'low'},'max_output_tokens':7000,
@@ -340,6 +347,9 @@ review completion. A PDF creation timestamp does not establish its publication d
             blocking=(validate_review(report,candidate,readonly_metadata=True)
                       if fixed_fields else validate_review(report,candidate))
         except Exception as exc:
+            if fixed_fields:
+                from release_field_review import retain_incomplete_review
+                retain_incomplete_review(cache,candidate,exc)
             Diagnostics(cache,date).fail('structured-review',exc,candidate)
             raise
         all_urls.update(urls);audit_usage.append(usage)
@@ -352,7 +362,7 @@ review completion. A PDF creation timestamp does not establish its publication d
             'candidate_sha256':fingerprint(candidate),'review_complete':True,
             'blocking_count':len(blocking),'advisory_count':len(report['findings'])-len(blocking),
             'findings':report['findings'],'correction_calls':iteration,
-            'correction_method':('reviewed-incomplete-app' if app_review is not None else
+            'correction_method':('reviewed-incomplete-metadata' if metadata_recovery is not None else 'reviewed-incomplete-app' if app_review is not None else
                 ('reviewed-reference-and-claim-correction' if iteration else 'reviewed-reference') if reviewed is not None else 'automated'),
             'publication_authorized':False}
         write_json(cache/'validation-structured-review.json',public_report)
@@ -373,7 +383,7 @@ review completion. A PDF creation timestamp does not establish its publication d
             write_json(cache/'approved.json',record)
             return record
         Diagnostics(cache,date).fail('evidence-audit',RuntimeError('Audit rejected candidate'),candidate)
-        if protocol_recovery or app_review is not None:raise RuntimeError('Blocking findings remain after the final evidence review')
+        if protocol_recovery or app_review is not None or metadata_recovery is not None:raise RuntimeError('Blocking findings remain after the final evidence review')
         if iteration:raise RuntimeError('Blocking findings remain after the single editorial correction')
         if any(not editable(f['path']) for f in blocking):
             raise RuntimeError('Blocking source metadata requires an explicitly reviewed correction')
