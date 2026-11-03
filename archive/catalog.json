@@ -1,7 +1,14 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "editions": [
+    {
+      "date": "2026-11-03",
+      "title": "Rural Update - Oklahoma: RHC telehealth, Medicaid provider-tax rulemaking, RHTP microgrants, GENEROUS participation, workforce pipelines",
+      "path": "archive/2026-11-03.html",
+      "format": "html",
+      "status": "available"
+    },
     {
       "date": "2026-11-02",
       "title": "Rural Update - Oklahoma: telehealth billing, Medicaid financing risk, RHTP, GENEROUS and rural OUD funding",

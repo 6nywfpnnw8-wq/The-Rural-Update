@@ -1,0 +1,1200 @@
+{
+  "edition": {
+    "edition_date": "2026-11-03",
+    "title": "Rural Update - Oklahoma: RHC telehealth, Medicaid provider-tax rulemaking, RHTP microgrants, GENEROUS participation, workforce pipelines",
+    "bluf": "Priorities for Oklahoma rural hospital executives this week: 1) reconcile October distant-site telehealth claims now that CMS requires CPT/HCPCS plus telehealth modifiers for RHCs/FQHCs to identify payer edits and cash impact; 2) treat CMS-2452-P (provider-tax implementation) as a rulemaking risk and model state-level downside exposure before changing forecasts; 3) verify Oklahoma RHTP microgrant invoice terms and require post-grant sustainability for any subaward work; and 4) obtain written OHCA confirmation before assuming GENEROUS state participation affects pharmacy or 340B economics. Also maintain local workforce-pathway engagement as an implementation watch.",
+    "stories": [
+      {
+        "what_changed": "CMS finalized billing instructions requiring RHCs and FQHCs to bill distant-site telehealth services using individual CPT/HCPCS codes and appropriate telehealth modifiers for dates of service on or after 2026-10-01, with an implementation transmittal noting a systems implementation date (transmittal R13776OTN; MLN MM14468).",
+        "why_it_matters": "Operational revenue risk is immediate: clearinghouse edits, payer modifier logic and adjudication will determine real-dollar outcomes. Reconcile a representative claims sample (DOS 2026-10-01 onward) to quantify denials, remittance differences and cash-flow impact.",
+        "executive_question": "Have we reconciled October distant-site telehealth Medicare and commercial claims (CPT/HCPCS plus modifier use) and logged payer-specific denials to identify needed clearinghouse or billing edits?",
+        "category": "RHC / Revenue Cycle",
+        "id": "rhc-telehealth-billing",
+        "title": "RHC telehealth: reconcile billing after the October code change",
+        "source_ids": [
+          "src-3236e8cccb97f0d6",
+          "src-9315ed0d2cc3ed6e"
+        ],
+        "change": "Continuing",
+        "policy_state": "Final"
+      },
+      {
+        "what_changed": "CMS published proposed rule CMS-2452-P to amend standards for determining indirect hold-harmless arrangements tied to health-care-related taxes; the NPRM would change calculation thresholds and ties some rules to taxes enacted by July 4, 2025.",
+        "why_it_matters": "If finalized as proposed, state provider-tax and supplemental-payment constructs could be constrained, creating material budgeting and cash-flow risk for provider-tax-funded supplemental payments. State implementation choices will determine facility exposure.",
+        "executive_question": "Have finance and Medicaid teams modeled a state-level downside scenario isolating revenue tied to provider-tax-funded supplemental payments and requested OHCA guidance on state exposure?",
+        "category": "Medicaid financing / Finance",
+        "id": "medicaid-provider-tax-watch",
+        "title": "Provider-tax financing: separate statute from proposed implementation",
+        "source_ids": [
+          "src-02dd9737ced55c32",
+          "src-299e421cf61e682c"
+        ],
+        "change": "Continuing",
+        "policy_state": "Proposed"
+      },
+      {
+        "what_changed": "Oklahoma RHTP Year One microgrant NOFO language lists an expenditure deadline of October 30, 2026 and an invoice submission deadline of November 30, 2026 for award recipients.",
+        "why_it_matters": "Microgrants are one-time funding and explicitly exclude staffing/fringe and ongoing maintenance. Awardees should verify controlling award documents and invoice timing; post-grant recurring-cost exposure is not fundable from microgrants.",
+        "executive_question": "If participating in RHTP microgrants or subawards, have we verified eligible-cost rules, invoice paperwork and the November 30 invoice deadline against our contracts and budget timing?",
+        "category": "Grants / RHTP",
+        "id": "oklahoma-microgrant-invoice-watch",
+        "title": "Oklahoma microgrants: review the listed November invoice deadline",
+        "source_ids": [
+          "src-bc7e6e2b0702e1be"
+        ],
+        "change": "Continuing",
+        "policy_state": "Monitoring"
+      },
+      {
+        "what_changed": "CMS announced that all states, D.C. and Puerto Rico applied to participate in the GENEROUS Medicaid drug-payment model. This announcement reports applications but does not itself document executed state participation terms.",
+        "why_it_matters": "A national application announcement is not an executed state agreement. Oklahoma hospitals should not assume GENEROUS will change state pharmacy passthrough, 340B interactions or MCO operational guidance without written OHCA confirmation of executed terms and implementation instructions.",
+        "executive_question": "Has OHCA provided written confirmation of Oklahoma's executed GENEROUS participation, covered-drug lists, MCO passthrough instructions and any 340B operational guidance?",
+        "category": "Medicaid / Pharmacy / 340B",
+        "id": "generous-application-execution",
+        "title": "GENEROUS applications require verification of executed terms",
+        "source_ids": [
+          "src-cc7888b1e0b22d4c"
+        ],
+        "change": "Continuing",
+        "policy_state": "Announcement"
+      },
+      {
+        "what_changed": "Oklahoma and CMS program pages summarize RHTP-related workforce activities: state rural-residency programs, HWTC rural relocation incentives and CareerTech LPN pathways, and CMS emphasized workforce development at the Rural Health Transformation Summit.",
+        "why_it_matters": "These programs establish planning pathways for grow-your-own training and rural recruitment; they are implementation- and partnership-level initiatives, not evidence of completed local hiring, enrollment or awarded funds.",
+        "executive_question": "Which local 'grow-your-own' and training partnerships can we operationalize now, and what are the measurable placement, supervision and retention commitments required before relying on pipeline outputs?",
+        "category": "Workforce / Training",
+        "id": "rural-workforce-pipeline",
+        "title": "Rural workforce: assess training and retention pathways",
+        "source_ids": [
+          "src-1dfc766a5c4dc1e2",
+          "src-7b662f962f90b96c"
+        ],
+        "change": "Continuing",
+        "policy_state": "Monitoring"
+      }
+    ],
+    "actions": [
+      {
+        "id": "reconcile-rhc-telehealth-claims",
+        "title": "Reconcile October distant-site telehealth claims (RHC/FQHC CPT/HCPCS + modifiers)",
+        "due_date": null,
+        "next_step": "Extract representative sample of DOS 2026-10-01 onward, confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances, and log payer-specific denials and edits for corrective clearinghouse or billing changes.",
+        "suggested_function": "Revenue Cycle / RHC Operations / IT",
+        "issue_id": "rhc-telehealth-billing",
+        "source_ids": [
+          "src-3236e8cccb97f0d6",
+          "src-9315ed0d2cc3ed6e"
+        ]
+      },
+      {
+        "id": "verify-generous-oklahoma",
+        "title": "Request written OHCA confirmation of GENEROUS participation and implementation terms",
+        "due_date": null,
+        "next_step": "Contact OHCA in writing for executed-participation confirmation, obtain list of covered products, MCO passthrough instructions and implementation schedule before changing pharmacy or 340B forecasts.",
+        "suggested_function": "Medicaid / Pharmacy / Finance",
+        "issue_id": "generous-application-execution",
+        "source_ids": [
+          "src-cc7888b1e0b22d4c"
+        ]
+      },
+      {
+        "id": "require-post-grant-sustainability",
+        "title": "Require enforceable post-grant sustainability budgets for RHTP subaward participation",
+        "due_date": null,
+        "next_step": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, maintenance, replacement capital and fallback funding in the subaward budget and contract terms.",
+        "suggested_function": "Grants / Strategy / Finance",
+        "issue_id": "oklahoma-microgrant-invoice-watch",
+        "source_ids": [
+          "src-7b662f962f90b96c",
+          "src-bc7e6e2b0702e1be"
+        ]
+      }
+    ],
+    "deadlines": [
+      {
+        "date": "2026-11-30",
+        "title": "Oklahoma RHTP Year One microgrant invoice deadline",
+        "description": "Per the Year One microgrant NOFO, award recipients must submit invoice(s) to OSDH by November 30, 2026; expenditure period listed as no later than October 30, 2026. Verify controlling award terms and potential amendments.",
+        "kind": "Official deadline",
+        "source_ids": [
+          "src-bc7e6e2b0702e1be"
+        ]
+      }
+    ],
+    "signals": [
+      {
+        "direction": "Emerging",
+        "confidence": "High",
+        "horizon": "1–5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "RHTP state materials and the CMS summit readout indicate active state-level subaward planning and workforce/technology project design; grants are time-limited and microgrants explicitly exclude staffing and ongoing maintenance.",
+        "why": "Subaward and program materials show funding windows and program design but do not substitute for enforceable post-grant operating commitments; require sustainability budgets for recurring costs and staffing before accepting operating responsibilities and do not presume payroll coverage from microgrants or NOFO language alone.",
+        "id": "grant-operating-budget-separation",
+        "title": "Grant-supported projects need separate recurring-cost planning",
+        "source_ids": [
+          "src-7b662f962f90b96c",
+          "src-bc7e6e2b0702e1be"
+        ]
+      },
+      {
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "12–48 months",
+        "executiveRisk": "High",
+        "summary": "CMS proposed rule CMS-2452-P would amend how indirect hold-harmless thresholds are determined for health-care-related taxes, creating planning risk for provider-tax-funded supplemental payments if finalized.",
+        "why": "The NPRM ties calculation/reporting to taxes enacted by July 4, 2025 and would codify new thresholds with phased timing; facility exposure hinges on final-rule language and state decisions, so isolate provider-tax-funded revenue when modeling downside scenarios.",
+        "id": "medicaid-financing-implementation",
+        "title": "Medicaid financing remains a statutory and rulemaking watch",
+        "source_ids": [
+          "src-02dd9737ced55c32",
+          "src-299e421cf61e682c"
+        ]
+      },
+      {
+        "direction": "Down",
+        "confidence": "High",
+        "horizon": "0–3 months",
+        "executiveRisk": "High",
+        "summary": "CMS transmittal R13776OTN and MLN MM14468 require RHCs/FQHCs to bill distant-site telehealth with individual CPT/HCPCS plus telehealth modifiers for DOS on or after 2026-10-01 with a noted systems implementation date; early claims reconciliation will show how payers and clearinghouses adjudicate.",
+        "why": "Policy is final for Medicare FFS, but clearinghouse edits and payer adjudication determine actual payment outcomes; a focused early-October claims sample will quantify denials, edits and cash effects.",
+        "id": "rhc-revenue-cycle-execution",
+        "title": "RHC telehealth implementation requires claim-level verification",
+        "source_ids": [
+          "src-3236e8cccb97f0d6",
+          "src-9315ed0d2cc3ed6e"
+        ]
+      },
+      {
+        "direction": "Active planning",
+        "confidence": "High",
+        "horizon": "1–5 years",
+        "executiveRisk": "Opportunity",
+        "summary": "Oklahoma program pages list rural residencies, HWTC rural relocation incentives and CareerTech LPN pathways and CMS emphasized workforce development at the RHTP summit, supporting an ongoing implementation watch for workforce pipeline initiatives.",
+        "why": "Program descriptions support planning and partnership opportunities but do not demonstrate completed hires or funded retention outcomes; assess placement capacity, supervision and retention commitments before relying on pipeline results.",
+        "id": "rural-workforce-implementation",
+        "title": "Rural training and retention remain an implementation watch",
+        "source_ids": [
+          "src-1dfc766a5c4dc1e2",
+          "src-7b662f962f90b96c"
+        ]
+      }
+    ],
+    "issue_updates": [],
+    "sources": [
+      {
+        "id": "src-db7e2228ed4f8b9c",
+        "url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+        "title": "RHTP Quick Reference Guide (Oklahoma)",
+        "published_date": null
+      },
+      {
+        "id": "src-90945e8746da757b",
+        "url": "https://oklahoma.gov/rhtp.html",
+        "title": "Oklahoma Rural Health Transformation Program (RHTP)",
+        "published_date": null
+      },
+      {
+        "id": "src-dd9d4f7688485958",
+        "url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+        "title": "RHTP Funding (Oklahoma)",
+        "published_date": null
+      },
+      {
+        "id": "src-02dd9737ced55c32",
+        "url": "https://public-inspection.federalregister.gov/2026-14897.pdf?1784664910=",
+        "title": "Federal Register: Proposed Rule CMS-2452-P (PDF)",
+        "published_date": "2026-07-23"
+      },
+      {
+        "id": "src-3236e8cccb97f0d6",
+        "url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+        "title": "MM14468: Rural Health Clinics & FQHCs: Billing Distant Site Telehealth Services (PDF)",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "src-9315ed0d2cc3ed6e",
+        "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+        "title": "Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs/FQHCs",
+        "published_date": "2026-05-27"
+      },
+      {
+        "id": "src-299e421cf61e682c",
+        "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+        "title": "Fact Sheet: Amending the Indirect Hold‑Harmless Threshold (Proposed Rule CMS-2452-P)",
+        "published_date": "2026-07-21"
+      },
+      {
+        "id": "src-4f1464923f786235",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+        "title": "CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States",
+        "published_date": "2025-12-29"
+      },
+      {
+        "id": "src-cc7888b1e0b22d4c",
+        "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+        "title": "CMS Announces Participants in GENEROUS Medicaid Drug Payment Model",
+        "published_date": null
+      },
+      {
+        "id": "src-1dfc766a5c4dc1e2",
+        "title": "Oklahoma RHTP Programs",
+        "url": "https://oklahoma.gov/rhtp/rhtp-programs.html",
+        "published_date": null
+      },
+      {
+        "id": "src-7b662f962f90b96c",
+        "title": "CMS first Rural Health Transformation Summit readout",
+        "url": "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+        "published_date": "2026-03-19"
+      },
+      {
+        "id": "src-bc7e6e2b0702e1be",
+        "title": "Oklahoma RHTP Year One Microgrants Notice of Funding Opportunity",
+        "url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+        "published_date": null
+      }
+    ]
+  },
+  "audit": {
+    "approved": true,
+    "issues": []
+  },
+  "retrieved_urls": [
+    "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+    "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+    "https://oklahoma.gov/health/news---events/newsroom/2026/rural-health-progress.html",
+    "https://oklahoma.gov/rhtp.html",
+    "https://oklahoma.gov/rhtp/rhtp-faqs.html",
+    "https://oklahoma.gov/rhtp/rhtp-funding.html",
+    "https://oklahoma.gov/rhtp/rhtp-programs.html",
+    "https://public-inspection.federalregister.gov/2026-14897.pdf",
+    "https://www.cms.gov/files/document/mln006398-information-rural-health-clinics.pdf?fbclid=IwAR0o2HLyaRLkMWAIrAi3Gu10KF2Y16WDl27mZ_0iGbEpTE56x8zw0S_W-GI",
+    "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+    "https://www.cms.gov/files/document/telehealth-faq-calendar-year-2025-updated-04/11/2025.pdf",
+    "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+    "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+    "https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program",
+    "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+    "https://www.ruralhealthinfo.org/states/oklahoma/rhtp"
+  ],
+  "model": "gpt-5-mini",
+  "audit_candidate_sha256": "ee78b99c1594ef080d38cbcd8241830694d25285af7c81db98fe475830028230",
+  "source_retrieval": [
+    {
+      "url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+      "final_url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 178878,
+      "sha256": "6983c67f61810518d7efd94d74a3a49f2f0efc780e390e6ecfed8294af169fdb",
+      "text_sha256": "7635aa1472abe7a482e727057398b4a50af5308f68e96cc1e2f6548c09bbc9ce",
+      "retrieved_at": "2026-11-03T16:01:07.626953+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 2,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "1711a4b58f73029a38fe878df14988a2a2a15cdb3208176909ae0b6de923e8a5",
+            "characters": 3395
+          },
+          {
+            "page": 2,
+            "text_sha256": "15f467b3f4d3ef8ce2ea56eeccd2f5554bd63a89abb95f7a40a569f9f2f09ae5",
+            "characters": 2825
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-db7e2228ed4f8b9c"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp.html",
+      "final_url": "https://oklahoma.gov/rhtp.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 164334,
+      "sha256": "7e37b0f9fd398110eb51345540e03b1f4216aee3815a7e461b0cca5732633c2e",
+      "text_sha256": "4336978302655237824570a40bb8dfb67be6b31e2558dc002898ae6c2d8fedc6",
+      "retrieved_at": "2026-11-03T16:01:08.473416+00:00",
+      "method": "direct_https",
+      "source_id": "src-90945e8746da757b"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-funding.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 384936,
+      "sha256": "b3295cadb98f2e0b4f56ecab2dbbc6b7c90a8f7b3bbace9942589ccda22aec43",
+      "text_sha256": "de4bac8a3b5202bf071faf5ad5632ca7aced3495840305dbdb3d081a7286f2c3",
+      "retrieved_at": "2026-11-03T16:01:08.589033+00:00",
+      "method": "direct_https",
+      "source_id": "src-dd9d4f7688485958"
+    },
+    {
+      "url": "https://public-inspection.federalregister.gov/2026-14897.pdf?1784664910=",
+      "final_url": "https://public-inspection.federalregister.gov/2026-14897.pdf?1784664910=",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 690029,
+      "sha256": "0efe61097260582b2b4624fa7c826f08c63949373da179805c3fff6bf68a1b2a",
+      "text_sha256": "d40b0f06c34f42dba500daffc60546d8dc36489c4496875ecff677368dc88a84",
+      "retrieved_at": "2026-11-03T16:01:09.847069+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 118,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "1e0a3e201a68ba528df3a2183ddcefa65e945cb01d64a92890d902288300021d",
+            "characters": 1900
+          },
+          {
+            "page": 2,
+            "text_sha256": "7f9706dfdda75a77588c1455e1922446a46b584411fd07db3e355e2d7994ef34",
+            "characters": 1285
+          },
+          {
+            "page": 3,
+            "text_sha256": "aff16c09497e7effd9149c59c826a062ccda74211e08af6dcf5493c18789dd71",
+            "characters": 2082
+          },
+          {
+            "page": 4,
+            "text_sha256": "9f396e09b300eef2ae05691aeb24d59edf508867fd165b90a724e0da352511c5",
+            "characters": 2551
+          },
+          {
+            "page": 5,
+            "text_sha256": "4961f7353588def2b82f81adbbc7e8ae7afedd5f9033330726fcce0b9c3cbbd2",
+            "characters": 2326
+          },
+          {
+            "page": 6,
+            "text_sha256": "8280816a25975d9abe896f7b0fd4d1d3cde7267df3e3acb38567f3b2f9bb5a9b",
+            "characters": 2306
+          },
+          {
+            "page": 7,
+            "text_sha256": "284af502a112c3d1ff27a29b8b91a9d1fdac3d69e0bc3f700633367031eb3ee5",
+            "characters": 2340
+          },
+          {
+            "page": 8,
+            "text_sha256": "c9aca5a31ea5c91548e669350bbc74aa968696013d8eed090cfdb46949e1f729",
+            "characters": 2445
+          },
+          {
+            "page": 9,
+            "text_sha256": "3e491830fa6d047dc2bbd6f8d96c64fbf494b5ea957ef5c9990ddc1db70db18b",
+            "characters": 2269
+          },
+          {
+            "page": 10,
+            "text_sha256": "d741764c7d7cfe68a64dbf01cf6b640128a7c754b03be9dce9d4dddf781d0563",
+            "characters": 2421
+          },
+          {
+            "page": 11,
+            "text_sha256": "142ccfdfcf92e43731409bc1f0374ce11554056f174f0dfff71f1e5bcf5139b3",
+            "characters": 2383
+          },
+          {
+            "page": 12,
+            "text_sha256": "447e209d9cff4d8b7825970f9e26cf05b95bd2af8b10c8c1e51456128b399c3f",
+            "characters": 2431
+          },
+          {
+            "page": 13,
+            "text_sha256": "feeebb93e4d958cd0dc98a12aeb38a361e47e5f22f4d610612b47d7a73462e99",
+            "characters": 2391
+          },
+          {
+            "page": 14,
+            "text_sha256": "bf3466e1c36272290a719a6833d24087fe99291f0272a10b0707bc6402ad914a",
+            "characters": 2474
+          },
+          {
+            "page": 15,
+            "text_sha256": "fb0b7ab1c96e7896024499c88557b1021cf6a4ecd0d26fd91d9305d4d387867b",
+            "characters": 2411
+          },
+          {
+            "page": 16,
+            "text_sha256": "cf54e4f05197a818cda413f0ab95ef38d46adc70be7b29bf60809ef5cbfd86e6",
+            "characters": 2345
+          },
+          {
+            "page": 17,
+            "text_sha256": "4cd272592de6e54be5ef411530adc609c8260fbf5f897fe221b236a270ec3de8",
+            "characters": 2287
+          },
+          {
+            "page": 18,
+            "text_sha256": "73ec7512525b4bf73368721fe2d3629ac3146c0e17878da78de6936636449f48",
+            "characters": 2336
+          },
+          {
+            "page": 19,
+            "text_sha256": "9044d2b56f1f602340864077f1b7faf360568affd44c8caa73cd7e3111024e53",
+            "characters": 2456
+          },
+          {
+            "page": 20,
+            "text_sha256": "93bdaa95f3ff24367ad4f161b66e5d3e8cc40ed3e1e2dbe78176fc2e2d404fd4",
+            "characters": 2476
+          },
+          {
+            "page": 21,
+            "text_sha256": "ae9e60ac4bc70e6f751e312a18134f6adc980c58a63f838dfd3383fb353744c8",
+            "characters": 2466
+          },
+          {
+            "page": 22,
+            "text_sha256": "fa932e9123e0920f5d47b2f3b89003b594c75d2b60a40ff46ea958a2401761d3",
+            "characters": 2344
+          },
+          {
+            "page": 23,
+            "text_sha256": "eabe69cd0a8242403c88907c4dbc71d2ebeedb88916494cbfd79c7e314e8b87a",
+            "characters": 2446
+          },
+          {
+            "page": 24,
+            "text_sha256": "8b74d09733d0c89724d7e798dcc3f9621c3769aed9e7fb62f880347ca2e5f69e",
+            "characters": 2411
+          },
+          {
+            "page": 25,
+            "text_sha256": "c25c76248016e397d80f4216dfa7bf02a77e274950046fcb6ded45079f1ec02a",
+            "characters": 2358
+          },
+          {
+            "page": 26,
+            "text_sha256": "0a1d22568b83bd14b4fe98af559f9aceb64b185c13400571bca6318569648e15",
+            "characters": 2315
+          },
+          {
+            "page": 27,
+            "text_sha256": "7db3ff998883cafb4525a2e62c27a9c73ab4c8ce1df74ca7de209ec6b7fd0497",
+            "characters": 2276
+          },
+          {
+            "page": 28,
+            "text_sha256": "15d9d217716250616ff3bf6ea91b49a4f3b6b909028b5b6c3a0be742ebc44d91",
+            "characters": 2412
+          },
+          {
+            "page": 29,
+            "text_sha256": "525c81b057cb199d2067591007596092421d29c841f365ac3d21a7aa9bf999f4",
+            "characters": 2419
+          },
+          {
+            "page": 30,
+            "text_sha256": "962f69302bd8ad9ab96efcbf166a96c5e973e25c88426356bc577942d2f6a5f0",
+            "characters": 2345
+          },
+          {
+            "page": 31,
+            "text_sha256": "40cc6f5500c613fdbd9426896d41e9220d410e6a31ab998555c9b98f5209b10a",
+            "characters": 2426
+          },
+          {
+            "page": 32,
+            "text_sha256": "2b30d72dd7773b9a9a1085fcb33e1ed7cd51479812d3df8f9354e929f045406e",
+            "characters": 2384
+          },
+          {
+            "page": 33,
+            "text_sha256": "0c76c8ef63af7602cbe67985c1f460ace3346dca39784ec9eb6e4d928eb7254b",
+            "characters": 2421
+          },
+          {
+            "page": 34,
+            "text_sha256": "c22668f338a840eb92e4e3463b111aa4ab0ea664ef397dc552f8e507037babd1",
+            "characters": 2352
+          },
+          {
+            "page": 35,
+            "text_sha256": "ca761a36ad79b980a0c662574a3587c090b3c59a76e0948267a74f9650336f52",
+            "characters": 2324
+          },
+          {
+            "page": 36,
+            "text_sha256": "a1ed21f4352e95bbfc29f396800c59ca64004ca5ff3f3c003ef2e96221563c5c",
+            "characters": 2372
+          },
+          {
+            "page": 37,
+            "text_sha256": "88df9984f7fa5abfd8e88f5afd0ae80616214680c12f25585bebed4452aed79e",
+            "characters": 2418
+          },
+          {
+            "page": 38,
+            "text_sha256": "8ef7733d6e5270134c4857461b078725a5f3306c835b0813390d43a4eef29da5",
+            "characters": 2390
+          },
+          {
+            "page": 39,
+            "text_sha256": "c647e6543cc3e83204b73b5624ba185c6f5ba9a329cf52c584e3ce29fd55d931",
+            "characters": 2458
+          },
+          {
+            "page": 40,
+            "text_sha256": "52bfa62349fbbc063dca8a6c472862849150d073c76e053b0ec97b639b1d3661",
+            "characters": 2435
+          },
+          {
+            "page": 41,
+            "text_sha256": "70dde8d31a6eee3fe4316c73087e09361232642a27857e67ac13948e1bdd348e",
+            "characters": 2421
+          },
+          {
+            "page": 42,
+            "text_sha256": "c140f4153984a095fa0906b6fed3a630e6a381b60d46d2299c0b1e870cec7cf1",
+            "characters": 2383
+          },
+          {
+            "page": 43,
+            "text_sha256": "4e2f7d3c06ea2eb3d6600981b05a5c01fec6156cbf2bc1bbd4adbba009369fe9",
+            "characters": 2422
+          },
+          {
+            "page": 44,
+            "text_sha256": "ac24835a6f6e2df58cb498d12570668a6c53579d45c4e9b764ce084c961b9e16",
+            "characters": 2174
+          },
+          {
+            "page": 45,
+            "text_sha256": "f4eaadefc213b358377d6bf96e809e585e966cd473165069b1f73ae31ec2e29c",
+            "characters": 2393
+          },
+          {
+            "page": 46,
+            "text_sha256": "6578162ea3f748e5f8390ea7c92e640f5dc792997a51b98ccb5360cbc2a1131b",
+            "characters": 2403
+          },
+          {
+            "page": 47,
+            "text_sha256": "696568850c396dee1755887c88c75fd324acbd0f18e6f081088dbc6d3deda76f",
+            "characters": 2415
+          },
+          {
+            "page": 48,
+            "text_sha256": "b4b2ac041e99337a5b5c092755cfb52b8d7791674e9c4131be3fe9309034f1d4",
+            "characters": 2421
+          },
+          {
+            "page": 49,
+            "text_sha256": "39dbdd41c23ec3485417f2412138e88a45024fa1c89d04e4592b80457c6ee44f",
+            "characters": 2226
+          },
+          {
+            "page": 50,
+            "text_sha256": "bc6a0f3c0bd10a8c65685314e551f358ed9f72c07cd2914259c690a9069efa2e",
+            "characters": 2410
+          },
+          {
+            "page": 51,
+            "text_sha256": "a5758ae7ade2d3473ffe54359fba8d80cd71abb52b6d8ea36fd4d26c0166d164",
+            "characters": 2399
+          },
+          {
+            "page": 52,
+            "text_sha256": "308c2b6fc89b2d44e5b2600de2cf33d70fb3f5909f4a2f0f7f8afb84413ee5bd",
+            "characters": 2356
+          },
+          {
+            "page": 53,
+            "text_sha256": "badc30fbef363e3e4b402206f5ed4a3487ef7c169b8e1c1240a587e75094bf9c",
+            "characters": 2192
+          },
+          {
+            "page": 54,
+            "text_sha256": "478735e6c6a9ce9a55087ecba620e3027ebd433e9365d1e141200055864b434c",
+            "characters": 1954
+          },
+          {
+            "page": 55,
+            "text_sha256": "4175bda2a1dc6e9a1f549def6928b329275b7b1b4e912dcefb0b0824dc43b188",
+            "characters": 2310
+          },
+          {
+            "page": 56,
+            "text_sha256": "3a5eeb43125cdef0733cf1e65f4e4f32b0d1f7fe04b77d6412977c2a9236a8e3",
+            "characters": 2405
+          },
+          {
+            "page": 57,
+            "text_sha256": "52d4e61c70e37c5a22c7156ff5e5e7998bab3deb3ad85471177ba520c0d31336",
+            "characters": 2299
+          },
+          {
+            "page": 58,
+            "text_sha256": "e5dbe9a91f96fa95e751dc63ea20ea3d0471e1a3e1819e77482199c194a7ec68",
+            "characters": 2389
+          },
+          {
+            "page": 59,
+            "text_sha256": "b16799235225d815156c6f3bf1616cbe212b0923ab7ab78bab7a8641c2f427db",
+            "characters": 2353
+          },
+          {
+            "page": 60,
+            "text_sha256": "a7ec0ccb888a0e1a42667542c43fcb30f73410d9068767740993f3a263e99d7d",
+            "characters": 2457
+          },
+          {
+            "page": 61,
+            "text_sha256": "6860e499986162259091c24fb54ed22b33e4d9f995473a693d7d1b6a70b9c9c5",
+            "characters": 2361
+          },
+          {
+            "page": 62,
+            "text_sha256": "bcdb837e20d3c78b545fe65f52b2cfa9117c0dd13116059f565756241e13a3c3",
+            "characters": 2304
+          },
+          {
+            "page": 63,
+            "text_sha256": "e3dc7e2aeff6f122761c9d0908c19bd70458a95ffc3e66f105fa3ec47b711344",
+            "characters": 2378
+          },
+          {
+            "page": 64,
+            "text_sha256": "b1c631492e6444e54e0698bb11486a5b2165a3280662df873b6efef6f23256c2",
+            "characters": 2313
+          },
+          {
+            "page": 65,
+            "text_sha256": "7b39ee74010e5a1451166a55015da01529075370076cc8adcb7aee51a9428c3a",
+            "characters": 2390
+          },
+          {
+            "page": 66,
+            "text_sha256": "5670d1308b15bad208a7c82e8a1ce0703732190bce9916ebe4d3b06fad31112c",
+            "characters": 2442
+          },
+          {
+            "page": 67,
+            "text_sha256": "e7553415f67910d55f44b662e4b52c2a276d9d62559d6a1d8c540c44e96842dd",
+            "characters": 2438
+          },
+          {
+            "page": 68,
+            "text_sha256": "08975d755ebac4fd94d5cf510cf940aa030aebdf6b0e39661705c4d8b74b4117",
+            "characters": 2339
+          },
+          {
+            "page": 69,
+            "text_sha256": "fd30f22bdfd2d99d898cc106107a67b040b2e7c6e4f8217093a1fd822facab71",
+            "characters": 2298
+          },
+          {
+            "page": 70,
+            "text_sha256": "f3149ddb32f7f183b2c0af47ed297826c028cec6c955d9095c8c70b327569c5a",
+            "characters": 2310
+          },
+          {
+            "page": 71,
+            "text_sha256": "3954c13cefe365fe6b7dde7038f87efff8e335a6721235c9b3360b0193fe726f",
+            "characters": 2407
+          },
+          {
+            "page": 72,
+            "text_sha256": "bffe9cb25e99d22d1fc888f451ea88623257a081bc973f205225e806e9b3845d",
+            "characters": 2387
+          },
+          {
+            "page": 73,
+            "text_sha256": "8160415adaf84ca47d69a1618b4cbd135f7343638e0485bdc8d48dba51b9a04b",
+            "characters": 2409
+          },
+          {
+            "page": 74,
+            "text_sha256": "764ce706762f52a0fecb98e0d50331925c995567b8aea59e7409bc1b2932b0f2",
+            "characters": 2511
+          },
+          {
+            "page": 75,
+            "text_sha256": "c479c8a6fae7a1b8889238c983588da8a1dd81ff6124346376b4c1032595c6cf",
+            "characters": 2324
+          },
+          {
+            "page": 76,
+            "text_sha256": "0159cc0d5581ed70a0adfa17fad933b88325ff38499395f962aaa82292e80d28",
+            "characters": 2436
+          },
+          {
+            "page": 77,
+            "text_sha256": "41a5cca4dc9a31f7f9593d234b5891edaae23be53efb0f47c915ca84a6e13210",
+            "characters": 2431
+          },
+          {
+            "page": 78,
+            "text_sha256": "2562950362347449d6ca9ce8d050745af6304c9f7bf6ae51abda0b5a1842bac8",
+            "characters": 2428
+          },
+          {
+            "page": 79,
+            "text_sha256": "581ba1bbf0cfcade0ff4815106beef3fee55560461f4131ff8a0d384dfdc67f2",
+            "characters": 1903
+          },
+          {
+            "page": 80,
+            "text_sha256": "4a53d4dcae576ab974d1a517a22fff64d8b41281116cc66501bae779214afc1e",
+            "characters": 2099
+          },
+          {
+            "page": 81,
+            "text_sha256": "a051e3016022bda1e7f293b1600bdc815540ede04d0e573a8180c35a94f14e7b",
+            "characters": 1928
+          },
+          {
+            "page": 82,
+            "text_sha256": "350dce5c73c21d3aca7b9a8365bee50975e444651b965a3918ed942b8c2304f0",
+            "characters": 2356
+          },
+          {
+            "page": 83,
+            "text_sha256": "bc7b678c8c0b0700a0723f8642da509c8d10d2878b16a8b13b89fd006d46d490",
+            "characters": 2305
+          },
+          {
+            "page": 84,
+            "text_sha256": "5fe9aca56839f67f488eabc52b8680a26d96de3fd01e09fbcf3b7ad442ceca1b",
+            "characters": 2034
+          },
+          {
+            "page": 85,
+            "text_sha256": "77888bdd754ca33a88303edd7b50a01269ff64ec6c7cf1e14de1600b4e95736c",
+            "characters": 1728
+          },
+          {
+            "page": 86,
+            "text_sha256": "b0261a396f9f4819284780c621cf8b75c1ea0f264af286b8dd87ebe4478e91c6",
+            "characters": 2022
+          },
+          {
+            "page": 87,
+            "text_sha256": "47bb82eccaa33ff525ceec62d5fba6b60d8904a5620959f1e483d4b4a6f19f58",
+            "characters": 2212
+          },
+          {
+            "page": 88,
+            "text_sha256": "7f3cb58db8d5e6430bef7f421b97a96cb7a1615417f6493ca26442bc3fc096ee",
+            "characters": 2167
+          },
+          {
+            "page": 89,
+            "text_sha256": "438b95fd2f66aba17b7115a2b47b729019e7751b3fcb8a057ef59304ed0c9520",
+            "characters": 2145
+          },
+          {
+            "page": 90,
+            "text_sha256": "fe727a66fb9dd2f9feefeb8ed989cbc1e5720c3b15e517a13affffa8599c4d3d",
+            "characters": 1749
+          },
+          {
+            "page": 91,
+            "text_sha256": "d885c798a73e307b671ed4fe62b544e551f5472324789225167b47c161b9957e",
+            "characters": 2471
+          },
+          {
+            "page": 92,
+            "text_sha256": "20211bdba2d7aa69a157284e024035face0abb9885354f46878b45573511c11c",
+            "characters": 2734
+          },
+          {
+            "page": 93,
+            "text_sha256": "4ab7ed2c73768cb14653b6fce72c014598b5a795d5b50a0b11a30f50e4ee5f76",
+            "characters": 2296
+          },
+          {
+            "page": 94,
+            "text_sha256": "65cb23945f690036182368cfc9a8d6ffc02556abcca5b4872eb5044cad30ad85",
+            "characters": 2228
+          },
+          {
+            "page": 95,
+            "text_sha256": "ab5aaddf9d2f7c22007ae3365d006c0ac78eb3d780075153b46b1c748a342ab6",
+            "characters": 2381
+          },
+          {
+            "page": 96,
+            "text_sha256": "5e3f426845ef1d50cb4bf5a79812da8825d7c42af82167c19ad9eb2bd5406aa4",
+            "characters": 2212
+          },
+          {
+            "page": 97,
+            "text_sha256": "d087c2f157ab2ce7aa2a6e3ac0b199b1a54182469e472c2bc0bcb3fd8913f8b9",
+            "characters": 2365
+          },
+          {
+            "page": 98,
+            "text_sha256": "73e1b3ef02d04b171cd3767848f4faa82bce25f4e3dfbaabe1279f169c50a1b1",
+            "characters": 2097
+          },
+          {
+            "page": 99,
+            "text_sha256": "5ffd054241413b0d8a3c6f821dac65b4822a6f810c46a787f1b28e7763de78f1",
+            "characters": 2068
+          },
+          {
+            "page": 100,
+            "text_sha256": "f3cf283cea0d019fbd11659e14e982218c75d4cf36b7a4c89f9ad69f9cb533ba",
+            "characters": 1871
+          },
+          {
+            "page": 101,
+            "text_sha256": "6043826e7dfea879dd7871994576192fc08f165f1319836ad071eec333cd90c0",
+            "characters": 2316
+          },
+          {
+            "page": 102,
+            "text_sha256": "88c76450d199ce404f4b7a2f8fa2b6389eefd5dfee1524c67a97789383c500fa",
+            "characters": 2279
+          },
+          {
+            "page": 103,
+            "text_sha256": "8b71d0edca273aed9b9320bd561fdfcf39136e1253a11d6a757fb6dd9f045302",
+            "characters": 2285
+          },
+          {
+            "page": 104,
+            "text_sha256": "94a4fdbcfc5ad1baa2d5d43d0def4638bc93a6cb8dd96f2b97ed2d257bb2329d",
+            "characters": 2444
+          },
+          {
+            "page": 105,
+            "text_sha256": "94a3f8d7fe39b3a4591bd32a1afdb6a3eba9e199638525a35f012608b439a484",
+            "characters": 1895
+          },
+          {
+            "page": 106,
+            "text_sha256": "c92335f8d011482047d6cddd2f2eb1ab27a8a8903b5bf19b985b96bf106fafde",
+            "characters": 3017
+          },
+          {
+            "page": 107,
+            "text_sha256": "9478ac048e3d9480c73f17e04469c5a971e6c6fff8eac92332e2aac5ac58febc",
+            "characters": 2376
+          },
+          {
+            "page": 108,
+            "text_sha256": "48f74641aef9af5ac62d398881391d9ec92d764f1f71fe032741fc3d01fe0f12",
+            "characters": 1858
+          },
+          {
+            "page": 109,
+            "text_sha256": "dce70a56e395c05751b423fc78c5a5fe73a74eee907eb467088c3f8594903c82",
+            "characters": 173
+          },
+          {
+            "page": 110,
+            "text_sha256": "9a5f271fe707fc329394cca45ea6023e0b9490dd8f6fc2e9de447b22810b201e",
+            "characters": 1392
+          },
+          {
+            "page": 111,
+            "text_sha256": "33e5f2494ddd7cf630639f352a452e0bf5318e7c57d1ada272ad25fae9b87148",
+            "characters": 1745
+          },
+          {
+            "page": 112,
+            "text_sha256": "93ce4e63dca1afeb5dd6c5b9c4b17cc8531a2423b8f863ea9c133f1db81384c7",
+            "characters": 2151
+          },
+          {
+            "page": 113,
+            "text_sha256": "ed89f2ea119208b1b53221384b85b6983e0eca63e1110d60cb5048f71868d843",
+            "characters": 2075
+          },
+          {
+            "page": 114,
+            "text_sha256": "f219cf9f87626a68540ed6d65b9fd468ae116136d231fc9fb426782e45bf0381",
+            "characters": 1845
+          },
+          {
+            "page": 115,
+            "text_sha256": "c26261ee39d27e2b7720a9a405dee53105a638ebd5b3defe9b788b4a7c79fd9c",
+            "characters": 1972
+          },
+          {
+            "page": 116,
+            "text_sha256": "9b5af847bf938b5fbe4189525e90697730d215f2d263cb03173ff76af51b76fd",
+            "characters": 1780
+          },
+          {
+            "page": 117,
+            "text_sha256": "dfaed880396179e2fdc5d4484ff0e3e68de9ea218e81cab2f58f9985f551cf47",
+            "characters": 1951
+          },
+          {
+            "page": 118,
+            "text_sha256": "aaa7ee30c3dad6e068b607cfbd02b1aa877da05c4b2288023c2f093c2fa586b5",
+            "characters": 192
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-02dd9737ced55c32"
+    },
+    {
+      "url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+      "final_url": "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 156502,
+      "sha256": "f90e3b1f12e8a86cfd8ff1084b7ced237bcf6b35171cf64d9f74130858e6d35c",
+      "text_sha256": "a5af8a086e79d59f06ed02e0ccc977b548ffa0be7f05c54eb34be710748d015a",
+      "retrieved_at": "2026-11-03T16:01:10.035284+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 3,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "f1b5c4040489ca585e625938c3c0e5c1047d1b28190724fd7dd75e2668910686",
+            "characters": 1282
+          },
+          {
+            "page": 2,
+            "text_sha256": "de72960aaa695b773b25e5f5ebf32cc54c40d7090c8bc2a52748b627cf8a4985",
+            "characters": 2536
+          },
+          {
+            "page": 3,
+            "text_sha256": "bdae5ef789e790da8cf1a8f34ac7f2087c0850da1c01a8ffe5516811766b48c2",
+            "characters": 545
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-3236e8cccb97f0d6"
+    },
+    {
+      "url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "final_url": "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 185508,
+      "sha256": "12a9cd858b7d723dbcdf88658e0d4f1ffcd7c2f7a9c3a85a2bb7372a4138479c",
+      "text_sha256": "7466d6c7a6d8670e65178f1290a4202742fab64e9b7e29f90250ec6c75a3f371",
+      "retrieved_at": "2026-11-03T16:01:10.348862+00:00",
+      "method": "direct_https",
+      "source_id": "src-9315ed0d2cc3ed6e"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "final_url": "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 56010,
+      "sha256": "370a6dd3ec55467592ccb1b46cbe4293f57c69cdf81ce9777b01bd79835183c2",
+      "text_sha256": "fb0414ea7b7b9fa937af50fa0d260d650e359b80000c212e6e843de0b52930bc",
+      "retrieved_at": "2026-11-03T16:01:10.494441+00:00",
+      "method": "direct_https",
+      "source_id": "src-299e421cf61e682c"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 66215,
+      "sha256": "451ee4578e395f5d8a2d677230aca253bfb97178e0481e1e4059a8cf6d106181",
+      "text_sha256": "7e92cdf0d0c5924dc8e5ff892cb05a55c712342755f263b91f8be3245b678e08",
+      "retrieved_at": "2026-11-03T16:01:10.720250+00:00",
+      "method": "direct_https",
+      "source_id": "src-4f1464923f786235"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 53661,
+      "sha256": "ffbbe44eabf4c654a354b22957fa709e5972881a7056a28e32c9b5f0490d382c",
+      "text_sha256": "4a0180918a3aaed6e56940b10e5ed761ef60c04d8909b4fa2c0abfc1e5c8469b",
+      "retrieved_at": "2026-11-03T16:01:11.226680+00:00",
+      "method": "direct_https",
+      "source_id": "src-cc7888b1e0b22d4c"
+    },
+    {
+      "url": "https://oklahoma.gov/rhtp/rhtp-programs.html",
+      "final_url": "https://oklahoma.gov/rhtp/rhtp-programs.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 126709,
+      "sha256": "b00e1d4e3f05443a6793e7c9c017b9925c39a662286f574fda63d35baafcdd99",
+      "text_sha256": "2d4e82d6ecaf7204edab7d655efca4b79f9e1f3600e1c3dc084c62f35d090809",
+      "retrieved_at": "2026-11-03T16:01:11.315000+00:00",
+      "method": "direct_https",
+      "source_id": "src-1dfc766a5c4dc1e2"
+    },
+    {
+      "url": "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+      "final_url": "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+      "http_status": 200,
+      "content_type": "text/html",
+      "bytes": 54994,
+      "sha256": "a7a10a8ece87f8c4e01c75f5e61c217ef56fe2f05a0ba2a07286aae56eaa09df",
+      "text_sha256": "227c1f4a60f5fa2d41beacfc72380a8835b8c92398a7d9550a2a7b3420ab49b2",
+      "retrieved_at": "2026-11-03T16:01:11.533571+00:00",
+      "method": "direct_https",
+      "source_id": "src-7b662f962f90b96c"
+    },
+    {
+      "url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+      "final_url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "bytes": 191083,
+      "sha256": "d04ae0e979377cb9fd79941ac5349d6bdbbb083610db1d86bab5131c8e44e9c6",
+      "text_sha256": "394414f11d7c292a717aa45809a5d7c76591d5cf0c5d69052c44f181caf68362",
+      "retrieved_at": "2026-11-03T16:01:12.063208+00:00",
+      "method": "direct_https",
+      "extraction": {
+        "format": "pdf",
+        "parser": "pypdf",
+        "parser_version": "6.21.4",
+        "page_count": 16,
+        "pages": [
+          {
+            "page": 1,
+            "text_sha256": "d62854f57015e8221105477f9b39877ffd6322fe4b4768e70508d51b3fd60234",
+            "characters": 732
+          },
+          {
+            "page": 2,
+            "text_sha256": "e7acc22deead9ab53e029d912e208fb259f4e3922f0c74d620f8e979d047d831",
+            "characters": 3088
+          },
+          {
+            "page": 3,
+            "text_sha256": "10ebd8dd612a28f431af593c5af2ab7d35bad21be1743dde026a5cfb708add47",
+            "characters": 309
+          },
+          {
+            "page": 4,
+            "text_sha256": "6f10bb05ad796fd4d2c24c5050c07072e127cd411fbb9d552a30a027822a55d8",
+            "characters": 2464
+          },
+          {
+            "page": 5,
+            "text_sha256": "5d3c8e72cd5101e109f25f78034aea08ff14ae594bbdc78cf8a2ec29e22954de",
+            "characters": 2137
+          },
+          {
+            "page": 6,
+            "text_sha256": "56e43fbc62fe0771c4808cca29947447aa1020f0244cea8282878e794788cf06",
+            "characters": 2337
+          },
+          {
+            "page": 7,
+            "text_sha256": "5603c6ecc6591aa917d148903462442d8f9504a39816d779f61dca8c56267a2f",
+            "characters": 1878
+          },
+          {
+            "page": 8,
+            "text_sha256": "935803c7286cd84da819beb833e6bf2e3b13110bd5970be74c0dc47fff4e3425",
+            "characters": 2072
+          },
+          {
+            "page": 9,
+            "text_sha256": "e0e2a238f0d440e99ab2e2d20946306d6251cb37a8d7bccd11ea8a0071c189c4",
+            "characters": 1296
+          },
+          {
+            "page": 10,
+            "text_sha256": "7830c2286fd937d24d12269698b20ea2bbe61f389fcb3eab2e6a233f5c03fcae",
+            "characters": 2126
+          },
+          {
+            "page": 11,
+            "text_sha256": "ac73fb8bc232b534df27bb587033863d24ba72ad84adc2f46b8875e8362378bb",
+            "characters": 1906
+          },
+          {
+            "page": 12,
+            "text_sha256": "0fb62d0d1b9b42774172006fed943b158a155ec912651f38e001a6f781b195a6",
+            "characters": 1663
+          },
+          {
+            "page": 13,
+            "text_sha256": "c47cf7319b0afd80ec053a776d6480cae9a780d13dffaede4775c3e898f81755",
+            "characters": 2114
+          },
+          {
+            "page": 14,
+            "text_sha256": "23363c1c32275527255b9a200609ee5ed6588e18a737dd1aa6edfc400d7044bd",
+            "characters": 1679
+          },
+          {
+            "page": 15,
+            "text_sha256": "a6a06c2d4d61e5057b79fe42ed2e438304bd4325ba89ce6b6ba887c294f1fe83",
+            "characters": 1918
+          },
+          {
+            "page": 16,
+            "text_sha256": "46b19f695d255ab0e02a115945f2d632f4a6f33986956ea9f29a1f66736eebc0",
+            "characters": 639
+          }
+        ],
+        "ocr_used": false,
+        "text_only": true,
+        "images_reviewed": false
+      },
+      "source_id": "src-bc7e6e2b0702e1be"
+    }
+  ],
+  "research_at": "2026-11-03T16:02:53.875750+00:00",
+  "usage": {
+    "research": null,
+    "audit": [
+      {
+        "input_tokens": 145934,
+        "input_tokens_details": {
+          "cache_write_tokens": 0,
+          "cached_tokens": 0
+        },
+        "output_tokens": 6777,
+        "output_tokens_details": {
+          "reasoning_tokens": 4096
+        },
+        "total_tokens": 152711
+      }
+    ]
+  },
+  "structured_review": {
+    "schema_version": 1,
+    "edition_date": "2026-11-03",
+    "stage": "structured-review",
+    "candidate_sha256": "ee78b99c1594ef080d38cbcd8241830694d25285af7c81db98fe475830028230",
+    "review_complete": true,
+    "blocking_count": 0,
+    "advisory_count": 0,
+    "findings": [],
+    "correction_calls": 0,
+    "correction_method": "automated",
+    "publication_authorized": false
+  }
+}

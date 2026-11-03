@@ -470,5 +470,89 @@
       ]
     ],
     "reviewed": "2026-11-01"
+  },
+  {
+    "direction": "Emerging",
+    "confidence": "High",
+    "horizon": "1–5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "RHTP state materials and the CMS summit readout indicate active state-level subaward planning and workforce/technology project design; grants are time-limited and microgrants explicitly exclude staffing and ongoing maintenance.",
+    "why": "Subaward and program materials show funding windows and program design but do not substitute for enforceable post-grant operating commitments; require sustainability budgets for recurring costs and staffing before accepting operating responsibilities and do not presume payroll coverage from microgrants or NOFO language alone.",
+    "id": "grant-operating-budget-separation",
+    "title": "Grant-supported projects need separate recurring-cost planning",
+    "refs": [
+      [
+        "CMS first Rural Health Transformation Summit readout",
+        "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation"
+      ],
+      [
+        "Oklahoma RHTP Year One Microgrants Notice of Funding Opportunity",
+        "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf"
+      ]
+    ],
+    "reviewed": "2026-11-03"
+  },
+  {
+    "direction": "Down",
+    "confidence": "High",
+    "horizon": "12–48 months",
+    "executiveRisk": "High",
+    "summary": "CMS proposed rule CMS-2452-P would amend how indirect hold-harmless thresholds are determined for health-care-related taxes, creating planning risk for provider-tax-funded supplemental payments if finalized.",
+    "why": "The NPRM ties calculation/reporting to taxes enacted by July 4, 2025 and would codify new thresholds with phased timing; facility exposure hinges on final-rule language and state decisions, so isolate provider-tax-funded revenue when modeling downside scenarios.",
+    "id": "medicaid-financing-implementation",
+    "title": "Medicaid financing remains a statutory and rulemaking watch",
+    "refs": [
+      [
+        "Federal Register: Proposed Rule CMS-2452-P (PDF)",
+        "https://public-inspection.federalregister.gov/2026-14897.pdf?1784664910="
+      ],
+      [
+        "Fact Sheet: Amending the Indirect Hold‑Harmless Threshold (Proposed Rule CMS-2452-P)",
+        "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p"
+      ]
+    ],
+    "reviewed": "2026-11-03"
+  },
+  {
+    "direction": "Down",
+    "confidence": "High",
+    "horizon": "0–3 months",
+    "executiveRisk": "High",
+    "summary": "CMS transmittal R13776OTN and MLN MM14468 require RHCs/FQHCs to bill distant-site telehealth with individual CPT/HCPCS plus telehealth modifiers for DOS on or after 2026-10-01 with a noted systems implementation date; early claims reconciliation will show how payers and clearinghouses adjudicate.",
+    "why": "Policy is final for Medicare FFS, but clearinghouse edits and payer adjudication determine actual payment outcomes; a focused early-October claims sample will quantify denials, edits and cash effects.",
+    "id": "rhc-revenue-cycle-execution",
+    "title": "RHC telehealth implementation requires claim-level verification",
+    "refs": [
+      [
+        "MM14468: Rural Health Clinics & FQHCs: Billing Distant Site Telehealth Services (PDF)",
+        "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf"
+      ],
+      [
+        "Transmittal R13776OTN - Billing of Distant Site Telehealth Services in RHCs/FQHCs",
+        "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn"
+      ]
+    ],
+    "reviewed": "2026-11-03"
+  },
+  {
+    "direction": "Active planning",
+    "confidence": "High",
+    "horizon": "1–5 years",
+    "executiveRisk": "Opportunity",
+    "summary": "Oklahoma program pages list rural residencies, HWTC rural relocation incentives and CareerTech LPN pathways and CMS emphasized workforce development at the RHTP summit, supporting an ongoing implementation watch for workforce pipeline initiatives.",
+    "why": "Program descriptions support planning and partnership opportunities but do not demonstrate completed hires or funded retention outcomes; assess placement capacity, supervision and retention commitments before relying on pipeline results.",
+    "id": "rural-workforce-implementation",
+    "title": "Rural training and retention remain an implementation watch",
+    "refs": [
+      [
+        "Oklahoma RHTP Programs",
+        "https://oklahoma.gov/rhtp/rhtp-programs.html"
+      ],
+      [
+        "CMS first Rural Health Transformation Summit readout",
+        "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation"
+      ]
+    ],
+    "reviewed": "2026-11-03"
   }
 ]

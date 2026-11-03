@@ -692,12 +692,12 @@
     },
     {
       "id": "reconcile-rhc-telehealth-claims",
-      "title": "Reconcile October non-behavioral RHC distant-site telehealth claims",
+      "title": "Reconcile October distant-site telehealth claims (RHC/FQHC CPT/HCPCS + modifiers)",
       "status": "Open",
       "owner": "revenue-cycle",
       "owner_is_suggested": true,
-      "due": "2026-11-07",
-      "next": "Sample non-behavioral RHC distant-site telehealth claims with dates of service on or after October 1, verify CPT/HCPCS, revenue codes and modifiers, and reconcile actual remittances and denials. Review behavioral health telehealth separately under its applicable payment rules.",
+      "due": "Ongoing",
+      "next": "Extract representative sample of DOS 2026-10-01 onward, confirm CPT/HCPCS and telehealth modifier usage, reconcile remittances, and log payer-specific denials and edits for corrective clearinghouse or billing changes.",
       "source": "rhc-telehealth-billing-final"
     },
     {
@@ -742,12 +742,12 @@
     },
     {
       "id": "verify-generous-oklahoma",
-      "title": "Request written OHCA confirmation of GENEROUS participation and state implementation terms",
+      "title": "Request written OHCA confirmation of GENEROUS participation and implementation terms",
       "status": "Open",
       "owner": "Medicaid / Pharmacy / Finance",
       "owner_is_suggested": true,
       "due": "Ongoing",
-      "next": "Contact OHCA in writing to request confirmation of executed participation, obtain the list of covered products, MCO passthrough instructions and any pharmacy or 340B operational guidance before changing forecasts.",
+      "next": "Contact OHCA in writing for executed-participation confirmation, obtain list of covered products, MCO passthrough instructions and implementation schedule before changing pharmacy or 340B forecasts.",
       "source": "generous-medicaid-conditional"
     },
     {
@@ -756,8 +756,8 @@
       "status": "Open",
       "owner": "Grants / Strategy / Finance",
       "owner_is_suggested": true,
-      "due": "2026-11-30",
-      "next": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, maintenance and replacement costs plus fallback funding; include post-grant budget review in contract terms.",
+      "due": "Ongoing",
+      "next": "Before accepting subaward tasks or hosting new services, require subrecipients to document recurring expenses, staffing, maintenance, replacement capital and fallback funding in the subaward budget and contract terms.",
       "source": "oklahoma-rhtp-subawards"
     },
     {
@@ -791,5 +791,5 @@
     ],
     "Closed": []
   },
-  "reviewed": "2026-11-02"
+  "reviewed": "2026-11-03"
 }
