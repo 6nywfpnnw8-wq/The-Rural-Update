@@ -179,4 +179,6 @@ jobs:
             .release-cache/*/retained-source-coverage-v1-*.json
             .release-cache/*/app-evidence-completion-v2-used.json
             .release-cache/*/app-evidence-completion-v2/**/*.json
+            .release-cache/*/reviewed-coverage-reporting-v1-used.json
+            .release-cache/*/reviewed-coverage-reporting-v1/**/*.json
 
