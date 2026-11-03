@@ -176,4 +176,5 @@ jobs:
             .release-cache/*/fixed-field-review-v2/*.json
             .release-cache/*/app-pdf-evidence-recovery-v1-used.json
             .release-cache/*/app-pdf-evidence-recovery-v1/**/*.json
+            .release-cache/*/retained-source-coverage-v1-*.json
 

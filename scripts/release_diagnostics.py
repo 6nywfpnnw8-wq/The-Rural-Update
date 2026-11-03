@@ -146,8 +146,11 @@ def _error_details(error: Exception, candidate=None) -> dict:
         return result
     keyword = getattr(error, 'validator', None)
     if isinstance(keyword, str) and re.fullmatch(r'[a-zA-Z]{1,32}', keyword):
-        return {'rule': 'schema', 'message': 'Candidate does not match the required schema',
-                'path': pointer(getattr(error, 'absolute_path', ())), 'keyword': keyword}
+        result = {'rule': 'schema', 'message': 'Candidate does not match the required schema',
+                  'path': pointer(getattr(error, 'absolute_path', ())), 'keyword': keyword}
+        if keyword in {'minItems', 'maxItems'} and isinstance(getattr(error, 'instance', None), list):
+            result.update(actual_items=len(error.instance), required_limit=error.validator_value)
+        return result
     if isinstance(error, json.JSONDecodeError):
         return {'rule': 'response_json', 'message': 'Model completion is not valid JSON',
                 'path': '/', 'line': error.lineno, 'column': error.colno,

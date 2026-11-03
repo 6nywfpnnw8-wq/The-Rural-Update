@@ -14,7 +14,10 @@ from release_core import allowed_url, canonical_url, digest
 from release_diagnostics import MAX_SNAPSHOT_BYTES, redact, write_json
 
 METHOD = 'fixed-source-selection-v1'
+SLOT_METHOD = 'bounded-source-selection-v2'
 MAX_CHOICES = 128
+MIN_SELECTED = 5
+MAX_SELECTED = 12
 
 
 def source_choices(urls: list[str]) -> dict[str, str]:
@@ -60,11 +63,11 @@ def _unique_object(pairs):
     return result
 
 
-def retain_selection(text: str, cache: Path, identity: str) -> dict:
-    return retain_stage_output(text, cache, identity, 'sources')
+def retain_selection(text: str, cache: Path, identity: str, *, method=METHOD) -> dict:
+    return retain_stage_output(text, cache, identity, 'sources', method=method)
 
 
-def retain_stage_output(text: str, cache: Path, identity: str, stage: str) -> dict:
+def retain_stage_output(text: str, cache: Path, identity: str, stage: str, *, method=None) -> dict:
     """Retain visible completion only, excluding raw API envelopes and reasoning.
 
     Keep rejected output as well as passing output so an error can be replayed.
@@ -79,7 +82,7 @@ def retain_stage_output(text: str, cache: Path, identity: str, stage: str) -> di
     cleaned = redact(text)
     relative = 'stage-responses/' + stage + '-' + fingerprint[:16] + '.json'
     write_json(Path(cache) / relative, {
-        'schema_version': 1, 'method': METHOD if stage == 'sources' else 'staged-visible-output-v1', 'identity': identity,
+        'schema_version': 1, 'method': method or (METHOD if stage == 'sources' else 'staged-visible-output-v1'), 'identity': identity,
         'stage': stage, 'publication_authorized': False,
         'sha256': fingerprint, 'redacted': cleaned != text, 'output_text': cleaned,
     })
@@ -92,3 +95,36 @@ def compile_selection(text: str, urls: list[str]) -> list[dict]:
     Draft202012Validator(selection_schema(urls)).validate(value)
     return [dict(id=key, url=url, **value['sources'][key])
             for key, url in source_choices(urls).items() if value['sources'][key] is not None]
+
+
+def bounded_selection_schema(urls: list[str]) -> dict:
+    """Five required choices and seven optional choices make overflow impossible.
+
+    IDs remain publisher-supplied enums and URLs never come from the model.
+    Duplicate IDs still fail local validation; no entry is silently discarded.
+    Historical map completions remain replayable through compile_selection.
+    """
+    item = {'type': 'object', 'properties': {
+        'id': {'type': 'string', 'enum': list(source_choices(urls))},
+        'title': {'type': 'string', 'minLength': 1, 'maxLength': 220},
+        'published_date': {'type': ['string', 'null'], 'pattern': r'^\d{4}-\d{2}-\d{2}$'},
+    }, 'required': ['id', 'title', 'published_date'], 'additionalProperties': False}
+    properties = {}
+    for index in range(MAX_SELECTED):
+        properties['source_' + str(index + 1)] = {
+            **item, 'type': 'object' if index < MIN_SELECTED else ['object', 'null']}
+    return {'type': 'object', 'properties': {'sources': {
+        'type': 'object', 'properties': properties,
+        'required': list(properties), 'additionalProperties': False,
+    }}, 'required': ['sources'], 'additionalProperties': False}
+
+
+def compile_bounded_selection(text: str, urls: list[str]) -> list[dict]:
+    value = json.loads(text, object_pairs_hook=_unique_object)
+    Draft202012Validator(bounded_selection_schema(urls)).validate(value)
+    choices = source_choices(urls)
+    rows = [dict(item, url=choices[item['id']])
+            for item in value['sources'].values() if item is not None]
+    if len({s['id'] for s in rows}) != len(rows):
+        raise ValueError('Duplicate source catalog identifier')
+    return sorted(rows, key=lambda s: list(choices).index(s['id']))

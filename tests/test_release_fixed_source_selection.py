@@ -26,7 +26,7 @@ class FixedSourceSelectionTests(unittest.TestCase):
         self.cache = Path(self.t.name) / DATE
         self.e = bounded_fixture()
         self.urls = [s['url'] for s in self.e['sources']]
-        self.text = sr._text(selection_response(self.e['sources']))
+        self.text = sr._text(selection_response(self.e['sources'], legacy=True))
         self.payload = {'model': 'gpt-5-mini', 'input': 'Edition ' + DATE,
                         'tools': [{'type': 'web_search'}]}
 

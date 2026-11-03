@@ -322,14 +322,15 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
     urls=observed_source_urls(discovery) if app else observed_html_urls(discovery)
     selected=_cached(folder/'sources.json',identity)
     if selected is None:
-        from release_source_selection import (source_choices, selection_schema,
-                                             retain_selection, compile_selection, METHOD)
+        from release_source_selection import (source_choices, bounded_selection_schema,
+                                             retain_selection, compile_bounded_selection, SLOT_METHOD)
         choices=source_choices(urls)
         req={**common,'max_output_tokens':4000,
              'instructions':(
                  'Select five to twelve substantive sources for this rural-health briefing. '
-                 'The supplied source IDs and URLs are fixed by the publisher. For each ID, '
-                 'return null to exclude it, or title and published_date metadata to select it. '
+                 'The supplied source IDs and URLs are fixed by the publisher. Fill the first '
+                 'five source slots with distinct fixed IDs and title/published_date metadata. '
+                 'Fill up to seven additional slots, or return null for unused optional slots. '
                  'Use only facts in the research notes. Select five to twelve distinct sources. '
                  'Choose enough relevant sources to support four signals with at least two '
                  'references each, not unrelated pages to satisfy a count. Do not create IDs '
@@ -339,20 +340,20 @@ def staged_request(payload: dict, send: Callable, cache: Path) -> dict:
                  'Return only source metadata, not a briefing or narration.'),
              'input':json.dumps({'research_notes':discovery['notes'],'fixed_sources':choices},ensure_ascii=False),
              'text':{'format':{'type':'json_schema','name':'sources','strict':True,
-                               'schema':selection_schema(urls)}}}
+                               'schema':bounded_selection_schema(urls)}}}
         snapshot=None
         try:
             raw=send(req)
             text=_text(raw)
-            snapshot=retain_selection(text,cache,identity)
-            catalog=validate_source_catalog(compile_selection(text,urls),urls)
+            snapshot=retain_selection(text,cache,identity,method=SLOT_METHOD)
+            catalog=validate_source_catalog(compile_bounded_selection(text,urls),urls)
         except Exception as exc:
             # Preserve the actual gate and a screened replayable completion. The
             # publisher will still stop, with no hidden retry or budget extension.
             exc.research_stage='sources'
             exc.source_selection_snapshot=snapshot
             raise
-        selected={'sources':catalog,'usage':raw.get('usage'),'selection_method':METHOD}
+        selected={'sources':catalog,'usage':raw.get('usage'),'selection_method':SLOT_METHOD}
         _save(folder/'sources.json',identity,selected)
     catalog=validate_source_catalog(selected['sources'],urls)
     expected=Path(cache).name

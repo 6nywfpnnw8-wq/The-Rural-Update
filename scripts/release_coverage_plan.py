@@ -12,7 +12,7 @@ from pathlib import Path
 from datetime import datetime
 from jsonschema import Draft202012Validator
 from release_core import TZ, digest, read_json, write_json
-from release_evidence import fetch_source, MAX_TOTAL_CHARS
+from release_evidence import fetch_source, MAX_TOTAL_CHARS, evidence_failure_details
 
 METHOD = 'evidence-coverage-v2'
 GROUPS = {'stories': (5, 1, 5), 'signals': (4, 2, 4)}
@@ -188,6 +188,7 @@ def ensure_reporting_plan(catalog, discovery, context, common, send, cache, iden
                     failures.append({'rule': 'source_retrieval', 'path': '/sources/' + str(index),
                         'source_id': source['id'], 'url': source['url'],
                         'exception_category': type(error).__name__,
+                        **evidence_failure_details(error),
                         'http_status': error.code if isinstance(error, urllib.error.HTTPError) else None})
             write_json(Path(cache) / 'coverage-source-evidence.json', {
                 'method': METHOD, 'publication_authorized': False, 'complete': not failures,
