@@ -157,6 +157,7 @@ jobs:
           files.extend((root/'app-evidence-completion-v2').glob('**/*.json'))
           files.append(root/'reviewed-coverage-reporting-v1-used.json')
           files.extend((root/'reviewed-coverage-reporting-v1').glob('**/*.json'))
+          files.append(root/'reviewed-report-reference-v1-used.json')
           files.extend(root.glob('retained-source-coverage-v1-*.json'))
           files.append(root/'coverage-source-evidence.json')
           files.append(root/'coverage-plan-repair-authorized.json')
