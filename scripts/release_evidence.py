@@ -21,9 +21,23 @@ MAX_BYTES = 2 * 1024 * 1024
 MAX_SOURCE_CHARS = 300000
 MAX_TOTAL_CHARS = 450000
 MAX_SOURCES = 20
-MAX_PDF_PAGES = 100
+# The observed Federal Register NPRM has 118 readable pages. Keep extraction
+# bounded and complete; byte, stream, per-source and combined text caps still apply.
+MAX_PDF_PAGES = 160
 MAX_PDF_PAGE_STREAM_BYTES = 4 * 1024 * 1024
 MAX_PDF_TOTAL_STREAM_BYTES = 32 * 1024 * 1024
+
+
+class PDFPageLimitError(ValueError):
+    def __init__(self, count):
+        self.evidence_diagnostic = {'failure_code': 'pdf_page_limit',
+            'observed_pages': count, 'maximum_pages': MAX_PDF_PAGES}
+        super().__init__('PDF evidence page count exceeds the extraction limit')
+
+
+def evidence_failure_details(error):
+    """Allowlisted operational details only, never arbitrary exception text."""
+    return dict(error.evidence_diagnostic) if isinstance(error, PDFPageLimitError) else {}
 
 
 def extract_pdf(raw):
@@ -36,7 +50,7 @@ def extract_pdf(raw):
         raise ValueError('Encrypted PDF evidence is not supported')
     count=len(reader.pages)
     if not 1<=count<=MAX_PDF_PAGES:
-        raise ValueError('PDF evidence page count exceeds the extraction limit')
+        raise PDFPageLimitError(count)
     texts=[];pages=[];stream_bytes=0;characters=0
     for index,page in enumerate(reader.pages,1):
         contents=page.get_contents()
@@ -137,6 +151,7 @@ def collect_source_evidence(candidate, cache):
             # No response bodies, credentials, or arbitrary exception text in reports.
             failures.append({'source_id': source['id'], 'url': source['url'],
                              'error_type': type(exc).__name__,
+                             **evidence_failure_details(exc),
                              'http_status': exc.code if isinstance(exc, urllib.error.HTTPError) else None})
     report = {'schema_version': 1, 'edition_date': candidate['edition_date'],
               'candidate_sha256': fingerprint(candidate), 'publication_authorized': False,

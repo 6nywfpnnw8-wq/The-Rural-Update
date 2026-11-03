@@ -36,9 +36,14 @@ def response(value,status='completed',web=False):
     return {'status':status,'output':output,'usage':{'input_tokens':50,'output_tokens':80,'output_tokens_details':{'reasoning_tokens':10}}}
 
 
-def selection_response(catalog):
+def selection_response(catalog, legacy=False):
     choices=source_choices([s['url'] for s in catalog])
     by_url={canonical_url(s['url']):s for s in catalog}
+    if not legacy:
+        rows=[{'id': key, **{k: by_url[canonical_url(url)][k] for k in ('title','published_date')}}
+              for key,url in choices.items()]
+        return response({'sources':{'source_'+str(i+1): rows[i] if i<len(rows) else None
+                                    for i in range(12)}})
     return response({'sources':{key:{k:by_url[canonical_url(url)][k]
                                       for k in ('title','published_date')}
                                 for key,url in choices.items()}})

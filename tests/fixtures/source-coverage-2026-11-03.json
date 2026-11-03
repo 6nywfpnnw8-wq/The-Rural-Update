@@ -1,0 +1,38 @@
+{
+  "edition_date": "2026-11-03",
+  "observed_urls": [
+    "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/RHTP%20Quick%20Reference%20Guide.pdf",
+    "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+    "https://oklahoma.gov/health/news---events/newsroom/2026/rural-health-progress.html",
+    "https://oklahoma.gov/rhtp.html",
+    "https://oklahoma.gov/rhtp/rhtp-faqs.html",
+    "https://oklahoma.gov/rhtp/rhtp-funding.html",
+    "https://oklahoma.gov/rhtp/rhtp-programs.html",
+    "https://public-inspection.federalregister.gov/2026-14897.pdf?1784664910=",
+    "https://www.cms.gov/files/document/mln006398-information-rural-health-clinics.pdf?fbclid=IwAR0o2HLyaRLkMWAIrAi3Gu10KF2Y16WDl27mZ_0iGbEpTE56x8zw0S_W-GI",
+    "https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf",
+    "https://www.cms.gov/files/document/telehealth-faq-calendar-year-2025-updated-04/11/2025.pdf",
+    "https://www.cms.gov/medicare/regulations-guidance/transmittals/2026-transmittals/r13776otn",
+    "https://www.cms.gov/newsroom/fact-sheets/amending-indirect-hold-harmless-threshold-health-care-related-taxes-proposed-rule-cms-2452-p",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-50-billion-awards-strengthen-rural-health-all-50-states",
+    "https://www.cms.gov/newsroom/press-releases/cms-announces-participants-landmark-medicaid-drug-payment-model-bring-down-drug-costs-most",
+    "https://www.cms.gov/newsroom/press-releases/cms-launches-landmark-50-billion-rural-health-transformation-program",
+    "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+    "https://www.ruralhealthinfo.org/states/oklahoma/rhtp"
+  ],
+  "selections": [
+    {
+      "sha256": "b53c31d772f4dfeae91b81d90e97afe10c10b1021e5c0c0c08abf974300e0f37",
+      "output_text": "{\n  \"sources\": {\n    \"src-db7e2228ed4f8b9c\": {\n      \"title\": \"RHTP Quick Reference Guide (Oklahoma)\",\n      \"published_date\": null\n    },\n    \"src-bc7e6e2b0702e1be\": null,\n    \"src-800eafbf3fe418ed\": {\n      \"title\": \"Rural Health Progress (Oklahoma Newsroom)\",\n      \"published_date\": null\n    },\n    \"src-90945e8746da757b\": {\n      \"title\": \"Oklahoma Rural Health Transformation Program (RHTP) \u2014 Program Page\",\n      \"published_date\": null\n    },\n    \"src-b8bf2f0a4123a719\": {\n      \"title\": \"Oklahoma RHTP \u2014 FAQs\",\n      \"published_date\": null\n    },\n    \"src-dd9d4f7688485958\": {\n      \"title\": \"Oklahoma RHTP \u2014 Funding\",\n      \"published_date\": null\n    },\n    \"src-1dfc766a5c4dc1e2\": {\n      \"title\": \"Oklahoma RHTP \u2014 Programs\",\n      \"published_date\": null\n    },\n    \"src-02dd9737ced55c32\": {\n      \"title\": \"Federal Register: NPRM \u2014 CMS-2452-P (PDF)\",\n      \"published_date\": \"2026-07-23\"\n    },\n    \"src-d47aa04301af38b5\": null,\n    \"src-3236e8cccb97f0d6\": {\n      \"title\": \"MM14468 \u2014 Rural Health Clinics & FQHCs: Billing Distant Site Telehealth Services (MLN)\",\n      \"published_date\": \"2026-05-27\"\n    },\n    \"src-6f0f3b396deac723\": null,\n    \"src-9315ed0d2cc3ed6e\": {\n      \"title\": \"Transmittal R13776OTN \u2014 Billing of Distant Site Telehealth Services in RHCs/FQHCs\",\n      \"published_date\": \"2026-05-27\"\n    },\n    \"src-299e421cf61e682c\": {\n      \"title\": \"Fact Sheet: Amending the Indirect Hold\u2011Harmless Threshold (Proposed Rule CMS-2452-P)\",\n      \"published_date\": \"2026-07-21\"\n    },\n    \"src-4f1464923f786235\": {\n      \"title\": \"CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States (Press Release)\",\n      \"published_date\": \"2025-12-29\"\n    },\n    \"src-cc7888b1e0b22d4c\": {\n      \"title\": \"CMS Announces Participants in GENEROUS Medicaid Drug Payment Model (Press Release)\",\n      \"published_date\": null\n    },\n    \"src-3d4a1f762ded9a2a\": {\n      \"title\": \"CMS Launches Landmark $50 Billion Rural Health Transformation Program (Press Release)\",\n      \"published_date\": null\n    },\n    \"src-7b662f962f90b96c\": null,\n    \"src-93f836a819efebfd\": null\n  }\n}"
+    },
+    {
+      "sha256": "e8cc0ea1e7319ce4319e7c14d2a15ceae0721b51f7548e3e2aa76aa78fefe1b0",
+      "output_text": "{\n  \"sources\": {\n    \"src-db7e2228ed4f8b9c\": {\n      \"title\": \"RHTP Quick Reference Guide (Oklahoma)\",\n      \"published_date\": null\n    },\n    \"src-bc7e6e2b0702e1be\": null,\n    \"src-800eafbf3fe418ed\": null,\n    \"src-90945e8746da757b\": {\n      \"title\": \"Oklahoma Rural Health Transformation Program (RHTP)\",\n      \"published_date\": null\n    },\n    \"src-b8bf2f0a4123a719\": null,\n    \"src-dd9d4f7688485958\": {\n      \"title\": \"RHTP Funding (Oklahoma)\",\n      \"published_date\": null\n    },\n    \"src-1dfc766a5c4dc1e2\": null,\n    \"src-02dd9737ced55c32\": {\n      \"title\": \"Federal Register: Proposed Rule CMS-2452-P (PDF)\",\n      \"published_date\": \"2026-07-23\"\n    },\n    \"src-d47aa04301af38b5\": null,\n    \"src-3236e8cccb97f0d6\": {\n      \"title\": \"MM14468: Rural Health Clinics & FQHCs: Billing Distant Site Telehealth Services (PDF)\",\n      \"published_date\": \"2026-05-27\"\n    },\n    \"src-6f0f3b396deac723\": null,\n    \"src-9315ed0d2cc3ed6e\": {\n      \"title\": \"Transmittal R13776OTN \u2014 Billing of Distant Site Telehealth Services in RHCs/FQHCs\",\n      \"published_date\": \"2026-05-27\"\n    },\n    \"src-299e421cf61e682c\": {\n      \"title\": \"Fact Sheet: Amending the Indirect Hold\u2011Harmless Threshold (Proposed Rule CMS-2452-P)\",\n      \"published_date\": \"2026-07-21\"\n    },\n    \"src-4f1464923f786235\": {\n      \"title\": \"CMS Announces $50 Billion in Awards to Strengthen Rural Health in All 50 States\",\n      \"published_date\": \"2025-12-29\"\n    },\n    \"src-cc7888b1e0b22d4c\": {\n      \"title\": \"CMS Announces Participants in GENEROUS Medicaid Drug Payment Model\",\n      \"published_date\": null\n    },\n    \"src-3d4a1f762ded9a2a\": null,\n    \"src-7b662f962f90b96c\": null,\n    \"src-93f836a819efebfd\": null\n  }\n}"
+    }
+  ],
+  "invalid_source_id": "src-02dd9737ced55c32",
+  "pdf_sha256": "0efe61097260582b2b4624fa7c826f08c63949373da179805c3fff6bf68a1b2a",
+  "pdf_pages": 118,
+  "pdf_characters": 267214,
+  "pdf_text_sha256": "d40b0f06c34f42dba500daffc60546d8dc36489c4496875ecff677368dc88a84"
+}

@@ -196,6 +196,12 @@ def research(edition_date,previous,cache):
         from release_retained_app import prepare_continuation
         try:
             app_continuation=prepare_continuation(cache,edition_date,payload,ROOT/'app-evidence-recovery')
+            from release_coverage_resume import prepare as prepare_coverage_resume
+            coverage_continuation=prepare_coverage_resume(cache,edition_date,payload,ROOT/'coverage-resume')
+            if coverage_continuation is not None:
+                if app_continuation is not None:
+                    raise RuntimeError('Cannot combine retained coverage continuations')
+                app_continuation=coverage_continuation
         except Exception as exc:
             raise diagnostics.fail('app-evidence-resume',exc) from None
         from release_discovery_continuation import requires_bound_cache
