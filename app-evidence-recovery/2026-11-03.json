@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-03",
+  "method": "app-evidence-completion-v2",
+  "maximum_recoveries": 1,
+  "maximum_reporting_plan_requests": 1,
+  "maximum_reporting_requests": 1,
+  "prior_reporting_plan_requests": 1,
+  "maximum_total_reporting_plan_requests": 2,
+  "maximum_total_reporting_requests": 1,
+  "new_discovery_permitted": false,
+  "source_selection_model_requests": 0,
+  "research_counter_reset": false,
+  "independent_editorial_review_required": true,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "failure_run_id": 41655791262,
+  "original_identity": "4d2e40fa0e957c0ade8f3a330dbce9e65d118ac46ec75c9683317b9136d716a3",
+  "failure_report_sha256": "0b9d6f4deaa22b9c080808f157ca4441d220f3fb11d313c3ceeed27fdb73cae7",
+  "attempt_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "prior_coverage_reservation_sha256": "ecc95ac65dbba447db297d9e022d3c83155da6fc26c6a91d0c0c7d45da0fb4cd",
+  "prior_reporting_plan_reservation_sha256": "f09288fb783bfd0e29bb5ed4ec0cd28fe9c1a6f26f1278a55317316e9b930209",
+  "discovery_sha256": "6b51aff3d7ae4519bde4f388cf7e5d0fd25a8a49715ae4c163b0e55272fda9a7",
+  "sources_sha256": "9a702ac496a0c265d48387b8aced6e1cf74187e3fa455612672c8f5d2cffddc5",
+  "coverage_evidence_sha256": "1c8fc4e94955eb636d5355d8ade01e6247ceec9b91968393c23e3de77abce48f",
+  "coverage_plan_sha256": "745ce334eadb94d5f73bbe23ddd70b949508a120674ffc3ba4b570cca17ef67e",
+  "added_sources": [
+    {
+      "id": "src-1dfc766a5c4dc1e2",
+      "url": "https://oklahoma.gov/rhtp/rhtp-programs.html",
+      "title": "Oklahoma RHTP Programs",
+      "published_date": null,
+      "sha256": "c126e0d65cebfcf57c4b5793b6646c460a462204120c41028da6d165fc9cede3",
+      "text_sha256": "2d4e82d6ecaf7204edab7d655efca4b79f9e1f3600e1c3dc084c62f35d090809",
+      "content_type": "text/html"
+    },
+    {
+      "id": "src-7b662f962f90b96c",
+      "url": "https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation",
+      "title": "CMS first Rural Health Transformation Summit readout",
+      "published_date": "2026-03-19",
+      "sha256": "4d94486f0b8a5316f9a07539a88484d638dabdcf4786230d5ba53f237ba99ca2",
+      "text_sha256": "227c1f4a60f5fa2d41beacfc72380a8835b8c92398a7d9550a2a7b3420ab49b2",
+      "content_type": "text/html"
+    },
+    {
+      "id": "src-bc7e6e2b0702e1be",
+      "url": "https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf",
+      "title": "Oklahoma RHTP Year One Microgrants Notice of Funding Opportunity",
+      "published_date": null,
+      "sha256": "d04ae0e979377cb9fd79941ac5349d6bdbbb083610db1d86bab5131c8e44e9c6",
+      "text_sha256": "394414f11d7c292a717aa45809a5d7c76591d5cf0c5d69052c44f181caf68362",
+      "content_type": "application/pdf"
+    }
+  ],
+  "editorial_notes": [
+    "Exclude the payer-administration story: no approved observed primary source supports it. GENEROUS may remain a single-source national announcement story, but do not force it into a two-source signal or assert verified Oklahoma execution. No old intelligence is source evidence.",
+    "Use a distinct continuing workforce-pipeline story and workforce signal if the exact passages support them. Oklahoma RHTP Programs lists rural residencies, HWTC rural re-location incentives and the CareerTech high-school LPN program; the CMS summit readout describes training/residency pipelines and recruitment/retention. Source these with the newly retrieved state-programs page and CMS summit readout. These are existing initiatives and planning watches, not new November 3 awards or proof of local enrollment, hiring, funding terms or signed contracts.",
+    "Narrow the RHTP funding story to grant administration and cash/reimbursement timing, separate from the workforce story. The retained Microgrants NOFO has an April 13, 2026 application due date, an October 30 expenditure date and a November 30 invoice deadline. Application and expenditure dates are already past; do not describe an open application window, approved late spending, new awards or an extension. State that the notice lists these dates and that awardees should verify controlling award terms and any amendments. November 30 is inside this edition's 30-day deadline window.",
+    "Microgrants explicitly exclude staffing/fringe and ongoing maintenance/subscriptions. Do not transfer workforce-initiative eligibility into the microgrant program or suggest microgrants can fund recurring payroll. Distinguish the workforce programs from the microgrant funding mechanism. Treat all spending and staffing recommendations as prospective executive questions, not completed organizational work.",
+    "The CMS summit release was published March 19, 2026 about the March 18 summit. The Oklahoma programs page shows a last-modified date only; published_date remains null. The NOFO initial publication date is unknown and remains null. Do not infer initial publication from a modified date, PDF creation time or application date. Keep older developments Continuing, and verify superseding guidance in the independent audit."
+  ]
+}

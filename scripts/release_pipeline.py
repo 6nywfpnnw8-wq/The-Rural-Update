@@ -197,7 +197,10 @@ def research(edition_date,previous,cache):
         try:
             app_continuation=prepare_continuation(cache,edition_date,payload,ROOT/'app-evidence-recovery')
             from release_coverage_resume import prepare as prepare_coverage_resume
-            coverage_continuation=prepare_coverage_resume(cache,edition_date,payload,ROOT/'coverage-resume')
+            # A reviewed source completion explicitly supersedes the earlier
+            # reader-only continuation. Its original reservation stays spent.
+            coverage_continuation=(None if app_continuation is not None else
+                prepare_coverage_resume(cache,edition_date,payload,ROOT/'coverage-resume'))
             if coverage_continuation is not None:
                 if app_continuation is not None:
                     raise RuntimeError('Cannot combine retained coverage continuations')
@@ -211,7 +214,7 @@ def research(edition_date,previous,cache):
                                                ENGINE,_cached,observe_sources)
         ledger=read_json(cache/'attempts.json',{'attempts':0})
         if app_continuation is not None:
-            print('Using reviewed retained discovery and PDF evidence for app reporting; original ledger unchanged.',flush=True)
+            print('Using reviewed retained discovery and exact source evidence for app reporting; original ledger unchanged.',flush=True)
         elif bound_continuation or ledger['attempts']>=2:
             from release_research import reserve_corrective_attempt
             if not reserve_corrective_attempt(cache,edition_date,ROOT/'repair-authorizations'):

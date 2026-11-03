@@ -1,7 +1,7 @@
 name: Check exact public source content
 on:
   pull_request:
-    paths: ['scripts/release_evidence.py', 'source-recovery/**', '.github/workflows/check-exact-source-content.yml']
+    paths: ['scripts/release_evidence.py', 'scripts/release_retained_app.py', 'source-recovery/**', 'app-evidence-recovery/**', '.github/workflows/check-exact-source-content.yml']
 permissions:
   contents: read
 jobs:
@@ -50,6 +50,41 @@ jobs:
           output.parent.mkdir(parents=True,exist_ok=True)
           output.write_text(json.dumps({'documents':documents,'model_calls':0,'publication_authorized':False},indent=2)+'\n')
           print(json.dumps({'verified_pdf_sources':len(documents),'model_calls':0,'publication_authorized':False}))
+          PY
+      - name: Verify the reviewed November 3 completion sources without generation
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,sys
+          sys.path.insert(0,'scripts')
+          from release_core import read_json,write_json
+          from release_source_selection import compile_selection
+          from release_research import validate_source_catalog
+          from release_coverage_plan import validate_documents
+          from release_evidence import fetch_source
+          path=pathlib.Path('app-evidence-recovery/2026-11-03.json')
+          if not path.exists():raise SystemExit(0)
+          policy=read_json(path)
+          if policy['method']!='app-evidence-completion-v2':raise SystemExit(0)
+          fixture=read_json(pathlib.Path('tests/fixtures/source-coverage-2026-11-03.json'))
+          catalogs=[compile_selection(s['output_text'],fixture['observed_urls']) for s in fixture['selections']]
+          catalog=next(c for c in catalogs if len(c)==9)
+          additions={s['id']:s for s in policy['added_sources']}
+          catalog += [{k:s[k] for k in ('id','title','url','published_date')} for s in additions.values()]
+          validate_source_catalog(catalog,fixture['observed_urls'])
+          documents=[]
+          for source in catalog:
+              d=fetch_source(source['url']);d['source_id']=source['id']
+              if source['id'] in additions:
+                  s=additions[source['id']]
+                  assert all(d[k]==s[k] for k in ('sha256','text_sha256','content_type')),'Reviewed completion source changed'
+              documents.append(d)
+          validate_documents(documents,catalog)
+          write_json(pathlib.Path('.release-cache/source-preflight/completion-evidence.json'),{
+              'sources':[{k:v for k,v in d.items() if k!='text'} for d in documents],
+              'model_calls':0,'publication_authorized':False})
+          print(json.dumps({'completion_sources_retrieved':len(documents),
+              'combined_characters':sum(len(d['text']) for d in documents),
+              'model_calls':0,'publication_authorized':False}))
           PY
       - uses: actions/upload-artifact@v4
         if: always()

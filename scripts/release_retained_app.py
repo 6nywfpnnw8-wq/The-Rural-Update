@@ -18,6 +18,7 @@ from release_research import ENGINE,_cached,_save,observed_source_urls,validate_
 from release_source_selection import source_choices
 
 METHOD='app-pdf-evidence-recovery-v1'
+COMPLETION='app-evidence-completion-v2'
 
 
 def _read(path):
@@ -36,23 +37,54 @@ def _checkpoint(path,identity,sha):
     return value
 
 
+def _bound_file(path, sha):
+    value=_read(path)
+    if not isinstance(sha,str) or not re.fullmatch('[a-f0-9]{64}',sha) or digest(Path(path).read_bytes())!=sha:
+        raise ValueError('Retained app prerequisite file hash differs')
+    return value
+
+
 def prepare_continuation(cache,expected,payload,policy_root):
     """Return a bounded reporting callable, or None for the normal publisher path."""
     cache=Path(cache);path=Path(policy_root)/(expected+'.json')
     if not app_only(expected) or not path.exists():return None
-    if read_json(cache/'attempts.json')!={'attempts':2}:return None
     policy=_read(path)
-    required={'schema_version':1,'edition_date':expected,'method':METHOD,
+    completion=policy.get('method')==COMPLETION
+    method=COMPLETION if completion else METHOD
+    if read_json(cache/'attempts.json')!={'attempts':2}:
+        if completion:raise ValueError('Evidence completion requires the original exhausted ledger')
+        return None
+    required={'schema_version':1,'edition_date':expected,'method':method,
               'maximum_recoveries':1,'maximum_reporting_plan_requests':1,
               'maximum_reporting_requests':1,'new_discovery_permitted':False,
               'source_selection_model_requests':0,'research_counter_reset':False,
               'independent_editorial_review_required':True,'podcast_generation_permitted':False,
               'publication_authorized':False}
+    if completion:
+        required.update(prior_reporting_plan_requests=1,maximum_total_reporting_plan_requests=2,
+                        maximum_total_reporting_requests=1)
     if cache.name!=expected or any(policy.get(k)!=v for k,v in required.items()):
         raise ValueError('Invalid retained app continuation policy')
     if any(type(policy.get(k)) is not int for k in ('schema_version','maximum_recoveries',
             'maximum_reporting_plan_requests','maximum_reporting_requests','source_selection_model_requests')):
         raise ValueError('Invalid retained app continuation request limits')
+    if completion:
+        if (any(type(policy.get(k)) is not type(v) for k,v in required.items())
+                or os.getenv('RURAL_UPDATE_STRUCTURED_REVIEW')!='true'):
+            raise ValueError('Evidence completion requires bounded requests and independent structured review')
+        _bound_file(cache/'attempts.json',policy.get('attempt_ledger_sha256'))
+        prior=_bound_file(cache/'retained-source-coverage-v1-used.json',policy.get('prior_coverage_reservation_sha256'))
+        prior_request=_bound_file(cache/'retained-source-coverage-v1-reporting_plan-reserved.json',
+                                  policy.get('prior_reporting_plan_reservation_sha256'))
+        if (prior.get('method')!='retained-source-coverage-v1' or prior.get('publication_authorized') is not False
+                or prior.get('identity')!=policy.get('original_identity')
+                or prior.get('maximum_reporting_plan_requests')!=1
+                or prior_request.get('stage')!='reporting_plan'
+                or prior_request.get('publication_authorized') is not False
+                or (cache/'retained-source-coverage-v1-reporting-reserved.json').exists()
+                or (cache/(METHOD+'-used.json')).exists()
+                or (cache/ENGINE/'reporting.json').exists()):
+            raise ValueError('Evidence completion cannot reopen spent reporting stages')
     if any((cache/name).exists() for name in ('audit.json','audit-bound.json','approved.json',
               'editorial-loop-v1/original.json','coverage-plan-repair-authorized.json','corrective-generation-used.json')):
         raise ValueError('Retained app continuation cannot replace started editorial work')
@@ -65,6 +97,9 @@ def prepare_continuation(cache,expected,payload,policy_root):
         raise ValueError('Retained app continuation does not match the recorded coverage failure')
     original=policy.get('original_identity','')
     if not re.fullmatch('[a-f0-9]{64}',original):raise ValueError('Invalid retained discovery identity')
+    if completion and original!=digest(json.dumps({'engine':ENGINE,'model':payload['model'],
+                                                   'context':payload['input']},sort_keys=True)):
+        raise ValueError('Evidence completion request differs from the retained context')
     folder=cache/ENGINE
     discovery=_checkpoint(folder/'discovery.json',original,policy.get('discovery_sha256'))
     selected=_checkpoint(folder/'sources.json',original,policy.get('sources_sha256'))
@@ -80,10 +115,11 @@ def prepare_continuation(cache,expected,payload,policy_root):
     except CoverageError:pass
     else:raise ValueError('Retained app continuation requires a rejected coverage plan')
     additions=policy.get('added_sources')
-    if not isinstance(additions,list) or not 1<=len(additions)<=2:
-        raise ValueError('Retained app continuation permits at most two reviewed source additions')
+    if not isinstance(additions,list) or not 1<=len(additions)<=(3 if completion else 2):
+        raise ValueError('Retained app continuation exceeds its reviewed source-addition limit')
     choices=source_choices(observed)
     fields={'id','title','url','published_date','sha256','text_sha256'}
+    if completion:fields.add('content_type')
     appended=[]
     for source in additions:
         if (not isinstance(source,dict) or set(source)!=fields or choices.get(source['id'])!=source['url']
@@ -92,6 +128,8 @@ def prepare_continuation(cache,expected,payload,policy_root):
         for key in ('sha256','text_sha256'):
             if not isinstance(source[key],str) or not re.fullmatch('[a-f0-9]{64}',source[key]):
                 raise ValueError('Added source has no reviewed content hash')
+        if completion and source['content_type'] not in {'text/html','application/xhtml+xml','application/pdf'}:
+            raise ValueError('Added source has an unsupported reviewed media type')
         appended.append({key:source[key] for key in ('id','title','url','published_date')})
     augmented=validate_source_catalog(copy.deepcopy(catalog)+appended,observed)
     notes=policy.get('editorial_notes',[])
@@ -104,8 +142,8 @@ def prepare_continuation(cache,expected,payload,policy_root):
     record={**required,'policy_sha256':digest(json.dumps(policy,sort_keys=True,ensure_ascii=False)),
             'original_identity':original,'target_identity':identity,
             'original_attempt_ledger_sha256':digest((cache/'attempts.json').read_bytes())}
-    marker=cache/(METHOD+'-used.json');replay=marker.exists()
-    workspace=cache/METHOD/expected
+    marker=cache/(method+'-used.json');replay=marker.exists()
+    workspace=cache/method/expected
     if replay:
         saved=_read(marker)
         if any(saved.get(k)!=v for k,v in record.items()):
@@ -115,14 +153,14 @@ def prepare_continuation(cache,expected,payload,policy_root):
         for source in additions:
             document=fetch_source(source['url'])
             if (document.get('sha256')!=source['sha256'] or document.get('text_sha256')!=source['text_sha256']
-                    or document.get('content_type')!='application/pdf'):
-                raise ValueError('Added PDF differs from its reviewed evidence')
+                    or document.get('content_type')!=(source['content_type'] if completion else 'application/pdf')):
+                raise ValueError(('Added source' if completion else 'Added PDF')+' differs from its reviewed evidence')
             document['source_id']=source['id'];documents.append(document)
         validate_documents(documents,augmented)
         target=workspace/ENGINE
         if target.exists():raise ValueError('Unreserved app continuation workspace already exists')
         _save(target/'discovery.json',identity,copy.deepcopy(discovery))
-        _save(target/'sources.json',identity,{'sources':augmented,'usage':None,'selection_method':METHOD})
+        _save(target/'sources.json',identity,{'sources':augmented,'usage':None,'selection_method':method})
         target_bound=evidence_identity(identity,augmented)
         _save(target/COVERAGE/'sources.json',target_bound,{'documents':documents})
         (workspace/'original-validation-research-coverage.json').write_bytes(failure_path.read_bytes())
