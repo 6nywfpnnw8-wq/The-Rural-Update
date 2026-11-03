@@ -35,7 +35,8 @@ class VerifiedEvidenceCompletionTests(unittest.TestCase):
         document=documents_for([source])[0];document['content_type']='text/html'
         self.pdf_documents.append(document)
         self.additions.append({**source,'sha256':document['sha256'],'text_sha256':document['text_sha256']})
-        for s,d in zip(self.additions,self.pdf_documents):s['content_type']=d['content_type']
+        for s,d in zip(self.additions,self.pdf_documents):
+            s['content_type']=d['content_type'];s['accepted_sha256']=[s['sha256']]
         folder=self.cache/research.ENGINE
         research._save(folder/'discovery.json',self.original,self.discovery)
         research._save(folder/'sources.json',self.original,{'sources':self.catalog})
@@ -116,6 +117,18 @@ class VerifiedEvidenceCompletionTests(unittest.TestCase):
         self.pdf_documents[2]['text_sha256']='b'*64
         with self.assertRaisesRegex(ValueError,'Added source differs'):self.prepare()
         self.assertFalse((self.cache/(recovery.COMPLETION+'-used.json')).exists())
+
+    def test_only_reviewed_html_variants_with_identical_full_text_are_allowed(self):
+        self.additions[2]['accepted_sha256'].append('b'*64);self.save_policy()
+        document=copy.deepcopy(self.pdf_documents[2]);document['sha256']='b'*64
+        self.assertTrue(recovery.matches_reviewed_source(document,self.additions[2]))
+        document['text_sha256']='c'*64
+        self.assertFalse(recovery.matches_reviewed_source(document,self.additions[2]))
+        for index,hashes in ((0,['a'*64,'b'*64]),(2,['a'*64,'b'*64,'c'*64])):
+            self.additions[index]['accepted_sha256']=hashes;self.save_policy()
+            with self.assertRaisesRegex(ValueError,'invalid reviewed byte variants'):self.prepare()
+            self.additions[index]['accepted_sha256']=[self.additions[index]['sha256']]
+        self.fetch.assert_not_called()
 
     def test_unobserved_source_and_changed_context_are_rejected(self):
         self.policy['added_sources'][2]['url']='https://oklahoma.gov/unobserved';self.save_policy()

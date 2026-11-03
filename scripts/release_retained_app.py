@@ -44,6 +44,13 @@ def _bound_file(path, sha):
     return value
 
 
+def matches_reviewed_source(document, source):
+    """Known HTML byte variants must still have identical full reviewed text."""
+    return (document.get('sha256') in source['accepted_sha256']
+            and document.get('text_sha256')==source['text_sha256']
+            and document.get('content_type')==source['content_type'])
+
+
 def prepare_continuation(cache,expected,payload,policy_root):
     """Return a bounded reporting callable, or None for the normal publisher path."""
     cache=Path(cache);path=Path(policy_root)/(expected+'.json')
@@ -119,7 +126,7 @@ def prepare_continuation(cache,expected,payload,policy_root):
         raise ValueError('Retained app continuation exceeds its reviewed source-addition limit')
     choices=source_choices(observed)
     fields={'id','title','url','published_date','sha256','text_sha256'}
-    if completion:fields.add('content_type')
+    if completion:fields.update(('content_type','accepted_sha256'))
     appended=[]
     for source in additions:
         if (not isinstance(source,dict) or set(source)!=fields or choices.get(source['id'])!=source['url']
@@ -130,6 +137,12 @@ def prepare_continuation(cache,expected,payload,policy_root):
                 raise ValueError('Added source has no reviewed content hash')
         if completion and source['content_type'] not in {'text/html','application/xhtml+xml','application/pdf'}:
             raise ValueError('Added source has an unsupported reviewed media type')
+        if completion:
+            hashes=source['accepted_sha256'];maximum=1 if source['content_type']=='application/pdf' else 2
+            if (not isinstance(hashes,list) or not 1<=len(hashes)<=maximum
+                    or any(not isinstance(h,str) or not re.fullmatch('[a-f0-9]{64}',h) for h in hashes)
+                    or len(set(hashes))!=len(hashes) or source['sha256'] not in hashes):
+                raise ValueError('Added source has invalid reviewed byte variants')
         appended.append({key:source[key] for key in ('id','title','url','published_date')})
     augmented=validate_source_catalog(copy.deepcopy(catalog)+appended,observed)
     notes=policy.get('editorial_notes',[])
@@ -152,8 +165,10 @@ def prepare_continuation(cache,expected,payload,policy_root):
         documents=copy.deepcopy(documents)
         for source in additions:
             document=fetch_source(source['url'])
-            if (document.get('sha256')!=source['sha256'] or document.get('text_sha256')!=source['text_sha256']
-                    or document.get('content_type')!=(source['content_type'] if completion else 'application/pdf')):
+            matches=(matches_reviewed_source(document,source) if completion else
+                document.get('sha256')==source['sha256'] and document.get('text_sha256')==source['text_sha256']
+                and document.get('content_type')=='application/pdf')
+            if not matches:
                 raise ValueError(('Added source' if completion else 'Added PDF')+' differs from its reviewed evidence')
             document['source_id']=source['id'];documents.append(document)
         validate_documents(documents,augmented)

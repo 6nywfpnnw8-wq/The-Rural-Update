@@ -195,8 +195,8 @@ changes, excess source additions, disabled structured review, changed context or
 ambiguous submissions remain blocking. The old reader-only authorization is not
 reopened or combined with the new allowance.
 
-Local validation: 912 tests ran with one existing skip, and JavaScript syntax and
-six service-worker checks passed. Eleven additional regressions cover source,
+Local validation: 913 tests ran with one existing skip, and JavaScript syntax and
+six service-worker checks passed. Twelve additional regressions cover source,
 context and budget binding, mixed HTML/PDF evidence, preservation of prior work,
 ambiguous submissions and continued independent-review enforcement. A rehearsal
 using the actual retained checkpoints and exact downloaded source text produced
@@ -204,3 +204,11 @@ the required five/four/twelve structure with two simulated downstream requests,
 zero real model calls, unchanged original records and no editorial approval.
 Real coverage acceptance, independent review and public delivery must still be
 verified through the existing publisher.
+
+Live CI retained two known HTML byte variants for each of the state-programs and
+CMS-summit pages. In both cases, the complete extracted source text has the same
+reviewed SHA-256. The policy accepts only those explicitly reviewed byte hashes
+(maximum two per HTML source), plus the same exact full-text hash and media type.
+The PDF requires its one exact byte hash. Unknown byte variants, changed text,
+changed media or additional wildcard/duplicate hashes remain rejected. No model
+request was spent while these live source differences were investigated.

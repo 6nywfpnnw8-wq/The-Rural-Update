@@ -32,7 +32,11 @@
       "published_date": null,
       "sha256": "c126e0d65cebfcf57c4b5793b6646c460a462204120c41028da6d165fc9cede3",
       "text_sha256": "2d4e82d6ecaf7204edab7d655efca4b79f9e1f3600e1c3dc084c62f35d090809",
-      "content_type": "text/html"
+      "content_type": "text/html",
+      "accepted_sha256": [
+        "c126e0d65cebfcf57c4b5793b6646c460a462204120c41028da6d165fc9cede3",
+        "b00e1d4e3f05443a6793e7c9c017b9925c39a662286f574fda63d35baafcdd99"
+      ]
     },
     {
       "id": "src-7b662f962f90b96c",
@@ -41,7 +45,11 @@
       "published_date": "2026-03-19",
       "sha256": "a7a10a8ece87f8c4e01c75f5e61c217ef56fe2f05a0ba2a07286aae56eaa09df",
       "text_sha256": "227c1f4a60f5fa2d41beacfc72380a8835b8c92398a7d9550a2a7b3420ab49b2",
-      "content_type": "text/html"
+      "content_type": "text/html",
+      "accepted_sha256": [
+        "a7a10a8ece87f8c4e01c75f5e61c217ef56fe2f05a0ba2a07286aae56eaa09df",
+        "4d94486f0b8a5316f9a07539a88484d638dabdcf4786230d5ba53f237ba99ca2"
+      ]
     },
     {
       "id": "src-bc7e6e2b0702e1be",
@@ -50,7 +58,10 @@
       "published_date": null,
       "sha256": "d04ae0e979377cb9fd79941ac5349d6bdbbb083610db1d86bab5131c8e44e9c6",
       "text_sha256": "394414f11d7c292a717aa45809a5d7c76591d5cf0c5d69052c44f181caf68362",
-      "content_type": "application/pdf"
+      "content_type": "application/pdf",
+      "accepted_sha256": [
+        "d04ae0e979377cb9fd79941ac5349d6bdbbb083610db1d86bab5131c8e44e9c6"
+      ]
     }
   ],
   "editorial_notes": [

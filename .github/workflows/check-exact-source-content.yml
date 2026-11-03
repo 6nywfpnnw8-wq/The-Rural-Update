@@ -61,6 +61,7 @@ jobs:
           from release_research import validate_source_catalog
           from release_coverage_plan import validate_documents
           from release_evidence import fetch_source
+          from release_retained_app import matches_reviewed_source
           path=pathlib.Path('app-evidence-recovery/2026-11-03.json')
           if not path.exists():raise SystemExit(0)
           policy=read_json(path)
@@ -77,9 +78,9 @@ jobs:
               if source['id'] in additions:
                   s=additions[source['id']]
                   keys=('sha256','text_sha256','content_type')
-                  if any(d[k]!=s[k] for k in keys):
+                  if not matches_reviewed_source(d,s):
                       mismatches.append({'source_id':source['id'],
-                          'expected':{k:s[k] for k in keys},'observed':{k:d[k] for k in keys}})
+                          'expected':{k:s[k] for k in (*keys,'accepted_sha256')},'observed':{k:d[k] for k in keys}})
               documents.append(d)
           validate_documents(documents,catalog)
           write_json(pathlib.Path('.release-cache/source-preflight/completion-evidence.json'),{
