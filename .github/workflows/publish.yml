@@ -181,4 +181,5 @@ jobs:
             .release-cache/*/app-evidence-completion-v2/**/*.json
             .release-cache/*/reviewed-coverage-reporting-v1-used.json
             .release-cache/*/reviewed-coverage-reporting-v1/**/*.json
+            .release-cache/*/reviewed-report-reference-v1-used.json
 

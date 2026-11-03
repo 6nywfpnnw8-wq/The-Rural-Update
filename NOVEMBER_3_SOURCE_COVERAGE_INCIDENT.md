@@ -250,3 +250,34 @@ actual repeated-plan failure, invalid reviewed assignments, changed predecessor
 records, used reporting slots, budget expansion, cache replay, and an incomplete
 independent review that still prevents approval. Real public delivery remains
 unverified until the existing publisher completes it.
+
+## Completed report reference repair
+
+[Run 41666553636](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41666553636)
+completed the one reporting request. The response used 3,401 output tokens against
+16,000 permitted and was not incomplete. Its exact visible-text SHA-256 is
+`66e3ecaaa3c7282d85b4538afd0d43788a4038dca2a67faa69472931738b505a`.
+The only structural defect is `/actions/2/source_ids`: six references against a
+maximum of five. The completed report is retained in artifact 13244069468.
+
+The reviewed correction in `reporting-response-review/2026-11-03.json` reduces
+only that action's citation set to the two directly relevant sources: the CMS
+summit passage on durable financing and the microgrant notice's restrictions on
+staffing, maintenance and subscription costs. It preserves the action's wording,
+every other prose field, all source records and the original raw response. The
+normalized candidate SHA-256 is
+`ee78b99c1594ef080d38cbcd8241830694d25285af7c81db98fe475830028230`.
+
+The replay requires the exact completed API metadata, consumed reporting request,
+assignment and source checkpoints, raw response and sole recorded schema error.
+It can only remove the reviewed references, not add sources or alter prose. The
+unchanged report validator must pass after the reduction. This performs zero
+discovery, source-selection, planning or reporting requests and leaves attempts=2.
+The report then enters ordinary fresh source retrieval and independent full-field
+editorial review. Neither review slot had been used before this repair.
+
+The actual retained report replayed successfully offline with unchanged original
+records and no model calls. Eight regressions cover raw-response completion,
+source/prose binding, no budget expansion, replay, unsafe paths, and independent
+review that still blocks an incomplete audit. No publication approval is granted
+by the citation repair.

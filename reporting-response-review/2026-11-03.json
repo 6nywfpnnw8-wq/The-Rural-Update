@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-03",
+  "method": "reviewed-report-reference-v1",
+  "additional_reporting_requests": 0,
+  "additional_coverage_plan_requests": 0,
+  "new_discovery_permitted": false,
+  "source_selection_model_requests": 0,
+  "maximum_reference_corrections": 1,
+  "maximum_total_reporting_requests": 1,
+  "research_counter_reset": false,
+  "independent_editorial_review_required": true,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "failure_run_id": 41666553636,
+  "failure_report_sha256": "df5c2e52e7a0216f1d6c9a1cfa28325531f68ace22bdc510e1fc98cd9465bb04",
+  "attempt_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "parent_policy_sha256": "6d47ddfd280902102abcd02ad383f5a250d6f02ab73e2df6fbbbb7f59dcc1e86",
+  "parent_reservation_sha256": "2c5dd2b45c0b49e51455d8bcbc67db7706397bf31ffb3db3cf072be988b62229",
+  "reporting_request_sha256": "0847088dcb03634ec3b23229a0fec097172b7fc4a71ecc403394c8157388348b",
+  "api_record_sha256": "93f9e1cbba787ca5c53e63b2af37a0726ceae6c7ec46f75a5235cbe16e6d5a11",
+  "parent_identity": "e3f8c0b560014774dd8710a2198d97da5484114c65cd57fff03824146415a867",
+  "discovery_sha256": "6b51aff3d7ae4519bde4f388cf7e5d0fd25a8a49715ae4c163b0e55272fda9a7",
+  "sources_sha256": "ebcb445d86bd7eb2f0383b1a16f23134ef1346f5ae43343cf946b51f4ae2bfa7",
+  "evidence_sha256": "c68e114d369df4a55642f8502da0151a169a92087516300301cc8d5e83e642ff",
+  "plan_sha256": "360efb40745e6a7dbfc63e9593c9fdc72743ea67df4ab1c009ff2afcbc5633e2",
+  "snapshot_file": "reporting-66e3ecaaa3c7282d.json",
+  "snapshot_sha256": "66e3ecaaa3c7282d85b4538afd0d43788a4038dca2a67faa69472931738b505a",
+  "correction": {
+    "path": "/actions/2/source_ids",
+    "action_id": "require-post-grant-sustainability",
+    "before": [
+      "src-90945e8746da757b",
+      "src-dd9d4f7688485958",
+      "src-4f1464923f786235",
+      "src-1dfc766a5c4dc1e2",
+      "src-7b662f962f90b96c",
+      "src-bc7e6e2b0702e1be"
+    ],
+    "after": [
+      "src-7b662f962f90b96c",
+      "src-bc7e6e2b0702e1be"
+    ]
+  },
+  "corrected_candidate_sha256": "ee78b99c1594ef080d38cbcd8241830694d25285af7c81db98fe475830028230"
+}
