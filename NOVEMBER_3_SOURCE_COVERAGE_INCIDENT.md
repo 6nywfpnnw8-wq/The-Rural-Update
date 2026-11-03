@@ -281,3 +281,30 @@ records and no model calls. Eight regressions cover raw-response completion,
 source/prose binding, no budget expansion, replay, unsafe paths, and independent
 review that still blocks an incomplete audit. No publication approval is granted
 by the citation repair.
+
+
+## Verified publication and public delivery
+
+The November 3, 2026 app-only edition, revision 1, was published successfully by
+[run 41669673274](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41669673274).
+The initial independent full-field review completed with live retrieval, zero
+blocking findings, zero advisory findings and no generated editorial correction.
+All twelve exact source records were retrieved successfully. The approved
+candidate hash is `ee78b99c1594ef080d38cbcd8241830694d25285af7c81db98fe475830028230`,
+matching the reviewed reference-correction candidate. No further discovery,
+source-selection, planning or reporting request was made during this successful
+run. The original research ledger remains `attempts=2`.
+
+Pages deployment and exact public-inventory verification passed. The delivery
+report records all ten files verified at 10:03:35 AM Central on November 3, 2026.
+A separate fresh public GET confirmed that both `release.json` and the homepage
+identify November 3, revision 1, in app mode, and that the homepage bytes match the
+release-manifest hash. [Issue #145](https://github.com/6nywfpnnw8-wq/The-Rural-Update/issues/145)
+was closed automatically after successful public verification.
+
+Preserved proof: `release-reports-41669673274-1`, artifact ID 13246889802, expires
+November 17, 2026. The [published edition](https://6nywfpnnw8-wq.github.io/The-Rural-Update/archive/2026-11-03.html)
+contains five developments, four signals and twelve sources. Podcast production
+remained excluded. The 933-test suite and release-control checks passed; the
+successful production review and public hashes establish this edition's recovery,
+not a guarantee that every future research result will satisfy the evidence gates.
