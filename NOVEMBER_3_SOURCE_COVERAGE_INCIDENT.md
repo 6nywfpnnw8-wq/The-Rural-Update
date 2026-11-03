@@ -212,3 +212,41 @@ reviewed SHA-256. The policy accepts only those explicitly reviewed byte hashes
 The PDF requires its one exact byte hash. Unknown byte variants, changed text,
 changed media or additional wildcard/duplicate hashes remain rejected. No model
 request was spent while these live source differences were investigated.
+
+## Reviewed reporting assignment after the repeated plan failure
+
+[Run 41663506084](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41663506084)
+retrieved and bound the added evidence, then consumed the second permitted plan
+request. Its completed response repeated the unsupported payer story and GENEROUS
+signal assignments rather than using the replacement workforce topic. It also
+selected eight references for story 3 (maximum five) and seven for signal 1
+(maximum four), including an unrelated telehealth reference for grant coverage.
+The actual rejected output is retained in artifact 13243042230 and replayed in
+`tests/fixtures/coverage-completion-rejection-2026-11-03.json`. Validation stayed
+blocking. No reporting or independent editorial review had started.
+
+`reporting-plan-review/2026-11-03.json` now records an explicit reporting assignment
+using fixed passage indices from the twelve exact retained sources. It contains
+five distinct story assignments and four signal assignments, with two sources per
+signal. It separates grant invoice administration from workforce pathways and
+recurring operating-cost planning, corrects the GENEROUS application-versus-
+execution distinction, and excludes the unsupported payer claim. This is a
+reviewed assignment for drafting, not approval of final prose or publication.
+
+The reporting-only continuation pins the failed run, consumed reservations,
+parent policy and context, all source checkpoints, the rejected plan and the
+reviewed compiled plan. It copies the valid assignment into a separate workspace
+without overwriting either rejected model plan. The normal coverage validator
+still checks every slot, distinct reference count and exact passage. Only the
+one unused reporting request is permitted; discovery, source selection and a
+third coverage-plan request are prohibited. Research attempts remain two.
+Independent full-field review with live supersession retrieval and normal public
+delivery verification remain mandatory. Ambiguous reporting remains consumed.
+
+The actual parent cache also passed a reporting-only offline rehearsal: one
+simulated report request, no planning or real API calls, unchanged prior records,
+and the required five/four/twelve structure. Regression coverage includes the
+actual repeated-plan failure, invalid reviewed assignments, changed predecessor
+records, used reporting slots, budget expansion, cache replay, and an incomplete
+independent review that still prevents approval. Real public delivery remains
+unverified until the existing publisher completes it.

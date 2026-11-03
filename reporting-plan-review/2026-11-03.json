@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "edition_date": "2026-11-03",
+  "method": "reviewed-coverage-reporting-v1",
+  "maximum_reporting_requests": 1,
+  "additional_coverage_plan_requests": 0,
+  "maximum_total_coverage_plan_requests": 2,
+  "new_discovery_permitted": false,
+  "source_selection_model_requests": 0,
+  "research_counter_reset": false,
+  "independent_editorial_review_required": true,
+  "podcast_generation_permitted": false,
+  "publication_authorized": false,
+  "failure_run_id": 41663506084,
+  "failure_report_sha256": "3f15eb460f2bc7f324301c91b615f6af0297c55e0aa76eb9d3ebb09a6cd63b20",
+  "parent_policy_sha256": "48dd26513361813558a16e34b78dbdf613f0153e93c95dfdc351d1cc85c7b2f7",
+  "parent_reservation_sha256": "b738aa007d4fa6764baf8978206ae1978333c5e0ff4e377d6a8d01989e8132e3",
+  "parent_plan_request_sha256": "b3cb77f04f41bfb371185e7c6bd408b6c24e30649ba8588ec4bab28461d1e3cc",
+  "attempt_ledger_sha256": "ffd2ef9647d9bf5396edd552570f360359bdc9bb3c3424a2c1aa7d834acac050",
+  "parent_identity": "e3f8c0b560014774dd8710a2198d97da5484114c65cd57fff03824146415a867",
+  "discovery_sha256": "6b51aff3d7ae4519bde4f388cf7e5d0fd25a8a49715ae4c163b0e55272fda9a7",
+  "sources_sha256": "ebcb445d86bd7eb2f0383b1a16f23134ef1346f5ae43343cf946b51f4ae2bfa7",
+  "evidence_sha256": "c68e114d369df4a55642f8502da0151a169a92087516300301cc8d5e83e642ff",
+  "rejected_plan_sha256": "0940a8362480c1119c91ba08462b518e19f512d2617c3dfde87433a4d50ef69c",
+  "reviewed_plan_sha256": "edc613f8204f72f60682cdba22d3467cbb4fb1efa8ed25024d8b0856d0b765db",
+  "reviewed_plan": {
+    "status": "ready",
+    "shortfall": "",
+    "stories": {
+      "story_1": {
+        "id": "rhc-telehealth-billing",
+        "title": "RHC telehealth: reconcile billing after the October code change",
+        "angle": "CMS guidance requires individual CPT/HCPCS billing and appropriate modifiers for distant-site RHC/FQHC telehealth for dates of service from October 1, 2026. Distinguish the October 5 contractor implementation date; recommend claim reconciliation without asserting local denial rates.",
+        "change": "Continuing",
+        "policy_state": "Final",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": 2,
+          "src-9315ed0d2cc3ed6e": 0,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": null
+        }
+      },
+      "story_2": {
+        "id": "medicaid-provider-tax-watch",
+        "title": "Provider-tax financing: separate statute from proposed implementation",
+        "angle": "CMS has proposed implementing regulations for changed indirect hold-harmless tax thresholds. Distinguish enacted statutory restrictions from the proposed rule; assess potential provider-tax and supplemental-payment exposure without asserting a quantified Oklahoma reduction.",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": 0,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": 1,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": null
+        }
+      },
+      "story_3": {
+        "id": "oklahoma-microgrant-invoice-watch",
+        "title": "Oklahoma microgrants: review the listed November invoice deadline",
+        "angle": "The Year One microgrant notice lists October 30, 2026 for expenditures and November 30, 2026 for invoices. The expenditure date is past. Review eligible costs, documentation and controlling award terms or amendments; do not suggest an open application window, approved late spending or verified local awards.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": 9
+        }
+      },
+      "story_4": {
+        "id": "generous-application-execution",
+        "title": "GENEROUS applications require verification of executed terms",
+        "angle": "The September 18 CMS announcement reports applications from all states, DC and Puerto Rico. Applications are not executed participation or provider payment terms. Verify Oklahoma-specific execution and operational instructions before assuming local pharmacy or 340B financial effects.",
+        "change": "Continuing",
+        "policy_state": "Announcement",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": 0,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": null
+        }
+      },
+      "story_5": {
+        "id": "rural-workforce-pipeline",
+        "title": "Rural workforce: assess training and retention pathways",
+        "angle": "Oklahoma lists rural residencies, rural relocation incentives and CareerTech LPN pathways. CMS describes training, residency, recruitment and retention priorities. Evaluate appropriate partnership and staffing pathways as continuing planning, without claiming new November awards, approved enrollment or completed local hiring.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": 3,
+          "src-7b662f962f90b96c": 3,
+          "src-bc7e6e2b0702e1be": null
+        }
+      }
+    },
+    "signals": {
+      "signal_1": {
+        "id": "grant-operating-budget-separation",
+        "title": "Grant-supported projects need separate recurring-cost planning",
+        "angle": "The microgrant notice excludes staffing/fringe and ongoing maintenance/subscriptions. CMS emphasizes durable financing structures. Treat separate operating-cost planning as executive analysis, not proof that a specific award covers payroll or that local sustainability is assured.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": 4,
+          "src-bc7e6e2b0702e1be": 18
+        }
+      },
+      "signal_2": {
+        "id": "medicaid-financing-implementation",
+        "title": "Medicaid financing remains a statutory and rulemaking watch",
+        "angle": "The provider-tax proposal and CMS fact sheet substantiate a continuing financing-policy watch. Keep statutory timing distinct from proposed implementation; seek current state guidance and model exposure without inventing local losses or treating a proposal as a final regulation.",
+        "change": "Continuing",
+        "policy_state": "Proposed",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": 0,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": 1,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": null
+        }
+      },
+      "signal_3": {
+        "id": "rhc-revenue-cycle-execution",
+        "title": "RHC telehealth implementation requires claim-level verification",
+        "angle": "CMS billing instructions and the associated transmittal support a continuing execution watch after the October effective and implementation dates. Recommend testing claims and remittances; do not assert observed local payment delays or denial rates.",
+        "change": "Continuing",
+        "policy_state": "Final",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": 2,
+          "src-9315ed0d2cc3ed6e": 0,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": null,
+          "src-7b662f962f90b96c": null,
+          "src-bc7e6e2b0702e1be": null
+        }
+      },
+      "signal_4": {
+        "id": "rural-workforce-implementation",
+        "title": "Rural training and retention remain an implementation watch",
+        "angle": "State program listings and federal workforce priorities support a continuing training and retention watch. Assess pathway eligibility, placements and recruitment/retention arrangements. Program descriptions do not establish signed local contracts, staffing growth or awarded funds.",
+        "change": "Continuing",
+        "policy_state": "Monitoring",
+        "source_anchors": {
+          "src-db7e2228ed4f8b9c": null,
+          "src-90945e8746da757b": null,
+          "src-dd9d4f7688485958": null,
+          "src-02dd9737ced55c32": null,
+          "src-3236e8cccb97f0d6": null,
+          "src-9315ed0d2cc3ed6e": null,
+          "src-299e421cf61e682c": null,
+          "src-4f1464923f786235": null,
+          "src-cc7888b1e0b22d4c": null,
+          "src-1dfc766a5c4dc1e2": 3,
+          "src-7b662f962f90b96c": 3,
+          "src-bc7e6e2b0702e1be": null
+        }
+      }
+    }
+  }
+}

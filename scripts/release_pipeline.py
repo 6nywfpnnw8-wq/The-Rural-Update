@@ -195,7 +195,10 @@ def research(edition_date,previous,cache):
         payload=research_payload(edition_date,previous)
         from release_retained_app import prepare_continuation
         try:
-            app_continuation=prepare_continuation(cache,edition_date,payload,ROOT/'app-evidence-recovery')
+            from release_reporting_plan_review import prepare as prepare_reviewed_reporting
+            app_continuation=prepare_reviewed_reporting(cache,edition_date,payload,ROOT/'reporting-plan-review')
+            if app_continuation is None:
+                app_continuation=prepare_continuation(cache,edition_date,payload,ROOT/'app-evidence-recovery')
             from release_coverage_resume import prepare as prepare_coverage_resume
             # A reviewed source completion explicitly supersedes the earlier
             # reader-only continuation. Its original reservation stays spent.
