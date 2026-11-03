@@ -183,11 +183,23 @@ class RetainedCoverageContinuation(unittest.TestCase):
         self.assertEqual(read_json(self.cache/'attempts.json'),{'attempts':2})
 
     def test_insufficient_evidence_stays_blocked_before_report(self):
-        self.plan['status']='insufficient_evidence';self.plan['stories']['story_5']=None
-        send=self.send()
-        with self.assertRaises(coverage.CoverageError):self.prepare()(send)
+        # Replay the real recovery response, including its two unsupported slots.
+        saved=read_json(ROOT/'tests/fixtures/coverage-shortfall-2026-11-03.json')
+        self.assertEqual(digest(saved['output_text']),saved['sha256'])
+        for d in self.documents:
+            d['text']=('Synthetic supporting evidence for '+d['source_id']+'. ')*60
+            d['text_sha256']=digest(d['text'])
+        send=Mock(return_value=response(saved['output_text']))
+        with self.assertRaises(coverage.CoverageError) as caught:self.prepare()(send)
+        self.assertEqual(caught.exception.coverage_findings,[
+            {'rule':'missing_topic','path':'/stories/story_5'},
+            {'rule':'missing_topic','path':'/signals/signal_4'},
+            {'rule':'insufficient_evidence','path':'/'}])
         self.assertEqual(send.call_count,1)
         self.assertFalse((self.cache/research.ENGINE/'reporting.json').exists())
+        again=Mock()
+        with self.assertRaises(coverage.CoverageError):self.prepare()(again)
+        again.assert_not_called()
 
     def test_changed_pdf_stops_before_a_model_request(self):
         self.documents[3]['sha256']='b'*64;send=Mock()

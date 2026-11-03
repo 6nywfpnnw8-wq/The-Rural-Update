@@ -104,3 +104,56 @@ Sources: [issue #145](https://github.com/6nywfpnnw8-wq/The-Rural-Update/issues/1
 [failed retry](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41628763038),
 [first attempt](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41624634129),
 [read-only inspection](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41654114083).
+
+## Actual recovery outcome: not published
+
+[PR #146](https://github.com/6nywfpnnw8-wq/The-Rural-Update/pull/146) was merged
+after both reliability CI and live exact-source checks passed. Recovery ran
+through the existing publisher in
+[run 41655791262](https://github.com/6nywfpnnw8-wq/The-Rural-Update/actions/runs/41655791262).
+Its preserved artifact is `release-reports-41655791262-1`, ID 13239796655,
+expiring November 17, 2026. All nine exact sources were retrieved, including
+all 118 pages of the original Federal Register PDF with the reviewed byte and
+text hashes. The reader correction is therefore verified in the production
+workflow, as well as offline. The new selection format was verified by regression
+and CI; recovery reused the existing nine-source selection rather than generating
+another selection.
+
+The one permitted coverage-plan request completed and returned
+`status=insufficient_evidence`. Its retained visible-response SHA-256 is
+`98c6f29cc07cc14ea2bcc17720d2a7485a6badc7f1c4f87208423f4e9ed50465`.
+Validation correctly stopped on these remaining findings:
+
+| Missing item | Exact evidence gap |
+| --- | --- |
+| `/stories/story_5` | The proposed payer-administrative-change story has no supporting payer primary-source record in the retained set. Discovery notes explicitly acknowledged that its payer examples came from legacy context and were not supported by approved-domain retrieval. |
+| `/signals/signal_4` | The proposed GENEROUS implementation signal has only the CMS participant announcement. No second relevant supporting source was retained in the selected set; the signal requires two to four. The single-source announcement may support a story, but that does not satisfy the signal requirement. |
+
+This is a substantive research/selection shortfall exposed after the deterministic
+reader failure was fixed. It is not another source-schema error or HTTP failure.
+The discovery/selection process had not established enough supported themes to
+meet the fixed five-story/four-signal publication contract. A different supported
+theme could be considered only after verifying its exact relevant passages; this
+investigation has not established that such a replacement exists.
+
+No reporting, editorial audit, generated correction, podcast or deployment was
+attempted in this recovery. The research ledger remains `attempts=2`; the
+coverage-plan reservation remains consumed; the reporting request is unused.
+Diagnostics made zero additional model calls. The normal provider readiness
+probe also ran; it did not generate replacement briefing research. The public
+release record continues to identify the November 2 app edition. Issue #145
+remains open. The publishing system must not be described as fully repaired.
+
+Remaining requirements are concrete: obtain or verify an approved primary-source
+record for a genuinely supported fifth development and a second relevant source
+for the fourth signal, or substantiate different non-repetitive replacement
+topics from retained material. Then a separately reviewed, bounded coverage-plan
+continuation must bind the new evidence and the consumed reservation. The current
+authorization does not permit a second plan request, new discovery, new source
+selection or a research-limit reset. After a complete valid plan, the unused
+reporting stage and the normal independent editorial review, release validation,
+Pages deployment and exact public hash verification remain necessary. No silent
+retry or validation bypass has been installed to force publication.
+
+The regression now replays this exact negative response as well: both missing
+slots remain blocking, no report is generated, and replay makes no model call.
