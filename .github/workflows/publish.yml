@@ -177,4 +177,6 @@ jobs:
             .release-cache/*/app-pdf-evidence-recovery-v1-used.json
             .release-cache/*/app-pdf-evidence-recovery-v1/**/*.json
             .release-cache/*/retained-source-coverage-v1-*.json
+            .release-cache/*/app-evidence-completion-v2-used.json
+            .release-cache/*/app-evidence-completion-v2/**/*.json
 

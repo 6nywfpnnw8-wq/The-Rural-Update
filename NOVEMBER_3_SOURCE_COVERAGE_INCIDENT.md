@@ -157,3 +157,58 @@ retry or validation bypass has been installed to force publication.
 
 The regression now replays this exact negative response as well: both missing
 slots remain blocking, no report is generated, and replay makes no model call.
+
+## Authorized evidence completion
+
+The user's subsequent instruction to proceed authorizes a bounded completion of
+the remaining evidence work. The new `app-evidence-completion-v2` policy in
+`app-evidence-recovery/2026-11-03.json` adds three independently retrieved sources
+that were already present in the original observed retrieval events:
+
+| Source | ID | Supported use |
+| --- | --- | --- |
+| [Oklahoma RHTP Programs](https://oklahoma.gov/rhtp/rhtp-programs.html) | src-1dfc766a5c4dc1e2 | State rural residency, recruitment and CareerTech LPN pathways |
+| [CMS summit readout](https://www.cms.gov/newsroom/press-releases/readout-cms-convenes-first-rural-health-transformation-summit-advance-state-led-innovation) | src-7b662f962f90b96c | Federal workforce training, residency, recruitment and retention priorities; published March 19, 2026 |
+| [Oklahoma Year One microgrant NOFO](https://oklahoma.gov/content/dam/ok/en/health/health2/aem-documents/health-promotion/rhtp/microgrants/Microgrants%20NOFO_VFinal.pdf) | src-bc7e6e2b0702e1be | Reimbursement administration, spending restrictions and the notice's November 30 invoice date |
+
+The unsupported payer story is excluded. A distinct continuing workforce-pipeline
+story and signal can instead draw on relevant state and federal evidence. Grant
+administration and reimbursement timing remain a separate executive issue.
+The microgrant application and expenditure dates have already passed. The policy
+forbids describing an open application window or approved late spending, assigning
+unverified awards or enrollment, treating old announcements as new, and transferring
+workforce-program eligibility into microgrants that prohibit staffing expenses.
+Unknown initial-publication dates remain null.
+
+The reviewed set has twelve sources and 386,764 characters, below the unchanged
+twelve-source selection cap and 450,000-character combined-evidence limit. Five
+stories and four two-source-minimum signals remain required. No evidence-count or
+approval requirement has been reduced. New byte, text and media-type hashes are
+pinned in the date-specific policy and verified again during CI and execution.
+
+The old plan, source/discovery checkpoints, consumed reservation and attempts=2
+ledger are preserved. The completion authorizes one additional plan request, for
+two total, and one reporting request overall, in a separate resumable workspace.
+It authorizes no discovery, source-selection model request, narration, podcast,
+counter reset or approval override. Missing or changed predecessor records, source
+changes, excess source additions, disabled structured review, changed context or
+ambiguous submissions remain blocking. The old reader-only authorization is not
+reopened or combined with the new allowance.
+
+Local validation: 913 tests ran with one existing skip, and JavaScript syntax and
+six service-worker checks passed. Twelve additional regressions cover source,
+context and budget binding, mixed HTML/PDF evidence, preservation of prior work,
+ambiguous submissions and continued independent-review enforcement. A rehearsal
+using the actual retained checkpoints and exact downloaded source text produced
+the required five/four/twelve structure with two simulated downstream requests,
+zero real model calls, unchanged original records and no editorial approval.
+Real coverage acceptance, independent review and public delivery must still be
+verified through the existing publisher.
+
+Live CI retained two known HTML byte variants for each of the state-programs and
+CMS-summit pages. In both cases, the complete extracted source text has the same
+reviewed SHA-256. The policy accepts only those explicitly reviewed byte hashes
+(maximum two per HTML source), plus the same exact full-text hash and media type.
+The PDF requires its one exact byte hash. Unknown byte variants, changed text,
+changed media or additional wildcard/duplicate hashes remain rejected. No model
+request was spent while these live source differences were investigated.
