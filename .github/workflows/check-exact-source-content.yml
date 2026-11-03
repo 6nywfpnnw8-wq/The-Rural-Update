@@ -40,7 +40,7 @@ jobs:
           sources=[
               ('cms-mln-mm14468','https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf'),
               ('provider-tax-nprm','https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf')]
-          documents=[]
+          documents=[];mismatches=[]
           for source_id,url in sources:
               document=fetch_source(url);document['source_id']=source_id
               assert document['content_type']=='application/pdf'
@@ -76,15 +76,23 @@ jobs:
               d=fetch_source(source['url']);d['source_id']=source['id']
               if source['id'] in additions:
                   s=additions[source['id']]
-                  assert all(d[k]==s[k] for k in ('sha256','text_sha256','content_type')),'Reviewed completion source changed'
+                  keys=('sha256','text_sha256','content_type')
+                  if any(d[k]!=s[k] for k in keys):
+                      mismatches.append({'source_id':source['id'],
+                          'expected':{k:s[k] for k in keys},'observed':{k:d[k] for k in keys}})
               documents.append(d)
           validate_documents(documents,catalog)
           write_json(pathlib.Path('.release-cache/source-preflight/completion-evidence.json'),{
               'sources':[{k:v for k,v in d.items() if k!='text'} for d in documents],
+              'added_source_documents':[d for d in documents if d['source_id'] in additions],
+              'mismatches':mismatches,
               'model_calls':0,'publication_authorized':False})
           print(json.dumps({'completion_sources_retrieved':len(documents),
               'combined_characters':sum(len(d['text']) for d in documents),
               'model_calls':0,'publication_authorized':False}))
+          if mismatches:
+              print(json.dumps({'mismatches':mismatches}))
+              raise SystemExit('Reviewed completion source changed; retained exact source diagnostics')
           PY
       - uses: actions/upload-artifact@v4
         if: always()
