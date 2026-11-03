@@ -40,7 +40,7 @@ jobs:
           sources=[
               ('cms-mln-mm14468','https://www.cms.gov/files/document/mm14468-rural-health-clinics-federally-qualified-health-centers-billing-distant-site-telehealth.pdf'),
               ('provider-tax-nprm','https://www.govinfo.gov/content/pkg/FR-2026-07-23/pdf/2026-14897.pdf')]
-          documents=[];mismatches=[]
+          documents=[]
           for source_id,url in sources:
               document=fetch_source(url);document['source_id']=source_id
               assert document['content_type']=='application/pdf'
@@ -71,7 +71,7 @@ jobs:
           additions={s['id']:s for s in policy['added_sources']}
           catalog += [{k:s[k] for k in ('id','title','url','published_date')} for s in additions.values()]
           validate_source_catalog(catalog,fixture['observed_urls'])
-          documents=[]
+          documents=[];mismatches=[]
           for source in catalog:
               d=fetch_source(source['url']);d['source_id']=source['id']
               if source['id'] in additions:
